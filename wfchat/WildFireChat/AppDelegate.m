@@ -136,7 +136,6 @@
     
     setQrCodeDelegate(self);
     
-    
     if (@available(iOS 10.0, *)) {
         //第一步：获取推送通知中心
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];

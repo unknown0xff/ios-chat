@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -79,6 +79,9 @@
 		2FFDDCA025515D9000CEFDBB /* WFCFavoriteVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFDDC9E25515D9000CEFDBB /* WFCFavoriteVideoCell.m */; };
 		2FFDDCA4255164DA00CEFDBB /* WFCFavoriteLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFDDCA3255164DA00CEFDBB /* WFCFavoriteLinkCell.m */; };
 		2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFDDCA6255168D000CEFDBB /* WFCFavoriteCompositeCell.m */; };
+		6012462F2C047F7C00635523 /* IMConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012462D2C047F7C00635523 /* IMConfigure.swift */; };
+		601246302C047F7C00635523 /* IMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012462E2C047F7C00635523 /* IMService.swift */; };
+		601246332C0480CA00635523 /* HAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246322C0480CA00635523 /* HAppDelegate.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -324,6 +327,10 @@
 		2FFDDCA3255164DA00CEFDBB /* WFCFavoriteLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCFavoriteLinkCell.m; sourceTree = "<group>"; };
 		2FFDDCA6255168D000CEFDBB /* WFCFavoriteCompositeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCFavoriteCompositeCell.m; sourceTree = "<group>"; };
 		2FFDDCA7255168D100CEFDBB /* WFCFavoriteCompositeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCFavoriteCompositeCell.h; sourceTree = "<group>"; };
+		6012462D2C047F7C00635523 /* IMConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMConfigure.swift; sourceTree = "<group>"; };
+		6012462E2C047F7C00635523 /* IMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMService.swift; sourceTree = "<group>"; };
+		601246312C047FB800635523 /* ios-hello9-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-hello9-Bridging-Header.h"; sourceTree = "<group>"; };
+		601246322C0480CA00635523 /* HAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAppDelegate.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -549,6 +556,7 @@
 		2E1D1FF91FAF0AE600F4405D /* WildFireChat */ = {
 			isa = PBXGroup;
 			children = (
+				6012462C2C047F7C00635523 /* IM */,
 				B764D48C295854700082492F /* OrgService */,
 				B7EDF7DC285815EF0013602E /* DestroyAccount */,
 				2F63891F254E5A500084EEA6 /* Favorite */,
@@ -565,6 +573,7 @@
 				2E1D20BC1FAF127100F4405D /* Discover */,
 				2BF692E5232DBA840072036A /* Utilities */,
 				149B3101241D28B200B935D3 /* Category */,
+				601246312C047FB800635523 /* ios-hello9-Bridging-Header.h */,
 				2E1D1FFA1FAF0AE600F4405D /* AppDelegate.h */,
 				2E1D1FFB1FAF0AE600F4405D /* AppDelegate.m */,
 				B78DD43628167D1E009589F7 /* WFCCallKitManager.h */,
@@ -572,6 +581,7 @@
 				2F44485A252D522F007A570E /* WFCConfig.h */,
 				2E1D20B11FAF127100F4405D /* WFCConfig.m */,
 				903EBC942136313B00312C16 /* SupportFiles */,
+				601246322C0480CA00635523 /* HAppDelegate.swift */,
 			);
 			path = WildFireChat;
 			sourceTree = "<group>";
@@ -790,6 +800,15 @@
 				2B840F422442125B006BE3D8 /* WFCThemeTableViewCell.m */,
 			);
 			path = Me;
+			sourceTree = "<group>";
+		};
+		6012462C2C047F7C00635523 /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				6012462D2C047F7C00635523 /* IMConfigure.swift */,
+				6012462E2C047F7C00635523 /* IMService.swift */,
+			);
+			path = IM;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
@@ -1153,11 +1172,14 @@
 				149B3107241D292C00B935D3 /* UIColor+YH.m in Sources */,
 				2FEA5D6A21F4AC8900280B23 /* WFCLoginViewController.m in Sources */,
 				2F63892C254E81910084EEA6 /* WFCFavoriteUnknownCell.m in Sources */,
+				6012462F2C047F7C00635523 /* IMConfigure.swift in Sources */,
 				2F518FF3235ED7DD00FA3D58 /* AppService.m in Sources */,
 				2FF07F5D21F82E7200A78A62 /* WFCMeTableViewHeaderViewCell.m in Sources */,
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
 				2FF07F5E21F82E7200A78A62 /* WFCMeTableViewController.m in Sources */,
+				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
 				2F638928254E7D8A0084EEA6 /* WFCFavoriteBaseCell.m in Sources */,
+				601246302C047F7C00635523 /* IMService.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
 				B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */,
 				2F50BE84237970780049CD39 /* WFCDiagnoseViewController.m in Sources */,
@@ -1444,7 +1466,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WildFireChat/WFChat-Prefix-Header.pch";
 				INFOPLIST_FILE = WildFireChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1458,6 +1480,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "WildFireChat/ios-hello9-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -1489,7 +1513,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WildFireChat/WFChat-Prefix-Header.pch";
 				INFOPLIST_FILE = WildFireChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1503,6 +1527,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "WildFireChat/ios-hello9-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};
