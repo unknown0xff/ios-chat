@@ -6,22 +6,31 @@
 //
 
 import Foundation
+import WebRTC
 
-@objcMembers
 class IMService: NSObject {
     
     static let share = IMService()
     
-    private let wfc = WFCCNetworkService.sharedInstance()!
-    private let wfavKitEngine = WFAVEngineKit.shared()!
-    private let wfuConfigureManager = WFCUConfigManager.global()
+    let wfcService = WFCCNetworkService.sharedInstance()!
+    let wfavEngineKit = WFAVEngineKit.shared()!
+    let wfuConfigureManager = WFCUConfigManager.global()
     
     private var configure = IMConfigure.default
-    
     private var firstConnect = false
     
     func connect(userId: String, token: String) {
-        wfc.connect(userId, token: token)
+        wfcService.connect(userId, token: token)
+    }
+    
+    func connectByDefault() -> Bool {
+        let token = UserDefaults.standard.string(forKey: "savedToken") ?? ""
+        let userId = UserDefaults.standard.string(forKey: "savedUserId") ?? ""
+        if !token.isEmpty && !userId.isEmpty {
+            connect(userId: userId, token: token)
+            return true
+        }
+        return false
     }
     
     private init(_ configure: IMConfigure = .default) {
@@ -36,23 +45,35 @@ class IMService: NSObject {
     
     private func configureWFCCNetworkService() {
        
-        wfc.sendLogCommand = configure.sendLogCommand
+        wfcService.sendLogCommand = configure.sendLogCommand
         
-        wfc.connectionStatusDelegate = self
-        wfc.connectToServerDelegate = self
-        wfc.receiveMessageDelegate = self
-        wfc.setServerAddress(configure.host)
-        wfc.setBackupAddressStrategy(0)
-        wfc.defaultPortraitProvider = self
+        wfcService.connectionStatusDelegate = self
+        wfcService.connectToServerDelegate = self
+        wfcService.receiveMessageDelegate = self
+        wfcService.setServerAddress(configure.host)
+        wfcService.setBackupAddressStrategy(0)
+        wfcService.defaultPortraitProvider = self
+        
+        // wfcService.useSM4()
+        // wfcService.setProxyInfo(nil, ip: "192.168.1.80", port: 1080, username: nil, password: nil)
+        // wfcService.setBackupAddress("192.168.1.120", port: 80)
         
         WFCCNetworkService.startLog()
     }
     
     private func configureWFAVEngine() {
         //音视频高级版不需要stun/turn服务，请注释掉下面这行。单人版和多人版需要turn服务，请自己部署然后修改配置文件。
-        wfavKitEngine.addIceServer(configure.ice.address, userName: configure.ice.userName, password: configure.ice.password)
-        wfavKitEngine.setVideoProfile(.profile360P, swapWidthHeight: true)
-        wfavKitEngine.delegate = self
+        wfavEngineKit.addIceServer(configure.ice.address, userName: configure.ice.userName, password: configure.ice.password)
+        wfavEngineKit.setVideoProfile(.profile360P, swapWidthHeight: true)
+        wfavEngineKit.delegate = self
+        
+        // 设置音视频参与者数量。多人音视频默认视频4路，音频9路，如果改成更多可能会导致问题；
+        // 音视频高级版默认视频9路，音频16路。
+        // wfavEngineKit.maxVideoCallCount = 4
+        // wfavEngineKit.maxAudioCallCount = 9
+        
+        //音视频日志，当需要抓日志分析时可以打开这句话
+        // RTCSetMinDebugLogLevel(.info)
     }
     
     private func configureWFCUManager() {
@@ -65,6 +86,12 @@ class IMService: NSObject {
         wfuConfigureManager.appServiceProvider = AppService.shared()
         wfuConfigureManager.fileTransferId = configure.fileTransferId
         wfuConfigureManager.orgServiceProvider = OrgService.shared()
+    }
+    
+    var isLogin: Bool {
+        let token = UserDefaults.standard.string(forKey: "savedToken") ?? ""
+        let userId = UserDefaults.standard.string(forKey: "savedUserId") ?? ""
+        return !token.isEmpty && !userId.isEmpty
     }
     
     func logout() {
@@ -110,7 +137,7 @@ extension IMService: ConnectionStatusDelegate {
             if status == .kickedoff {
                // TODO:  xianda.yang 发起通知,跳登陆页面等
             }
-            wfc.disconnect(true, clearSession: false)
+            wfcService.disconnect(true, clearSession: false)
             logout()
         case .logout:
             // TODO:  xianda.yang 发起通知,跳登陆页面等

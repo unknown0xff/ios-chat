@@ -16,16 +16,16 @@ class HAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let token = "iu5ZFZEqnUqTEfFuio0deVD3+PuR4XlAWKZ/98104rZgDqAf49o5BoIVOZzIsrgKVY/YuIvCGIDNUBJ+YvmvqnmA/X8treWzs4wILM5GhfiLf6hShJ1k+bU8ceOitakzD0VJWNTzQhO0y490XdYFPmE7vo9YV535vaJz6U/UItA="
-        let userId = "tygqmws2k"
-        IMService.share.connect(userId: userId, token: token)
+        IMService.share.wfuConfigureManager.setupNavBar()
         
-//
-//        let loginVC = WFCLoginViewController()
-//        loginVC.isPwdLogin = true
-//        window?.rootViewController = UINavigationController(rootViewController: loginVC)
-        window?.rootViewController = WFCBaseTabBarController()
-       
+        if !IMService.share.connectByDefault() {
+            let loginVC = WFCLoginViewController()
+            loginVC.isPwdLogin = true
+            window?.rootViewController = UINavigationController(rootViewController: loginVC)
+        } else {
+            window?.rootViewController = WFCBaseTabBarController()
+        }
+        
         return true
     }
 
