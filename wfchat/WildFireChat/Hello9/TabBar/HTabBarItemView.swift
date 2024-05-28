@@ -109,7 +109,7 @@ class HTabBarItemView: UIControl {
         
         rightLineView.snp.makeConstraints { make in
             make.width.equalTo(1)
-            make.height.equalTo(20)
+            make.height.equalTo(24)
             make.centerY.equalToSuperview()
             make.right.equalTo(0)
         }

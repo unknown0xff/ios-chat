@@ -43,7 +43,7 @@ class HTabViewController: UITabBarController {
         let messageVC = WFCUConversationTableViewController()
         messageVC.hidesBottomBarWhenPushed = false
         let messageNav = HNavigationController(rootViewController: messageVC)
-        let messageItem = UITabBarItem(title: nil, image: UIImage(named: "tab_message_off"), selectedImage: UIImage(named: "tab_message_on"))
+        let messageItem = UITabBarItem(title: nil, image: Images.tab_message_off, selectedImage: Images.tab_message_on)
         messageItem.tag = HTabTag.message.rawValue
         messageItem.badgeValue = "+99"
         
@@ -55,7 +55,7 @@ class HTabViewController: UITabBarController {
         let mineVC = HBasicViewController()
         mineVC.hidesBottomBarWhenPushed = false
         let mineNav = HNavigationController(rootViewController: mineVC)
-        let mineItem = UITabBarItem(title: nil, image: UIImage(named: "tab_mine_off"), selectedImage: UIImage(named: "tab_mine_on"))
+        let mineItem = UITabBarItem(title: nil, image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
         mineItem.tag = HTabTag.mine.rawValue
         mineNav.tabBarItem = mineItem
         addChild(mineNav)

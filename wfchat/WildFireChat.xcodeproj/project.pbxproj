@@ -92,6 +92,8 @@
 		601246502C05916700635523 /* HAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012464F2C05916700635523 /* HAppearance.swift */; };
 		601246522C05993200635523 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601246512C05993200635523 /* Colors.xcassets */; };
 		601246542C059A6300635523 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246532C059A6300635523 /* Colors.swift */; };
+		601246582C05AF4100635523 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601246572C05AF4100635523 /* Images.xcassets */; };
+		6012465A2C05AFB200635523 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246592C05AFB200635523 /* Images.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -355,6 +357,9 @@
 		6012464F2C05916700635523 /* HAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAppearance.swift; sourceTree = "<group>"; };
 		601246512C05993200635523 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		601246532C059A6300635523 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		601246562C05A38E00635523 /* load_resourse.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = load_resourse.sh; sourceTree = "<group>"; };
+		601246572C05AF4100635523 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		601246592C05AFB200635523 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -901,7 +906,10 @@
 			isa = PBXGroup;
 			children = (
 				601246532C059A6300635523 /* Colors.swift */,
+				601246592C05AFB200635523 /* Images.swift */,
 				601246512C05993200635523 /* Colors.xcassets */,
+				601246562C05A38E00635523 /* load_resourse.sh */,
+				601246572C05AF4100635523 /* Images.xcassets */,
 			);
 			path = Resourse;
 			sourceTree = "<group>";
@@ -1211,6 +1219,7 @@
 				2F1B0DD321E1B38100139CB1 /* ring.caf in Resources */,
 				2E1D20041FAF0AE600F4405D /* Assets.xcassets in Resources */,
 				2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */,
+				601246582C05AF4100635523 /* Images.xcassets in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
@@ -1262,7 +1271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/WildFireChat/Hello9/Resourse/load_resourse.sh\" \"${SRCROOT}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1308,6 +1317,7 @@
 				2FFDDCA4255164DA00CEFDBB /* WFCFavoriteLinkCell.m in Sources */,
 				B78DD43828167D1E009589F7 /* WFCCallKitManager.m in Sources */,
 				2E1D20D91FAF127100F4405D /* DiscoverViewController.m in Sources */,
+				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
 				2FF07F5A21F82E7200A78A62 /* WFCSettingTableViewController.m in Sources */,
 				6012464C2C058C2E00635523 /* HTabBar.swift in Sources */,
