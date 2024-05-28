@@ -52,7 +52,7 @@ class HTabViewController: UITabBarController {
         
         self.messageNavationController = messageNav
         
-        let mineVC = HBasicViewController()
+        let mineVC = HLoginViewController()
         mineVC.hidesBottomBarWhenPushed = false
         let mineNav = HNavigationController(rootViewController: mineVC)
         let mineItem = UITabBarItem(title: nil, image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
