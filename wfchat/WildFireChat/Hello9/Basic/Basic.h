@@ -1,9 +1,9 @@
 //
 //  Basic.h
-//  WildFireChat
+//  ios-hello9
 //
 //  Created by Ada on 5/28/24.
-//  Copyright © 2024 WildFireChat. All rights reserved.
+//  Copyright © 2024 ios-hello9. All rights reserved.
 //
 
 #ifndef Basic_h

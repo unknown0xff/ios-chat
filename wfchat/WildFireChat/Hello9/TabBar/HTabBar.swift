@@ -1,9 +1,9 @@
 //
 //  HTabBar.swift
-//  WildFireChat
+//  ios-hello9
 //
 //  Created by Ada on 5/28/24.
-//  Copyright © 2024 WildFireChat. All rights reserved.
+//  Copyright © 2024 ios-hello9. All rights reserved.
 //
 
 import UIKit
@@ -60,6 +60,13 @@ class HTabBar: UITabBar {
         
         addChildren()
         makeConstraints()
+        
+        backgroundColor = Colors.white
+        
+        layer.shadowColor = Colors.black.withAlphaComponent(0.0392).cgColor
+        layer.shadowOffset = CGSize(width: 0, height: -1)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 24
     }
     
     required init?(coder: NSCoder) {
