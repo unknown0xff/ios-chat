@@ -556,7 +556,7 @@
 		2E1D1FF91FAF0AE600F4405D /* WildFireChat */ = {
 			isa = PBXGroup;
 			children = (
-				6012462C2C047F7C00635523 /* IM */,
+				601246352C0565E600635523 /* Hello9 */,
 				B764D48C295854700082492F /* OrgService */,
 				B7EDF7DC285815EF0013602E /* DestroyAccount */,
 				2F63891F254E5A500084EEA6 /* Favorite */,
@@ -581,7 +581,6 @@
 				2F44485A252D522F007A570E /* WFCConfig.h */,
 				2E1D20B11FAF127100F4405D /* WFCConfig.m */,
 				903EBC942136313B00312C16 /* SupportFiles */,
-				601246322C0480CA00635523 /* HAppDelegate.swift */,
 			);
 			path = WildFireChat;
 			sourceTree = "<group>";
@@ -809,6 +808,15 @@
 				6012462E2C047F7C00635523 /* IMService.swift */,
 			);
 			path = IM;
+			sourceTree = "<group>";
+		};
+		601246352C0565E600635523 /* Hello9 */ = {
+			isa = PBXGroup;
+			children = (
+				601246322C0480CA00635523 /* HAppDelegate.swift */,
+				6012462C2C047F7C00635523 /* IM */,
+			);
+			path = Hello9;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
