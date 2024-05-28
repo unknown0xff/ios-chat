@@ -10,3 +10,5 @@
 #import "AppService.h"
 #import "WFCLoginViewController.h"
 #import "WFCBaseTabBarController.h"
+
+#import "Basic.h"

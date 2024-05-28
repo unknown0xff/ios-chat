@@ -82,6 +82,16 @@
 		6012462F2C047F7C00635523 /* IMConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012462D2C047F7C00635523 /* IMConfigure.swift */; };
 		601246302C047F7C00635523 /* IMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012462E2C047F7C00635523 /* IMService.swift */; };
 		601246332C0480CA00635523 /* HAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246322C0480CA00635523 /* HAppDelegate.swift */; };
+		601246372C05664E00635523 /* HTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246362C05664E00635523 /* HTabViewController.swift */; };
+		6012463B2C056AAD00635523 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6012463A2C056AAD00635523 /* SnapKit */; };
+		6012463E2C05764600635523 /* HNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6012463D2C05764600635523 /* HNavigationController.m */; };
+		601246442C0578F100635523 /* HBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601246422C0578F100635523 /* HBasicViewController.m */; };
+		601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 601246452C0579AE00635523 /* UIViewController+Extention.m */; };
+		6012464C2C058C2E00635523 /* HTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012464B2C058C2E00635523 /* HTabBar.swift */; };
+		6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012464D2C058C6D00635523 /* HTabBarItemView.swift */; };
+		601246502C05916700635523 /* HAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012464F2C05916700635523 /* HAppearance.swift */; };
+		601246522C05993200635523 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601246512C05993200635523 /* Colors.xcassets */; };
+		601246542C059A6300635523 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246532C059A6300635523 /* Colors.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -331,6 +341,20 @@
 		6012462E2C047F7C00635523 /* IMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMService.swift; sourceTree = "<group>"; };
 		601246312C047FB800635523 /* ios-hello9-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-hello9-Bridging-Header.h"; sourceTree = "<group>"; };
 		601246322C0480CA00635523 /* HAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAppDelegate.swift; sourceTree = "<group>"; };
+		601246362C05664E00635523 /* HTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabViewController.swift; sourceTree = "<group>"; };
+		6012463C2C05764600635523 /* HNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNavigationController.h; sourceTree = "<group>"; };
+		6012463D2C05764600635523 /* HNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNavigationController.m; sourceTree = "<group>"; };
+		601246402C0577A700635523 /* HRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HRuntime.h; sourceTree = "<group>"; };
+		601246422C0578F100635523 /* HBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBasicViewController.m; sourceTree = "<group>"; };
+		601246432C0578F100635523 /* HBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBasicViewController.h; sourceTree = "<group>"; };
+		601246452C0579AE00635523 /* UIViewController+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extention.m"; sourceTree = "<group>"; };
+		601246462C0579AE00635523 /* UIViewController+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extention.h"; sourceTree = "<group>"; };
+		601246492C057CA900635523 /* Basic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basic.h; sourceTree = "<group>"; };
+		6012464B2C058C2E00635523 /* HTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabBar.swift; sourceTree = "<group>"; };
+		6012464D2C058C6D00635523 /* HTabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabBarItemView.swift; sourceTree = "<group>"; };
+		6012464F2C05916700635523 /* HAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAppearance.swift; sourceTree = "<group>"; };
+		601246512C05993200635523 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		601246532C059A6300635523 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -408,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B75D816A2782CEB5009D4A19 /* WebRTC.xcframework in Frameworks */,
+				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
 				905177522243CDA60020A2AC /* libc++.tbd in Frameworks */,
 				2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */,
 				905177502243CD9A0020A2AC /* libz.tbd in Frameworks */,
@@ -813,10 +838,72 @@
 		601246352C0565E600635523 /* Hello9 */ = {
 			isa = PBXGroup;
 			children = (
+				601246552C059B3D00635523 /* Resourse */,
+				6012464A2C058C1800635523 /* TabBar */,
+				601246382C05672000635523 /* Basic */,
 				601246322C0480CA00635523 /* HAppDelegate.swift */,
 				6012462C2C047F7C00635523 /* IM */,
+				6012464F2C05916700635523 /* HAppearance.swift */,
 			);
 			path = Hello9;
+			sourceTree = "<group>";
+		};
+		601246382C05672000635523 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				601246412C0577E700635523 /* Foundation */,
+				6012463F2C05764E00635523 /* UIKit */,
+				601246492C057CA900635523 /* Basic.h */,
+			);
+			path = Basic;
+			sourceTree = "<group>";
+		};
+		6012463F2C05764E00635523 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				601246482C0579CE00635523 /* Extention */,
+				601246432C0578F100635523 /* HBasicViewController.h */,
+				601246422C0578F100635523 /* HBasicViewController.m */,
+				6012463C2C05764600635523 /* HNavigationController.h */,
+				6012463D2C05764600635523 /* HNavigationController.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		601246412C0577E700635523 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				601246402C0577A700635523 /* HRuntime.h */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		601246482C0579CE00635523 /* Extention */ = {
+			isa = PBXGroup;
+			children = (
+				601246462C0579AE00635523 /* UIViewController+Extention.h */,
+				601246452C0579AE00635523 /* UIViewController+Extention.m */,
+			);
+			path = Extention;
+			sourceTree = "<group>";
+		};
+		6012464A2C058C1800635523 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				601246362C05664E00635523 /* HTabViewController.swift */,
+				6012464B2C058C2E00635523 /* HTabBar.swift */,
+				6012464D2C058C6D00635523 /* HTabBarItemView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		601246552C059B3D00635523 /* Resourse */ = {
+			isa = PBXGroup;
+			children = (
+				601246532C059A6300635523 /* Colors.swift */,
+				601246512C05993200635523 /* Colors.xcassets */,
+			);
+			path = Resourse;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
@@ -995,6 +1082,9 @@
 				B71F0AD928F5475A000A7C8A /* PBXTargetDependency */,
 			);
 			name = WildFireChat;
+			packageProductDependencies = (
+				6012463A2C056AAD00635523 /* SnapKit */,
+			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* 野火IM.app */;
 			productType = "com.apple.product-type.application";
@@ -1096,6 +1186,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 2E1D1FEE1FAF0AE600F4405D;
+			packageReferences = (
+				601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1118,6 +1211,7 @@
 				2F1B0DD321E1B38100139CB1 /* ring.caf in Resources */,
 				2E1D20041FAF0AE600F4405D /* Assets.xcassets in Resources */,
 				2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */,
+				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
 				90C1D911208C12A900E923F4 /* foreman.mp4 in Resources */,
@@ -1181,20 +1275,24 @@
 				2FEA5D6A21F4AC8900280B23 /* WFCLoginViewController.m in Sources */,
 				2F63892C254E81910084EEA6 /* WFCFavoriteUnknownCell.m in Sources */,
 				6012462F2C047F7C00635523 /* IMConfigure.swift in Sources */,
+				601246502C05916700635523 /* HAppearance.swift in Sources */,
 				2F518FF3235ED7DD00FA3D58 /* AppService.m in Sources */,
 				2FF07F5D21F82E7200A78A62 /* WFCMeTableViewHeaderViewCell.m in Sources */,
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
+				601246372C05664E00635523 /* HTabViewController.swift in Sources */,
 				2FF07F5E21F82E7200A78A62 /* WFCMeTableViewController.m in Sources */,
 				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
 				2F638928254E7D8A0084EEA6 /* WFCFavoriteBaseCell.m in Sources */,
 				601246302C047F7C00635523 /* IMService.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
+				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
 				B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */,
 				2F50BE84237970780049CD39 /* WFCDiagnoseViewController.m in Sources */,
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,
 				2E1D200A1FAF0AE600F4405D /* main.m in Sources */,
 				2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */,
+				601246442C0578F100635523 /* HBasicViewController.m in Sources */,
 				B764D48F295854700082492F /* OrgService.m in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
 				2F4B0EAA245BFCE7000A41C6 /* DeviceTableViewController.m in Sources */,
@@ -1203,6 +1301,7 @@
 				2FFDDCA025515D9000CEFDBB /* WFCFavoriteVideoCell.m in Sources */,
 				2F4B0EAD245BFD22000A41C6 /* Device.m in Sources */,
 				B7A192D82A4BDF3A003A27DC /* WFCPrivacyFindMeViewController.m in Sources */,
+				601246542C059A6300635523 /* Colors.swift in Sources */,
 				2F638934254E8FAB0084EEA6 /* WFCFavoriteImageCell.m in Sources */,
 				B7EDF7DF2858161C0013602E /* WFCDestroyAccountViewController.m in Sources */,
 				149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */,
@@ -1211,6 +1310,7 @@
 				2E1D20D91FAF127100F4405D /* DiscoverViewController.m in Sources */,
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
 				2FF07F5A21F82E7200A78A62 /* WFCSettingTableViewController.m in Sources */,
+				6012464C2C058C2E00635523 /* HTabBar.swift in Sources */,
 				90E927F222DFF45F00F168BC /* WFCPrivacyTableViewController.m in Sources */,
 				2F638922254E5A7E0084EEA6 /* WFCFavoriteTableViewController.m in Sources */,
 				909ACDAF2130473100A64FE7 /* ChatroomListViewController.m in Sources */,
@@ -1219,12 +1319,14 @@
 				2F638930254E82B90084EEA6 /* WFCFavoriteTextCell.m in Sources */,
 				2F5527C0252CB33E00B0CDCB /* SharedConversation.m in Sources */,
 				2FF07F5921F82E7200A78A62 /* WFCAboutViewController.m in Sources */,
+				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
 				149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */,
 				2FCF7218254FD092006CF53B /* WFCFavoriteFileCell.m in Sources */,
+				6012463E2C05764600635523 /* HNavigationController.m in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,
 				909ACDB321304CD900A64FE7 /* ChatroomItemCell.m in Sources */,
@@ -1474,7 +1576,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WildFireChat/WFChat-Prefix-Header.pch";
 				INFOPLIST_FILE = WildFireChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1521,7 +1623,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WildFireChat/WFChat-Prefix-Header.pch";
 				INFOPLIST_FILE = WildFireChat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1779,6 +1881,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6012463A2C056AAD00635523 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2E1D1FEF1FAF0AE600F4405D /* Project object */;
 }
