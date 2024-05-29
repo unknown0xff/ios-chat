@@ -9,20 +9,14 @@
 import Foundation
 import Combine
 
+class HLoginViewModel: HBasicViewModel {
 
-
-class HLoginViewModel {
-    
-    enum Section {
-        case main
-    }
-    
     enum Row: Hashable {
         case input(_ model: HLoginInputModel)
         case login(_ isNewUser: Bool, _ isValid: Bool)
     }
     
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section,Row>()
+    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection,Row>()
     
     private lazy var inputModel = [HLoginInputModel]()
     
