@@ -10,8 +10,8 @@ import WebRTC
 
 class IMService: NSObject {
     
-    static let share = IMService()
-//    static let share = IMService(.wfc)
+//    static let share = IMService()
+    static let share = IMService(.wfc)
     
     private(set) lazy var wfcService = WFCCNetworkService.sharedInstance()!
     private(set) lazy var wfavEngineKit = WFAVEngineKit.shared()!

@@ -10,6 +10,10 @@ import UIKit
 
 protocol HLoginInputCellDelegate: AnyObject {
     func didChangeInputValue(_ value: HLoginModel, at indexPath: IndexPath)
+    func didClickRefreshButton()
+}
+extension HLoginInputCellDelegate {
+    func didClickRefreshButton() {  }
 }
 
 class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
@@ -36,6 +40,8 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
     
     private lazy var textField: UITextField = {
         let field = UITextField()
+        field.textColor = Colors.black
+        field.font = .system16
         return field
     }()
     
@@ -80,6 +86,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         stack.addArrangedSubview(rightButton)
         
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        rightButton.addTarget(self, action: #selector(didClickRefreshButton(_:)), for: .touchUpInside)
     }
     
     private func makeConstraints() {
@@ -132,6 +139,37 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
             return
         }
         delegate?.didChangeInputValue(cellData, at: indexPath)
+    }
+    
+    @objc func didClickRefreshButton(_ sender: UIButton) {
+        startRotation()
+        
+        DispatchQueue.global().async {
+            sleep(2) // TODO: 模拟网络请求等操作
+            DispatchQueue.main.async {
+                self.stopRotation()
+            }
+        }
+    }
+    
+    func startRotation() {
+        rightButton.isEnabled = false
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0
+        rotationAnimation.toValue = CGFloat.pi * 2
+        rotationAnimation.duration = 1
+        rotationAnimation.repeatCount = .infinity
+        
+        if let imageView = rightButton.imageView {
+            imageView.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        }
+    }
+    
+    func stopRotation() {
+        rightButton.isEnabled = true
+        if let imageView = rightButton.imageView {
+            imageView.layer.removeAnimation(forKey: "rotationAnimation")
+        }
     }
 }
 
