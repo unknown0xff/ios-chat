@@ -11,5 +11,11 @@ import UIKit
 
 class HBasicTableViewCell<T>: UITableViewCell {
     var indexPath: IndexPath!
-    var cellData: T?
+    var cellData: T? {
+        didSet {
+            bindData(cellData)
+        }
+    }
+    
+    func bindData(_ data: T?) { }
 }

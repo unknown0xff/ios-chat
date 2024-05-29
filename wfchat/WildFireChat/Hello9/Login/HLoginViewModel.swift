@@ -17,13 +17,8 @@ struct HLoginModel: Hashable {
     }
     
     let `id`: Tag
-    let title: String
+    let isNewUser: Bool
     var value: String
-    
-    static let all = [
-        HLoginModel(id: .account, title: "您的Hello号是", value: ""),
-        HLoginModel(id: .password, title: "您的密码", value: "")
-    ]
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
@@ -43,16 +38,24 @@ class HLoginViewModel {
     
     enum Row: Hashable {
         case input(_ model: HLoginModel)
-        case login
+        case login(_ isNewUser: Bool)
     }
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section,Row>()
     
-    private var inputModel = HLoginModel.all
+    private lazy var inputModel = [HLoginModel]()
+    
     private var account: String { inputModel.first?.value ?? ""  }
     private var password: String { inputModel.last?.value ?? ""  }
     
-    init() {
+    private(set) var isNewUser: Bool = true
+    
+    init(isNewUser: Bool = true) {
+        self.isNewUser = isNewUser
+        
+        inputModel.append(.init(id: .account, isNewUser: isNewUser, value: ""))
+        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: ""))
+        
         applySnapshot()
     }
     
@@ -89,7 +92,7 @@ class HLoginViewModel {
         let inputRows = inputModel.map {  Row.input($0) }
         snapshot.appendItems(inputRows)
         
-        snapshot.appendItems([.login])
+        snapshot.appendItems([.login(isNewUser)])
         
         self.snapshot = snapshot
     }

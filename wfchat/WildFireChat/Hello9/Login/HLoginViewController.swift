@@ -32,29 +32,13 @@ class HLoginViewController: HBasicViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system30.bold
-        label.text = "创建hello9账号"
         label.sizeToFit()
         return label
     }()
     
     private lazy var goLoginButton: UIButton = {
         let btn = UIButton(type: .custom)
-        
-        let attr = NSMutableAttributedString(string: "")
-        
-        // 已有账号？去登录
-        let attr1 = NSAttributedString(string: "已有账号？", attributes: [
-            .font : UIFont.system14,
-            .foregroundColor : Colors.black.withAlphaComponent(0.7)
-        ])
-        let attr2 = NSAttributedString(string: "去登录", attributes: [
-            .font : UIFont.system14.bold,
-            .foregroundColor : Colors.gray03
-        ])
-        attr.append(attr1)
-        attr.append(attr2)
-        btn.setAttributedTitle(attr, for: .normal)
-        
+        btn.setAttributedTitle(passwordBottomTip, for: .normal)
         return btn
     }()
     
@@ -64,7 +48,6 @@ class HLoginViewController: HBasicViewController {
     
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HLoginViewModel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,8 +69,9 @@ class HLoginViewController: HBasicViewController {
                 cell.cellData = model
                 cell.delegate = self
                 return cell
-            case .login:
+            case .login(let isNewUser):
                 let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
+                cell.cellData = isNewUser
                 cell.loginButton.addTarget(self, action: #selector(Self.didClickLoginButton(_:)), for: .touchUpInside)
                 return cell
             }
@@ -98,6 +82,8 @@ class HLoginViewController: HBasicViewController {
                 self?.dataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
+        
+        titleLabel.text = viewModel.isNewUser ? "创建hello9账号" : "欢迎来到hello9"
         
         view.addSubview(tableView)
         view.addSubview(logoView)
@@ -128,6 +114,22 @@ class HLoginViewController: HBasicViewController {
         }
     }
     
+    var passwordBottomTip: NSAttributedString {
+        let attr = NSMutableAttributedString(string: "")
+        
+        let attr1 = NSAttributedString(string: viewModel.isNewUser ? "已有账号？" : "没有账号", attributes: [
+            .font : UIFont.system14,
+            .foregroundColor : Colors.black.withAlphaComponent(0.7)
+        ])
+        let attr2 = NSAttributedString(string: viewModel.isNewUser ? "去登录" : "去注册", attributes: [
+            .font : UIFont.system14.bold,
+            .foregroundColor : Colors.gray03
+        ])
+        attr.append(attr1)
+        attr.append(attr2)
+        
+        return attr
+    }
     override func prefersNavigationBarHidden() -> Bool { true }
 }
 

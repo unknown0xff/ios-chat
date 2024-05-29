@@ -4,7 +4,11 @@
 
 enum Images {
 
+    static let icon_account = UIImage(named: "icon_account")!
+
     static let icon_password = UIImage(named: "icon_password")!
+
+    static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
 

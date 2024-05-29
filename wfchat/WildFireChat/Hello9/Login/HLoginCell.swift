@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class HLoginCell: UITableViewCell {
+class HLoginCell: HBasicTableViewCell<Bool> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -22,9 +22,16 @@ class HLoginCell: UITableViewCell {
         return label
     }()
     
+    private(set) lazy var forgetButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setTitle("忘记密码?", for: .normal)
+        btn.setTitleColor(Colors.gray03, for: .normal)
+        btn.titleLabel?.font = .system12
+        return btn
+    }()
+    
     private(set) lazy var loginButton: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setTitle("注册并登录", for: .normal)
         btn.setTitleColor(Colors.white, for: .normal)
         btn.backgroundColor = Colors.blue01
         btn.titleLabel?.font = .system18.bold
@@ -43,9 +50,18 @@ class HLoginCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func bindData(_ data: Bool?) {
+        let isNewUser = data ?? true
+        loginButton.setTitle(isNewUser ? "注册并登录" : "登录", for: .normal)
+        
+        forgetButton.isHidden = isNewUser
+        titleLabel.isHidden = !isNewUser
+    }
+    
     private func configureSubviews() {
         selectionStyle = .none
         contentView.addSubview(titleLabel)
+        contentView.addSubview(forgetButton)
         contentView.addSubview(loginButton)
     }
     
@@ -58,10 +74,15 @@ class HLoginCell: UITableViewCell {
             make.height.lessThanOrEqualTo(30)
         }
         
+        forgetButton.snp.makeConstraints { make in
+            make.top.equalTo(8)
+            make.right.equalTo(-32)
+        }
+        
         loginButton.snp.makeConstraints { make in
             make.left.equalTo(32)
             make.right.equalTo(-32)
-            make.top.equalTo(titleLabel.snp.bottom).offset(UIScreen.height.multipliedBy(0.1))
+            make.top.equalTo(24).offset(UIScreen.height.multipliedBy(0.1))
             make.height.equalTo(64)
             make.bottom.equalTo(0)
         }

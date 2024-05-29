@@ -53,7 +53,6 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
     
     private lazy var rightButton: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setImage(Images.icon_refresh, for: .normal)
         return btn
     }()
     
@@ -116,21 +115,22 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         }
     }
     
-    override var cellData: HLoginModel? {
-        didSet {
-            guard let cellData else {
-                return
-            }
-            bind(cellData)
+    override func bindData(_ data: HLoginModel?) {
+        guard let data else {
+            return
         }
-    }
-    
-    private func bind(_ model: HLoginModel) {
-        leftIcon.image = model.leftImage
-        textField.text = model.value
-        titleLabel.text = model.title
         
-        rightButton.isHidden = model.id == .password
+        leftIcon.image = data.leftImage
+        textField.text = data.value
+        textField.placeholder = data.placeholder
+        titleLabel.text = data.title
+        
+        if let image = data.rightImage {
+            rightButton.setImage(image, for: .normal)
+            rightButton.isHidden = false
+        } else {
+            rightButton.isHidden = true
+        }
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -175,8 +175,29 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
 
 fileprivate extension HLoginModel {
     
-    var leftImage: UIImage {
-        id == .account ? Images.icon_refresh : Images.icon_password
+    var title: String {
+        switch id {
+        case .account:
+            return isNewUser ? "您的hello号是" : "账号"
+        case .password:
+            return isNewUser ? "您的密码" : "密码"
+        }
     }
     
+    var leftImage: UIImage {
+        id == .account ? Images.icon_account : Images.icon_password
+    }
+    
+    var rightImage: UIImage? {
+        switch id {
+        case .account:
+            return isNewUser ? Images.icon_refresh : nil
+        case .password:
+            return isNewUser ? nil : Images.icon_password_hidden
+        }
+    }
+    
+    var placeholder: String {
+        id == .account ? "请输入您的账号" : "请输入您的密码"
+    }
 }
