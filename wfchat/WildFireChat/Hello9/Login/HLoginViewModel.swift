@@ -25,6 +25,14 @@ struct HLoginModel: Hashable {
         HLoginModel(id: .password, title: "您的密码", value: "")
     ]
     
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(value)
+    }
 }
 
 class HLoginViewModel {
@@ -41,9 +49,37 @@ class HLoginViewModel {
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section,Row>()
     
     private var inputModel = HLoginModel.all
+    private var account: String { inputModel.first?.value ?? ""  }
+    private var password: String { inputModel.last?.value ?? ""  }
     
     init() {
         applySnapshot()
+    }
+    
+    var isValid: Bool {
+        !account.isEmpty && !password.isEmpty
+    }
+    
+    func update(_ model: HLoginModel) {
+        let index = inputModel.firstIndex(of: model)
+        guard let index else {
+            return
+        }
+        inputModel[index] = model
+    }
+    
+    func login() async -> Error? {
+        
+       await withCheckedContinuation { result in
+            AppService.shared().login(withMobile: account, password: password) { userId, token, newUser in
+                IMService.share.connect(userId: userId, token: token, autoSave: true)
+                result.resume(returning: nil)
+            } error: { errorCode, message in
+                print("login error with code \(errorCode), message \(message)")
+                result.resume(returning: HError(code: errorCode, message: message))
+            }
+        }
+        
     }
     
     func applySnapshot() {
@@ -57,4 +93,6 @@ class HLoginViewModel {
         
         self.snapshot = snapshot
     }
+    
+    
 }

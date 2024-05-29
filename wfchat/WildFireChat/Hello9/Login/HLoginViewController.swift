@@ -78,14 +78,17 @@ class HLoginViewController: HBasicViewController {
         tableView.tableHeaderView = headerView
         tableView.register([HLoginInputCell.self, HLoginCell.self])
         
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
+        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, row in
             switch row {
             case .input(let model):
                 let cell = tableView.cell(of: HLoginInputCell.self, for: indexPath)
-                cell.bind(model)
+                cell.indexPath = indexPath
+                cell.cellData = model
+                cell.delegate = self
                 return cell
             case .login:
                 let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
+                cell.loginButton.addTarget(self, action: #selector(Self.didClickLoginButton(_:)), for: .touchUpInside)
                 return cell
             }
         })
@@ -126,6 +129,37 @@ class HLoginViewController: HBasicViewController {
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }
+}
+
+// MARK: - Actions
+
+extension HLoginViewController: HLoginInputCellDelegate {
+    
+    func didChangeInputValue(_ value: HLoginModel, at indexPath: IndexPath) {
+        viewModel.update(value)
+    }
+    
+    @objc func didClickLoginButton(_ sender: UIButton) {
+        view.resignFirstResponder()
+        
+        if viewModel.isValid {
+            let hud = HToast.show(on: view, text: "登录中...")
+            Task {
+                let result = await viewModel.login()
+                
+                await MainActor.run {
+                    hud.hide(animated:true)
+                    
+                    if result != nil {
+                        HToast.showAutoHidden(on: view, text: "登录失败")
+                    } else {
+                        // 登录成功
+                        UIApplication.shared.delegate?.window??.rootViewController = HTabViewController()
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate

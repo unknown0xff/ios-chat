@@ -103,6 +103,10 @@
 		6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246692C05FD4900635523 /* Font+Extension.swift */; };
 		6012466C2C06B83000635523 /* HLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012466B2C06B83000635523 /* HLoginCell.swift */; };
 		6012466E2C06BAF700635523 /* Layout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012466D2C06BAF700635523 /* Layout+Extension.swift */; };
+		601246702C06CD8600635523 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012466F2C06CD8600635523 /* Error.swift */; };
+		601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 601246722C06CF8E00635523 /* MBProgressHUD */; };
+		601246752C06D21800635523 /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246742C06D21800635523 /* HToast.swift */; };
+		601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246762C06DDFA00635523 /* HBasicTableViewCell.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -378,6 +382,9 @@
 		601246692C05FD4900635523 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		6012466B2C06B83000635523 /* HLoginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLoginCell.swift; sourceTree = "<group>"; };
 		6012466D2C06BAF700635523 /* Layout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layout+Extension.swift"; sourceTree = "<group>"; };
+		6012466F2C06CD8600635523 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		601246742C06D21800635523 /* HToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToast.swift; sourceTree = "<group>"; };
+		601246762C06DDFA00635523 /* HBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicTableViewCell.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -464,6 +471,7 @@
 				B75D816C2782CEB7009D4A19 /* WFAVEngineKit.xcframework in Frameworks */,
 				9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */,
 				9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */,
+				601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */,
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
 				B7D8F7372783035200752426 /* SDWebImage.xcframework in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
@@ -854,6 +862,7 @@
 			children = (
 				6012462D2C047F7C00635523 /* IMConfigure.swift */,
 				6012462E2C047F7C00635523 /* IMService.swift */,
+				6012466F2C06CD8600635523 /* Error.swift */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -953,6 +962,8 @@
 				601246672C05F9B300635523 /* ScrollerView+Extension.swift */,
 				601246692C05FD4900635523 /* Font+Extension.swift */,
 				6012466D2C06BAF700635523 /* Layout+Extension.swift */,
+				601246742C06D21800635523 /* HToast.swift */,
+				601246762C06DDFA00635523 /* HBasicTableViewCell.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1135,6 +1146,7 @@
 			name = WildFireChat;
 			packageProductDependencies = (
 				6012463A2C056AAD00635523 /* SnapKit */,
+				601246722C06CF8E00635523 /* MBProgressHUD */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* 野火IM.app */;
@@ -1239,6 +1251,7 @@
 			mainGroup = 2E1D1FEE1FAF0AE600F4405D;
 			packageReferences = (
 				601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -1333,6 +1346,7 @@
 				2FF07F5D21F82E7200A78A62 /* WFCMeTableViewHeaderViewCell.m in Sources */,
 				6012466C2C06B83000635523 /* HLoginCell.swift in Sources */,
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
+				601246752C06D21800635523 /* HToast.swift in Sources */,
 				601246372C05664E00635523 /* HTabViewController.swift in Sources */,
 				2FF07F5E21F82E7200A78A62 /* WFCMeTableViewController.m in Sources */,
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
@@ -1355,6 +1369,7 @@
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
 				2F4B0EAA245BFCE7000A41C6 /* DeviceTableViewController.m in Sources */,
 				2F94FAB224551D82007713CD /* DeviceViewController.m in Sources */,
+				601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */,
 				2F4B0EB0245C231D000A41C6 /* DeviceInfoViewController.m in Sources */,
 				2FFDDCA025515D9000CEFDBB /* WFCFavoriteVideoCell.m in Sources */,
 				2F4B0EAD245BFD22000A41C6 /* Device.m in Sources */,
@@ -1391,6 +1406,7 @@
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,
+				601246702C06CD8600635523 /* Error.swift in Sources */,
 				909ACDB321304CD900A64FE7 /* ChatroomItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1953,6 +1969,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/MBProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1960,6 +1984,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		601246722C06CF8E00635523 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

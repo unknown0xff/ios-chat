@@ -8,8 +8,14 @@
 
 import UIKit
 
-class HLoginInputCell: UITableViewCell {
+protocol HLoginInputCellDelegate: AnyObject {
+    func didChangeInputValue(_ value: HLoginModel, at indexPath: IndexPath)
+}
 
+class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
+
+    weak var delegate: HLoginInputCellDelegate?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system12
@@ -72,6 +78,8 @@ class HLoginInputCell: UITableViewCell {
         stack.setCustomSpacing(16, after: leftIcon)
         stack.addArrangedSubview(textField)
         stack.addArrangedSubview(rightButton)
+        
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func makeConstraints() {
@@ -101,7 +109,16 @@ class HLoginInputCell: UITableViewCell {
         }
     }
     
-    func bind(_ model: HLoginModel) {
+    override var cellData: HLoginModel? {
+        didSet {
+            guard let cellData else {
+                return
+            }
+            bind(cellData)
+        }
+    }
+    
+    private func bind(_ model: HLoginModel) {
         leftIcon.image = model.leftImage
         textField.text = model.value
         titleLabel.text = model.title
@@ -109,6 +126,13 @@ class HLoginInputCell: UITableViewCell {
         rightButton.isHidden = model.id == .password
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        cellData?.value = textField.text ?? ""
+        guard let cellData else {
+            return
+        }
+        delegate?.didChangeInputValue(cellData, at: indexPath)
+    }
 }
 
 fileprivate extension HLoginModel {

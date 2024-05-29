@@ -19,7 +19,18 @@ class IMService: NSObject {
     private var configure = IMConfigure.default
     private var firstConnect = false
     
-    func connect(userId: String, token: String) {
+    func connect(userId: String, token: String, autoSave: Bool = false) {
+        if !userId.isEmpty, !token.isEmpty {
+            return
+        }
+        
+        if autoSave {
+            let userDefault = UserDefaults.standard
+            userDefault.set(userId, forKey: "savedToken")
+            userDefault.set(token, forKey: "savedUserId")
+            userDefault.synchronize()
+        }
+        
         wfcService.connect(userId, token: token)
     }
     

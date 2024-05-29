@@ -22,7 +22,7 @@ class HLoginCell: UITableViewCell {
         return label
     }()
     
-    private lazy var loginButton: UIButton = {
+    private(set) lazy var loginButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setTitle("注册并登录", for: .normal)
         btn.setTitleColor(Colors.white, for: .normal)
