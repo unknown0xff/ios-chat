@@ -11,34 +11,31 @@ import WebRTC
 class IMService: NSObject {
     
     static let share = IMService()
+//    static let share = IMService(.wfc)
     
-    let wfcService = WFCCNetworkService.sharedInstance()!
-    let wfavEngineKit = WFAVEngineKit.shared()!
-    let wfuConfigureManager = WFCUConfigManager.global()
+    private(set) lazy var wfcService = WFCCNetworkService.sharedInstance()!
+    private(set) lazy var wfavEngineKit = WFAVEngineKit.shared()!
+    private(set) lazy var wfuConfigureManager = WFCUConfigManager.global()
     
     private var configure = IMConfigure.default
     private var firstConnect = false
     
     func connect(userId: String, token: String, autoSave: Bool = false) {
-        if !userId.isEmpty, !token.isEmpty {
+        if userId.isEmpty || token.isEmpty {
             return
         }
         
         if autoSave {
-            let userDefault = UserDefaults.standard
-            userDefault.set(userId, forKey: "savedToken")
-            userDefault.set(token, forKey: "savedUserId")
-            userDefault.synchronize()
+            IMUserInfo.userId = userId
+            IMUserInfo.token = token
         }
         
         wfcService.connect(userId, token: token)
     }
     
     func connectByDefault() -> Bool {
-        let token = UserDefaults.standard.string(forKey: "savedToken") ?? ""
-        let userId = UserDefaults.standard.string(forKey: "savedUserId") ?? ""
-        if !token.isEmpty && !userId.isEmpty {
-            connect(userId: userId, token: token)
+        if IMUserInfo.isLogin {
+            connect(userId: IMUserInfo.userId, token: IMUserInfo.token)
             return true
         }
         return false
@@ -55,8 +52,11 @@ class IMService: NSObject {
     }
     
     private func configureWFCCNetworkService() {
-       
+        
+        WFAVEngineKit.notRegisterVoipPushService()
+        
         wfcService.sendLogCommand = configure.sendLogCommand
+        WFCCNetworkService.startLog()
         
         wfcService.connectionStatusDelegate = self
         wfcService.connectToServerDelegate = self
@@ -69,7 +69,7 @@ class IMService: NSObject {
         // wfcService.setProxyInfo(nil, ip: "192.168.1.80", port: 1080, username: nil, password: nil)
         // wfcService.setBackupAddress("192.168.1.120", port: 80)
         
-        WFCCNetworkService.startLog()
+        
     }
     
     private func configureWFAVEngine() {
@@ -98,17 +98,9 @@ class IMService: NSObject {
         wfuConfigureManager.fileTransferId = configure.fileTransferId
         wfuConfigureManager.orgServiceProvider = OrgService.shared()
     }
-    
-    var isLogin: Bool {
-        let token = UserDefaults.standard.string(forKey: "savedToken") ?? ""
-        let userId = UserDefaults.standard.string(forKey: "savedUserId") ?? ""
-        return !token.isEmpty && !userId.isEmpty
-    }
-    
+        
     func logout() {
-        UserDefaults.standard.removeObject(forKey: "savedToken")
-        UserDefaults.standard.removeObject(forKey: "savedUserId")
-        UserDefaults.standard.synchronize()
+        IMUserInfo.clear()
         AppService.shared().clearAuthInfos()
     }
     

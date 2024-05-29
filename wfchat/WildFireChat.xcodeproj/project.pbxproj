@@ -107,6 +107,7 @@
 		601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 601246722C06CF8E00635523 /* MBProgressHUD */; };
 		601246752C06D21800635523 /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246742C06D21800635523 /* HToast.swift */; };
 		601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246762C06DDFA00635523 /* HBasicTableViewCell.swift */; };
+		601246792C06FA0300635523 /* IMUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246782C06FA0300635523 /* IMUserInfo.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -385,6 +386,7 @@
 		6012466F2C06CD8600635523 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		601246742C06D21800635523 /* HToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToast.swift; sourceTree = "<group>"; };
 		601246762C06DDFA00635523 /* HBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicTableViewCell.swift; sourceTree = "<group>"; };
+		601246782C06FA0300635523 /* IMUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMUserInfo.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -863,6 +865,7 @@
 				6012462D2C047F7C00635523 /* IMConfigure.swift */,
 				6012462E2C047F7C00635523 /* IMService.swift */,
 				6012466F2C06CD8600635523 /* Error.swift */,
+				601246782C06FA0300635523 /* IMUserInfo.swift */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -1394,6 +1397,7 @@
 				2F638930254E82B90084EEA6 /* WFCFavoriteTextCell.m in Sources */,
 				2F5527C0252CB33E00B0CDCB /* SharedConversation.m in Sources */,
 				2FF07F5921F82E7200A78A62 /* WFCAboutViewController.m in Sources */,
+				601246792C06FA0300635523 /* IMUserInfo.swift in Sources */,
 				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
