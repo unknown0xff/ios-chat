@@ -108,6 +108,8 @@
 		601246752C06D21800635523 /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246742C06D21800635523 /* HToast.swift */; };
 		601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246762C06DDFA00635523 /* HBasicTableViewCell.swift */; };
 		601246792C06FA0300635523 /* IMUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246782C06FA0300635523 /* IMUserInfo.swift */; };
+		6012467B2C0721CB00635523 /* HLoginNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012467A2C0721CB00635523 /* HLoginNavigationViewController.swift */; };
+		6012467E2C0747F000635523 /* HLoginInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012467D2C0747F000635523 /* HLoginInputModel.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -387,6 +389,8 @@
 		601246742C06D21800635523 /* HToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToast.swift; sourceTree = "<group>"; };
 		601246762C06DDFA00635523 /* HBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicTableViewCell.swift; sourceTree = "<group>"; };
 		601246782C06FA0300635523 /* IMUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMUserInfo.swift; sourceTree = "<group>"; };
+		6012467A2C0721CB00635523 /* HLoginNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLoginNavigationViewController.swift; sourceTree = "<group>"; };
+		6012467D2C0747F000635523 /* HLoginInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLoginInputModel.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -950,10 +954,11 @@
 		6012465D2C05D2AA00635523 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				6012465E2C05D30000635523 /* HLoginViewController.swift */,
+				6012467C2C07476E00635523 /* Controller */,
 				601246602C05F80000635523 /* HLoginViewModel.swift */,
 				601246622C05F86B00635523 /* HLoginInputCell.swift */,
 				6012466B2C06B83000635523 /* HLoginCell.swift */,
+				6012467D2C0747F000635523 /* HLoginInputModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -969,6 +974,15 @@
 				601246762C06DDFA00635523 /* HBasicTableViewCell.swift */,
 			);
 			path = Swift;
+			sourceTree = "<group>";
+		};
+		6012467C2C07476E00635523 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6012465E2C05D30000635523 /* HLoginViewController.swift */,
+				6012467A2C0721CB00635523 /* HLoginNavigationViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
@@ -1355,6 +1369,7 @@
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
 				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
 				2F638928254E7D8A0084EEA6 /* WFCFavoriteBaseCell.m in Sources */,
+				6012467E2C0747F000635523 /* HLoginInputModel.swift in Sources */,
 				601246302C047F7C00635523 /* IMService.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
 				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
@@ -1370,6 +1385,7 @@
 				601246652C05F8AE00635523 /* HReuseIdentifier.swift in Sources */,
 				B764D48F295854700082492F /* OrgService.m in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
+				6012467B2C0721CB00635523 /* HLoginNavigationViewController.swift in Sources */,
 				2F4B0EAA245BFCE7000A41C6 /* DeviceTableViewController.m in Sources */,
 				2F94FAB224551D82007713CD /* DeviceViewController.m in Sources */,
 				601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */,
@@ -1643,7 +1659,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 108;
-				DEVELOPMENT_TEAM = ZTJABWRJ5T;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

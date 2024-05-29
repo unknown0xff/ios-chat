@@ -9,26 +9,7 @@
 import Foundation
 import Combine
 
-struct HLoginModel: Hashable {
-    
-    enum Tag {
-        case account
-        case password
-    }
-    
-    let `id`: Tag
-    let isNewUser: Bool
-    var value: String
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(value)
-    }
-}
+
 
 class HLoginViewModel {
     
@@ -37,13 +18,13 @@ class HLoginViewModel {
     }
     
     enum Row: Hashable {
-        case input(_ model: HLoginModel)
-        case login(_ isNewUser: Bool)
+        case input(_ model: HLoginInputModel)
+        case login(_ isNewUser: Bool, _ isValid: Bool)
     }
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section,Row>()
     
-    private lazy var inputModel = [HLoginModel]()
+    private lazy var inputModel = [HLoginInputModel]()
     
     private var account: String { inputModel.first?.value ?? ""  }
     private var password: String { inputModel.last?.value ?? ""  }
@@ -54,7 +35,7 @@ class HLoginViewModel {
         self.isNewUser = isNewUser
         
         inputModel.append(.init(id: .account, isNewUser: isNewUser, value: ""))
-        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: ""))
+        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: "", isSecureTextEntry: !isNewUser))
         
         applySnapshot()
     }
@@ -63,12 +44,14 @@ class HLoginViewModel {
         !account.isEmpty && !password.isEmpty
     }
     
-    func update(_ model: HLoginModel) {
+    func update(_ model: HLoginInputModel) {
         let index = inputModel.firstIndex(of: model)
         guard let index else {
             return
         }
         inputModel[index] = model
+        
+        applySnapshot()
     }
     
     func login() async -> Error? {
@@ -92,7 +75,7 @@ class HLoginViewModel {
         let inputRows = inputModel.map {  Row.input($0) }
         snapshot.appendItems(inputRows)
         
-        snapshot.appendItems([.login(isNewUser)])
+        snapshot.appendItems([.login(isNewUser, isValid)])
         
         self.snapshot = snapshot
     }

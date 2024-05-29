@@ -39,6 +39,7 @@ class HLoginViewController: HBasicViewController {
     private lazy var goLoginButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setAttributedTitle(passwordBottomTip, for: .normal)
+        btn.addTarget(self, action: #selector(didClickLoginOrRegisterButton(_:)), for: .touchUpInside)
         return btn
     }()
     
@@ -46,8 +47,17 @@ class HLoginViewController: HBasicViewController {
     private typealias Row = HLoginViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
     
-    private var cancellables = Set<AnyCancellable>()
     var viewModel = HLoginViewModel()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private(set) var output = PassthroughSubject<HLoginViewController.Output, Never>()
+    
+    enum Output {
+        case onRegister
+        case onLogin
+        case onLoginSucess
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,10 +79,11 @@ class HLoginViewController: HBasicViewController {
                 cell.cellData = model
                 cell.delegate = self
                 return cell
-            case .login(let isNewUser):
+            case .login(let isNewUser, let isValid):
                 let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
-                cell.cellData = isNewUser
+                cell.cellData = .init(isNewUser: isNewUser, isValid: isValid)
                 cell.loginButton.addTarget(self, action: #selector(Self.didClickLoginButton(_:)), for: .touchUpInside)
+                cell.forgetButton.addTarget(self, action: #selector(Self.didClickForgetButton(_:)), for: .touchUpInside)
                 return cell
             }
         })
@@ -137,8 +148,20 @@ class HLoginViewController: HBasicViewController {
 
 extension HLoginViewController: HLoginInputCellDelegate {
     
-    func didChangeInputValue(_ value: HLoginModel, at indexPath: IndexPath) {
+    func didChangeInputValue(_ value: HLoginInputModel, at indexPath: IndexPath) {
         viewModel.update(value)
+    }
+    
+    @objc func didClickForgetButton(_ sender: UIButton) {
+        // TODO: - 进入 忘记密码流程
+    }
+    
+    @objc func didClickLoginOrRegisterButton(_ sender: UIButton) {
+        if viewModel.isNewUser {
+            output.send(.onLogin)
+        } else {
+            output.send(.onRegister)
+        }
     }
     
     @objc func didClickLoginButton(_ sender: UIButton) {
@@ -155,8 +178,7 @@ extension HLoginViewController: HLoginInputCellDelegate {
                     if result != nil {
                         HToast.showAutoHidden(on: view, text: "登录失败")
                     } else {
-                        // 登录成功
-                        UIApplication.shared.delegate?.window??.rootViewController = HTabViewController()
+                        self.output.send(.onLoginSucess)
                     }
                 }
             }

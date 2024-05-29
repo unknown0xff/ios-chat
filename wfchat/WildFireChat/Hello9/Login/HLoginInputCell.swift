@@ -9,14 +9,14 @@
 import UIKit
 
 protocol HLoginInputCellDelegate: AnyObject {
-    func didChangeInputValue(_ value: HLoginModel, at indexPath: IndexPath)
+    func didChangeInputValue(_ value: HLoginInputModel, at indexPath: IndexPath)
     func didClickRefreshButton()
 }
 extension HLoginInputCellDelegate {
     func didClickRefreshButton() {  }
 }
 
-class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
+class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
 
     weak var delegate: HLoginInputCellDelegate?
     
@@ -85,7 +85,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         stack.addArrangedSubview(rightButton)
         
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        rightButton.addTarget(self, action: #selector(didClickRefreshButton(_:)), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(didClickRightButton(_:)), for: .touchUpInside)
     }
     
     private func makeConstraints() {
@@ -115,7 +115,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         }
     }
     
-    override func bindData(_ data: HLoginModel?) {
+    override func bindData(_ data: HLoginInputModel?) {
         guard let data else {
             return
         }
@@ -131,6 +131,9 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         } else {
             rightButton.isHidden = true
         }
+        
+        textField.keyboardType = data.keyboardType
+        textField.isSecureTextEntry = data.isSecureTextEntry
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -141,7 +144,20 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
         delegate?.didChangeInputValue(cellData, at: indexPath)
     }
     
-    @objc func didClickRefreshButton(_ sender: UIButton) {
+    @objc func didClickRightButton(_ sender: UIButton) {
+        
+        guard var data = cellData else {
+            return
+        }
+        
+        // 登录且是密码输入框，更新isSecureTextEntry
+        if !data.isNewUser && data.id == .password {
+            data.isSecureTextEntry.toggle()
+            cellData = data
+            delegate?.didChangeInputValue(data, at: indexPath)
+            return
+        }
+        
         startRotation()
         
         DispatchQueue.global().async {
@@ -173,7 +189,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginModel> {
     }
 }
 
-fileprivate extension HLoginModel {
+fileprivate extension HLoginInputModel {
     
     var title: String {
         switch id {
@@ -199,5 +215,13 @@ fileprivate extension HLoginModel {
     
     var placeholder: String {
         id == .account ? "请输入您的账号" : "请输入您的密码"
+    }
+    
+    var keyboardType: UIKeyboardType {
+        if id == .account {
+            return .asciiCapableNumberPad
+        } else {
+            return .default
+        }
     }
 }

@@ -7,10 +7,14 @@
 //
 
 import Foundation
-
 import UIKit
 
-class HLoginCell: HBasicTableViewCell<Bool> {
+struct HLoginCellModel {
+    var isNewUser: Bool = true
+    var isValid: Bool = false
+}
+
+class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -31,9 +35,8 @@ class HLoginCell: HBasicTableViewCell<Bool> {
     }()
     
     private(set) lazy var loginButton: UIButton = {
-        let btn = UIButton(type: .custom)
+        let btn = UIButton(type: .system)
         btn.setTitleColor(Colors.white, for: .normal)
-        btn.backgroundColor = Colors.blue01
         btn.titleLabel?.font = .system18.bold
         btn.layer.cornerRadius = 32
         return btn
@@ -50,12 +53,14 @@ class HLoginCell: HBasicTableViewCell<Bool> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func bindData(_ data: Bool?) {
-        let isNewUser = data ?? true
-        loginButton.setTitle(isNewUser ? "注册并登录" : "登录", for: .normal)
+    override func bindData(_ data: HLoginCellModel?) {
+        let data = data ?? .init()
+        loginButton.setTitle(data.isNewUser ? "注册并登录" : "登录", for: .normal)
         
-        forgetButton.isHidden = isNewUser
-        titleLabel.isHidden = !isNewUser
+        forgetButton.isHidden = data.isNewUser
+        titleLabel.isHidden = !data.isNewUser
+        loginButton.isEnabled = data.isValid
+        loginButton.backgroundColor = data.isValid ? Colors.blue01 : Colors.blue01.withAlphaComponent(0.5)
     }
     
     private func configureSubviews() {
@@ -82,9 +87,9 @@ class HLoginCell: HBasicTableViewCell<Bool> {
         loginButton.snp.makeConstraints { make in
             make.left.equalTo(32)
             make.right.equalTo(-32)
-            make.top.equalTo(24).offset(UIScreen.height.multipliedBy(0.1))
+            make.top.equalTo(titleLabel.snp.bottom).offset(UIScreen.height.multipliedBy(0.1))
             make.height.equalTo(64)
-            make.bottom.equalTo(0)
+            make.bottom.equalTo(-1)
         }
         
     }
