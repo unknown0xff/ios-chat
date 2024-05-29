@@ -33,7 +33,10 @@ class HLoginViewModel {
         case main
     }
     
-    typealias Row = HLoginModel
+    enum Row: Hashable {
+        case input(_ model: HLoginModel)
+        case login
+    }
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section,Row>()
     
@@ -46,7 +49,12 @@ class HLoginViewModel {
     func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(inputModel)
+        
+        let inputRows = inputModel.map {  Row.input($0) }
+        snapshot.appendItems(inputRows)
+        
+        snapshot.appendItems([.login])
+        
         self.snapshot = snapshot
     }
 }

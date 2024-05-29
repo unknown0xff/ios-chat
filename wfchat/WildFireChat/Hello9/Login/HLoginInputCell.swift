@@ -13,6 +13,7 @@ class HLoginInputCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system12
+        label.textColor = Colors.gray03
         return label
     }()
     
@@ -61,6 +62,12 @@ class HLoginInputCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(stack)
         
+        let space = UIView()
+        stack.addArrangedSubview(space)
+        space.snp.makeConstraints { make in
+            make.width.equalTo(20)
+        }
+        
         stack.addArrangedSubview(leftIcon)
         stack.setCustomSpacing(16, after: leftIcon)
         stack.addArrangedSubview(textField)
@@ -84,7 +91,6 @@ class HLoginInputCell: UITableViewCell {
         }
         
         leftIcon.snp.makeConstraints { make in
-            make.left.equalTo(20)
             make.width.equalTo(24)
             make.height.equalToSuperview()
         }
@@ -97,7 +103,6 @@ class HLoginInputCell: UITableViewCell {
     
     func bind(_ model: HLoginModel) {
         leftIcon.image = model.leftImage
-        
         textField.text = model.value
         titleLabel.text = model.title
         

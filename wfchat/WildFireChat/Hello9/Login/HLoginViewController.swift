@@ -24,7 +24,7 @@ class HLoginViewController: HBasicViewController {
     }()
     
     private lazy var headerView: UIView = {
-        let view = UIView(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150))
+        let view = UIView(frame: .init(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height.multipliedBy(0.186)))
         view.addSubview(titleLabel)
         return view
     }()
@@ -35,6 +35,27 @@ class HLoginViewController: HBasicViewController {
         label.text = "创建hello9账号"
         label.sizeToFit()
         return label
+    }()
+    
+    private lazy var goLoginButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        
+        let attr = NSMutableAttributedString(string: "")
+        
+        // 已有账号？去登录
+        let attr1 = NSAttributedString(string: "已有账号？", attributes: [
+            .font : UIFont.system14,
+            .foregroundColor : Colors.black.withAlphaComponent(0.7)
+        ])
+        let attr2 = NSAttributedString(string: "去登录", attributes: [
+            .font : UIFont.system14.bold,
+            .foregroundColor : Colors.gray03
+        ])
+        attr.append(attr1)
+        attr.append(attr2)
+        btn.setAttributedTitle(attr, for: .normal)
+        
+        return btn
     }()
     
     private typealias Section = HLoginViewModel.Section
@@ -55,12 +76,18 @@ class HLoginViewController: HBasicViewController {
     private func configureSubviews() {
         tableView.applyDefaultConfigure()
         tableView.tableHeaderView = headerView
-        tableView.register([HLoginInputCell.self])
+        tableView.register([HLoginInputCell.self, HLoginCell.self])
         
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
-            let cell = tableView.cell(of: HLoginInputCell.self, for: indexPath)
-            cell.bind(row)
-            return cell
+            switch row {
+            case .input(let model):
+                let cell = tableView.cell(of: HLoginInputCell.self, for: indexPath)
+                cell.bind(model)
+                return cell
+            case .login:
+                let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
+                return cell
+            }
         })
         
         viewModel.$snapshot.receive(on: RunLoop.main)
@@ -71,13 +98,14 @@ class HLoginViewController: HBasicViewController {
         
         view.addSubview(tableView)
         view.addSubview(logoView)
+        view.addSubview(goLoginButton)
     }
     
     private func makeConstraints() {
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(32)
-            make.top.equalTo(65)
+            make.top.equalTo(UIScreen.height.multipliedBy(0.07))
         }
         
         logoView.snp.makeConstraints { make in
@@ -89,6 +117,11 @@ class HLoginViewController: HBasicViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(logoView.snp.bottom)
             make.width.left.right.bottom.equalToSuperview()
+        }
+        
+        goLoginButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(-58)
         }
     }
     
