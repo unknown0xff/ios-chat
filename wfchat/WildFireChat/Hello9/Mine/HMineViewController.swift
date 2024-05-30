@@ -18,25 +18,8 @@ class HMineViewController: HBasicViewController {
         return tableView
     }()
     
-    private lazy var logoView: UIImageView = {
-        let view = UIImageView()
-        view.image = Images.logo
-        return view
-    }()
+    private lazy var navBarView = HTitleNavBar()
     
-    private lazy var headerView: UIView = {
-        let view = UIView()
-        view.addSubview(titleLabel)
-        return view
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system30.bold
-        label.text = "创建hello9账号"
-        label.sizeToFit()
-        return label
-    }()
     
     private typealias Section = HMineViewModel.Section
     private typealias Row = HMineViewModel.Row
@@ -75,14 +58,22 @@ class HMineViewController: HBasicViewController {
             }
             .store(in: &cancellables)
         
+        navBarView.titleLabel.text = "我的"
+        
+        view.addSubview(navBarView)
         view.addSubview(tableView)
     }
     
     private func makeConstraints() {
+        navBarView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(112)
+        }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(112)
-            make.width.left.right.bottom.equalToSuperview()
+            make.top.equalTo(navBarView.snp.bottom)
+            make.width.left.right.equalToSuperview()
+            make.bottom.equalTo(-HUIConfigure.tabBarHeight)
         }
     }
     
