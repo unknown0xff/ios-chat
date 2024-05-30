@@ -8,6 +8,10 @@ enum Images {
 
     static let icon_edit = UIImage(named: "icon_edit")!
 
+    static let icon_logo = UIImage(named: "icon_logo")!
+
+    static let icon_menu = UIImage(named: "icon_menu")!
+
     static let icon_mine_feedback = UIImage(named: "icon_mine_feedback")!
 
     static let icon_mine_logout = UIImage(named: "icon_mine_logout")!
@@ -21,8 +25,6 @@ enum Images {
     static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
-
-    static let logo = UIImage(named: "logo")!
 
     static let tab_message_off = UIImage(named: "tab_message_off")!
 
