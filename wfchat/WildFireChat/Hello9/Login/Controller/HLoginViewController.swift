@@ -20,6 +20,7 @@ class HLoginViewController: HBasicViewController {
     private lazy var logoView: UIImageView = {
         let view = UIImageView()
         view.image = Images.icon_logo
+        view.contentMode = .scaleAspectFit
         return view
     }()
     

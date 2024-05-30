@@ -10,6 +10,8 @@ enum Images {
 
     static let icon_logo = UIImage(named: "icon_logo")!
 
+    static let icon_logo_launch = UIImage(named: "icon_logo_launch")!
+
     static let icon_menu = UIImage(named: "icon_menu")!
 
     static let icon_mine_feedback = UIImage(named: "icon_mine_feedback")!

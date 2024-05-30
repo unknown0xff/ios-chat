@@ -33,6 +33,10 @@ class HChatListViewController: HBasicViewController {
             make.right.equalTo(-24)
             make.centerY.equalTo(imageView)
         }
+        
+        nav.titleLabel.snp.updateConstraints { make in
+            make.bottom.equalTo(-13)
+        }
         return nav
     }()
     
