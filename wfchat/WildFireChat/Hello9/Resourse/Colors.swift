@@ -19,6 +19,12 @@ enum Colors {
     /// 0x14 0x17 0x18
     static let gray03 = UIColor(named: "gray03")!
 
+    /// 0x79 0x7C 0x7B
+    static let gray04 = UIColor(named: "gray04")!
+
+    /// 0xA7 0xA7 0xAB
+    static let gray05 = UIColor(named: "gray05")!
+
     /// 0xEF 0x49 0x4B
     static let red01 = UIColor(named: "red01")!
 

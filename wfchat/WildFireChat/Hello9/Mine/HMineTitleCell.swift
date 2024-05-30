@@ -22,10 +22,23 @@ class HMineTitleCell: HBasicTableViewCell<HMineTitleCellModel> {
         return imageView
     }()
     
-    private lazy var progressView: UIStackView = {
-        let view = UIStackView()
-        
+    private lazy var progressContent: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
         return view
+    }()
+    
+    private lazy var progressView: HProgressView = {
+        let view = HProgressView()
+        return view
+    }()
+    
+    private lazy var progressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .system16.medium
+        label.textColor = Colors.gray05
+        label.text = "良好"
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -40,9 +53,14 @@ class HMineTitleCell: HBasicTableViewCell<HMineTitleCellModel> {
     }
     
     private func configureSubviews() {
+        selectionStyle = .none
+        
         contentView.addSubview(leftIcon)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(progressView)
+        
+        progressContent.addSubview(progressView)
+        progressContent.addSubview(progressLabel)
+        contentView.addSubview(progressContent)
     }
     
     private func makeConstraints() {
@@ -57,12 +75,23 @@ class HMineTitleCell: HBasicTableViewCell<HMineTitleCellModel> {
             make.centerY.equalTo(leftIcon)
         }
         
-        progressView.snp.makeConstraints { make in
+        progressContent.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.left.equalTo(titleLabel)
-            make.right.equalTo(48)
+            make.right.equalTo(-48)
             make.height.equalTo(41)
             make.bottom.equalTo(-16)
+        }
+        
+        progressView.snp.makeConstraints { make in
+            make.left.right.equalTo(0)
+            make.height.equalTo(9)
+        }
+        
+        progressLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(0)
+            make.top.equalTo(progressView.snp.bottom).offset(8)
+            make.height.equalTo(24)
         }
     }
     
@@ -76,12 +105,14 @@ class HMineTitleCell: HBasicTableViewCell<HMineTitleCellModel> {
         
         switch data.tag {
         case .verify(let progress):
-            progressView.snp.updateConstraints { make in
+            progressContent.snp.updateConstraints { make in
                 make.height.equalTo(41)
             }
-        case .setting, .feedback,.logout:
-            progressView.snp.updateConstraints { make in
-                make.height.equalTo(1)
+            progressView.setProgress(progress)
+            
+        case .setting, .feedback, .logout:
+            progressContent.snp.updateConstraints { make in
+                make.height.equalTo(0)
             }
         }
     }

@@ -13,6 +13,17 @@ extension UIFont {
         return UIFont(descriptor: fontDescriptor.withSymbolicTraits(.traitBold)!, size: 0)
     }
     
+    var medium: UIFont {
+        let fontDescriptor = fontDescriptor.withSymbolicTraits(fontDescriptor.symbolicTraits)!
+        let newFontDescriptor = fontDescriptor.addingAttributes([
+            UIFontDescriptor.AttributeName.traits: [
+                UIFontDescriptor.TraitKey.weight: UIFont.Weight.medium
+            ]
+        ])
+        let mediumFont = UIFont(descriptor: newFontDescriptor, size: pointSize)
+        return mediumFont
+    }
+    
     static var system8: UIFont { UIFont.systemFont(ofSize: 8) }
     static var system9: UIFont { UIFont.systemFont(ofSize: 9) }
     static var system10: UIFont { UIFont.systemFont(ofSize: 10) }

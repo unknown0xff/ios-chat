@@ -115,6 +115,7 @@
 		60922A7C2C075F1500B70AD8 /* HBasicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A7B2C075F1500B70AD8 /* HBasicViewModel.swift */; };
 		60922A7E2C0763BF00B70AD8 /* HMineTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A7D2C0763BF00B70AD8 /* HMineTitleCell.swift */; };
 		60922A802C0767C600B70AD8 /* HMineAvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A7F2C0767C600B70AD8 /* HMineAvatarCell.swift */; };
+		60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A892C0822E100B70AD8 /* HProgressView.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -401,6 +402,7 @@
 		60922A7B2C075F1500B70AD8 /* HBasicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicViewModel.swift; sourceTree = "<group>"; };
 		60922A7D2C0763BF00B70AD8 /* HMineTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineTitleCell.swift; sourceTree = "<group>"; };
 		60922A7F2C0767C600B70AD8 /* HMineAvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineAvatarCell.swift; sourceTree = "<group>"; };
+		60922A892C0822E100B70AD8 /* HProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HProgressView.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -983,6 +985,7 @@
 				601246742C06D21800635523 /* HToast.swift */,
 				601246762C06DDFA00635523 /* HBasicTableViewCell.swift */,
 				60922A7B2C075F1500B70AD8 /* HBasicViewModel.swift */,
+				60922A892C0822E100B70AD8 /* HProgressView.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -999,6 +1002,7 @@
 		6012467F2C075AEE00635523 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				60922A882C081BCC00B70AD8 /* Model */,
 				601246802C075B6000635523 /* HMineViewController.swift */,
 				60922A792C075CE600B70AD8 /* HMineViewModel.swift */,
 				60922A7D2C0763BF00B70AD8 /* HMineTitleCell.swift */,
@@ -1014,6 +1018,13 @@
 				60922A762C075C7B00B70AD8 /* HLoginCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		60922A882C081BCC00B70AD8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
@@ -1459,6 +1470,7 @@
 				6012466E2C06BAF700635523 /* Layout+Extension.swift in Sources */,
 				6012463E2C05764600635523 /* HNavigationController.m in Sources */,
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
+				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,

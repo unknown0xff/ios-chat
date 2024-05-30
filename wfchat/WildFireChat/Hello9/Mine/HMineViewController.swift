@@ -45,7 +45,6 @@ class HMineViewController: HBasicViewController {
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HMineViewModel()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,8 +62,9 @@ class HMineViewController: HBasicViewController {
                 let cell = tableView.cell(of: HMineTitleCell.self, for: indexPath)
                 cell.cellData = model
                 return cell
-            case .avatar:
+            case .avatar(let model):
                 let cell = tableView.cell(of: HMineAvatarCell.self, for: indexPath)
+                cell.cellData = model
                 return cell
             }
         })
