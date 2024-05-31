@@ -34,6 +34,8 @@ class HChatListViewController: HBasicViewController {
         
         let btn = UIButton(type: .system)
         btn.setImage(Images.icon_menu.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
+        
         nav.addSubview(btn)
         btn.snp.makeConstraints { make in
             make.width.height.equalTo(24)
@@ -155,6 +157,23 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
+    private func createChat(_ userIds: [String]) {
+        guard !userIds.isEmpty else {
+            return
+        }
+        if userIds.count == 1 {
+            let conv = WFCCConversation(type: .Single_Type, target: userIds.first!, line: 0)!
+            gotoChat(by: conv)
+        }
+    }
+    
+    private func gotoChat(by conversation: WFCCConversation) {
+        let mvc = WFCUMessageListViewController()
+        mvc.conversation = conversation
+        mvc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(mvc, animated: true)
+    }
+    
     override func prefersNavigationBarHidden() -> Bool { true }
 }
 
@@ -169,10 +188,7 @@ extension HChatListViewController: UITableViewDelegate {
         }
         switch row {
         case .chat(let model):
-            let mvc = WFCUMessageListViewController()
-            mvc.conversation = model.conversationInfo.conversation
-            mvc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(mvc, animated: true)
+            gotoChat(by: model.conversationInfo.conversation)
         }
     }
     
@@ -232,9 +248,19 @@ extension HChatListViewController: UITableViewDelegate {
     
 }
 
-// MARK: - observers
+// MARK: - observers/actions
 
 extension HChatListViewController {
+    
+    @objc func didClickMenuButton(_ sender: UIButton) {
+        let vc = HSelectedUserViewController()
+        vc.output.receive(on: RunLoop.main)
+            .sink { [weak self] useIds in
+                self?.createChat(useIds)
+            }
+            .store(in: &cancellables)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @objc func onReceiveMessages(_ sender: Notification) {
         guard let messages = sender.object as? Array<WFCCMessage>, !messages.isEmpty else {

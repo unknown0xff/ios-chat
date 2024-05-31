@@ -6,9 +6,15 @@ enum Images {
 
     static let icon_account = UIImage(named: "icon_account")!
 
+    static let icon_add_friend = UIImage(named: "icon_add_friend")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
+
+    static let icon_group = UIImage(named: "icon_group")!
+
+    static let icon_light = UIImage(named: "icon_light")!
 
     static let icon_logo = UIImage(named: "icon_logo")!
 

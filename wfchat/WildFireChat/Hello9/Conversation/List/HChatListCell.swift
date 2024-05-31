@@ -89,6 +89,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 32
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     

@@ -124,6 +124,10 @@
 		60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A992C084ED500B70AD8 /* HChatListCellModel.swift */; };
 		60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A9B2C0869B600B70AD8 /* String+Extension.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
+		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
+		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
+		60F5CF7E2C09D0A30013D912 /* HSelectedActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */; };
+		60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -420,6 +424,10 @@
 		60922A992C084ED500B70AD8 /* HChatListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatListCellModel.swift; sourceTree = "<group>"; };
 		60922A9B2C0869B600B70AD8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
+		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
+		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
+		60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedActionCell.swift; sourceTree = "<group>"; };
+		60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedFriendCell.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -1061,12 +1069,13 @@
 		60922A912C084BFF00B70AD8 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
-				60922A922C084C0700B70AD8 /* ConversationList */,
+				60F5CF782C09C7700013D912 /* Create */,
+				60922A922C084C0700B70AD8 /* List */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
 		};
-		60922A922C084C0700B70AD8 /* ConversationList */ = {
+		60922A922C084C0700B70AD8 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				60922A932C084C5400B70AD8 /* HChatListViewController.swift */,
@@ -1074,7 +1083,18 @@
 				60922A972C084EA800B70AD8 /* HChatListCell.swift */,
 				60922A992C084ED500B70AD8 /* HChatListCellModel.swift */,
 			);
-			path = ConversationList;
+			path = List;
+			sourceTree = "<group>";
+		};
+		60F5CF782C09C7700013D912 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */,
+				60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */,
+				60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */,
+				60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
@@ -1464,6 +1484,7 @@
 				601246302C047F7C00635523 /* IMService.swift in Sources */,
 				60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
+				60F5CF7E2C09D0A30013D912 /* HSelectedActionCell.swift in Sources */,
 				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
 				601246612C05F80000635523 /* HLoginViewModel.swift in Sources */,
 				B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */,
@@ -1478,6 +1499,7 @@
 				60922A7C2C075F1500B70AD8 /* HBasicViewModel.swift in Sources */,
 				B764D48F295854700082492F /* OrgService.m in Sources */,
 				60922A8D2C082C3900B70AD8 /* HTitleNavBar.swift in Sources */,
+				60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
 				601246812C075B6000635523 /* HMineViewController.swift in Sources */,
 				60922A942C084C5400B70AD8 /* HChatListViewController.swift in Sources */,
@@ -1521,6 +1543,7 @@
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
+				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
 				60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */,
 				149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */,
@@ -1530,6 +1553,7 @@
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
+				60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */,
 				60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,
 				601246702C06CD8600635523 /* Error.swift in Sources */,

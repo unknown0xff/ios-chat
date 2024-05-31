@@ -202,8 +202,8 @@ extension IMService: WFCCDefaultPortraitProvider {
         if !userInfo.portrait.isEmpty {
             return userInfo.portrait
         }
-        
-        return configure.baseUrl + "/avatar?name=\(userInfo.displayName as String)"
+        let displayName = userInfo.displayName ?? ""
+        return configure.baseUrl + "/avatar?name=\(userInfo.displayName.urlEncode)"
     }
     
     func groupDefaultPortrait(_ groupInfo: WFCCGroupInfo!, memberInfos: [WFCCUserInfo]!) -> String! {
