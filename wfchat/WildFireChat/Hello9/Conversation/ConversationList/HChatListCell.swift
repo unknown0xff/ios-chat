@@ -18,6 +18,15 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return label
     }()
     
+    private lazy var secretTag: UILabel = {
+        let label = UILabel()
+        label.font = .system9
+        label.text = "【密聊】"
+        label.textColor = Colors.blue01
+        label.textAlignment = .center
+        return label
+    }()
+    
     private lazy var muteView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Images.icon_mute_gray
@@ -103,6 +112,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         contentView.addSubview(avatar)
         
         topStack.addArrangedSubview(userNameLabel)
+        topStack.addArrangedSubview(secretTag)
         topStack.addArrangedSubview(muteView)
         
         let spaceView = UIView()
@@ -216,6 +226,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         @unknown default:
             userNameLabel.text = "聊天室"
         }
+        
+        secretTag.isHidden = conversation.type != .SecretChat_Type
         
         lastTimeLabel.isHidden = false
         lastTimeLabel.text = WFCUUtilities.formatTimeLabel(data.conversationInfo.timestamp)
