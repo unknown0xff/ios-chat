@@ -70,6 +70,22 @@ class HChatListViewModel: HBasicViewModel {
         }
     }
     
+    func setConversationSilent(_ isSilent: Bool, at indexPath: IndexPath) async -> HError? {
+        if indexPath.row >= conversations.count {
+            return nil
+        }
+        let conv = conversations[indexPath.row].conversation
+        
+        return await withCheckedContinuation { result in
+            WFCCIMService.sharedWFCIM().setConversation(conv, silent: isSilent) { [weak self] in
+                self?.refresh()
+                result.resume(returning: nil)
+            } error: { code in
+                result.resume(returning: HError(code: code, message: ""))
+            }
+        }
+    }
+    
     var badgeNumber: Int32 {
         var number: Int32 = 0
         for info in conversations {

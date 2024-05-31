@@ -126,6 +126,14 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
+    private func setConversationSilent(isSilent: Bool, at indexPath: IndexPath) {
+        Task {
+            if let _ = await viewModel.setConversationSilent(isSilent, at: indexPath) {
+                HToast.showAutoHidden(on: self.view, text: "更新失败")
+            }
+        }
+    }
+    
     private func updateBadgeNumber() {
         if let tab = tabBarController as? HTabViewController {
             tab.updateMessageBadgeValue(viewModel.badgeNumber)
@@ -161,11 +169,19 @@ extension HChatListViewController: UITableViewDelegate {
         
         switch row {
         case .chat(let model):
-            let mute = UIContextualAction(style: .normal, title: "静音") { action, view, block in
-                print("mute click")
+            let mute = UIContextualAction(style: .normal, title: "静音") { [weak self] _ , _ , handle in
+                self?.setConversationSilent(isSilent: true, at: indexPath)
+                handle(true)
             }
             mute.image = Images.icon_mute
             mute.backgroundColor = Colors.yellow01
+            
+            let unmute = UIContextualAction(style: .normal, title: "取消静音") { [weak self] _ , _ , handle in
+                self?.setConversationSilent(isSilent: false, at: indexPath)
+                handle(true)
+            }
+            unmute.image = Images.icon_mute
+            unmute.backgroundColor = Colors.yellow01
             
             let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
                 self?.viewModel.removeConversation(at: indexPath)
@@ -190,7 +206,9 @@ extension HChatListViewController: UITableViewDelegate {
             unTop.backgroundColor = Colors.gray06
             
             let isTop = model.conversationInfo.isTop == 1
-            let actions = isTop ? [unTop, delete, mute] : [top, delete, mute]
+            let isSilent = model.conversationInfo.isSilent
+            
+            let actions = [isTop ? unTop : top, delete, isSilent ? unmute : mute]
             let configure = UISwipeActionsConfiguration(actions: actions)
             configure.performsFirstActionWithFullSwipe = false
             return configure

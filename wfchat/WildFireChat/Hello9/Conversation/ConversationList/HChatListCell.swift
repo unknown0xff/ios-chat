@@ -18,6 +18,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return label
     }()
     
+    private lazy var muteView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.icon_mute_gray
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     private lazy var lastMessageLabel: UILabel = {
         let label = UILabel()
         label.font = .system14
@@ -96,6 +103,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         contentView.addSubview(avatar)
         
         topStack.addArrangedSubview(userNameLabel)
+        topStack.addArrangedSubview(muteView)
+        
+        let spaceView = UIView()
+        spaceView.translatesAutoresizingMaskIntoConstraints = false
+        spaceView.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        topStack.addArrangedSubview(spaceView)
+        
         topStack.addArrangedSubview(lastTimeLabel)
         
         bottomStack.addArrangedSubview(lastMessageLabel)
@@ -127,8 +141,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             make.centerY.equalTo(avatar)
             make.right.equalTo(-26)
         }
+        
         unreadLabel.snp.makeConstraints { make in
             make.width.greaterThanOrEqualTo(18)
+        }
+        
+        muteView.snp.makeConstraints { make in
+            make.width.height.equalTo(14)
         }
     }
     
@@ -141,12 +160,20 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         let unreadCount = data.conversationInfo.unreadCount
         let unread = unreadCount?.unread ?? 0
+        let isSilent = data.conversationInfo.isSilent
+        
         if unread == 0 {
             unreadLabel.isHidden = true
         } else {
-            unreadLabel.isHidden = false
+            if isSilent {
+                unreadLabel.isHidden = true
+            } else {
+                unreadLabel.isHidden = false
+            }
             unreadLabel.text = "\(unread)"
         }
+        
+        muteView.isHidden = !isSilent
         
         let conversation = data.conversationInfo.conversation!
         let isTop = data.conversationInfo.isTop == 1
