@@ -87,14 +87,20 @@ class HChatListViewController: HBasicViewController {
             }
         })
         
-        viewModel.$snapshot.receive(on: RunLoop.main)
+        viewModel.$snapshot
+            .receive(on: RunLoop.main)
+            .dropFirst()
             .sink { [weak self] snapshot in
-                self?.dataSource.apply(snapshot, animatingDifferences: false)
+                self?.applyDataSource(snapshot)
             }
             .store(in: &cancellables)
         
         view.addSubview(tableView)
         view.addSubview(navBarView)
+    }
+    
+    private func applyDataSource(_ snapshot: HChatListViewModel.Snapshot) {
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func makeConstraints() {
@@ -111,12 +117,17 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
-    private func setConversation(conv: WFCCConversationInfo, isTop: Bool) {
+    private func setConversationTop(isTop: Bool, at indexPath: IndexPath) {
         Task {
-            if let _ = await viewModel.setConversation(conv: conv, isTop: isTop) {
+            if let _ = await viewModel.setConversationTop(isTop, at: indexPath) {
                 HToast.showAutoHidden(on: self.view, text: "更新失败")
             }
         }
+    }
+    
+    // TODO: -
+    private func updateBadgeNumber() {
+        
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }
@@ -154,20 +165,24 @@ extension HChatListViewController: UITableViewDelegate {
             mute.image = Images.icon_mute
             mute.backgroundColor = Colors.yellow01
             
-            let delete = UIContextualAction(style: .normal, title: "删除") { action, view, block in
-                print("mute click")
+            let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
+                self?.viewModel.removeConversation(at: indexPath)
+                self?.updateBadgeNumber()
+                handle(true)
             }
             delete.image = Images.icon_delete_white
             delete.backgroundColor = Colors.red02
             
-            let top = UIContextualAction(style: .normal, title: "置顶") { [weak self] _ , _, _ in
-                self?.setConversation(conv: model.conversationInfo, isTop: true)
+            let top = UIContextualAction(style: .normal, title: "置顶") { [weak self] _ , _, handle in
+                self?.setConversationTop(isTop: true, at: indexPath)
+                handle(true)
             }
             top.image = Images.icon_top
             top.backgroundColor = Colors.gray06
             
-            let unTop = UIContextualAction(style: .normal, title: "取消置顶") { [weak self] _ , _, _ in
-                self?.setConversation(conv: model.conversationInfo, isTop: false)
+            let unTop = UIContextualAction(style: .normal, title: "取消置顶") { [weak self] _ , _, handle in
+                self?.setConversationTop(isTop: false, at: indexPath)
+                handle(true)
             }
             unTop.image = Images.icon_top
             unTop.backgroundColor = Colors.gray06

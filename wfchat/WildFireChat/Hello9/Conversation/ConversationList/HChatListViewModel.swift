@@ -9,8 +9,7 @@
 class HChatListViewModel: HBasicViewModel {
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection, Row>.init()
-    
-    
+
     private var conversations = [WFCCConversationInfo]()
     
     enum Row: Hashable {
@@ -41,6 +40,34 @@ class HChatListViewModel: HBasicViewModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(onReceiveMessages(_:)), name: .init(rawValue: kReceiveMessages), object: nil)
         
+    }
+    
+    func removeConversation(at indexPath: IndexPath) {
+        if indexPath.row >= conversations.count {
+            return
+        }
+        
+        let conv = conversations[indexPath.row].conversation
+        WFCCIMService.sharedWFCIM().clearUnreadStatus(conv)
+        WFCCIMService.sharedWFCIM().remove(conv, clearMessage: true)
+        conversations.remove(at: indexPath.row)
+        
+        applySnapshot()
+    }
+    
+    func setConversationTop(_ isTop: Bool, at indexPath: IndexPath) async -> HError? {
+        if indexPath.row >= conversations.count {
+            return nil
+        }
+        let conv = conversations[indexPath.row].conversation
+        return await withCheckedContinuation { result in
+            WFCCIMService.sharedWFCIM().setConversation(conv, top: isTop ? 1 : 0) { [weak self] in
+                self?.refresh()
+                result.resume(returning: nil)
+            } error: { code in
+                result.resume(returning: HError(code: code, message: ""))
+            }
+        }
     }
     
     func setConversation(conv: WFCCConversationInfo, isTop: Bool) async -> HError? {

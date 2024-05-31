@@ -16,6 +16,8 @@ protocol HBasicViewModel {
     associatedtype Section: Hashable = HBasicSection
     associatedtype Row: Hashable
     
-    var snapshot: NSDiffableDataSourceSnapshot<Section,Row> { get }
+    associatedtype Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
+    
+    var snapshot: Snapshot { get }
 }
 

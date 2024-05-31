@@ -236,7 +236,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             }
             lastMessageLabel.attributedText = attr
         } else {
-            let digest = data.conversationInfo.lastMessage.digest() ?? ""
+            let digest = data.conversationInfo.lastMessage?.digest() ?? ""
             if let lastMessage = data.conversationInfo.lastMessage,
                lastMessage.direction == .MessageDirection_Receive,
                conversation.type == .Group_Type {
