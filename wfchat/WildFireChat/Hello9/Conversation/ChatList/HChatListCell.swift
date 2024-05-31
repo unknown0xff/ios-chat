@@ -39,6 +39,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         label.backgroundColor = Colors.red01
         label.layer.cornerRadius = 9
         label.layer.masksToBounds = true
+        label.textAlignment = .center
         return label
     }()
     
@@ -87,6 +88,10 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func configureSubviews() {
         contentView.addSubview(avatar)
         
@@ -122,6 +127,9 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             make.centerY.equalTo(avatar)
             make.right.equalTo(-26)
         }
+        unreadLabel.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(18)
+        }
     }
     
     override func bindData(_ data: HChatListCellModel?) {
@@ -130,17 +138,29 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         }
         NotificationCenter.default.removeObserver(self)
         
+        let unreadCount = data.conversationInfo.unreadCount
+        let unread = unreadCount?.unread ?? 0
+        if unread == 0 {
+            unreadLabel.isHidden = true
+        } else {
+            unreadLabel.isHidden = false
+            unreadLabel.text = "\(unread)"
+        }
+        
         let conversation = data.conversationInfo.conversation!
+        
         switch conversation.type {
         case .Single_Type:
             let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(conversation.target, refresh: false) ?? WFCCUserInfo.init()
-            if userInfo.userId.isEmpty {
+            let userId = userInfo.userId ?? ""
+            if userId.isEmpty {
                 userInfo.userId = conversation.target
             }
             updateUserInfo(userInfo)
         case .Group_Type:
             if let groupInfo = WFCCIMService.sharedWFCIM().getGroupInfo(conversation.target, refresh: false) {
-                if groupInfo.target.isEmpty {
+                let target = groupInfo.target ?? ""
+                if target.isEmpty {
                     groupInfo.target = conversation.target
                 }
                 updateGroupInfo(groupInfo)
@@ -149,7 +169,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             break
         case .Channel_Type:
             if let channelInfo = WFCCIMService.sharedWFCIM().getChannelInfo(conversation.target, refresh: false) {
-                if channelInfo.channelId.isEmpty {
+                let channelId = channelInfo.channelId ?? ""
+                if channelId.isEmpty {
                     channelInfo.channelId = conversation.target
                 }
                 updateChannelInfo(channelInfo)
@@ -166,8 +187,94 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             userNameLabel.text = "聊天室"
         }
         
-        // TODO: xianda.yang
-        lastMessageLabel.text = "Todo"
+        lastTimeLabel.isHidden = false
+        lastTimeLabel.text = WFCUUtilities.formatTimeLabel(data.conversationInfo.timestamp)
+
+        lastMessageLabel.attributedText = nil
+        var secretChatStateText = ""
+        if conversation.type == .SecretChat_Type {
+            let state = WFCCIMService.sharedWFCIM().getSecretChatInfo(conversation.target).state
+            if state == .SecretChatState_Starting {
+                secretChatStateText = "密聊会话建立中，正在等待对方响应。"
+            } else if state == .SecretChatState_Canceled {
+                secretChatStateText = "密聊会话已取消！"
+            }
+        }
+        
+        let draft = data.conversationInfo.draft ?? ""
+        
+        if !secretChatStateText.isEmpty {
+            lastMessageLabel.text = secretChatStateText
+        } else if !draft.isEmpty {
+            var attr = NSMutableAttributedString(string: "[草稿]", attributes: [
+                .foregroundColor : Colors.red01
+            ])
+            
+            var text = draft
+            if let dictionary = try? JSONSerialization.jsonObject(with: draft.data(using: .utf8) ?? .init(), options: .init(rawValue: 0)) as? [String: Any] {
+                if let content = dictionary["content"] as? String {
+                    text = content
+                } else if let content = dictionary["text"] as? String {
+                    text = content
+                }
+            }
+            
+            attr.append(.init(string: text))
+            
+            let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
+            let unreadMention = unreadCount?.unreadMention ?? 0
+            
+            if conversation.type == .Group_Type && (unreadMentionAll + unreadMention > 0) {
+                let tempAttr = NSMutableAttributedString(string: "[有人@你]",attributes: [
+                    .foregroundColor : Colors.red01
+                ])
+                tempAttr.append(attr)
+                attr = tempAttr
+            }
+            lastMessageLabel.attributedText = attr
+        } else {
+            let digest = data.conversationInfo.lastMessage.digest() ?? ""
+            if let lastMessage = data.conversationInfo.lastMessage,
+               lastMessage.direction == .MessageDirection_Receive,
+               conversation.type == .Group_Type {
+                let groupId = conversation.target ?? ""
+                if let sender = WFCCIMService.sharedWFCIM().getUserInfo(lastMessage.fromUser, inGroup: groupId, refresh: false) {
+                    let friendAlias = sender.friendAlias ?? ""
+                    let groupAlias = sender.groupAlias ?? ""
+                    let displayName = sender.displayName ?? ""
+                    
+                    let lastMessageText: String
+                    if !friendAlias.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
+                        lastMessageText = "\(friendAlias):\(digest)"
+                    } else if !groupAlias.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
+                        lastMessageText = "\(groupAlias):\(digest)"
+                    } else if !displayName.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
+                        lastMessageText = "\(displayName):\(digest)"
+                    } else {
+                        lastMessageText = digest
+                    }
+                    lastMessageLabel.text = lastMessageText
+                    
+                    let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
+                    let unreadMention = unreadCount?.unreadMention ?? 0
+                    
+                    if (unreadMentionAll + unreadMention > 0) {
+                        let tempAttr = NSMutableAttributedString(string: "[有人@你]",attributes: [
+                            .foregroundColor : Colors.red01
+                        ])
+                        if !lastMessageText.isEmpty {
+                            tempAttr.append(.init(string: lastMessageText))
+                        }
+                        lastMessageLabel.attributedText = tempAttr
+                    }
+                } else {
+                    lastMessageLabel.text = digest
+                }
+                
+            } else {
+                lastMessageLabel.text = digest
+            }
+        }
     }
     
     func updateChannelInfo(_ channelInfo: WFCCChannelInfo) {
@@ -183,17 +290,18 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
     func updateUserInfo(_ userInfo: WFCCUserInfo) {
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
         
-        avatar.sd_setImage(with: URL(string: userInfo.portrait.urlEncode), placeholderImage: Images.icon_logo)
-        if !userInfo.friendAlias.isEmpty {
+        avatar.sd_setImage(with: URL(string: (userInfo.portrait ?? "").urlEncode), placeholderImage: Images.icon_logo)
+        let friendAlias = userInfo.friendAlias ?? ""
+        let displayName = userInfo.displayName ?? ""
+        if !friendAlias.isEmpty {
             userNameLabel.text = userInfo.friendAlias
-        } else if !userInfo.displayName.isEmpty {
-            userNameLabel.text = userInfo.displayName
+        } else if !displayName.isEmpty {
+            userNameLabel.text = displayName
         } else {
             let target = cellData?.conversationInfo.conversation.target ?? ""
             userNameLabel.text = "user<\(target)>"
         }
     }
-    
     
     func updateGroupInfo(_ groupInfo: WFCCGroupInfo) {
         
