@@ -73,6 +73,7 @@ class HChatListViewController: HBasicViewController {
         
         configureSubviews()
         makeConstraints()
+        addObservers()
     }
     
     private func configureSubviews() {
@@ -98,6 +99,18 @@ class HChatListViewController: HBasicViewController {
         
         view.addSubview(tableView)
         view.addSubview(navBarView)
+    }
+    
+    private func addObservers() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveMessages(_:)), name: .init(rawValue: kReceiveMessages), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onRecallMessages(_:)), name: .init(rawValue: kRecallMessages), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onDeleteMessages(_:)), name: .init(rawValue: kDeleteMessages), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSettingUpdated(_:)), name: .init(rawValue: kSettingUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSendingMessageStatusUpdated(_:)), name: .init(rawValue: kSendingMessageStatusUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onMessageUpdated(_:)), name: .init(rawValue: kMessageUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSecretChatStateChanged(_:)), name: .init(rawValue: kSecretChatStateUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSecretMessageBurned(_:)), name: .init(rawValue: kSecretMessageBurned), object: nil)
     }
     
     private func applyDataSource(_ snapshot: HChatListViewModel.Snapshot) {
@@ -130,6 +143,8 @@ class HChatListViewController: HBasicViewController {
         Task {
             if let _ = await viewModel.setConversationSilent(isSilent, at: indexPath) {
                 HToast.showAutoHidden(on: self.view, text: "更新失败")
+            } else {
+                updateBadgeNumber()
             }
         }
     }
@@ -217,3 +232,47 @@ extension HChatListViewController: UITableViewDelegate {
     
 }
 
+// MARK: - observers
+
+extension HChatListViewController {
+    
+    @objc func onReceiveMessages(_ sender: Notification) {
+        guard let messages = sender.object as? Array<WFCCMessage>, !messages.isEmpty else {
+            return
+        }
+        viewModel.refresh()
+    }
+    
+    @objc func onRecallMessages(_ sender: Notification) {
+        viewModel.refresh()
+    }
+    
+    @objc func onDeleteMessages(_ sender: Notification) {
+        viewModel.refresh()
+    }
+    
+    @objc func onMessageUpdated(_ sender: Notification) {
+        viewModel.refresh()
+    }
+
+    @objc func onSecretChatStateChanged(_ sender: Notification) {
+        viewModel.refresh()
+    }
+    
+    @objc func onSecretMessageBurned(_ sender: Notification) {
+        viewModel.refresh()
+    }
+    
+    @objc func onSettingUpdated(_ sender: Notification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.viewModel.refresh()
+        }
+    }
+    
+    @objc func onSendingMessageStatusUpdated(_ sender: Notification) {
+        guard let messageId = sender.object as? Int else {
+            return
+        }
+        viewModel.updateLastMessageOfConversation(by: messageId)
+    }
+}

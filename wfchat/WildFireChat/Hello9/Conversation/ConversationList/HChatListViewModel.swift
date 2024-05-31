@@ -38,8 +38,7 @@ class HChatListViewModel: HBasicViewModel {
     
     private func addObservers() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveMessages(_:)), name: .init(rawValue: kReceiveMessages), object: nil)
-        
+      
     }
     
     func removeConversation(at indexPath: IndexPath) {
@@ -86,6 +85,18 @@ class HChatListViewModel: HBasicViewModel {
         }
     }
     
+    func updateLastMessageOfConversation(by messageId: Int) {
+        for conv in conversations {
+            if let lastMessage = conv.lastMessage,
+                lastMessage.direction == .MessageDirection_Send,
+               lastMessage.messageId == messageId {
+                conv.lastMessage = WFCCIMService.sharedWFCIM().getMessage(messageId)
+                applySnapshot()
+                break
+            }
+        }
+    }
+    
     var badgeNumber: Int32 {
         var number: Int32 = 0
         for info in conversations {
@@ -117,11 +128,5 @@ class HChatListViewModel: HBasicViewModel {
 
 extension HChatListViewModel {
     
-    @objc func onReceiveMessages(_ sender: Notification) {
-        guard let messages = sender.object as? Array<WFCCMessage>, !messages.isEmpty else {
-            return
-        }
-        refresh()
-    }
 }
 
