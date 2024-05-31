@@ -45,7 +45,6 @@ class HTabViewController: UITabBarController {
         let messageNav = HNavigationController(rootViewController: messageVC)
         let messageItem = UITabBarItem(title: nil, image: Images.tab_message_off, selectedImage: Images.tab_message_on)
         messageItem.tag = HTabTag.message.rawValue
-        messageItem.badgeValue = "+99"
         
         messageNav.tabBarItem = messageItem
         addChild(messageNav)
@@ -62,6 +61,16 @@ class HTabViewController: UITabBarController {
         self.mineNavationController = mineNav
     }
     
+    func updateMessageBadgeValue(_ number: Int32) {
+        let badgeValue: String?
+        if number > 0 {
+            badgeValue = "\(number)"
+        } else {
+            badgeValue = nil
+        }
+        messageNavationController?.tabBarItem.badgeValue = badgeValue
+        
+    }
 }
 
 // MARK: - UITabBarDelegate

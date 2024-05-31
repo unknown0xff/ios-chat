@@ -57,10 +57,16 @@ class HTabBarItemView: UIControl {
         return line
     }()
     
+    private var badgeValueObservation: NSKeyValueObservation?
+    
     init(barItem: UITabBarItem, isSelected: Bool = false) {
         self.barItem = barItem
         super.init(frame: .zero)
         self.isSelected = isSelected
+        
+        badgeValueObservation = barItem.observe(\.badgeValue) { [weak self] _, _ in
+            self?.bindData()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -99,6 +105,7 @@ class HTabBarItemView: UIControl {
         badgeContent.snp.makeConstraints { make in
             make.height.equalTo(18)
             make.width.lessThanOrEqualTo(100)
+            make.width.greaterThanOrEqualTo(18)
             make.top.equalTo(imageView)
             make.left.equalTo(imageView.snp.right).offset(-9)
         }

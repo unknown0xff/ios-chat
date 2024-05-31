@@ -65,6 +65,7 @@ class HChatListViewController: HBasicViewController {
         super.viewDidAppear(animated)
         
         viewModel.refresh()
+        updateBadgeNumber()
     }
     
     override func viewDidLoad() {
@@ -125,9 +126,10 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
-    // TODO: -
     private func updateBadgeNumber() {
-        
+        if let tab = tabBarController as? HTabViewController {
+            tab.updateMessageBadgeValue(viewModel.badgeNumber)
+        }
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }

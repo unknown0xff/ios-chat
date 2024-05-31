@@ -70,18 +70,18 @@ class HChatListViewModel: HBasicViewModel {
         }
     }
     
-    func setConversation(conv: WFCCConversationInfo, isTop: Bool) async -> HError? {
-        await withCheckedContinuation { result in
-            WFCCIMService.sharedWFCIM().setConversation(conv.conversation, top: isTop ? 1 : 0) { [weak self] in
-                self?.refresh()
-                result.resume(returning: nil)
-            } error: { code in
-                result.resume(returning: .init(code: code, message: ""))
+    var badgeNumber: Int32 {
+        var number: Int32 = 0
+        for info in conversations {
+            if !info.isSilent {
+                let unread = (info.unreadCount?.unread) ?? 0
+                number += unread
             }
         }
+        return number
     }
     
-    func applySnapshot() {
+    private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.main])
         
