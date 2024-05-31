@@ -43,6 +43,17 @@ class HChatListViewModel: HBasicViewModel {
         
     }
     
+    func setConversation(conv: WFCCConversationInfo, isTop: Bool) async -> HError? {
+        await withCheckedContinuation { result in
+            WFCCIMService.sharedWFCIM().setConversation(conv.conversation, top: isTop ? 1 : 0) { [weak self] in
+                self?.refresh()
+                result.resume(returning: nil)
+            } error: { code in
+                result.resume(returning: .init(code: code, message: ""))
+            }
+        }
+    }
+    
     func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.main])

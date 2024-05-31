@@ -9,6 +9,13 @@
 import UIKit
 import Combine
 
+class HChatListDataSource: UITableViewDiffableDataSource<HChatListViewModel.Section, HChatListViewModel.Row> {
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+}
+
 class HChatListViewController: HBasicViewController {
     
     private lazy var navBarView: HTitleNavBar = {
@@ -49,7 +56,7 @@ class HChatListViewController: HBasicViewController {
     
     private typealias Section = HChatListViewModel.Section
     private typealias Row = HChatListViewModel.Row
-    private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
+    private var dataSource: HChatListDataSource! = nil
     
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HChatListViewModel()
@@ -71,7 +78,7 @@ class HChatListViewController: HBasicViewController {
         
         tableView.register([HChatListCell.self])
         
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
+        dataSource = HChatListDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
             switch row {
             case .chat(let model):
                 let cell = tableView.cell(of: HChatListCell.self, for: indexPath)
@@ -102,7 +109,14 @@ class HChatListViewController: HBasicViewController {
             make.width.left.right.equalToSuperview()
             make.bottom.equalTo(-HUIConfigure.tabBarHeight)
         }
-   
+    }
+    
+    private func setConversation(conv: WFCCConversationInfo, isTop: Bool) {
+        Task {
+            if let _ = await viewModel.setConversation(conv: conv, isTop: isTop) {
+                HToast.showAutoHidden(on: self.view, text: "更新失败")
+            }
+        }
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }
@@ -125,5 +139,46 @@ extension HChatListViewController: UITableViewDelegate {
             navigationController?.pushViewController(mvc, animated: true)
         }
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        guard let row = dataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+        
+        switch row {
+        case .chat(let model):
+            let mute = UIContextualAction(style: .normal, title: "静音") { action, view, block in
+                print("mute click")
+            }
+            mute.image = Images.icon_mute
+            mute.backgroundColor = Colors.yellow01
+            
+            let delete = UIContextualAction(style: .normal, title: "删除") { action, view, block in
+                print("mute click")
+            }
+            delete.image = Images.icon_delete_white
+            delete.backgroundColor = Colors.red02
+            
+            let top = UIContextualAction(style: .normal, title: "置顶") { [weak self] _ , _, _ in
+                self?.setConversation(conv: model.conversationInfo, isTop: true)
+            }
+            top.image = Images.icon_top
+            top.backgroundColor = Colors.gray06
+            
+            let unTop = UIContextualAction(style: .normal, title: "取消置顶") { [weak self] _ , _, _ in
+                self?.setConversation(conv: model.conversationInfo, isTop: false)
+            }
+            unTop.image = Images.icon_top
+            unTop.backgroundColor = Colors.gray06
+            
+            let isTop = model.conversationInfo.isTop == 1
+            let actions = isTop ? [unTop, delete, mute] : [top, delete, mute]
+            let configure = UISwipeActionsConfiguration(actions: actions)
+            configure.performsFirstActionWithFullSwipe = false
+            return configure
+        }
+    }
+    
 }
 

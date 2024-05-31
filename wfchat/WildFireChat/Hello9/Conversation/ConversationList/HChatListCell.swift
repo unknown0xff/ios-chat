@@ -136,6 +136,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         guard let data else {
             return
         }
+        
         NotificationCenter.default.removeObserver(self)
         
         let unreadCount = data.conversationInfo.unreadCount
@@ -148,6 +149,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         }
         
         let conversation = data.conversationInfo.conversation!
+        let isTop = data.conversationInfo.isTop == 1
+        contentView.backgroundColor = isTop ? Colors.gray02 : Colors.white
         
         switch conversation.type {
         case .Single_Type:

@@ -6,6 +6,8 @@ enum Images {
 
     static let icon_account = UIImage(named: "icon_account")!
 
+    static let icon_delete_white = UIImage(named: "icon_delete_white")!
+
     static let icon_edit = UIImage(named: "icon_edit")!
 
     static let icon_logo = UIImage(named: "icon_logo")!
@@ -22,11 +24,15 @@ enum Images {
 
     static let icon_mine_verify = UIImage(named: "icon_mine_verify")!
 
+    static let icon_mute = UIImage(named: "icon_mute")!
+
     static let icon_password = UIImage(named: "icon_password")!
 
     static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
+
+    static let icon_top = UIImage(named: "icon_top")!
 
     static let tab_message_off = UIImage(named: "tab_message_off")!
 
