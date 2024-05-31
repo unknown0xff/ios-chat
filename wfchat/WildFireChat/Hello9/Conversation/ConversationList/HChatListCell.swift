@@ -312,7 +312,6 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
                 } else {
                     lastMessageLabel.text = digest
                 }
-                
             } else {
                 lastMessageLabel.text = digest
             }
@@ -321,18 +320,18 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
     
     func updateChannelInfo(_ channelInfo: WFCCChannelInfo) {
         NotificationCenter.default.addObserver(self, selector: #selector(onChannelInfoUpdated(_:)), name: .init(kChannelInfoUpdated), object: nil)
-        avatar.sd_setImage(with: URL(string: channelInfo.portrait.urlEncode), placeholderImage: Images.icon_logo)
-        if channelInfo.name.isEmpty {
+        avatar.sd_setImage(with: URL(string: channelInfo.portrait ?? ""), placeholderImage: Images.icon_logo)
+        let channelName = channelInfo.name ?? ""
+        if channelName.isEmpty {
             userNameLabel.text = "频道"
         } else {
-            userNameLabel.text = channelInfo.name
+            userNameLabel.text = channelName
         }
     }
     
     func updateUserInfo(_ userInfo: WFCCUserInfo) {
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
-        
-        avatar.sd_setImage(with: URL(string: (userInfo.portrait ?? "").urlEncode), placeholderImage: Images.icon_logo)
+        avatar.sd_setImage(with: URL(string: (userInfo.portrait ?? "")), placeholderImage: Images.icon_logo)
         let friendAlias = userInfo.friendAlias ?? ""
         let displayName = userInfo.displayName ?? ""
         if !friendAlias.isEmpty {
@@ -353,13 +352,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         if groupInfo.type == .GroupType_Organization {
             if !groupInfo.portrait.isEmpty {
-                avatar.sd_setImage(with: URL(string: groupInfo.portrait.urlEncode), placeholderImage: Images.icon_logo)
+                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: Images.icon_logo)
             } else {
                 avatar.image = Images.icon_logo
             }
         } else {
             if !groupInfo.portrait.isEmpty {
-                avatar.sd_setImage(with: URL(string: groupInfo.portrait.urlEncode), placeholderImage: Images.icon_logo)
+                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: Images.icon_logo)
             } else {
                 let groupId = groupInfo.target
                 
