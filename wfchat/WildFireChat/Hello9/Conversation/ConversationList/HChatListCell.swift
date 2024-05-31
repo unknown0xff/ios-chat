@@ -177,7 +177,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         let conversation = data.conversationInfo.conversation!
         let isTop = data.conversationInfo.isTop == 1
-        contentView.backgroundColor = isTop ? Colors.gray02 : Colors.white
+        contentView.backgroundColor = isTop ? Colors.black.withAlphaComponent(0.3) : Colors.white
         
         switch conversation.type {
         case .Single_Type:
