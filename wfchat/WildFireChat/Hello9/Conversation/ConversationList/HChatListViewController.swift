@@ -43,6 +43,7 @@ class HChatListViewController: HBasicViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.applyDefaultConfigure()
+        tableView.delegate = self
         return tableView
     }()
     
@@ -111,5 +112,18 @@ class HChatListViewController: HBasicViewController {
 
 extension HChatListViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let row = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        switch row {
+        case .chat(let model):
+            let mvc = WFCUMessageListViewController()
+            mvc.conversation = model.conversationInfo.conversation
+            mvc.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(mvc, animated: true)
+        }
+    }
 }
 

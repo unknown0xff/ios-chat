@@ -1058,12 +1058,12 @@
 		60922A912C084BFF00B70AD8 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
-				60922A922C084C0700B70AD8 /* ChatList */,
+				60922A922C084C0700B70AD8 /* ConversationList */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
 		};
-		60922A922C084C0700B70AD8 /* ChatList */ = {
+		60922A922C084C0700B70AD8 /* ConversationList */ = {
 			isa = PBXGroup;
 			children = (
 				60922A932C084C5400B70AD8 /* HChatListViewController.swift */,
@@ -1071,7 +1071,7 @@
 				60922A972C084EA800B70AD8 /* HChatListCell.swift */,
 				60922A992C084ED500B70AD8 /* HChatListCellModel.swift */,
 			);
-			path = ChatList;
+			path = ConversationList;
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {
