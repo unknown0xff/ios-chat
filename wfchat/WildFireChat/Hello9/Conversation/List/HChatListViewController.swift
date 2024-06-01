@@ -164,6 +164,36 @@ class HChatListViewController: HBasicViewController {
         if userIds.count == 1 {
             let conv = WFCCConversation(type: .Single_Type, target: userIds.first!, line: 0)!
             gotoChat(by: conv)
+        } else {
+            createGroup(userIds)
+        }
+    }
+    
+    private func createGroup(_ userIds: [String]) {
+        var memberIds = userIds
+        let currentUserId = WFCCNetworkService.sharedInstance().userId ?? ""
+        if !memberIds.contains(currentUserId) {
+            memberIds.insert(currentUserId, at: 0)
+        }
+        
+        guard let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(currentUserId, refresh: false) else {
+            return
+        }
+        let name = userInfo.displayName ?? ""
+        
+        WFCCIMService.sharedWFCIM().createGroup(nil, name: name, portrait: nil, type: .GroupType_Restricted, groupExtra: nil, members: memberIds, memberExtra: nil, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] groupId in
+            
+            let mvc = WFCUMessageListViewController()
+            mvc.conversation = WFCCConversation()
+            mvc.conversation.type = .Group_Type
+            mvc.conversation.target = groupId
+            mvc.conversation.line = 0
+            mvc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(mvc, animated: true)
+            
+        } error: { [weak self] code in
+            guard let self else { return }
+            HToast.showAutoHidden(on: self.view, text: "创建失败")
         }
     }
     

@@ -85,14 +85,25 @@ extension HSelectedUserViewController: UITableViewDelegate {
         
         switch row {
         case .action(let type):
-            break
+            if type == .group {
+                let group = HCreateGroupViewController()
+                group.output
+                    .receive(on: RunLoop.main)
+                    .sink { [weak self] ids in
+                        self?.output.send(ids)
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                    .store(in: &cancellables)
+                
+                group.show(nil)
+            }
+            
         case .friend(let info):
             output.send([info.userId])
             navigationController?.popViewController(animated: true)
         }
         
     }
-    
     
 }
 
