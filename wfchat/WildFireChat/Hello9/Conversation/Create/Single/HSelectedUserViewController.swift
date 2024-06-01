@@ -26,7 +26,7 @@ class HSelectedUserViewController: HBasicViewController {
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HSelectedUserViewModel()
     
-    private(set) var output = PassthroughSubject<[String], Never>()
+    private(set) var output = PassthroughSubject<(ids:[String], isSecrect: Bool), Never>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,18 @@ class HSelectedUserViewController: HBasicViewController {
         }
     }
     
+    private func goToCreateGroup(isSecrect: Bool) {
+        let group = HCreateGroupViewController()
+        group.output
+            .receive(on: RunLoop.main)
+            .sink { [weak self] ids in
+                self?.output.send((ids, isSecrect))
+                self?.navigationController?.popViewController(animated: false)
+            }
+            .store(in: &cancellables)
+        
+        group.show(nil)
+    }
     //    override func prefersNavigationBarHidden() -> Bool { true }
 }
 
@@ -86,20 +98,15 @@ extension HSelectedUserViewController: UITableViewDelegate {
         switch row {
         case .action(let type):
             if type == .group {
-                let group = HCreateGroupViewController()
-                group.output
-                    .receive(on: RunLoop.main)
-                    .sink { [weak self] ids in
-                        self?.output.send(ids)
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                    .store(in: &cancellables)
-                
-                group.show(nil)
+                goToCreateGroup(isSecrect: false)
+            } else if type == .secret {
+                goToCreateGroup(isSecrect: true)
+            } else if type == .addFriend {
+                // TODO
             }
             
         case .friend(let info):
-            output.send([info.userId])
+            output.send(([info.userId], false))
             navigationController?.popViewController(animated: true)
         }
         

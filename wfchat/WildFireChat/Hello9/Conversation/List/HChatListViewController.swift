@@ -157,7 +157,7 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
-    private func createChat(_ userIds: [String]) {
+    private func createChat(_ userIds: [String], isSecret: Bool = false) {
         guard !userIds.isEmpty else {
             return
         }
@@ -169,23 +169,27 @@ class HChatListViewController: HBasicViewController {
         }
     }
     
-    private func createGroup(_ userIds: [String]) {
+    private func createGroup(_ userIds: [String], isSecret: Bool = false) {
         var memberIds = userIds
         let currentUserId = WFCCNetworkService.sharedInstance().userId ?? ""
         if !memberIds.contains(currentUserId) {
             memberIds.insert(currentUserId, at: 0)
         }
+
+        memberIds = Array(userIds.prefix(8))
+        let name = memberIds.map { id in
+            guard let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(id, refresh: false) else {
+                return ""
+            }
+            return userInfo.displayName ?? ""
+        }.filter { !$0.isEmpty }.joined(separator: ",")
         
-        guard let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(currentUserId, refresh: false) else {
-            return
-        }
-        let name = userInfo.displayName ?? ""
         
         WFCCIMService.sharedWFCIM().createGroup(nil, name: name, portrait: nil, type: .GroupType_Restricted, groupExtra: nil, members: memberIds, memberExtra: nil, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] groupId in
             
             let mvc = WFCUMessageListViewController()
             mvc.conversation = WFCCConversation()
-            mvc.conversation.type = .Group_Type
+            mvc.conversation.type =  isSecret ? .SecretChat_Type : .Group_Type
             mvc.conversation.target = groupId
             mvc.conversation.line = 0
             mvc.hidesBottomBarWhenPushed = true
@@ -285,8 +289,8 @@ extension HChatListViewController {
     @objc func didClickMenuButton(_ sender: UIButton) {
         let vc = HSelectedUserViewController()
         vc.output.receive(on: RunLoop.main)
-            .sink { [weak self] useIds in
-                self?.createChat(useIds)
+            .sink { [weak self] (useIds, isSecret) in
+                self?.createChat(useIds, isSecret: isSecret)
             }
             .store(in: &cancellables)
         navigationController?.pushViewController(vc, animated: true)
