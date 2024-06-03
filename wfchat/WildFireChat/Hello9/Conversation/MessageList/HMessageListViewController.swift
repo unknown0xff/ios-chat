@@ -42,7 +42,13 @@ class HMessageListViewController: WFCUMessageListViewController {
     }
     
     @objc func didClickSetingButton(_ sender: UIButton) {
-        let vc = HSingleChatSetViewController(vm: .init(self.conversation))
-        navigationController?.pushViewController(vc, animated: true)
+        
+        if self.conversation.type == .Group_Type {
+            let vc = HGroupChatSetViewController(vm: .init(self.conversation))
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = HSingleChatSetViewController(vm: .init(self.conversation))
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

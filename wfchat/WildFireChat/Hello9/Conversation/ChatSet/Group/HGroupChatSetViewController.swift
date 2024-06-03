@@ -1,5 +1,5 @@
 //
-//  HSingleChatSetViewController.swift
+//  HGroupChatSetViewController.swift
 //  hello9
 //
 //  Created by Ada on 6/3/24.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class HSingleChatSetViewController: HBasicViewController {
+class HGroupChatSetViewController: HBasicViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
@@ -19,21 +19,25 @@ class HSingleChatSetViewController: HBasicViewController {
     }()
     
     private(set) lazy var backButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(Images.icon_back01, for: .normal)
-        btn.imageView?.contentMode = .scaleAspectFill
+        let btn = UIButton.backButton
         btn.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
         return btn
     }()
     
-    private typealias Section = HSingleChatSetViewModel.Section
-    private typealias Row = HSingleChatSetViewModel.Row
+    private(set) lazy var editButton: UIButton = {
+        let btn = UIButton(type: .system, title: "编辑")
+        btn.addTarget(self, action: #selector(didClickEditButton(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private typealias Section = HGroupChatSetViewModel.Section
+    private typealias Row = HGroupChatSetViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
     
     private var cancellables = Set<AnyCancellable>()
-    private(set) var viewModel: HSingleChatSetViewModel
+    private(set) var viewModel: HGroupChatSetViewModel
     
-    init(vm: HSingleChatSetViewModel) {
+    init(vm: HGroupChatSetViewModel) {
         self.viewModel = vm
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,11 +55,11 @@ class HSingleChatSetViewController: HBasicViewController {
     
     private func configureSubviews() {
         
-        tableView.register([HSingleChatSetHeadCell.self])
+        tableView.register([HGroupChatSetHeadCell.self])
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
             switch row {
             case .header(let model):
-                let cell = tableView.cell(of: HSingleChatSetHeadCell.self, for: indexPath)
+                let cell = tableView.cell(of: HGroupChatSetHeadCell.self, for: indexPath)
                 cell.cellData = model
                 return cell
             }
@@ -69,6 +73,7 @@ class HSingleChatSetViewController: HBasicViewController {
         
         view.addSubview(tableView)
         view.addSubview(backButton)
+        view.addSubview(editButton)
     }
     
     private func makeConstraints() {
@@ -79,18 +84,29 @@ class HSingleChatSetViewController: HBasicViewController {
         }
         
         backButton.snp.makeConstraints { make in
-            make.left.equalTo(24)
+            make.left.equalTo(16)
             make.top.equalTo(48)
-            make.width.height.equalTo(45)
+            make.width.height.equalTo(40)
+        }
+        
+        editButton.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+            make.centerY.equalTo(backButton)
+            make.right.equalTo(-16)
         }
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }
+    
+    
+    @objc func didClickEditButton(_ sender: UIButton) {
+        
+    }
 }
 
 // MARK: - UITableViewDelegate
 
-extension HSingleChatSetViewController: UITableViewDelegate {
+extension HGroupChatSetViewController: UITableViewDelegate {
     
 }
 

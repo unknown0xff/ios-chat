@@ -42,6 +42,7 @@ class HSingleChatSetHeadCell: HBasicTableViewCell<HUserInfoModel> {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 45
         imageView.layer.masksToBounds = true
+        imageView.backgroundColor = Colors.yellow01
         return imageView
     }()
     

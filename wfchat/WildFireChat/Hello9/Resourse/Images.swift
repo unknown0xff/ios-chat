@@ -14,6 +14,8 @@ enum Images {
 
     static let icon_background = UIImage(named: "icon_background")!
 
+    static let icon_bell = UIImage(named: "icon_bell")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
@@ -38,6 +40,8 @@ enum Images {
 
     static let icon_more = UIImage(named: "icon_more")!
 
+    static let icon_more_dot = UIImage(named: "icon_more_dot")!
+
     static let icon_mute = UIImage(named: "icon_mute")!
 
     static let icon_mute_gray = UIImage(named: "icon_mute_gray")!
@@ -47,6 +51,8 @@ enum Images {
     static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
+
+    static let icon_search = UIImage(named: "icon_search")!
 
     static let icon_secret = UIImage(named: "icon_secret")!
 
