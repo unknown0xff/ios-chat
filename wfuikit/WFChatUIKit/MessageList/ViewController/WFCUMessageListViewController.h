@@ -29,4 +29,9 @@
 
 //VC是presented的，关闭方式与push进入有所不同。
 @property (nonatomic, assign)BOOL presented;
+
+- (void)updateTitle;
+
+- (void)setAvatar:(NSString *)avatar;
+
 @end

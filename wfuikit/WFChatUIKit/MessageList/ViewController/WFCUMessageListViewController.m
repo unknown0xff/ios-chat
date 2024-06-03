@@ -805,14 +805,22 @@
     }
 }
 
+- (void)setAvatar:(NSString *)avatar {
+    
+}
+
 - (void)setTargetUser:(WFCCUserInfo *)targetUser {
     _targetUser = targetUser;
     [self updateTitle];
+    
+    [self setAvatar:targetUser.portrait];
+    
 }
 
 - (void)setTargetGroup:(WFCCGroupInfo *)targetGroup {
     _targetGroup = targetGroup;
     [self updateTitle];
+    [self setAvatar:targetGroup.portrait];
     [self setupNavigationItem];
     
     ChatInputBarStatus defaultStatus = ChatInputBarDefaultStatus;
@@ -842,11 +850,14 @@
 - (void)setTargetChannel:(WFCCChannelInfo *)targetChannel {
     _targetChannel = targetChannel;
     [self updateTitle];
+    
+    [self setAvatar:targetChannel.portrait];
 }
 
 - (void)setTargetChatroom:(WFCCChatroomInfo *)targetChatroom {
     _targetChatroom = targetChatroom;
     [self updateTitle];
+    [self setAvatar:targetChatroom.portrait];
 }
 
 - (void)setSecretChatInfo:(WFCCSecretChatInfo *)secretChatInfo {
@@ -1030,8 +1041,8 @@
     _customFlowLayout.headerReferenceSize = CGSizeMake(320.0f, 20.0f);
     
     CGRect frame = self.view.bounds;
-    frame.origin.y += [WFCUUtilities wf_navigationFullHeight];
-    frame.size.height -= ([WFCUUtilities wf_safeDistanceBottom] + [WFCUUtilities wf_navigationFullHeight]);
+    frame.origin.y += 136; //[WFCUUtilities wf_navigationFullHeight];
+    frame.size.height -= ([WFCUUtilities wf_safeDistanceBottom] + 136);//[WFCUUtilities wf_navigationFullHeight]);
     self.backgroundView = [[UIView alloc] initWithFrame:frame];
     [self.view addSubview:self.backgroundView];
     

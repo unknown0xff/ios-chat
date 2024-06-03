@@ -184,10 +184,9 @@ class HChatListViewController: HBasicViewController {
             return userInfo.displayName ?? ""
         }.filter { !$0.isEmpty }.joined(separator: ",")
         
-        
         WFCCIMService.sharedWFCIM().createGroup(nil, name: name, portrait: nil, type: .GroupType_Restricted, groupExtra: nil, members: memberIds, memberExtra: nil, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] groupId in
             
-            let mvc = WFCUMessageListViewController()
+            let mvc = HMessageListViewController()
             mvc.conversation = WFCCConversation()
             mvc.conversation.type =  isSecret ? .SecretChat_Type : .Group_Type
             mvc.conversation.target = groupId
@@ -202,7 +201,7 @@ class HChatListViewController: HBasicViewController {
     }
     
     private func gotoChat(by conversation: WFCCConversation) {
-        let mvc = WFCUMessageListViewController()
+        let mvc = HMessageListViewController()
         mvc.conversation = conversation
         mvc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(mvc, animated: true)

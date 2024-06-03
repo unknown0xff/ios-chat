@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1529,6 +1529,7 @@
 		2F550EB2217F5CC000F56C26 /* MessageList */ = {
 			isa = PBXGroup;
 			children = (
+				60F5CF8D2C0D53D70013D912 /* View */,
 				2F550EB3217F5CC000F56C26 /* Cell */,
 				2F550ECC217F5CC000F56C26 /* Model */,
 				2F550ECF217F5CC000F56C26 /* ViewController */,
@@ -2303,6 +2304,13 @@
 			path = Ptt;
 			sourceTree = "<group>";
 		};
+		60F5CF8D2C0D53D70013D912 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		901E26FF21F152B200A163CB /* AVEngine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2970,6 +2978,7 @@
 				TargetAttributes = {
 					2F550BDE217F4D7B00F56C26 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -3451,6 +3460,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -3474,6 +3484,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wildfirechat.WFChatUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3483,6 +3495,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -3506,6 +3519,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wildfirechat.WFChatUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
