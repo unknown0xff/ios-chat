@@ -10,7 +10,7 @@
 import UIKit
 import SDWebImage
 
-class HMineAvatarCell: HBasicTableViewCell<HMineAvatarCellModel> {
+class HMineAvatarCell: HBasicTableViewCell<HUserInfoModel> {
     private let kAvatarHeight = 112.0
     
     private lazy var userNameLabel: UILabel = {
@@ -88,9 +88,9 @@ class HMineAvatarCell: HBasicTableViewCell<HMineAvatarCellModel> {
         }
     }
     
-    override func bindData(_ data: HMineAvatarCellModel?) {
-        userNameLabel.text = data?.userName
+    override func bindData(_ data: HUserInfoModel?) {
+        userNameLabel.text = data?.displayName
         userIdLabel.text = data?.userId
-        avatar.sd_setImage(with: data?.avatar, placeholderImage: nil, context: nil)
+        avatar.sd_setImage(with: data?.portrait, placeholderImage: Images.icon_logo, context: nil)
     }
 }

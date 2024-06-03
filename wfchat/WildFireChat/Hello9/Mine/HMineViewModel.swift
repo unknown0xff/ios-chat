@@ -8,12 +8,6 @@
 
 import Foundation
 
-struct HMineAvatarCellModel: Hashable {
-    let userName: String
-    let userId: String
-    var avatar: URL?
-}
-
 struct HMineTitleCellModel: Hashable {
     
     enum Tag: Hashable {
@@ -39,10 +33,10 @@ class HMineViewModel: HBasicViewModel {
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection, Row>.init()
     
-    private var avatarModel = HMineAvatarCellModel(userName: "AdaNiki", userId: "666666", avatar: .init(string: "https://picsum.photos/200/300"))
+    private var avatarModel = HUserInfoModel.current
     
     enum Row: Hashable {
-        case avatar(_ model: HMineAvatarCellModel)
+        case avatar(_ model: HUserInfoModel)
         case title(_ model: HMineTitleCellModel)
     }
     

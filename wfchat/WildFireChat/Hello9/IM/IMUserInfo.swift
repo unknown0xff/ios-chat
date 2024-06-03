@@ -41,6 +41,12 @@ struct IMUserInfo {
             return (UserDefaults.standard.value(forKey: "savedUserId") as? String) ?? ""
         }
     }
+}
+
+extension HUserInfoModel {
     
-    
+    static var current: HUserInfoModel {
+        let info = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
+        return .init(info: info)
+    }
 }
