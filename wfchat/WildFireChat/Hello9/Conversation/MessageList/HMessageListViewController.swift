@@ -21,6 +21,8 @@ class HMessageListViewController: WFCUMessageListViewController {
             make.top.left.right.equalToSuperview()
             make.height.equalTo(136)
         }
+        
+        navBar.moreButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
     }
     
     override func updateTitle() {
@@ -37,5 +39,10 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     @objc func didClickBackButton(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func didClickSetingButton(_ sender: UIButton) {
+        let vc = HSingleChatSetViewController(vm: .init(self.conversation))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
