@@ -114,7 +114,6 @@ class HChatListViewModel: HBasicViewModel {
         
         let rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
         snapshot.appendItems(rows)
-        
         self.snapshot = snapshot
     }
     

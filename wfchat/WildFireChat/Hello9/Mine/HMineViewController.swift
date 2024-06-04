@@ -15,6 +15,7 @@ class HMineViewController: HBasicViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.applyDefaultConfigure()
+        tableView.delegate = self
         return tableView
     }()
     
@@ -83,6 +84,23 @@ class HMineViewController: HBasicViewController {
 // MARK: - UITableViewDelegate
 
 extension HMineViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let row = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        switch row {
+        case .title(let model):
+            if model.tag == .logout {
+                IMService.share.logout()
+                let loginNav = HLoginNavigationViewController()
+                UIApplication.shared.delegate?.window??.rootViewController = loginNav
+            }
+        case .avatar(_):
+            break
+        }
+        
+    }
 }
 

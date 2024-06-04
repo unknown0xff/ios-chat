@@ -40,7 +40,7 @@ class HTabViewController: UITabBarController {
     
     func addChildControllers() {
         
-        let messageVC = HChatListViewController()// WFCUConversationTableViewController()
+        let messageVC = HChatListViewController()
         messageVC.hidesBottomBarWhenPushed = false
         let messageNav = HNavigationController(rootViewController: messageVC)
         let messageItem = UITabBarItem(title: nil, image: Images.tab_message_off, selectedImage: Images.tab_message_on)

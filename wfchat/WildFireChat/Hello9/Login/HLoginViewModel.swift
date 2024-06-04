@@ -28,8 +28,8 @@ class HLoginViewModel: HBasicViewModel {
     init(isNewUser: Bool = true) {
         self.isNewUser = isNewUser
         
-        inputModel.append(.init(id: .account, isNewUser: isNewUser, value: ""))
-        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: "", isSecureTextEntry: !isNewUser))
+        inputModel.append(.init(id: .account, isNewUser: isNewUser, value: "419388663"))
+        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: "s6KGePraZw", isSecureTextEntry: !isNewUser))
         
         applySnapshot()
     }

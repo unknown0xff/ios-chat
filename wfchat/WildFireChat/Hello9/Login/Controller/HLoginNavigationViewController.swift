@@ -25,7 +25,7 @@ class HLoginNavigationViewController: HNavigationController {
     
     private var cancellables = Set<AnyCancellable>()
 
-    var isNewUser = true
+    var isNewUser = false
    
     override func viewDidLoad() {
         super.viewDidLoad()

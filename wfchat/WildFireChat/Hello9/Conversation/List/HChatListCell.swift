@@ -187,7 +187,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         muteView.isHidden = !isSilent
         
-        let conversation = data.conversationInfo.conversation!
+        let conversation = data.conversationInfo.conversation ?? .init()
         let isTop = data.conversationInfo.isTop == 1
         contentView.backgroundColor = isTop ? Colors.black.withAlphaComponent(0.3) : Colors.white
         
@@ -341,7 +341,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         } else if !displayName.isEmpty {
             userNameLabel.text = displayName
         } else {
-            let target = cellData?.conversationInfo.conversation.target ?? ""
+            let target = cellData?.conversationInfo.conversation?.target ?? ""
             userNameLabel.text = "user<\(target)>"
         }
     }
@@ -436,8 +436,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
                     break
                 }
             }
-            
-            if conv.lastMessage.fromUser == userInfo.userId {
+            let fromUser = conv.lastMessage?.fromUser ?? ""
+            if fromUser == userInfo.userId {
                 bindData(cellData)
                 break
             }

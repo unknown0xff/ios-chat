@@ -56,7 +56,7 @@ static AppService *sharedSingleton = nil;
 }
 
 - (void)loginWithMobile:(NSString *)mobile password:(NSString *)password success:(void(^)(NSString *userId, NSString *token, BOOL newUser))successBlock error:(void(^)(int errCode, NSString *message))errorBlock {
-    int platform = Platform_iOS;
+    int platform = 2 ;// Platform_iOS;
     //如果使用pad端类型，这里平台改成pad类型，另外app_callback.mm文件中把平台也改成ipad，请搜索"iPad"
     //if(当前设备是iPad)
     //platform = Platform_iPad
@@ -301,7 +301,7 @@ static AppService *sharedSingleton = nil;
         }
     }
     
-    [manager POST:[APP_SERVER_ADDRESS stringByAppendingPathComponent:path]
+    [manager POST:[NSString stringWithFormat:@"%@%@",APP_SERVER_ADDRESS, path]
        parameters:data
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
