@@ -118,6 +118,10 @@
 		6088F48C2C0DBA4000130A87 /* HGroupInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48B2C0DBA4000130A87 /* HGroupInfo .swift */; };
 		6088F48E2C0DE79100130A87 /* Button+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48D2C0DE79100130A87 /* Button+Create.swift */; };
 		6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4902C0EFFB600130A87 /* NSData+Extention.m */; };
+		6088F4932C0F27E000130A87 /* HFriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */; };
+		6088F4962C0F2FE300130A87 /* HFriendAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4952C0F2FE300130A87 /* HFriendAddViewController.swift */; };
+		6088F4982C0F300C00130A87 /* HFriendAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4972C0F300C00130A87 /* HFriendAddViewModel.swift */; };
+		6088F49A2C0F313E00130A87 /* HFriendAddContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4992C0F313E00130A87 /* HFriendAddContentCell.swift */; };
 		60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */; };
 		60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A762C075C7B00B70AD8 /* HLoginCell.swift */; };
 		60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A792C075CE600B70AD8 /* HMineViewModel.swift */; };
@@ -433,6 +437,10 @@
 		6088F48D2C0DE79100130A87 /* Button+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Create.swift"; sourceTree = "<group>"; };
 		6088F48F2C0EFFB600130A87 /* NSData+Extention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+Extention.h"; path = "Extention/NSData+Extention.h"; sourceTree = "<group>"; };
 		6088F4902C0EFFB600130A87 /* NSData+Extention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSData+Extention.m"; path = "Extention/NSData+Extention.m"; sourceTree = "<group>"; };
+		6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendRequestCell.swift; sourceTree = "<group>"; };
+		6088F4952C0F2FE300130A87 /* HFriendAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendAddViewController.swift; sourceTree = "<group>"; };
+		6088F4972C0F300C00130A87 /* HFriendAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendAddViewModel.swift; sourceTree = "<group>"; };
+		6088F4992C0F313E00130A87 /* HFriendAddContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendAddContentCell.swift; sourceTree = "<group>"; };
 		60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginInputCell.swift; sourceTree = "<group>"; };
 		60922A762C075C7B00B70AD8 /* HLoginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginCell.swift; sourceTree = "<group>"; };
 		60922A792C075CE600B70AD8 /* HMineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineViewModel.swift; sourceTree = "<group>"; };
@@ -1103,6 +1111,16 @@
 			path = Group;
 			sourceTree = "<group>";
 		};
+		6088F4942C0F2F6B00130A87 /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				6088F4952C0F2FE300130A87 /* HFriendAddViewController.swift */,
+				6088F4972C0F300C00130A87 /* HFriendAddViewModel.swift */,
+				6088F4992C0F313E00130A87 /* HFriendAddContentCell.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
 		60922A742C075C7B00B70AD8 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1133,6 +1151,7 @@
 		60922A912C084BFF00B70AD8 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				6088F4942C0F2F6B00130A87 /* Friend */,
 				6088F47C2C0D643F00130A87 /* ChatSet */,
 				60F5CF902C0D55BE0013D912 /* MessageList */,
 				60F5CF782C09C7700013D912 /* Create */,
@@ -1148,6 +1167,7 @@
 				60922A952C084D8F00B70AD8 /* HChatListViewModel.swift */,
 				60922A972C084EA800B70AD8 /* HChatListCell.swift */,
 				60922A992C084ED500B70AD8 /* HChatListCellModel.swift */,
+				6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1622,13 +1642,16 @@
 				2FFDDCA025515D9000CEFDBB /* WFCFavoriteVideoCell.m in Sources */,
 				2F4B0EAD245BFD22000A41C6 /* Device.m in Sources */,
 				60922A962C084D8F00B70AD8 /* HChatListViewModel.swift in Sources */,
+				6088F4982C0F300C00130A87 /* HFriendAddViewModel.swift in Sources */,
 				B7A192D82A4BDF3A003A27DC /* WFCPrivacyFindMeViewController.m in Sources */,
 				601246542C059A6300635523 /* Colors.swift in Sources */,
 				2F638934254E8FAB0084EEA6 /* WFCFavoriteImageCell.m in Sources */,
+				6088F49A2C0F313E00130A87 /* HFriendAddContentCell.swift in Sources */,
 				60F5CF942C0D55FA0013D912 /* HMessageNavBar.swift in Sources */,
 				B7EDF7DF2858161C0013602E /* WFCDestroyAccountViewController.m in Sources */,
 				149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */,
 				2FFDDCA4255164DA00CEFDBB /* WFCFavoriteLinkCell.m in Sources */,
+				6088F4962C0F2FE300130A87 /* HFriendAddViewController.swift in Sources */,
 				B78DD43828167D1E009589F7 /* WFCCallKitManager.m in Sources */,
 				2E1D20D91FAF127100F4405D /* DiscoverViewController.m in Sources */,
 				60922A802C0767C600B70AD8 /* HMineAvatarCell.swift in Sources */,
@@ -1669,6 +1692,7 @@
 				6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */,
 				6012463E2C05764600635523 /* HNavigationController.m in Sources */,
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
+				6088F4932C0F27E000130A87 /* HFriendRequestCell.swift in Sources */,
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */,

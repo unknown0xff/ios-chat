@@ -80,12 +80,16 @@ class HChatListViewController: HBasicViewController {
     
     private func configureSubviews() {
         
-        tableView.register([HChatListCell.self])
+        tableView.register([HChatListCell.self, HFriendRequestCell.self])
         
         dataSource = HChatListDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
             switch row {
             case .chat(let model):
                 let cell = tableView.cell(of: HChatListCell.self, for: indexPath)
+                cell.cellData = model
+                return cell
+            case .friend(let model):
+                let cell = tableView.cell(of: HFriendRequestCell.self, for: indexPath)
                 cell.cellData = model
                 return cell
             }
@@ -222,6 +226,10 @@ extension HChatListViewController: UITableViewDelegate {
         switch row {
         case .chat(let model):
             gotoChat(by: model.conversationInfo.conversation)
+        case .friend(let model):
+            let vm = HFriendAddViewModel(model.target ?? "")
+            let vc = HFriendAddViewController(vm: vm)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -232,6 +240,16 @@ extension HChatListViewController: UITableViewDelegate {
         }
         
         switch row {
+        case .friend(_):
+            let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
+                self?.viewModel.removeFriendRequest(at: indexPath)
+                handle(true)
+            }
+            delete.image = Images.icon_delete_white
+            delete.backgroundColor = Colors.red02
+            let configure = UISwipeActionsConfiguration(actions: [delete])
+            configure.performsFirstActionWithFullSwipe = false
+            return configure
         case .chat(let model):
             let mute = UIContextualAction(style: .normal, title: "静音") { [weak self] _ , _ , handle in
                 self?.setConversationSilent(isSilent: true, at: indexPath)

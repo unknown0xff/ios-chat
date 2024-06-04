@@ -15,7 +15,7 @@ struct HUserInfoModel: Hashable {
     var displayName: String
     var friendAlias: String
     var portrait: URL?
-    
+    var social: String
     var title: String {
         return friendAlias.isEmpty ? name: friendAlias
     }
@@ -25,6 +25,7 @@ struct HUserInfoModel: Hashable {
         name = info.name ?? ""
         displayName = info.displayName ?? ""
         friendAlias = info.friendAlias ?? ""
+        social = info.social ?? ""
         if let p = info.portrait {
             portrait = URL(string: p)
         } else {
@@ -32,4 +33,7 @@ struct HUserInfoModel: Hashable {
         }
     }
     
+    var isFriend: Bool {
+        return WFCCIMService.sharedWFCIM().isMyFriend(userId)
+    }
 }

@@ -8,16 +8,23 @@
 
 class HChatListViewModel: HBasicViewModel {
     
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection, Row>.init()
+    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
 
+    
+    enum Section: Hashable, CaseIterable {
+        case conversation
+        case friendRequest
+    }
+    
     private var conversations = [WFCCConversationInfo]()
+    private var friendRequest = [WFCCFriendRequest]()
     
     enum Row: Hashable {
         case chat(_ model: HChatListCellModel)
+        case friend(_ model: WFCCFriendRequest)
     }
     
     init() {
-        
         addObservers()
     }
     
@@ -32,13 +39,27 @@ class HChatListViewModel: HBasicViewModel {
         let lines = [NSNumber(value: 0), NSNumber(value: 5)]
         
         conversations = WFCCIMService.sharedWFCIM().getConversationInfos(conversationTypes, lines: lines)
+        friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
+            .filter { $0.status == 0 }
         
         applySnapshot()
     }
     
     private func addObservers() {
         
-      
+        WFCCIMService.sharedWFCIM().loadFriendRequestFromRemote()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
+    }
+    
+    func removeFriendRequest(at indexPath: IndexPath) {
+        if indexPath.row >= friendRequest.count {
+            return
+        }
+        
+        let request = friendRequest[indexPath.row]
+        WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
+        reloadFriendRequest()
     }
     
     func removeConversation(at indexPath: IndexPath) {
@@ -110,15 +131,24 @@ class HChatListViewModel: HBasicViewModel {
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
-        snapshot.appendSections([.main])
+        snapshot.appendSections(Section.allCases)
         
         let rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
-        snapshot.appendItems(rows)
+        snapshot.appendItems(rows, toSection: .conversation)
+        
+        let friendRows = friendRequest.map { Row.friend($0) }
+        snapshot.appendItems(friendRows, toSection: .friendRequest)
+        
         self.snapshot = snapshot
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reloadFriendRequest() {
+        friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init()).filter { $0.status == 0 }
+        applySnapshot()
     }
     
 }
@@ -127,5 +157,8 @@ class HChatListViewModel: HBasicViewModel {
 
 extension HChatListViewModel {
     
+    @objc func onFriendRequestUpdated(_ sender: Notification) {
+        reloadFriendRequest()
+    }
 }
 
