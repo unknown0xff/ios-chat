@@ -13,5 +13,6 @@
 #import "HNavigationController.h"
 #import "UIViewController+Extention.h"
 #import "HUIConfigure.h"
+#import "NSData+Extention.h"
 
 #endif /* Basic_h */

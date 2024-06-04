@@ -34,4 +34,6 @@
 
 - (void)setAvatar:(NSString *)avatar;
 
+- (void)registerCell:(Class)cellCls forContent:(Class)msgContentCls;
+
 @end

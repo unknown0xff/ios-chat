@@ -117,6 +117,7 @@
 		6088F48A2C0DB22F00130A87 /* HGroupChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */; };
 		6088F48C2C0DBA4000130A87 /* HGroupInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48B2C0DBA4000130A87 /* HGroupInfo .swift */; };
 		6088F48E2C0DE79100130A87 /* Button+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48D2C0DE79100130A87 /* Button+Create.swift */; };
+		6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4902C0EFFB600130A87 /* NSData+Extention.m */; };
 		60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */; };
 		60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A762C075C7B00B70AD8 /* HLoginCell.swift */; };
 		60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A792C075CE600B70AD8 /* HMineViewModel.swift */; };
@@ -430,6 +431,8 @@
 		6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatSetViewModel.swift; sourceTree = "<group>"; };
 		6088F48B2C0DBA4000130A87 /* HGroupInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HGroupInfo .swift"; sourceTree = "<group>"; };
 		6088F48D2C0DE79100130A87 /* Button+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Create.swift"; sourceTree = "<group>"; };
+		6088F48F2C0EFFB600130A87 /* NSData+Extention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+Extention.h"; path = "Extention/NSData+Extention.h"; sourceTree = "<group>"; };
+		6088F4902C0EFFB600130A87 /* NSData+Extention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSData+Extention.m"; path = "Extention/NSData+Extention.m"; sourceTree = "<group>"; };
 		60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginInputCell.swift; sourceTree = "<group>"; };
 		60922A762C075C7B00B70AD8 /* HLoginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginCell.swift; sourceTree = "<group>"; };
 		60922A792C075CE600B70AD8 /* HMineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineViewModel.swift; sourceTree = "<group>"; };
@@ -977,6 +980,8 @@
 				6012463D2C05764600635523 /* HNavigationController.m */,
 				60922A8E2C0831CC00B70AD8 /* HUIConfigure.h */,
 				60922A8F2C0831CC00B70AD8 /* HUIConfigure.m */,
+				6088F48F2C0EFFB600130A87 /* NSData+Extention.h */,
+				6088F4902C0EFFB600130A87 /* NSData+Extention.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1592,6 +1597,7 @@
 				2F50BE84237970780049CD39 /* WFCDiagnoseViewController.m in Sources */,
 				60F5CF842C0AB0E20013D912 /* HCreateGroupViewController.swift in Sources */,
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
+				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,
 				6012465F2C05D30000635523 /* HLoginViewController.swift in Sources */,
 				2E1D200A1FAF0AE600F4405D /* main.m in Sources */,
