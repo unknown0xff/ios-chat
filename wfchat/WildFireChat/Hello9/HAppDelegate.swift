@@ -1,34 +1,48 @@
 //
 //  HAppDelegate.swift
-//  WildFireChat
+//  ios-hello9
 //
 //  Created by Ada on 5/27/24.
-//  Copyright © 2024 WildFireChat. All rights reserved.
+//  Copyright © 2024 ios-hello9. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
 @main
-class HAppDelegate: UIResponder, UIApplicationDelegate {
+class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        IMService.share.wfuConfigureManager.setupNavBar()
-        
+        UINavigationBar.appearance().backIndicatorImage = Images.icon_back
+
         if !IMService.share.connectByDefault() {
-            let loginVC = WFCLoginViewController()
-            loginVC.isPwdLogin = true
-            window?.rootViewController = UINavigationController(rootViewController: loginVC)
+            let loginNav = HLoginNavigationViewController()
+            window?.rootViewController = loginNav
         } else {
-            window?.rootViewController = WFCBaseTabBarController()
+            window?.rootViewController = HTabViewController()
         }
+        
+        requestRemoteNotificationsAuthorization(application)
         
         return true
     }
 
+    func requestRemoteNotificationsAuthorization(_ application: UIApplication) {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+        notificationCenter.requestAuthorization(options: [UNAuthorizationOptions.alert, UNAuthorizationOptions.sound, UNAuthorizationOptions.badge]) { granted, error in
+            guard let _ = error else {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+                return
+            }
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         if UIApplication.shared.applicationIconBadgeNumber > 0 {
             UIApplication.shared.applicationIconBadgeNumber = -1
@@ -61,6 +75,25 @@ class HAppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = (deviceToken as NSData).toHex()
+        IMService.share.setDeviceToken(token)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("----------willPresentNotification")
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("----------didReceiveNotificationResponse")
+        let categoryId = response.notification.request.content.categoryIdentifier
+        if categoryId == "categoryIdentifier" {
+            if response.actionIdentifier == "enterApp" {
+                
+            } else {
+                print("----------No")
+            }
+        }
         
+        completionHandler()
     }
 }

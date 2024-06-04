@@ -98,7 +98,11 @@ class IMService: NSObject {
         wfuConfigureManager.fileTransferId = configure.fileTransferId
         wfuConfigureManager.orgServiceProvider = OrgService.shared()
     }
-        
+    
+    func setDeviceToken(_ token: String) {
+        wfcService.setDeviceToken(token)
+    }
+    
     func logout() {
         IMUserInfo.clear()
         AppService.shared().clearAuthInfos()
