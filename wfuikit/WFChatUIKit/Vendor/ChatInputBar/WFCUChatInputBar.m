@@ -1507,7 +1507,18 @@
         [navi presentViewController:nav animated:YES completion:nil];
         [self notifyTyping:3];
         return;
-    } else if(itemTag == 4) {
+    }
+    else if(itemTag == 7) {
+#if WFCU_SUPPORT_VOIP
+        [self.delegate didTouchVideoBtn:YES];
+#endif
+    }
+    else if(itemTag == 8) {
+#if WFCU_SUPPORT_VOIP
+        [self.delegate didTouchVideoBtn:NO];
+#endif
+    }
+    else if(itemTag == 4) {
 #if WFCU_SUPPORT_VOIP
         UIActionSheet *actionSheet =
         [[UIActionSheet alloc] initWithTitle:nil

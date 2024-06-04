@@ -90,16 +90,18 @@
     if (!_pluginItems) {
         _pluginItems = [@[
                           [[PluginItem alloc] initWithTitle:WFCString(@"Album") image:[WFCUImage imageNamed:@"chat_input_plugin_album"] tag:1],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"TakePhoto") image:[WFCUImage imageNamed:@"chat_input_plugin_camera"] tag:2],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"Location") image:[WFCUImage imageNamed:@"chat_input_plugin_location"] tag:3],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"Files") image:[WFCUImage imageNamed:@"chat_input_plugin_file"] tag:5],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"Card") image:[WFCUImage imageNamed:@"chat_input_plugin_card"] tag:6]
+//                          [[PluginItem alloc] initWithTitle:WFCString(@"TakePhoto") image:[WFCUImage imageNamed:@"chat_input_plugin_camera"] tag:2],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"VoiceCall") image:[WFCUImage imageNamed:@"msg_audio_call"] tag:7],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"chat_input_plugin_video_call"] tag:8],
+//                          [[PluginItem alloc] initWithTitle:WFCString(@"Location") image:[WFCUImage imageNamed:@"chat_input_plugin_location"] tag:3],
+//                          [[PluginItem alloc] initWithTitle:WFCString(@"Files") image:[WFCUImage imageNamed:@"chat_input_plugin_file"] tag:5],
+//                          [[PluginItem alloc] initWithTitle:WFCString(@"Card") image:[WFCUImage imageNamed:@"chat_input_plugin_card"] tag:6]
                           ] mutableCopy];
 
 #if WFCU_SUPPORT_VOIP
-        if (self.hasVoip) {
-            [_pluginItems insertObject:[[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"chat_input_plugin_video_call"] tag:4] atIndex:2];
-        }
+//        if (self.hasVoip) {
+//            [_pluginItems insertObject:[[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"chat_input_plugin_video_call"] tag:4] atIndex:2];
+//        }
 #endif
 #ifdef WFC_PTT
         if(self.hasPtt) {
