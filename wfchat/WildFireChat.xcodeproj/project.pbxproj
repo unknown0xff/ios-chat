@@ -125,6 +125,8 @@
 		6088F49E2C0FFA3400130A87 /* HNewFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F49D2C0FFA3400130A87 /* HNewFriendListViewController.swift */; };
 		6088F4A02C0FFA5B00130A87 /* HNewFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F49F2C0FFA5B00130A87 /* HNewFriendListViewModel.swift */; };
 		6088F4A22C0FFF5400130A87 /* HNewFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4A12C0FFF5400130A87 /* HNewFriendCell.swift */; };
+		6088F4A42C1015F700130A87 /* HFriendSearchViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4A32C1015F700130A87 /* HFriendSearchViewConroller.swift */; };
+		6088F4A72C1030B800130A87 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6088F4A62C1030B800130A87 /* Algorithms */; };
 		60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */; };
 		60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A762C075C7B00B70AD8 /* HLoginCell.swift */; };
 		60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A792C075CE600B70AD8 /* HMineViewModel.swift */; };
@@ -285,7 +287,7 @@
 		2BDCE7E22336278E0004212B /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		2BED56732395EC4D00B55C79 /* WFMomentClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WFMomentClient.framework; sourceTree = "<group>"; };
 		2BED56742395EC4D00B55C79 /* WFMomentUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WFMomentUIKit.framework; sourceTree = "<group>"; };
-		2E1D1FF71FAF0AE600F4405D /* 野火IM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "野火IM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E1D1FF71FAF0AE600F4405D /* Hello9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hello9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E1D1FFA1FAF0AE600F4405D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2E1D1FFB1FAF0AE600F4405D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2E1D20011FAF0AE600F4405D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 		6088F49D2C0FFA3400130A87 /* HNewFriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendListViewController.swift; sourceTree = "<group>"; };
 		6088F49F2C0FFA5B00130A87 /* HNewFriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendListViewModel.swift; sourceTree = "<group>"; };
 		6088F4A12C0FFF5400130A87 /* HNewFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendCell.swift; sourceTree = "<group>"; };
+		6088F4A32C1015F700130A87 /* HFriendSearchViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendSearchViewConroller.swift; sourceTree = "<group>"; };
 		60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginInputCell.swift; sourceTree = "<group>"; };
 		60922A762C075C7B00B70AD8 /* HLoginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLoginCell.swift; sourceTree = "<group>"; };
 		60922A792C075CE600B70AD8 /* HMineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineViewModel.swift; sourceTree = "<group>"; };
@@ -549,6 +552,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6088F4A72C1030B800130A87 /* Algorithms in Frameworks */,
 				B75D816A2782CEB5009D4A19 /* WebRTC.xcframework in Frameworks */,
 				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
 				905177522243CDA60020A2AC /* libc++.tbd in Frameworks */,
@@ -689,7 +693,7 @@
 		2E1D1FF81FAF0AE600F4405D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E1D1FF71FAF0AE600F4405D /* 野火IM.app */,
+				2E1D1FF71FAF0AE600F4405D /* Hello9.app */,
 				2F56F6F3252C956700B829C4 /* ShareExtension.appex */,
 				B71F0AC028F54759000A7C8A /* Broadcast.appex */,
 				B71F0ACC28F54759000A7C8A /* BroadcastSetupUI.appex */,
@@ -1132,6 +1136,7 @@
 				6088F4952C0F2FE300130A87 /* HFriendAddViewController.swift */,
 				6088F4972C0F300C00130A87 /* HFriendAddViewModel.swift */,
 				6088F4992C0F313E00130A87 /* HFriendAddContentCell.swift */,
+				6088F4A32C1015F700130A87 /* HFriendSearchViewConroller.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -1424,9 +1429,10 @@
 			packageProductDependencies = (
 				6012463A2C056AAD00635523 /* SnapKit */,
 				601246722C06CF8E00635523 /* MBProgressHUD */,
+				6088F4A62C1030B800130A87 /* Algorithms */,
 			);
 			productName = WildFireChat;
-			productReference = 2E1D1FF71FAF0AE600F4405D /* 野火IM.app */;
+			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2F56F6F2252C956700B829C4 /* ShareExtension */ = {
@@ -1529,6 +1535,7 @@
 			packageReferences = (
 				601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -1625,6 +1632,7 @@
 				601246372C05664E00635523 /* HTabViewController.swift in Sources */,
 				2FF07F5E21F82E7200A78A62 /* WFCMeTableViewController.m in Sources */,
 				60922A7E2C0763BF00B70AD8 /* HMineTitleCell.swift in Sources */,
+				6088F4A42C1015F700130A87 /* HFriendSearchViewConroller.swift in Sources */,
 				6088F4822C0D8A7600130A87 /* HSingleChatSetViewModel.swift in Sources */,
 				60F5CF922C0D55DB0013D912 /* HMessageListViewController.swift in Sources */,
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
@@ -1982,7 +1990,7 @@
 				MARKETING_VERSION = 1.1.38;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hello9.hello9;
-				PRODUCT_NAME = "野火IM";
+				PRODUCT_NAME = Hello9;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2029,7 +2037,7 @@
 				MARKETING_VERSION = 1.1.38;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hello9.hello9;
-				PRODUCT_NAME = "野火IM";
+				PRODUCT_NAME = Hello9;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2297,6 +2305,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2309,6 +2325,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
+		};
+		6088F4A62C1030B800130A87 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

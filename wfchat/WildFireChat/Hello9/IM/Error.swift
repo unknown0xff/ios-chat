@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct HError: Error {
+struct HError: LocalizedError {
     let code: Int32
     let message: String
+    
+    var localizedDescription: String {
+        return message
+    }
 }

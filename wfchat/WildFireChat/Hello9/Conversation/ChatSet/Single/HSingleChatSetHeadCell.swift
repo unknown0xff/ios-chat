@@ -138,7 +138,7 @@ class HSingleChatSetHeadCell: HBasicTableViewCell<HUserInfoModel> {
     
     override func bindData(_ data: HUserInfoModel?) {
         nameLabel.text = data?.title
-        userIdLabel.text = "hello号：\(data?.userId ?? "")"
+        userIdLabel.text = "hello号：\(data?.name ?? "")"
         avatar.sd_setImage(with: data?.portrait, placeholderImage: Images.icon_logo, context: nil)
     }
 }

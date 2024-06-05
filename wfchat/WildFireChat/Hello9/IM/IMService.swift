@@ -105,11 +105,13 @@ class IMService: NSObject {
     
     func logout() {
         IMUserInfo.clear()
-        AppService.shared().clearAuthInfos()
-        
-        //退出后就不需要推送了，第一个参数为YES
-        //如果希望再次登录时能够保留历史记录，第二个参数为NO。如果需要清除掉本地历史记录第二个参数用YES
-        wfcService.disconnect(true, clearSession: false)
+        DispatchQueue.main.async {
+            AppService.shared().clearAuthInfos()
+            
+            //退出后就不需要推送了，第一个参数为YES
+            //如果希望再次登录时能够保留历史记录，第二个参数为NO。如果需要清除掉本地历史记录第二个参数用YES
+            self.wfcService.disconnect(true, clearSession: false)
+        }
     }
     
     func prepardDataForShareExtension() {

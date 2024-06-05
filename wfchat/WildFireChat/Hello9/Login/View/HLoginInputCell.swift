@@ -10,11 +10,9 @@ import UIKit
 
 protocol HLoginInputCellDelegate: AnyObject {
     func didChangeInputValue(_ value: HLoginInputModel, at indexPath: IndexPath)
-    func didClickRefreshButton()
+    func didClickRefreshButton(_ completion: ((Bool) -> Void)?)
 }
-extension HLoginInputCellDelegate {
-    func didClickRefreshButton() {  }
-}
+
 
 class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
 
@@ -134,6 +132,12 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         
         textField.keyboardType = data.keyboardType
         textField.isSecureTextEntry = data.isSecureTextEntry
+        
+        if data.isNewUser {
+            textField.isEnabled = false
+        } else {
+            textField.isEnabled = true
+        }
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -161,9 +165,10 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         startRotation()
         
         DispatchQueue.global().async {
-            sleep(2) // TODO: 模拟网络请求等操作
-            DispatchQueue.main.async {
-                self.stopRotation()
+            self.delegate?.didClickRefreshButton { _ in
+                DispatchQueue.main.async {
+                    self.stopRotation()
+                }
             }
         }
     }

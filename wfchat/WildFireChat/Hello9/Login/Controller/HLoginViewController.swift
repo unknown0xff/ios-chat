@@ -65,6 +65,8 @@ class HLoginViewController: HBasicViewController {
         
         configureSubviews()
         makeConstraints()
+        
+        loadDataIfNeed()
     }
     
     private func configureSubviews() {
@@ -142,12 +144,45 @@ class HLoginViewController: HBasicViewController {
         
         return attr
     }
+    
+    func loadDataIfNeed() {
+        if viewModel.isNewUser {
+            let hud = HToast.show(on: view, text: "获取hello号中...")
+            Task {
+                if let error = await viewModel.requestAccountId() {
+                    await MainActor.run {
+                        hud.hide(animated:true)
+                        HToast.showAutoHidden(on: self.view, text: error.localizedDescription)
+                    }
+                } else {
+                    await MainActor.run {
+                        hud.hide(animated:true)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
     override func prefersNavigationBarHidden() -> Bool { true }
 }
 
 // MARK: - Actions
 
 extension HLoginViewController: HLoginInputCellDelegate {
+    
+    func didClickRefreshButton(_ completion: ((Bool) -> Void)?) {
+        Task {
+            let error = await viewModel.requestAccountId(false)
+            await MainActor.run {
+                self.tableView.reloadData()
+            }
+            if let completion {
+                completion(error == nil)
+            }
+        }
+    }
+    
     
     func didChangeInputValue(_ value: HLoginInputModel, at indexPath: IndexPath) {
         viewModel.update(value)
@@ -171,7 +206,12 @@ extension HLoginViewController: HLoginInputCellDelegate {
         if viewModel.isValid {
             let hud = HToast.show(on: view, text: "登录中...")
             Task {
-                let result = await viewModel.login()
+                let result: Error?
+                if viewModel.isNewUser {
+                    result = await viewModel.register()
+                } else {
+                    result = await viewModel.login()
+                }
                 
                 await MainActor.run {
                     hud.hide(animated:true)

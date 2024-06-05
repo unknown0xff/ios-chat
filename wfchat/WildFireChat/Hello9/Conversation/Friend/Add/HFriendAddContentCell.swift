@@ -135,7 +135,7 @@ class HFriendAddContentCell: HBasicTableViewCell<HFriendAddContentModel> {
         }
         nameLabel.text = data.friendInfo.title
         avatar.sd_setImage(with: data.friendInfo.portrait, placeholderImage: Images.icon_logo)
-        userIdLabel.text = "hello号：\(data.friendInfo.userId)"
+        userIdLabel.text = "hello号：\(data.friendInfo.name)"
         signLabel.text = data.friendInfo.social
         
         let title = data.isFriend ? "添加好友" : "发消息"
