@@ -1120,7 +1120,7 @@
 		6088F4942C0F2F6B00130A87 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
-				6088F49C2C0FFA0400130A87 /* Search */,
+				6088F49C2C0FFA0400130A87 /* NewList */,
 				6088F49B2C0FF9F900130A87 /* Add */,
 			);
 			path = Friend;
@@ -1136,14 +1136,14 @@
 			path = Add;
 			sourceTree = "<group>";
 		};
-		6088F49C2C0FFA0400130A87 /* Search */ = {
+		6088F49C2C0FFA0400130A87 /* NewList */ = {
 			isa = PBXGroup;
 			children = (
 				6088F49D2C0FFA3400130A87 /* HNewFriendListViewController.swift */,
 				6088F49F2C0FFA5B00130A87 /* HNewFriendListViewModel.swift */,
 				6088F4A12C0FFF5400130A87 /* HNewFriendCell.swift */,
 			);
-			path = Search;
+			path = NewList;
 			sourceTree = "<group>";
 		};
 		60922A742C075C7B00B70AD8 /* View */ = {
