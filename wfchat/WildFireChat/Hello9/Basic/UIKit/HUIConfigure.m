@@ -21,15 +21,29 @@
 }
 
 + (CGFloat)statusBarHeight {
+    
     CGFloat statusBarHeight = 0;
-    UIScene *scene = [UIApplication.sharedApplication.connectedScenes anyObject];
-    if ([scene isKindOfClass:UIWindowScene.class]) {
-        UIWindowScene *windowScene = (UIWindowScene *)scene;
-        statusBarHeight = windowScene.windows.firstObject.safeAreaInsets.top;
+    
+    UIWindowScene *windowScene = nil;
+    for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive) {
+            windowScene = scene;
+            break;
+        }
     }
     
+    if (windowScene) { // 灵动岛设备 如 15pro: statusBar 高度为 54 safeAreaInsets.top 为 59
+        statusBarHeight = windowScene.statusBarManager.statusBarFrame.size.height;
+    }
+    
+    if (statusBarHeight <= 0) { // 兜底 理论上不会进
+        UIWindowScene *scene = (UIWindowScene *)[UIApplication.sharedApplication.connectedScenes anyObject];
+        statusBarHeight = scene.windows.firstObject.safeAreaInsets.top;
+    }
+    
+    
     if (statusBarHeight <= 0) {
-        statusBarHeight = [self isIPhoneXSeries] ? 44.0f : 20.0f;
+        statusBarHeight = [self isIPhone12] ? 50.0f : ([self isIPhoneXSeries] ? 44.0f : 20.0f);
     }
     return statusBarHeight;
 }
@@ -66,11 +80,23 @@
     
 }
 
++ (BOOL)isIPhone12 {
+    if ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return NO;
+    }
+    
+    if (![UIScreen instancesRespondToSelector:@selector(currentMode)]) {
+        return NO;
+    }
+    
+    return CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(428, 926)) || CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(926, 428)) || CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(390, 844)) || CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(844, 390)) || CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(360, 780)) || CGSizeEqualToSize([UIScreen mainScreen].bounds.size, CGSizeMake(780, 360));
+}
+
 + (BOOL)isIPhoneXSeries {
     if ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
         return NO;
     }
-
+    
     if (![UIScreen instancesRespondToSelector:@selector(currentMode)]) {
         return NO;
     }

@@ -54,6 +54,8 @@ enum Images {
 
     static let icon_search = UIImage(named: "icon_search")!
 
+    static let icon_search_gray = UIImage(named: "icon_search_gray")!
+
     static let icon_secret = UIImage(named: "icon_secret")!
 
     static let icon_top = UIImage(named: "icon_top")!

@@ -98,19 +98,26 @@ extension HFriendAddViewController: UITableViewDelegate {
         
         if viewModel.model.isFriend {
             // 发消息，聊天
+            let conversation = WFCCConversation(type: .Single_Type, target: viewModel.friendId, line: 0)!
+            let mvc = HMessageListViewController()
+            mvc.conversation = conversation
+            navigationController?.pushViewController(mvc, animated: true)
+            
         } else {
-            let hud = HToast.show(on: view, text: "加载中...")
-            WFCCIMService.sharedWFCIM().handleFriendRequest(viewModel.model.friendInfo.userId, accept: true, extra: nil) { [weak self] in
+            let hud = HToast.show(on: view, text: "发送中...")
+            let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
+            let reason = "我是\(userInfo.name ?? "")"
+            WFCCIMService.sharedWFCIM().sendFriendRequest(viewModel.friendId, reason: reason, extra: nil)  { [weak self] in
                 hud.hide(animated: true)
                 guard let self else { return }
-                HToast.showAutoHidden(on: self.view, text: "添加成功")
-                WFCCIMService.sharedWFCIM().loadFriendRequestFromRemote()
-                self.viewModel.didAddFriendSuccess()
+                self.viewModel.didSendFriendRequestSuccess()
             } error: { code in
-                if code == 19 {
-                    HToast.showAutoHidden(on: self.view, text: "已过期")
+                if(code == 16) {
+                    HToast.showAutoHidden(on: self.view, text: "已经发送过添加好友请求了")
+                } else if(code == 18) {
+                    HToast.showAutoHidden(on: self.view, text: "好友请求已被拒绝")
                 } else {
-                    HToast.showAutoHidden(on: self.view, text: "添加失败")
+                    HToast.showAutoHidden(on: self.view, text: "发送失败")
                 }
             }
         }

@@ -19,13 +19,29 @@ class HFriendAddViewModel: HBasicViewModel {
         case content(_ model: HFriendAddContentModel)
     }
     
-    private(set) var model: HFriendAddContentModel
+    private(set) var model: HFriendAddContentModel = .init(friendInfo: .init(info: .init()), isFriend: false)
+    let friendId: String
     
     init(_ friendId: String) {
-        let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(friendId, refresh: false) ?? .init()
-        let friendInfo = HUserInfoModel.init(info: userInfo)
-        model = HFriendAddContentModel(friendInfo: friendInfo, isFriend: false)
+        self.friendId = friendId
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
+        
+        loadData(true)
+    }
+    
+    func loadData(_ refresh: Bool) {
+        let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(friendId, refresh: refresh) ?? .init()
+        let friendInfo = HUserInfoModel(info: userInfo)
+        print(userInfo.toJsonStr())
+        let isMyFriend = WFCCIMService.sharedWFCIM().isMyFriend(friendId)
+        
+        model = HFriendAddContentModel(friendInfo: friendInfo, isFriend: isMyFriend)
         applySnapshot()
+    }
+    
+    func didSendFriendRequestSuccess() {
+        
     }
     
     func didAddFriendSuccess() {
@@ -41,5 +57,12 @@ class HFriendAddViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    @objc func onUserInfoUpdated(_ sender: Notification) {
+        loadData(false)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 

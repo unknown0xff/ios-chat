@@ -102,7 +102,7 @@ extension HSelectedUserViewController: UITableViewDelegate {
             } else if type == .secret {
                 goToCreateGroup(isSecrect: true)
             } else if type == .addFriend {
-                // TODO
+                navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
             }
             
         case .friend(let info):
