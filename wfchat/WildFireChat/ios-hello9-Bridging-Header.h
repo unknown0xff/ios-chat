@@ -6,6 +6,7 @@
 #import <WFChatClient/WFCCNetworkService.h>
 #import <WFChatClient/WFCChatClient.h>
 #import <WFAVEngineKit/WFAVEngineKit.h>
+#import <WFChatUIKit/WFChatUIKit.h>
 #import "OrgService.h"
 #import "AppService.h"
 #import "WFCLoginViewController.h"

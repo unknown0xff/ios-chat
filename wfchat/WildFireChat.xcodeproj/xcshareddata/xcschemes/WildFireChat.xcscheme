@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
-               BuildableName = "&#x91ce;&#x706b;IM.app"
+               BuildableName = "Hello9.app"
                BlueprintName = "WildFireChat"
                ReferencedContainer = "container:WildFireChat.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
-            BuildableName = "&#x91ce;&#x706b;IM.app"
+            BuildableName = "Hello9.app"
             BlueprintName = "WildFireChat"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
-            BuildableName = "&#x91ce;&#x706b;IM.app"
+            BuildableName = "Hello9.app"
             BlueprintName = "WildFireChat"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
-            BuildableName = "&#x91ce;&#x706b;IM.app"
+            BuildableName = "Hello9.app"
             BlueprintName = "WildFireChat"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
@@ -82,6 +82,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Hello9"
       revealArchiveInOrganizer = "YES">
       <PreActions>
          <ExecutionAction
@@ -93,7 +94,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
-                     BuildableName = "&#x91ce;&#x706b;IM.app"
+                     BuildableName = "Hello9.app"
                      BlueprintName = "WildFireChat"
                      ReferencedContainer = "container:WildFireChat.xcodeproj">
                   </BuildableReference>
