@@ -84,7 +84,6 @@ class HFriendAddContentCell: HBasicTableViewCell<HFriendAddContentModel> {
         contentView.addSubview(userIdLabel)
         contentView.addSubview(signLabel)
         
-        contentView.addSubview(chatButton)
         contentView.addSubview(addFriendButton)
     }
     
