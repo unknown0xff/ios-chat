@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HFriendRequestCell: HBasicTableViewCell<WFCCFriendRequest> {
+class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
@@ -94,6 +94,7 @@ class HFriendRequestCell: HBasicTableViewCell<WFCCFriendRequest> {
     }
     
     private func configureSubviews() {
+        contentView.backgroundColor = Colors.gray07
         contentView.addSubview(avatar)
         
         topStack.addArrangedSubview(userNameLabel)
@@ -141,25 +142,33 @@ class HFriendRequestCell: HBasicTableViewCell<WFCCFriendRequest> {
         
     }
     
-    override func bindData(_ data: WFCCFriendRequest?) {
+    override func bindData(_ data: [WFCCFriendRequest]?) {
         guard let data else {
             return
         }
         
-        if data.readStatus == 0 {
-            unreadLabel.text = "1"
-            unreadLabel.isHidden = false
-        } else {
+        let timestamp = data.max { $0.timestamp < $1.timestamp }?.timestamp
+        let unread = data.reduce(into: 0) { partialResult, request in
+            if request.readStatus == 0 {
+                partialResult += 1
+            }
+        }
+        
+        if unread == 0 {
             unreadLabel.isHidden = true
+        } else {
+            unreadLabel.text = "\(unread)"
+            unreadLabel.isHidden = false
+        }
+        if let timestamp {
+            lastTimeLabel.text = WFCUUtilities.formatTimeLabel(timestamp)
+        } else {
+            lastTimeLabel.text = ""
         }
         
-        lastTimeLabel.text = WFCUUtilities.formatTimeLabel(data.timestamp)
-        
-        if let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(data.target ?? "", refresh: false) {
-            avatar.sd_setImage(with: .init(string: userInfo.portrait ?? .init()), placeholderImage: Images.icon_logo)
-            userNameLabel.text = userInfo.displayName ?? ""
-        }
-        lastMessageLabel.text = data.reason
+        avatar.image = Images.icon_logo
+        userNameLabel.text = "新朋友"
+        lastMessageLabel.text = "您有新的好友请求待处理"
         
     }
 }

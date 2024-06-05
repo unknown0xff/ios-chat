@@ -30,7 +30,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserInfoUpdated:) name:kUserInfoUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFriendRequestUpdated:) name:kFriendRequestUpdated object:nil];
     
-    
     [[WFCCIMService sharedWFCIMService] clearUnreadFriendRequestStatus];
 }
 

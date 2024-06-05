@@ -108,7 +108,7 @@ class HChatListViewController: HBasicViewController {
     }
     
     private func addObservers() {
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onReceiveMessages(_:)), name: .init(rawValue: kReceiveMessages), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onRecallMessages(_:)), name: .init(rawValue: kRecallMessages), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeleteMessages(_:)), name: .init(rawValue: kDeleteMessages), object: nil)
@@ -226,10 +226,8 @@ extension HChatListViewController: UITableViewDelegate {
         switch row {
         case .chat(let model):
             gotoChat(by: model.conversationInfo.conversation)
-        case .friend(let model):
-            let vm = HFriendAddViewModel(model.target ?? "")
-            let vc = HFriendAddViewController(vm: vm)
-            navigationController?.pushViewController(vc, animated: true)
+        case .friend(_):
+            navigationController?.pushViewController(HNewFriendListViewController(), animated: true)
         }
     }
     
@@ -243,6 +241,7 @@ extension HChatListViewController: UITableViewDelegate {
         case .friend(_):
             let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
                 self?.viewModel.removeFriendRequest(at: indexPath)
+                self?.updateBadgeNumber()
                 handle(true)
             }
             delete.image = Images.icon_delete_white
@@ -311,6 +310,10 @@ extension HChatListViewController {
             }
             .store(in: &cancellables)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func onUserInfoUpdated(_ sender: Notification) {
+        viewModel.refresh()
     }
     
     @objc func onReceiveMessages(_ sender: Notification) {

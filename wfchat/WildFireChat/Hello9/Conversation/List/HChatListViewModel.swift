@@ -21,7 +21,7 @@ class HChatListViewModel: HBasicViewModel {
     
     enum Row: Hashable {
         case chat(_ model: HChatListCellModel)
-        case friend(_ model: WFCCFriendRequest)
+        case friend(_ model: [WFCCFriendRequest])
     }
     
     init() {
@@ -53,12 +53,10 @@ class HChatListViewModel: HBasicViewModel {
     }
     
     func removeFriendRequest(at indexPath: IndexPath) {
-        if indexPath.row >= friendRequest.count {
-            return
+        WFCCIMService.sharedWFCIM().clearUnreadFriendRequestStatus()
+        friendRequest.forEach { request in
+            WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
         }
-        
-        let request = friendRequest[indexPath.row]
-        WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
         reloadFriendRequest()
     }
     
@@ -126,6 +124,13 @@ class HChatListViewModel: HBasicViewModel {
                 number += unread
             }
         }
+        
+        let unread = friendRequest.reduce(into: 0) { partialResult, request in
+            if request.readStatus == 0 {
+                partialResult += 1
+            }
+        }
+        number += Int32(unread)
         return number
     }
     
@@ -136,8 +141,10 @@ class HChatListViewModel: HBasicViewModel {
         let rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
         snapshot.appendItems(rows, toSection: .conversation)
         
-        let friendRows = friendRequest.map { Row.friend($0) }
-        snapshot.appendItems(friendRows, toSection: .friendRequest)
+        if !friendRequest.isEmpty {
+            let friendRows = [Row.friend(friendRequest)]
+            snapshot.appendItems(friendRows, toSection: .friendRequest)
+        }
         
         self.snapshot = snapshot
     }
