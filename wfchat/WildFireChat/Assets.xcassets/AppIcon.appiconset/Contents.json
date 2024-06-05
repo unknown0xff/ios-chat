@@ -1,62 +1,62 @@
 {
   "images" : [
     {
-      "size" : "20x20",
+      "filename" : "logo1_120 3.png",
       "idiom" : "iphone",
-      "filename" : "fire40-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
-      "size" : "20x20",
+      "filename" : "logo1_60.png",
       "idiom" : "iphone",
-      "filename" : "fire60-1.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "20x20"
     },
     {
-      "size" : "29x29",
+      "filename" : "logo1_120 2.png",
       "idiom" : "iphone",
-      "filename" : "fire58-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
-      "size" : "29x29",
+      "filename" : "logo1_120 1.png",
       "idiom" : "iphone",
-      "filename" : "fire87-1.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "29x29"
     },
     {
-      "size" : "40x40",
+      "filename" : "logo3_@2x-1.png",
       "idiom" : "iphone",
-      "filename" : "fire80-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "40x40"
     },
     {
-      "size" : "40x40",
+      "filename" : "logo3_@3x-1.png",
       "idiom" : "iphone",
-      "filename" : "fire-121.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "40x40"
     },
     {
-      "size" : "60x60",
+      "filename" : "logo1_120.png",
       "idiom" : "iphone",
-      "filename" : "fire-120.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "60x60"
     },
     {
-      "size" : "60x60",
+      "filename" : "logo1_180.png",
       "idiom" : "iphone",
-      "filename" : "fire180-1.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "60x60"
     },
     {
-      "size" : "1024x1024",
+      "filename" : "logo1_1024.png",
       "idiom" : "ios-marketing",
-      "filename" : "fire1024-1.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "1024x1024"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
