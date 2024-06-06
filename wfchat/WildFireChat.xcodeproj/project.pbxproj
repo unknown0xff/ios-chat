@@ -683,6 +683,7 @@
 		2E1D1FEE1FAF0AE600F4405D = {
 			isa = PBXGroup;
 			children = (
+				601246352C0565E600635523 /* Hello9 */,
 				2E1D1FF91FAF0AE600F4405D /* WildFireChat */,
 				2F56F6F4252C956700B829C4 /* ShareExtension */,
 				B71F0AC328F54759000A7C8A /* Broadcast */,
@@ -706,7 +707,6 @@
 		2E1D1FF91FAF0AE600F4405D /* WildFireChat */ = {
 			isa = PBXGroup;
 			children = (
-				601246352C0565E600635523 /* Hello9 */,
 				B764D48C295854700082492F /* OrgService */,
 				B7EDF7DC285815EF0013602E /* DestroyAccount */,
 				2F63891F254E5A500084EEA6 /* Favorite */,
