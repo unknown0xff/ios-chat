@@ -41,6 +41,7 @@ class HMineViewModel: HBasicViewModel {
     }
     
     init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
         applySnapshot()
     }
     
@@ -54,6 +55,11 @@ class HMineViewModel: HBasicViewModel {
         snapshot.appendItems(rows)
         
         self.snapshot = snapshot
+    }
+    
+    @objc func onUserInfoUpdated(_ sender: Notification) {
+        avatarModel = HUserInfoModel.current
+        applySnapshot()
     }
     
 }
