@@ -11,7 +11,7 @@ import WebRTC
 class IMService: NSObject {
     
     static let share = IMService()
-//    static let share = IMService(.wfc)
+    //    static let share = IMService(.wfc)
     
     private(set) lazy var wfcService = WFCCNetworkService.sharedInstance()!
     private(set) lazy var wfavEngineKit = WFAVEngineKit.shared()!
@@ -19,6 +19,7 @@ class IMService: NSObject {
     
     private var configure = IMConfigure.default
     private var firstConnect = false
+    private var callKitManager = WFCCallKitManager()
     
     func connect(userId: String, token: String, autoSave: Bool = false) {
         if userId.isEmpty || token.isEmpty {
@@ -148,7 +149,7 @@ extension IMService: ConnectionStatusDelegate {
         switch status {
         case .rejected, .tokenIncorrect, .secretKeyMismatch, .kickedoff:
             if status == .kickedoff {
-               // TODO:  xianda.yang 发起通知,跳登陆页面等
+                // TODO:  xianda.yang 发起通知,跳登陆页面等
             }
             wfcService.disconnect(true, clearSession: false)
             logout()
@@ -194,57 +195,97 @@ extension IMService: ConnectToServerDelegate {
         print("connecting to server \(host ?? ""), \(ip ?? ""), \(port), \(mainNw)")
     }
 }
-    
+
 // MARK: - ReceiveMessageDelegate
 
 extension IMService: ReceiveMessageDelegate {
     
-//    - (NSInteger)updateBadgeNumber {
-//        WFCCUnreadCount *unreadCount = [[WFCCIMService sharedWFCIMService] getUnreadCount:@[@(Single_Type), @(Group_Type), @(Channel_Type), @(SecretChat_Type)] lines:@[@(0)]];
-//        int unreadFriendRequest = [[WFCCIMService sharedWFCIMService] getUnreadFriendRequestStatus];
-//        int count = unreadCount.unread + unreadFriendRequest;
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = count;
-//        return count;
-//    }
+    func shouldMuteNotification() -> Bool {
+        let isNoDisturbing = WFCCIMService.sharedWFCIM().isNoDisturbing()
+        
+        // 免打扰
+        if isNoDisturbing {
+            return true
+        }
+        
+        // 全局静音
+        if (WFCCIMService.sharedWFCIM().isGlobalSilent()) {
+            return true
+        }
+        
+        let pcOnline = WFCCIMService.sharedWFCIM().getPCOnlineInfos().count > 0
+        let muteWhenPcOnline = WFCCIMService.sharedWFCIM().isMuteNotificationWhenPcOnline()
+        
+        if pcOnline, muteWhenPcOnline {
+            return true
+        }
+        return false
+    }
+    
+    
+    @discardableResult
     func updateBadgeNumber() -> Int {
-//        let unreadCount = WFCCIMService.share
+        let types = [
+            NSNumber(value: WFCCConversationType.Single_Type.rawValue),
+            NSNumber(value: WFCCConversationType.Group_Type.rawValue),
+            NSNumber(value: WFCCConversationType.Channel_Type.rawValue),
+            NSNumber(value: WFCCConversationType.SecretChat_Type.rawValue),
+        ]
         
-        
-        return 0
+        let service = WFCCIMService.sharedWFCIM()
+        let unreadCount = service?.getUnreadCount(types, lines: [NSNumber(value: 0)])?.unread ?? 0
+        let unreadFriendRequest = service?.getUnreadFriendRequestStatus() ?? 0
+        let count = Int(unreadCount + unreadFriendRequest)
+        UIApplication.shared.applicationIconBadgeNumber = count
+        return count
+    }
+    
+    func onDeleteMessage(_ messageUid: Int64) {
+        IMServiceBridge.cancelNotification(messageUid)
+        updateBadgeNumber()
     }
     
     func onReceiveMessage(_ messages: [WFCCMessage]!, hasMore: Bool) {
-        print(messages!)
         if UIApplication.shared.applicationState == .background {
+            let count = updateBadgeNumber()
+            if shouldMuteNotification() {
+                return
+            }
             
+            for msg in messages {
+                IMServiceBridge.notification(for: msg, badgeCount: count)
+            }
+        }
+    }
+    
+    func onRecallMessage(_ messageUid: Int64) {
+        IMServiceBridge.cancelNotification(messageUid)
+        let count = updateBadgeNumber()
+        
+        if UIApplication.shared.applicationState == .background {
+            if shouldMuteNotification() {
+                return
+            }
+            
+            if let msg = WFCCIMService.sharedWFCIM().getMessageByUid(messageUid) {
+                IMServiceBridge.notification(for: msg, badgeCount: count)
+            }
         }
         
-//        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-//            NSInteger count = [self updateBadgeNumber];
-//
-//            if([self shouldMuteNotification]) {
-//                return;
-//            }
-//
-//            for (WFCCMessage *msg in messages) {
-//                [self notificationForMessage:msg badgeCount:count];
-//            }
-//
-//        }
-        
     }
+    
 }
-  
+
 // MARK: - WFCCDefaultPortraitProvider
 
 extension IMService: WFCCDefaultPortraitProvider {
-
+    
     func userDefaultPortrait(_ userInfo: WFCCUserInfo!) -> String! {
         if !userInfo.portrait.isEmpty {
             return userInfo.portrait
         }
         let displayName = userInfo.displayName ?? ""
-        return configure.baseUrl + "/avatar?name=\(userInfo.displayName.urlEncode)"
+        return configure.baseUrl + "/avatar?name=\(displayName.urlEncode)"
     }
     
     func groupDefaultPortrait(_ groupInfo: WFCCGroupInfo!, memberInfos: [WFCCUserInfo]!) -> String! {
@@ -278,22 +319,22 @@ extension IMService: WFCCDefaultPortraitProvider {
 extension IMService: WFAVEngineDelegate {
     
     func didReceiveCall(_ session: WFAVCallSession) {
-       
+        callKitManager.didReceiveCall(session)
     }
-
+    
     func shouldStartRing(_ isIncoming: Bool) {
-       
+        
     }
-
+    
     func shouldStopRing() {
-       
+        
     }
-
+    
     func didCallEnded(_ reason: WFAVCallEndReason, duration callDuration: Int32) {
-       
+        callKitManager.didCallEnded(reason, duration: callDuration)
     }
-
+    
     func didReceiveIncomingPush(with payload: PKPushPayload, forType type: String) {
-       
+        callKitManager.didReceiveIncomingPush(with: payload, forType: type)
     }
 }

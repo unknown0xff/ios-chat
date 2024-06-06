@@ -109,6 +109,7 @@
 		6012467B2C0721CB00635523 /* HLoginNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012467A2C0721CB00635523 /* HLoginNavigationViewController.swift */; };
 		6012467E2C0747F000635523 /* HLoginInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012467D2C0747F000635523 /* HLoginInputModel.swift */; };
 		601246812C075B6000635523 /* HMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246802C075B6000635523 /* HMineViewController.swift */; };
+		607F95752C114EF100648BFF /* IMServiceBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F95742C114EF100648BFF /* IMServiceBridge.m */; };
 		6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */; };
 		6088F4802C0D871600130A87 /* HSingleChatSetHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */; };
 		6088F4822C0D8A7600130A87 /* HSingleChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */; };
@@ -433,6 +434,8 @@
 		6012467A2C0721CB00635523 /* HLoginNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLoginNavigationViewController.swift; sourceTree = "<group>"; };
 		6012467D2C0747F000635523 /* HLoginInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLoginInputModel.swift; sourceTree = "<group>"; };
 		601246802C075B6000635523 /* HMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineViewController.swift; sourceTree = "<group>"; };
+		607F95732C114EF100648BFF /* IMServiceBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMServiceBridge.h; sourceTree = "<group>"; };
+		607F95742C114EF100648BFF /* IMServiceBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMServiceBridge.m; sourceTree = "<group>"; };
 		6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewController.swift; sourceTree = "<group>"; };
 		6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetHeadCell.swift; sourceTree = "<group>"; };
 		6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewModel.swift; sourceTree = "<group>"; };
@@ -957,6 +960,8 @@
 				6012462E2C047F7C00635523 /* IMService.swift */,
 				6012466F2C06CD8600635523 /* Error.swift */,
 				601246782C06FA0300635523 /* IMUserInfo.swift */,
+				607F95732C114EF100648BFF /* IMServiceBridge.h */,
+				607F95742C114EF100648BFF /* IMServiceBridge.m */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -1719,6 +1724,7 @@
 				6012465C2C05B82E00635523 /* Localizable.swift in Sources */,
 				2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */,
 				2FC50B7C245273A700B36F8A /* PCSessionViewController.m in Sources */,
+				607F95752C114EF100648BFF /* IMServiceBridge.m in Sources */,
 				2F638930254E82B90084EEA6 /* WFCFavoriteTextCell.m in Sources */,
 				2F5527C0252CB33E00B0CDCB /* SharedConversation.m in Sources */,
 				2FF07F5921F82E7200A78A62 /* WFCAboutViewController.m in Sources */,
