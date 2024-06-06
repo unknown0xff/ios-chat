@@ -136,7 +136,7 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     __weak typeof(self)ws = self;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已发送" message:@"您可以在野火IM中查看" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"已发送" message:@"您可以在Hello9中查看" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [ws.extensionContext completeRequestReturningItems:@[] completionHandler:nil];

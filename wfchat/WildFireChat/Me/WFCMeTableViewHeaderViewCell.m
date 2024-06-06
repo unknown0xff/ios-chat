@@ -66,6 +66,6 @@
     _userInfo = userInfo;
     [self.portrait sd_setImageWithURL:[NSURL URLWithString:self.userInfo.portrait] placeholderImage: [WFCUImage imageNamed:@"PersonalChat"]];
     self.displayName.text = self.userInfo.displayName;
-    self.userName.text = [NSString stringWithFormat:@"野火号:%@", self.userInfo.name];
+    self.userName.text = [NSString stringWithFormat:@"Hello号:%@", self.userInfo.name];
 }
 @end
