@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)notificationForMessage:(WFCCMessage *)msg badgeCount:(NSInteger)count;
 + (BOOL)cancelNotification:(long long)messageUid;
-
++ (void)onFriendRequestUpdated:(NSNotification *)notification;
++ (void)prepardDataForShareExtension;
 @end
 
 NS_ASSUME_NONNULL_END

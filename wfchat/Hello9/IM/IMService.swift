@@ -21,6 +21,10 @@ class IMService: NSObject {
     private var firstConnect = false
     private var callKitManager = WFCCallKitManager()
     
+    @objc static var appServerAddress: String {
+        IMService.share.configure.baseUrl
+    }
+    
     func connect(userId: String, token: String, autoSave: Bool = false) {
         if userId.isEmpty || token.isEmpty {
             return
@@ -50,6 +54,9 @@ class IMService: NSObject {
         configureWFCCNetworkService()
         configureWFAVEngine()
         configureWFCUManager()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
+        
     }
     
     private func configureWFCCNetworkService() {
@@ -116,22 +123,11 @@ class IMService: NSObject {
     }
     
     func prepardDataForShareExtension() {
-        // TODO: - 后续更改
-        let groupId = "group.cn.wildfirechat.messanger"
-        let authTokenKey = "wfc_share_appservice_auth_token"
-        
-        let sharedDefaults = UserDefaults.init(suiteName: groupId)
-        
-        let authToken = AppService.shared().getAuthToken()
-        if !authToken.isEmpty {
-            sharedDefaults?.setValue(authToken, forKey: authTokenKey)
-        } else {
-            let data = AppService.shared().getCookies()
-            if !data.isEmpty {
-                
-            } else {
-            }
-        }
+        IMServiceBridge.prepardDataForShareExtension()
+    }
+    
+    @objc func onFriendRequestUpdated(_ sender: Notification) {
+        IMServiceBridge.onFriendRequestUpdated(sender)
     }
 }
 

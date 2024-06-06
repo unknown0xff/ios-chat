@@ -50,7 +50,8 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        
+        IMService.share.updateBadgeNumber()
+        IMService.share.prepardDataForShareExtension()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
