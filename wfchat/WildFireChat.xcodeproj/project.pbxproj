@@ -723,7 +723,6 @@
 				2E1D20BC1FAF127100F4405D /* Discover */,
 				2BF692E5232DBA840072036A /* Utilities */,
 				149B3101241D28B200B935D3 /* Category */,
-				601246312C047FB800635523 /* ios-hello9-Bridging-Header.h */,
 				2E1D1FFA1FAF0AE600F4405D /* AppDelegate.h */,
 				2E1D1FFB1FAF0AE600F4405D /* AppDelegate.m */,
 				B78DD43628167D1E009589F7 /* WFCCallKitManager.h */,
@@ -1181,6 +1180,7 @@
 		60922A8B2C082BFF00B70AD8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				601246312C047FB800635523 /* ios-hello9-Bridging-Header.h */,
 				60922A8C2C082C3900B70AD8 /* HTitleNavBar.swift */,
 				60F5CF762C0974DE0013D912 /* HSearchBar.swift */,
 				60F5CF8B2C0AF3CB0013D912 /* Model */,
@@ -1622,7 +1622,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/WildFireChat/Hello9/Resourse/load_resourse.sh\" \"${SRCROOT}\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/Hello9/Resourse/load_resourse.sh\" \"${SRCROOT}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2008,7 +2008,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "WildFireChat/ios-hello9-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hello9/Common/ios-hello9-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
@@ -2055,7 +2055,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "WildFireChat/ios-hello9-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hello9/Common/ios-hello9-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;

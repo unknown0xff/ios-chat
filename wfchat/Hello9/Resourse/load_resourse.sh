@@ -12,8 +12,8 @@ PROJECT_DIR=$1
 
 load_colors() {
 
-    ASSETS_DIR="$PROJECT_DIR/WildFireChat/Hello9/Resourse/Colors.xcassets"
-    OUTPUT_FILE="$PROJECT_DIR/WildFireChat/Hello9/Resourse/Colors.swift"
+    ASSETS_DIR="$PROJECT_DIR/Hello9/Resourse/Colors.xcassets"
+    OUTPUT_FILE="$PROJECT_DIR/Hello9/Resourse/Colors.swift"
 
     # 检查 Colors.xcassets 目录是否存在
     if [ ! -d "$ASSETS_DIR" ]; then
@@ -66,8 +66,8 @@ load_colors() {
 
 load_images() {
 
-    ASSETS_DIR="$PROJECT_DIR/WildFireChat/Hello9/Resourse/Images.xcassets"
-    OUTPUT_FILE="$PROJECT_DIR/WildFireChat/Hello9/Resourse/Images.swift"
+    ASSETS_DIR="$PROJECT_DIR/Hello9/Resourse/Images.xcassets"
+    OUTPUT_FILE="$PROJECT_DIR/Hello9/Resourse/Images.swift"
 
     # 检查 Colors.xcassets 目录是否存在
     if [ ! -d "$ASSETS_DIR" ]; then

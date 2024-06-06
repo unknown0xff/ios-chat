@@ -199,8 +199,39 @@ extension IMService: ConnectToServerDelegate {
 
 extension IMService: ReceiveMessageDelegate {
     
+//    - (NSInteger)updateBadgeNumber {
+//        WFCCUnreadCount *unreadCount = [[WFCCIMService sharedWFCIMService] getUnreadCount:@[@(Single_Type), @(Group_Type), @(Channel_Type), @(SecretChat_Type)] lines:@[@(0)]];
+//        int unreadFriendRequest = [[WFCCIMService sharedWFCIMService] getUnreadFriendRequestStatus];
+//        int count = unreadCount.unread + unreadFriendRequest;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+//        return count;
+//    }
+    func updateBadgeNumber() -> Int {
+//        let unreadCount = WFCCIMService.share
+        
+        
+        return 0
+    }
+    
     func onReceiveMessage(_ messages: [WFCCMessage]!, hasMore: Bool) {
         print(messages!)
+        if UIApplication.shared.applicationState == .background {
+            
+        }
+        
+//        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+//            NSInteger count = [self updateBadgeNumber];
+//
+//            if([self shouldMuteNotification]) {
+//                return;
+//            }
+//
+//            for (WFCCMessage *msg in messages) {
+//                [self notificationForMessage:msg badgeCount:count];
+//            }
+//
+//        }
+        
     }
 }
   
