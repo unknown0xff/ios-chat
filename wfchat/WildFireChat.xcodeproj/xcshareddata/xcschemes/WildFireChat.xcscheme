@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
                BuildableName = "Hello9.app"
-               BlueprintName = "WildFireChat"
+               BlueprintName = "Hello9"
                ReferencedContainer = "container:WildFireChat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,7 +32,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
             BuildableName = "Hello9.app"
-            BlueprintName = "WildFireChat"
+            BlueprintName = "Hello9"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,7 +55,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
             BuildableName = "Hello9.app"
-            BlueprintName = "WildFireChat"
+            BlueprintName = "Hello9"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,7 +72,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
             BuildableName = "Hello9.app"
-            BlueprintName = "WildFireChat"
+            BlueprintName = "Hello9"
             ReferencedContainer = "container:WildFireChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -95,7 +95,7 @@
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "2E1D1FF61FAF0AE600F4405D"
                      BuildableName = "Hello9.app"
-                     BlueprintName = "WildFireChat"
+                     BlueprintName = "Hello9"
                      ReferencedContainer = "container:WildFireChat.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>

@@ -16,7 +16,7 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        UINavigationBar.appearance().backIndicatorImage = Images.icon_back
+        UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
 
         if !IMService.share.connectByDefault() {
             let loginNav = HLoginNavigationViewController()

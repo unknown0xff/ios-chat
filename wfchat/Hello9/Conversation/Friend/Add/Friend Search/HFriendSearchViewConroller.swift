@@ -69,16 +69,16 @@ class HFriendSearchViewConroller: HBasicViewController {
         }
         
         searchBar.snp.makeConstraints { make in
-            make.bottom.equalTo(-HUIConfigure.safeBottomMargin - 24)
-            make.left.equalTo(24)
-            make.right.equalTo(-24)
+            make.bottom.equalTo(-HUIConfigure.tabBarHeight - 24)
+            make.left.equalTo(0)
+            make.right.equalTo(0)
             make.height.equalTo(48)
         }
     }
     
     override func didKeyboadFrameChange(_ keyboardFrame: CGRect, isShow: Bool) {
   
-        let bottom = isShow ? keyboardFrame.size.height + 8 : HUIConfigure.safeBottomMargin + 24
+        let bottom = isShow ? keyboardFrame.size.height + 8 : HUIConfigure.tabBarHeight + 24
         
         UIView.animate(withDuration: 0.25) {
             self.searchBar.snp.updateConstraints { make in

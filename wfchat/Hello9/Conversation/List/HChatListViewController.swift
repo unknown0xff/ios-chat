@@ -56,6 +56,13 @@ class HChatListViewController: HBasicViewController {
         return tableView
     }()
     
+    private lazy var searchBar: HSearchBar = {
+        let bar = HSearchBar()
+        bar.textField.placeholder = "搜你想搜的"
+        bar.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        return bar
+    }()
+    
     private typealias Section = HChatListViewModel.Section
     private typealias Row = HChatListViewModel.Row
     private var dataSource: HChatListDataSource! = nil
@@ -105,6 +112,7 @@ class HChatListViewController: HBasicViewController {
         
         view.addSubview(tableView)
         view.addSubview(navBarView)
+        view.addSubview(searchBar)
     }
     
     private func addObservers() {
@@ -135,6 +143,14 @@ class HChatListViewController: HBasicViewController {
             make.width.left.right.equalToSuperview()
             make.bottom.equalTo(-HUIConfigure.tabBarHeight)
         }
+        
+        searchBar.snp.makeConstraints { make in
+            make.bottom.equalTo(-HUIConfigure.safeBottomMargin - 24)
+            make.left.equalTo(0)
+            make.right.equalTo(0)
+            make.height.equalTo(48)
+        }
+        
     }
     
     private func setConversationTop(isTop: Bool, at indexPath: IndexPath) {
@@ -296,11 +312,26 @@ extension HChatListViewController: UITableViewDelegate {
         }
     }
     
+    override func didKeyboadFrameChange(_ keyboardFrame: CGRect, isShow: Bool) {
+  
+        let bottom = isShow ? keyboardFrame.size.height + 8 : HUIConfigure.safeBottomMargin + 24
+        
+        UIView.animate(withDuration: 0.25) {
+            self.searchBar.snp.updateConstraints { make in
+                make.bottom.equalTo(-bottom)
+            }
+        }
+    }
 }
 
 // MARK: - observers/actions
 
 extension HChatListViewController {
+    
+   
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        // TODO search
+    }
     
     @objc func didClickMenuButton(_ sender: UIButton) {
         let vc = HSelectedUserViewController()

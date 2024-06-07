@@ -10,6 +10,13 @@ import Foundation
 
 class HSearchBar: UIControl {
     
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.gray08
+        view.layer.cornerRadius = 24
+        return view
+    }()
+    
     private lazy var leftView: UIImageView = {
         let img = UIImageView(image: Images.icon_search_gray)
         return img
@@ -26,10 +33,18 @@ class HSearchBar: UIControl {
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
-        backgroundColor = Colors.gray08
-        layer.cornerRadius = 24
-        addSubview(leftView)
-        addSubview(textField)
+        backgroundColor = Colors.white
+        
+        addSubview(contentView)
+        contentView.addSubview(leftView)
+        contentView.addSubview(textField)
+        
+        contentView.snp.makeConstraints { make in
+            make.left.equalTo(24)
+            make.right.equalTo(-24)
+            make.height.equalTo(46)
+            make.centerY.equalToSuperview()
+        }
         
         leftView.snp.makeConstraints { make in
             make.left.equalTo(16)

@@ -20,8 +20,8 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .system12
-        label.textColor = Colors.gray03
+        label.font = .system14
+        label.textColor = Colors.themeGray02
         return label
     }()
     
@@ -29,28 +29,24 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         let s = UIStackView()
         s.alignment = .center
         s.distribution = .fill
-        s.layer.borderColor = Colors.gray02.cgColor
-        s.layer.borderWidth = 1.5
-        s.layer.cornerRadius = 12
-        s.layer.masksToBounds = true
+        s.backgroundColor = Colors.grayF6
+        s.layer.cornerRadius = 16
         return s
     }()
     
     private lazy var textField: UITextField = {
-        let field = UITextField()
-        field.textColor = Colors.black
-        field.font = .system16
+        let field = UITextField.default
         return field
     }()
     
     private lazy var leftIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .center
         return imageView
     }()
     
     private lazy var rightButton: UIButton = {
-        let btn = UIButton(type: .custom)
+        let btn = UIButton(type: .system)
         return btn
     }()
     
@@ -67,18 +63,22 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
     
     private func configureSubviews() {
         selectionStyle = .none
-        
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         contentView.addSubview(titleLabel)
         contentView.addSubview(stack)
         
+        stack.addArrangedSubview(leftIcon)
+        
         let space = UIView()
+        space.backgroundColor = Colors.grayD1
         stack.addArrangedSubview(space)
         space.snp.makeConstraints { make in
-            make.width.equalTo(20)
+            make.width.equalTo(1)
+            make.height.equalTo(16)
         }
         
-        stack.addArrangedSubview(leftIcon)
-        stack.setCustomSpacing(16, after: leftIcon)
+        stack.setCustomSpacing(12, after: space)
         stack.addArrangedSubview(textField)
         stack.addArrangedSubview(rightButton)
         
@@ -89,22 +89,22 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
     private func makeConstraints() {
         
         titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(32)
-            make.top.equalTo(8)
-            make.height.equalTo(15)
+            make.left.equalTo(30)
+            make.top.equalTo(13)
+            make.height.equalTo(22)
         }
         
         stack.snp.makeConstraints { make in
             make.left.equalTo(titleLabel.snp.left)
-            make.right.equalTo(-32)
-            make.height.equalTo(64)
-            make.bottom.equalTo(-8)
+            make.right.equalTo(-30)
+            make.height.equalTo(54)
+            make.bottom.equalTo(-13)
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
         }
         
         leftIcon.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalToSuperview()
+            make.width.equalTo(57)
+            make.height.equalTo(42)
         }
         
         rightButton.snp.makeConstraints { make in
@@ -120,18 +120,19 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         
         leftIcon.image = data.leftImage
         textField.text = data.value
-        textField.placeholder = data.placeholder
+        textField.attributedPlaceholder = data.placeholder
         titleLabel.text = data.title
         
-        if let image = data.rightImage {
+        textField.keyboardType = data.keyboardType
+        textField.isSecureTextEntry = data.isSecureTextEntry
+        
+        if data.shouldShowRightImage {
+            let image = textField.isSecureTextEntry ? Images.icon_eye_open : Images.icon_eye_close
             rightButton.setImage(image, for: .normal)
             rightButton.isHidden = false
         } else {
             rightButton.isHidden = true
         }
-        
-        textField.keyboardType = data.keyboardType
-        textField.isSecureTextEntry = data.isSecureTextEntry
         
         if data.isNewUser {
             textField.isEnabled = false
@@ -199,9 +200,9 @@ fileprivate extension HLoginInputModel {
     var title: String {
         switch id {
         case .account:
-            return isNewUser ? "您的hello号是" : "账号"
+            return isNewUser ? "创建账户" : "Hello9账户"
         case .password:
-            return isNewUser ? "您的密码" : "密码"
+            return isNewUser ? "账户密码" : "账户密码"
         }
     }
     
@@ -209,17 +210,18 @@ fileprivate extension HLoginInputModel {
         id == .account ? Images.icon_account : Images.icon_password
     }
     
-    var rightImage: UIImage? {
+    var shouldShowRightImage: Bool {
         switch id {
         case .account:
-            return isNewUser ? Images.icon_refresh : nil
+            return false
         case .password:
-            return isNewUser ? nil : Images.icon_password_hidden
+            return isNewUser ? false : true
         }
     }
     
-    var placeholder: String {
-        id == .account ? "请输入您的账号" : "请输入您的密码"
+    var placeholder: NSAttributedString {
+        let str = id == .account ? "请输入您的账号" : "请输入您的密码"
+        return .init(string: str, attributes: UITextField.placeHolderAttributes)
     }
     
     var keyboardType: UIKeyboardType {

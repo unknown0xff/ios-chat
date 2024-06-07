@@ -110,6 +110,9 @@
 		6012467E2C0747F000635523 /* HLoginInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012467D2C0747F000635523 /* HLoginInputModel.swift */; };
 		601246812C075B6000635523 /* HMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246802C075B6000635523 /* HMineViewController.swift */; };
 		607F95752C114EF100648BFF /* IMServiceBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F95742C114EF100648BFF /* IMServiceBridge.m */; };
+		607F95772C12995200648BFF /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95762C12995200648BFF /* HNavigationBar.swift */; };
+		607F95792C129DF000648BFF /* HBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95782C129DF000648BFF /* HBaseViewController.swift */; };
+		607F957C2C12B17D00648BFF /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F957B2C12B17D00648BFF /* UITextField+Extension.swift */; };
 		6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */; };
 		6088F4802C0D871600130A87 /* HSingleChatSetHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */; };
 		6088F4822C0D8A7600130A87 /* HSingleChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */; };
@@ -436,6 +439,9 @@
 		601246802C075B6000635523 /* HMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineViewController.swift; sourceTree = "<group>"; };
 		607F95732C114EF100648BFF /* IMServiceBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMServiceBridge.h; sourceTree = "<group>"; };
 		607F95742C114EF100648BFF /* IMServiceBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMServiceBridge.m; sourceTree = "<group>"; };
+		607F95762C12995200648BFF /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
+		607F95782C129DF000648BFF /* HBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseViewController.swift; sourceTree = "<group>"; };
+		607F957B2C12B17D00648BFF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewController.swift; sourceTree = "<group>"; };
 		6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetHeadCell.swift; sourceTree = "<group>"; };
 		6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewModel.swift; sourceTree = "<group>"; };
@@ -1064,6 +1070,7 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				607F957A2C12B15F00648BFF /* Style */,
 				601246642C05F8AE00635523 /* HReuseIdentifier.swift */,
 				601246672C05F9B300635523 /* ScrollerView+Extension.swift */,
 				601246692C05FD4900635523 /* Font+Extension.swift */,
@@ -1073,6 +1080,7 @@
 				60922A7B2C075F1500B70AD8 /* HBasicViewModel.swift */,
 				60922A892C0822E100B70AD8 /* HProgressView.swift */,
 				60922A9B2C0869B600B70AD8 /* String+Extension.swift */,
+				607F95782C129DF000648BFF /* HBaseViewController.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1096,6 +1104,14 @@
 				60922A7F2C0767C600B70AD8 /* HMineAvatarCell.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		607F957A2C12B15F00648BFF /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				607F957B2C12B17D00648BFF /* UITextField+Extension.swift */,
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 		6088F47C2C0D643F00130A87 /* ChatSet */ = {
@@ -1190,6 +1206,7 @@
 				60F5CF762C0974DE0013D912 /* HSearchBar.swift */,
 				60F5CF8B2C0AF3CB0013D912 /* Model */,
 				6088F48D2C0DE79100130A87 /* Button+Create.swift */,
+				607F95762C12995200648BFF /* HNavigationBar.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1423,9 +1440,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2E1D1FF61FAF0AE600F4405D /* WildFireChat */ = {
+		2E1D1FF61FAF0AE600F4405D /* Hello9 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2E1D200D1FAF0AE600F4405D /* Build configuration list for PBXNativeTarget "WildFireChat" */;
+			buildConfigurationList = 2E1D200D1FAF0AE600F4405D /* Build configuration list for PBXNativeTarget "Hello9" */;
 			buildPhases = (
 				2BCBC82E23954AAF009321AD /* ShellScript */,
 				2E1D1FF31FAF0AE600F4405D /* Sources */,
@@ -1441,7 +1458,7 @@
 				B71F0AD628F5475A000A7C8A /* PBXTargetDependency */,
 				B71F0AD928F5475A000A7C8A /* PBXTargetDependency */,
 			);
-			name = WildFireChat;
+			name = Hello9;
 			packageProductDependencies = (
 				6012463A2C056AAD00635523 /* SnapKit */,
 				601246722C06CF8E00635523 /* MBProgressHUD */,
@@ -1557,7 +1574,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2E1D1FF61FAF0AE600F4405D /* WildFireChat */,
+				2E1D1FF61FAF0AE600F4405D /* Hello9 */,
 				2F56F6F2252C956700B829C4 /* ShareExtension */,
 				B71F0ABF28F54759000A7C8A /* Broadcast */,
 				B71F0ACB28F54759000A7C8A /* BroadcastSetupUI */,
@@ -1637,6 +1654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				149B3107241D292C00B935D3 /* UIColor+YH.m in Sources */,
+				607F95772C12995200648BFF /* HNavigationBar.swift in Sources */,
 				2FEA5D6A21F4AC8900280B23 /* WFCLoginViewController.m in Sources */,
 				2F63892C254E81910084EEA6 /* WFCFavoriteUnknownCell.m in Sources */,
 				6012462F2C047F7C00635523 /* IMConfigure.swift in Sources */,
@@ -1696,6 +1714,7 @@
 				601246542C059A6300635523 /* Colors.swift in Sources */,
 				2F638934254E8FAB0084EEA6 /* WFCFavoriteImageCell.m in Sources */,
 				6088F49A2C0F313E00130A87 /* HFriendAddContentCell.swift in Sources */,
+				607F957C2C12B17D00648BFF /* UITextField+Extension.swift in Sources */,
 				6088F49E2C0FFA3400130A87 /* HNewFriendListViewController.swift in Sources */,
 				60F5CF942C0D55FA0013D912 /* HMessageNavBar.swift in Sources */,
 				6088F4A02C0FFA5B00130A87 /* HNewFriendListViewModel.swift in Sources */,
@@ -1721,6 +1740,7 @@
 				2F638922254E5A7E0084EEA6 /* WFCFavoriteTableViewController.m in Sources */,
 				909ACDAF2130473100A64FE7 /* ChatroomListViewController.m in Sources */,
 				6088F48C2C0DBA4000130A87 /* HGroupInfo .swift in Sources */,
+				607F95792C129DF000648BFF /* HBaseViewController.swift in Sources */,
 				6012465C2C05B82E00635523 /* Localizable.swift in Sources */,
 				2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */,
 				2FC50B7C245273A700B36F8A /* PCSessionViewController.m in Sources */,
@@ -2268,7 +2288,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2E1D200D1FAF0AE600F4405D /* Build configuration list for PBXNativeTarget "WildFireChat" */ = {
+		2E1D200D1FAF0AE600F4405D /* Build configuration list for PBXNativeTarget "Hello9" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2E1D200E1FAF0AE600F4405D /* Debug */,

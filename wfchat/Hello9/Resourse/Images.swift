@@ -8,6 +8,8 @@ enum Images {
 
     static let icon_add_friend = UIImage(named: "icon_add_friend")!
 
+    static let icon_arrow_back_outline = UIImage(named: "icon_arrow_back_outline")!
+
     static let icon_back = UIImage(named: "icon_back")!
 
     static let icon_back01 = UIImage(named: "icon_back01")!
@@ -20,11 +22,23 @@ enum Images {
 
     static let icon_edit = UIImage(named: "icon_edit")!
 
+    static let icon_eye_close = UIImage(named: "icon_eye_close")!
+
+    static let icon_eye_open = UIImage(named: "icon_eye_open")!
+
     static let icon_group = UIImage(named: "icon_group")!
 
     static let icon_light = UIImage(named: "icon_light")!
 
+    static let icon_login_background = UIImage(named: "icon_login_background")!
+
+    static let icon_login_disable = UIImage(named: "icon_login_disable")!
+
+    static let icon_login_enable = UIImage(named: "icon_login_enable")!
+
     static let icon_logo = UIImage(named: "icon_logo")!
+
+    static let icon_logo42 = UIImage(named: "icon_logo42")!
 
     static let icon_menu = UIImage(named: "icon_menu")!
 

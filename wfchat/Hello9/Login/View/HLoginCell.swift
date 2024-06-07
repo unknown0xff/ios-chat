@@ -19,26 +19,34 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system12
-        label.textColor = Colors.gray03
+        label.textColor = Colors.themeGray03
         label.numberOfLines = 2
-        label.text = "已为您分配账号，您可以直接注册或更改您的密码后登录"
-        label.sizeToFit()
+        
+        let attr = NSMutableAttributedString(
+            string: "*",
+            attributes: [.font : UIFont.system12, .foregroundColor: Colors.red03, .kern: 0.5])
+        let attr1 = NSMutableAttributedString(
+            string: "已分配账户，您可直接注册或修改密码后登录",
+            attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeGray03])
+        attr.append(attr1)
+        label.attributedText = attr
         return label
     }()
     
     private(set) lazy var forgetButton: UIButton = {
-        let btn = UIButton(type: .custom)
+        let btn = UIButton(type: .system)
         btn.setTitle("忘记密码?", for: .normal)
-        btn.setTitleColor(Colors.gray03, for: .normal)
-        btn.titleLabel?.font = .system12
+        btn.setTitleColor(Colors.themeBlack, for: .normal)
+        btn.titleLabel?.font = .system14.medium
         return btn
     }()
     
     private(set) lazy var loginButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitleColor(Colors.white, for: .normal)
-        btn.titleLabel?.font = .system18.bold
-        btn.layer.cornerRadius = 32
+        btn.layer.cornerRadius = 31
+        btn.layer.masksToBounds = true
+        btn.setImage(Images.icon_login_enable, for: .normal)
+        btn.setImage(Images.icon_login_disable, for: .disabled)
         return btn
     }()
     
@@ -55,16 +63,15 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
     
     override func bindData(_ data: HLoginCellModel?) {
         let data = data ?? .init()
-        loginButton.setTitle(data.isNewUser ? "注册并登录" : "登录", for: .normal)
-        
         forgetButton.isHidden = data.isNewUser
         titleLabel.isHidden = !data.isNewUser
         loginButton.isEnabled = data.isValid
-        loginButton.backgroundColor = data.isValid ? Colors.blue01 : Colors.blue01.withAlphaComponent(0.5)
     }
     
     private func configureSubviews() {
         selectionStyle = .none
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         contentView.addSubview(titleLabel)
         contentView.addSubview(forgetButton)
         contentView.addSubview(loginButton)
@@ -80,16 +87,15 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
         }
         
         forgetButton.snp.makeConstraints { make in
-            make.top.equalTo(8)
-            make.right.equalTo(-32)
+            make.top.equalTo(3)
+            make.right.equalTo(-30)
         }
         
         loginButton.snp.makeConstraints { make in
-            make.left.equalTo(32)
-            make.right.equalTo(-32)
-            make.top.equalTo(titleLabel.snp.bottom).offset(UIScreen.height.multipliedBy(0.1))
-            make.height.equalTo(64)
-            make.bottom.equalTo(-1)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(73)
+            make.width.height.equalTo(62)
+            make.bottom.equalTo(-66)
         }
         
     }
