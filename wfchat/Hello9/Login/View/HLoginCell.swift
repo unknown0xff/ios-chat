@@ -41,14 +41,7 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
         return btn
     }()
     
-    private(set) lazy var loginButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.layer.cornerRadius = 31
-        btn.layer.masksToBounds = true
-        btn.setImage(Images.icon_login_enable, for: .normal)
-        btn.setImage(Images.icon_login_disable, for: .disabled)
-        return btn
-    }()
+    private(set) lazy var loginButton: UIButton = .loginButton
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

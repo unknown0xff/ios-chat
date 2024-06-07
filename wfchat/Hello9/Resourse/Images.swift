@@ -10,6 +10,8 @@ enum Images {
 
     static let icon_arrow_back_outline = UIImage(named: "icon_arrow_back_outline")!
 
+    static let icon_arrow_down = UIImage(named: "icon_arrow_down")!
+
     static let icon_back = UIImage(named: "icon_back")!
 
     static let icon_back01 = UIImage(named: "icon_back01")!
@@ -18,9 +20,13 @@ enum Images {
 
     static let icon_bell = UIImage(named: "icon_bell")!
 
+    static let icon_blue_background = UIImage(named: "icon_blue_background")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
+
+    static let icon_email = UIImage(named: "icon_email")!
 
     static let icon_eye_close = UIImage(named: "icon_eye_close")!
 
@@ -61,6 +67,10 @@ enum Images {
     static let icon_password = UIImage(named: "icon_password")!
 
     static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
+
+    static let icon_phone = UIImage(named: "icon_phone")!
+
+    static let icon_phone_black = UIImage(named: "icon_phone_black")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
 

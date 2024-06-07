@@ -1,5 +1,5 @@
 //
-//  Button+Create.swift
+//  UIButton+Extension.swift
 //  hello9
 //
 //  Created by Ada on 6/3/24.
@@ -20,4 +20,28 @@ extension UIButton {
     }
     
     static var backButton: UIButton { UIButton(type: .system, image: Images.icon_back) }
+    
+    static var loginButton: UIButton {
+        let btn = UIButton(type: .system)
+        btn.layer.cornerRadius = 31
+        btn.layer.masksToBounds = true
+        btn.setImage(Images.icon_login_enable, for: .normal)
+        btn.setImage(Images.icon_login_disable, for: .disabled)
+        return btn
+    }
+}
+
+extension UIView {
+    
+    static var gapView: UIView {
+        let space = UIView()
+        space.backgroundColor = Colors.grayD1
+        space.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.height.equalTo(16)
+        }
+        
+        return space
+    }
+    
 }

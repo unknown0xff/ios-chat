@@ -13,6 +13,10 @@ protocol HLoginInputCellDelegate: AnyObject {
     func didClickRefreshButton(_ completion: ((Bool) -> Void)?)
 }
 
+extension HLoginInputCellDelegate {
+    func didClickRefreshButton(_ completion: ((Bool) -> Void)?) { }
+}
+
 
 class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
 
@@ -156,7 +160,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         }
         
         // 登录且是密码输入框，更新isSecureTextEntry
-        if !data.isNewUser && data.id == .password {
+        if !data.isNewUser && (data.id == .password || data.id == .passwordConfirm) {
             data.isSecureTextEntry.toggle()
             cellData = data
             delegate?.didChangeInputValue(data, at: indexPath)
@@ -203,6 +207,8 @@ fileprivate extension HLoginInputModel {
             return isNewUser ? "创建账户" : "Hello9账户"
         case .password:
             return isNewUser ? "账户密码" : "账户密码"
+        case .passwordConfirm:
+            return "重新输入账户密码"
         }
     }
     
@@ -214,13 +220,13 @@ fileprivate extension HLoginInputModel {
         switch id {
         case .account:
             return false
-        case .password:
+        case .password, .passwordConfirm:
             return isNewUser ? false : true
         }
     }
     
     var placeholder: NSAttributedString {
-        let str = id == .account ? "请输入您的账号" : "请输入您的密码"
+        let str = id == .account ? "请输入您的账号" : "请输入8-12位密码"
         return .init(string: str, attributes: UITextField.placeHolderAttributes)
     }
     

@@ -14,6 +14,7 @@ struct HLoginInputModel: Hashable {
     enum Tag {
         case account
         case password
+        case passwordConfirm
     }
     
     let `id`: Tag
