@@ -18,6 +18,8 @@ class HBaseViewController: HBasicViewController {
         return nav
     }()
     
+    private(set) lazy var backgroundView = UIImageView(image: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
@@ -25,11 +27,14 @@ class HBaseViewController: HBasicViewController {
     }
     
     func configureSubviews() {
+        view.addSubview(backgroundView)
         view.addSubview(navBar)
     }
     
     func makeConstraints() {
-        
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func setupBackButton() {

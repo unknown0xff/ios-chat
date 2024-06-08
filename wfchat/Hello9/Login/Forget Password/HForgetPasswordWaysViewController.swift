@@ -19,6 +19,7 @@ class HForgetPasswordWaysViewController: HBaseViewController {
     
     private lazy var footerView: HLoginFooterView = {
         let view = HLoginFooterView(title: "记住密码？")
+        view.actionButton.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -121,6 +122,11 @@ class HForgetPasswordWaysViewController: HBaseViewController {
 //        HForgetPasswordPhoneViewController
     }
     
+    @objc func didClickLoginButton(_ sender: UIButton) {
+        if let nav = navigationController as? HLoginNavigationActions {
+            nav.onLoginAction()
+        }
+    }
     
 }
 

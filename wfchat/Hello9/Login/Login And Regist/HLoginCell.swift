@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 
-struct HLoginCellModel {
-    var isNewUser: Bool = true
-    var isValid: Bool = false
+struct HLoginCellModel: Hashable {
+    var isNewUser = true
+    var isValid = false
+    var buttonOnly = false
 }
 
 class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
@@ -56,8 +57,13 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
     
     override func bindData(_ data: HLoginCellModel?) {
         let data = data ?? .init()
-        forgetButton.isHidden = data.isNewUser
-        titleLabel.isHidden = !data.isNewUser
+        if data.buttonOnly {
+            forgetButton.isHidden = true
+            titleLabel.isHidden = true
+        } else {
+            forgetButton.isHidden = data.isNewUser
+            titleLabel.isHidden = !data.isNewUser
+        }
         loginButton.isEnabled = data.isValid
     }
     

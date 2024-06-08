@@ -29,6 +29,28 @@ extension UIButton {
         btn.setImage(Images.icon_login_disable, for: .disabled)
         return btn
     }
+    
+    class func imageButton(
+        with image: UIImage? = nil,
+        title: String = "",
+        font: UIFont = .system16,
+        titleColor: UIColor = Colors.themeBlack,
+        placement: NSDirectionalRectEdge = .leading,
+        padding: CGFloat = 0
+    ) -> UIButton {
+        var configuration = UIButton.Configuration.plain()
+        configuration.imagePlacement = placement
+        configuration.imagePadding = padding
+        configuration.image = image
+        configuration.title = title
+        configuration.attributedTitle = AttributedString(title, attributes: .init([
+            .font : font,
+            .foregroundColor: titleColor
+        ]))
+        let btn = UIButton(type: .system)
+        btn.configuration = configuration
+        return btn
+    }
 }
 
 extension UIView {

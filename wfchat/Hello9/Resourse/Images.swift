@@ -24,6 +24,8 @@ enum Images {
 
     static let icon_blue_background = UIImage(named: "icon_blue_background")!
 
+    static let icon_button_background_green = UIImage(named: "icon_button_background_green")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
@@ -81,6 +83,8 @@ enum Images {
     static let icon_search_gray = UIImage(named: "icon_search_gray")!
 
     static let icon_secret = UIImage(named: "icon_secret")!
+
+    static let icon_success_green = UIImage(named: "icon_success_green")!
 
     static let icon_top = UIImage(named: "icon_top")!
 

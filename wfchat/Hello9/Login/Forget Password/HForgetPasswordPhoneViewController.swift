@@ -20,6 +20,7 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
     
     private lazy var footerView: HLoginFooterView = {
         let view = HLoginFooterView(title: "记住密码？")
+        view.actionButton.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -92,13 +93,13 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
         return field
     }()
     
-    private lazy var loginButton: UIButton = .loginButton
+    private lazy var nextStepButton: UIButton = .loginButton
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        loginButton.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
+        nextStepButton.addTarget(self, action: #selector(didClickNextStepButton(_:)), for: .touchUpInside)
     }
     
     override func configureSubviews() {
@@ -114,10 +115,10 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
         stack.addArrangedSubview(textField)
         
         view.addSubview(stack)
-        view.addSubview(loginButton)
+        view.addSubview(nextStepButton)
         view.addSubview(footerView)
         
-        loginButton.isEnabled = !((textField.text ?? "").isEmpty)
+        nextStepButton.isEnabled = !((textField.text ?? "").isEmpty)
     }
     
     override func makeConstraints() {
@@ -147,7 +148,7 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
             make.height.equalTo(54)
         }
         
-        loginButton.snp.makeConstraints { make in
+        nextStepButton.snp.makeConstraints { make in
             make.top.equalTo(stack.snp.bottom).offset(90)
             make.width.height.equalTo(62)
             make.centerX.equalToSuperview()
@@ -161,12 +162,18 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         let text = textField.text ?? ""
-        loginButton.isEnabled = !text.isEmpty
+        nextStepButton.isEnabled = !text.isEmpty
+    }
+    
+    @objc func didClickNextStepButton(_ sender: UIButton) {
+        let vc = HVerifyCodeViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func didClickLoginButton(_ sender: UIButton) {
-        let vc = HVerifyCodeViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        if let nav = navigationController as? HLoginNavigationActions {
+            nav.onLoginAction()
+        }
     }
 }
 

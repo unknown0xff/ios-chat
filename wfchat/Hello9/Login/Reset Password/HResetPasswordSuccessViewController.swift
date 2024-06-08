@@ -10,34 +10,53 @@ import UIKit
 
 class HResetPasswordSuccessViewController: HBaseViewController {
     
-    private lazy var backgourndView = UIImageView(image: Images.icon_background_green)
-    
-    private lazy var phoneButton: UIButton = {
-        let btn = UIButton(type: .system)
-        
-        btn.setBackgroundImage(Images.icon_blue_background, for: .normal)
-        btn.setTitle("通过手机号验证", for: .normal)
+    private lazy var loginButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setBackgroundImage(Images.icon_button_background_green, for: .normal)
+        btn.setTitle("去登录", for: .normal)
         btn.setTitleColor(Colors.white, for: .normal)
-        btn.titleLabel?.font = .system16.medium
-        
-        let icon = UIImageView(image: Images.icon_phone)
-        icon.contentMode = .center
-        btn.addSubview(icon)
-        icon.snp.makeConstraints { make in
-            make.left.equalTo(23)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(57)
-            make.width.equalTo(42)
-        }
-        
+        btn.titleLabel?.font = .system16.bold
+        btn.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var successView: UIButton = {
+        let btn = UIButton.imageButton(
+            with: Images.icon_success_green,
+            title: "修改成功",
+            font: .system20.bold,
+            placement: .top)
+        btn.isUserInteractionEnabled = false
         return btn
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(backgourndView)
-      
     }
     
+    override func configureSubviews() {
+        super.configureSubviews()
+        
+        backgroundView.image = Images.icon_background_green
+        view.addSubview(successView)
+        view.addSubview(loginButton)
+        
+        successView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(150)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.left.equalTo(30)
+            make.right.equalTo(-30)
+            make.height.equalTo(54)
+            make.bottom.equalTo(-13 - HUIConfigure.safeBottomMargin)
+        }
+    }
+    
+    @objc func didClickLoginButton(_ sender: UIButton) {
+        if let nav = navigationController as? HLoginNavigationActions {
+            nav.onLoginAction()
+        }
+    }
 }

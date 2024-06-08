@@ -83,9 +83,9 @@ class HLoginViewController: HBaseViewController {
                 cell.cellData = model
                 cell.delegate = self
                 return cell
-            case .login(let isNewUser, let isValid):
+            case .login(let model):
                 let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
-                cell.cellData = .init(isNewUser: isNewUser, isValid: isValid)
+                cell.cellData = model
                 cell.loginButton.addTarget(self, action: #selector(Self.didClickLoginButton(_:)), for: .touchUpInside)
                 cell.forgetButton.addTarget(self, action: #selector(Self.didClickForgetButton(_:)), for: .touchUpInside)
                 return cell

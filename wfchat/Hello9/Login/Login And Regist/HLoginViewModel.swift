@@ -14,7 +14,7 @@ class HLoginViewModel: HBasicViewModel {
 
     enum Row: Hashable {
         case input(_ model: HLoginInputModel)
-        case login(_ isNewUser: Bool, _ isValid: Bool)
+        case login(_ model: HLoginCellModel)
     }
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection,Row>()
@@ -107,7 +107,7 @@ class HLoginViewModel: HBasicViewModel {
         let inputRows = inputModel.map {  Row.input($0) }
         snapshot.appendItems(inputRows)
         
-        snapshot.appendItems([.login(isNewUser, isValid)])
+        snapshot.appendItems([.login(.init(isNewUser: isNewUser, isValid: isValid))])
         
         self.snapshot = snapshot
     }

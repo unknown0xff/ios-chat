@@ -18,6 +18,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
     
     private lazy var footerView: HLoginFooterView = {
         let view = HLoginFooterView(title: "记住密码？")
+        view.actionButton.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -37,7 +38,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
         return code
     }()
     
-    private lazy var loginButton: UIButton = .loginButton
+    private lazy var nextButton: UIButton = .loginButton
     private lazy var countDownButton: HCountDownButton = .init(frame: .zero)
     
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
         
         countDownButton.startTime(secondsCountDown: 60)
         countDownButton.addTarget(self, action: #selector(didClickResendButton(_:)), for: .touchUpInside)
-        loginButton.addTarget(self, action: #selector(didClickLoginButton(_:)), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(didClickNextButton(_:)), for: .touchUpInside)
     }
     
     override func configureSubviews() {
@@ -58,7 +59,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
         view.addSubview(titleLabel)
         view.addSubview(countDownButton)
         view.addSubview(verifyCodeView)
-        view.addSubview(loginButton)
+        view.addSubview(nextButton)
         view.addSubview(footerView)
     }
     
@@ -91,7 +92,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
             make.height.equalTo(54)
         }
         
-        loginButton.snp.makeConstraints { make in
+        nextButton.snp.makeConstraints { make in
             make.top.equalTo(verifyCodeView.snp.bottom).offset(90)
             make.width.height.equalTo(62)
             make.centerX.equalToSuperview()
@@ -104,7 +105,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
     }
     
     func verificationCodeDidFinishInput(code: String) {
-        loginButton.isEnabled = code.count == 4
+        nextButton.isEnabled = code.count == 4
     }
     
     @objc func didClickResendButton(_ sender: UIButton) {
@@ -112,8 +113,14 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
         countDownButton.startTime(secondsCountDown: 60)
     }
     
-    @objc func didClickLoginButton(_ sender: UIButton) {
+    @objc func didClickNextButton(_ sender: UIButton) {
         navigationController?.pushViewController(HResetPasswordViewController(), animated: true)
+    }
+    
+    @objc func didClickLoginButton(_ sender: UIButton) {
+        if let nav = navigationController as? HLoginNavigationActions {
+            nav.onLoginAction()
+        }
     }
     
 }

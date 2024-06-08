@@ -67,9 +67,9 @@ class HResetPasswordViewController: HBaseViewController {
                 cell.cellData = model
                 cell.delegate = self
                 return cell
-            case .login(let isNewUser, let isValid):
+            case .login(let model):
                 let cell = tableView.cell(of: HLoginCell.self, for: indexPath)
-                cell.cellData = .init(isNewUser: isNewUser, isValid: isValid)
+                cell.cellData = model
                 cell.loginButton.addTarget(self, action: #selector(Self.didClickDoneButton(_:)), for: .touchUpInside)
                 return cell
             }
@@ -125,8 +125,9 @@ extension HResetPasswordViewController: HLoginInputCellDelegate {
                     
                     if result != nil {
                         HToast.showAutoHidden(on: view, text: "修改失败")
+                        self.navigationController?.pushViewController(HResetPasswordSuccessViewController(), animated: true)
                     } else {
-                        // 修改成功
+                        self.navigationController?.pushViewController(HResetPasswordSuccessViewController(), animated: true)
                     }
                 }
             }
@@ -134,6 +135,8 @@ extension HResetPasswordViewController: HLoginInputCellDelegate {
     }
     
     @objc func didClickLoginButton(_ sender: UIButton) {
-        // 跳登录
+        if let nav = navigationController as? HLoginNavigationActions {
+            nav.onLoginAction()
+        }
     }
 }

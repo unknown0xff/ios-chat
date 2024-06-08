@@ -9,6 +9,10 @@
 import UIKit
 import Combine
 
+protocol HLoginNavigationActions {
+    func onLoginAction()
+}
+
 class HLoginNavigationViewController: HNavigationController {
 
     private lazy var registerVC: HLoginViewController = {
@@ -62,4 +66,10 @@ class HLoginNavigationViewController: HNavigationController {
         }
     }
     
+}
+
+extension HLoginNavigationViewController: HLoginNavigationActions {
+    func onLoginAction() {
+        setViewControllers([loginVC], animated: true)
+    }
 }
