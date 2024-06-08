@@ -20,7 +20,8 @@ class HChatListViewController: HBaseViewController {
    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
-        tableView.applyDefaultConfigure()
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 73, bottom: 0, right: 0)
         tableView.delegate = self
         return tableView
     }()
@@ -221,6 +222,10 @@ class HChatListViewController: HBaseViewController {
 // MARK: - UITableViewDelegate
 
 extension HChatListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 83
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

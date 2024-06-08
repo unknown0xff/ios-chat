@@ -12,6 +12,8 @@ struct HAppearance {
     
     static func install() {
         
+        UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
+        UITableView.appearance().separatorColor = Colors.themeGray4Background
         // UITabBar
         UITabBarItem.appearance().badgeColor = Colors.red01
     }
