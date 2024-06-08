@@ -19,15 +19,15 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system12
-        label.textColor = Colors.themeGray03
+        label.textColor = Colors.themeGray3
         label.numberOfLines = 2
         
         let attr = NSMutableAttributedString(
             string: "*",
-            attributes: [.font : UIFont.system12, .foregroundColor: Colors.red03, .kern: 0.5])
+            attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeRed2, .kern: 0.5])
         let attr1 = NSMutableAttributedString(
             string: "已分配账户，您可直接注册或修改密码后登录",
-            attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeGray03])
+            attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeGray3])
         attr.append(attr1)
         label.attributedText = attr
         return label

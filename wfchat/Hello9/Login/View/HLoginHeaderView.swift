@@ -24,7 +24,7 @@ class HLoginHeaderView: UIView {
     private(set) lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .system14
-        label.textColor = Colors.themeGray03
+        label.textColor = Colors.themeGray3
         label.numberOfLines = 2
         label.textAlignment = .justified
         return label

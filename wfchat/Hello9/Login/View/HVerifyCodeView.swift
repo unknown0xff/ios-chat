@@ -215,7 +215,7 @@ class HVerifyCodeLabel: UILabel {
         textAlignment = .center
         isUserInteractionEnabled = false
         
-        backgroundColor = Colors.themeGrayBackground
+        backgroundColor = Colors.themeGray4Background
         layer.cornerRadius = 10
         layer.masksToBounds = true
     }

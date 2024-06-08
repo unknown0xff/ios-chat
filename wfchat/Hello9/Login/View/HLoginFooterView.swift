@@ -30,16 +30,16 @@ class HLoginFooterView: UIView {
         let view = UIView()
         
         let leftLine = UILabel()
-        leftLine.backgroundColor = Colors.themeGrayBackground
+        leftLine.backgroundColor = Colors.themeGray4Background
         view.addSubview(leftLine)
         
         let or = UILabel()
-        or.textColor = Colors.themeGrayDisable
+        or.textColor = Colors.themeButtonDisable
         or.text = "OR"
         view.addSubview(or)
         
         let rightLine = UILabel()
-        rightLine.backgroundColor = Colors.themeGrayBackground
+        rightLine.backgroundColor = Colors.themeGray4Background
         view.addSubview(rightLine)
         
         or.snp.makeConstraints { make in
@@ -100,7 +100,7 @@ class HLoginFooterView: UIView {
         
         let attr1 = NSAttributedString(string: title, attributes: [
             .font : UIFont.system16,
-            .foregroundColor : Colors.themeGray02
+            .foregroundColor : Colors.themeGray2
         ])
         let attr2 = NSAttributedString(string: subTitle, attributes: [
             .font : UIFont.system16.bold,

@@ -7,9 +7,6 @@ enum Colors {
     /// 0x00 0x00 0x00
     static let black = UIColor(named: "black")!
 
-    /// 0x00 0x75 0xFF
-    static let blue01 = UIColor(named: "blue01")!
-
     /// 0xB9 0xB9 0xB9
     static let gray01 = UIColor(named: "gray01")!
 
@@ -40,29 +37,50 @@ enum Colors {
     /// 0xF6 0xF7 0xFA
     static let grayF6 = UIColor(named: "grayF6")!
 
-    /// 0xEF 0x49 0x4B
+    /// 0xFF 0x3A 0x30
     static let red01 = UIColor(named: "red01")!
 
     /// 0xFC 0x45 0x5D
     static let red02 = UIColor(named: "red02")!
 
-    /// 0xFF 0x67 0x67
-    static let red03 = UIColor(named: "red03")!
+    /// 0x1D 0x2F 0x3C
+    static let theme2 = UIColor(named: "theme2")!
 
     /// 0x00 0x00 0x00
     static let themeBlack = UIColor(named: "themeBlack")!
 
-    /// 0x34 0x49 0x5E
-    static let themeGray02 = UIColor(named: "themeGray02")!
+    /// 0x00 0x75 0xFF
+    static let themeBlue1 = UIColor(named: "themeBlue1")!
 
-    /// 0x73 0x81 0x9E
-    static let themeGray03 = UIColor(named: "themeGray03")!
-
-    /// 0xF7 0xF9 0xFC
-    static let themeGrayBackground = UIColor(named: "themeGrayBackground")!
+    /// 0x00 0x23 0x35
+    static let themeBusiness = UIColor(named: "themeBusiness")!
 
     /// 0x80 0x87 0x93
-    static let themeGrayDisable = UIColor(named: "themeGrayDisable")!
+    static let themeButtonDisable = UIColor(named: "themeButtonDisable")!
+
+    /// 0x34 0x49 0x5E
+    static let themeGray2 = UIColor(named: "themeGray2")!
+
+    /// 0x73 0x81 0x9E
+    static let themeGray3 = UIColor(named: "themeGray3")!
+
+    /// 0x6A 0x96 0xC4
+    static let themeGray3Assit = UIColor(named: "themeGray3Assit")!
+
+    /// 0xB9 0xBE 0xC7
+    static let themeGray4 = UIColor(named: "themeGray4")!
+
+    /// 0xF7 0xF9 0xFC
+    static let themeGray4Background = UIColor(named: "themeGray4Background")!
+
+    /// 0x1B 0xA2 0x7A
+    static let themeGreen1 = UIColor(named: "themeGreen1")!
+
+    /// 0xFF 0x3A 0x30
+    static let themeRed1 = UIColor(named: "themeRed1")!
+
+    /// 0xFF 0x67 0x67
+    static let themeRed2 = UIColor(named: "themeRed2")!
 
     /// 0xFF 0xFF 0xFF
     static let white = UIColor(named: "white")!

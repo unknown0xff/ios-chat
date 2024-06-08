@@ -16,8 +16,8 @@ class HCountDownButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setTitleColor(Colors.blue01, for: .disabled)
-        setTitleColor(Colors.blue01, for: .normal)
+        setTitleColor(Colors.themeBlue1, for: .disabled)
+        setTitleColor(Colors.themeBlue1, for: .normal)
         titleLabel?.font = .system16.bold
     }
     

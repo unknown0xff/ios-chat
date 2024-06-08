@@ -68,7 +68,7 @@ class HNewFriendCell: HBasicTableViewCell<WFCCFriendRequest> {
     
     private lazy var acceptButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = Colors.blue01
+        btn.backgroundColor = Colors.themeBlue1
         btn.layer.cornerRadius = 15
         btn.setTitle("同意", for: .normal)
         btn.setTitleColor(Colors.white, for: .normal)

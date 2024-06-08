@@ -22,7 +22,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         let label = UILabel()
         label.font = .system9
         label.text = "【密聊】"
-        label.textColor = Colors.blue01
+        label.textColor = Colors.themeBlue1
         label.textAlignment = .center
         return label
     }()

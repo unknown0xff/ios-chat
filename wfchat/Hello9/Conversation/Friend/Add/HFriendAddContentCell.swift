@@ -59,7 +59,7 @@ class HFriendAddContentCell: HBasicTableViewCell<HFriendAddContentModel> {
         btn.setTitle("添加好友", for: .normal)
         btn.setTitleColor(Colors.white, for: .normal)
         btn.titleLabel?.font = .system14
-        btn.backgroundColor = Colors.blue01
+        btn.backgroundColor = Colors.themeBlue1
         btn.layer.cornerRadius = 36
         return btn
     }

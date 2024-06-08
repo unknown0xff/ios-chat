@@ -25,7 +25,7 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system14
-        label.textColor = Colors.themeGray02
+        label.textColor = Colors.themeGray2
         return label
     }()
     
