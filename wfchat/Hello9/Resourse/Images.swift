@@ -32,6 +32,8 @@ enum Images {
 
     static let icon_email = UIImage(named: "icon_email")!
 
+    static let icon_email_black = UIImage(named: "icon_email_black")!
+
     static let icon_eye_close = UIImage(named: "icon_eye_close")!
 
     static let icon_eye_open = UIImage(named: "icon_eye_open")!

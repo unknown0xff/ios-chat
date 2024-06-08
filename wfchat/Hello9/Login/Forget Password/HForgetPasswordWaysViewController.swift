@@ -119,7 +119,7 @@ class HForgetPasswordWaysViewController: HBaseViewController {
     }
     
     @objc func didClickEmailButton(_ sender: UIButton) {
-//        HForgetPasswordPhoneViewController
+        navigationController?.pushViewController(HForgetPasswordEmailViewController(), animated: true)
     }
     
     @objc func didClickLoginButton(_ sender: UIButton) {
