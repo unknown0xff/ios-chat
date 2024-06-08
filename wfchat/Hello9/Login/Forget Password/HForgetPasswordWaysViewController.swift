@@ -23,8 +23,6 @@ class HForgetPasswordWaysViewController: HBaseViewController {
         return view
     }()
     
-    private lazy var backgourndView = UIImageView(image: Images.icon_login_background)
-    
     private lazy var phoneButton: UIButton = {
         let btn = UIButton(type: .system)
         
@@ -73,9 +71,6 @@ class HForgetPasswordWaysViewController: HBaseViewController {
     }
     
     override func configureSubviews() {
-        
-        view.addSubview(backgourndView)
-        
         super.configureSubviews()
         view.addSubview(headerView)
         view.addSubview(phoneButton)
@@ -87,9 +82,7 @@ class HForgetPasswordWaysViewController: HBaseViewController {
     }
     
     override func makeConstraints() {
-        backgourndView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        super.makeConstraints()
         
         headerView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(28)

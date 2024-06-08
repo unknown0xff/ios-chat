@@ -26,6 +26,8 @@ enum Images {
 
     static let icon_button_background_green = UIImage(named: "icon_button_background_green")!
 
+    static let icon_common_background = UIImage(named: "icon_common_background")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
@@ -42,8 +44,6 @@ enum Images {
 
     static let icon_light = UIImage(named: "icon_light")!
 
-    static let icon_login_background = UIImage(named: "icon_login_background")!
-
     static let icon_login_disable = UIImage(named: "icon_login_disable")!
 
     static let icon_login_enable = UIImage(named: "icon_login_enable")!
@@ -51,6 +51,8 @@ enum Images {
     static let icon_logo = UIImage(named: "icon_logo")!
 
     static let icon_logo42 = UIImage(named: "icon_logo42")!
+
+    static let icon_logo_title = UIImage(named: "icon_logo_title")!
 
     static let icon_menu = UIImage(named: "icon_menu")!
 

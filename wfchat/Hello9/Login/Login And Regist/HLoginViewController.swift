@@ -73,8 +73,8 @@ class HLoginViewController: HBaseViewController {
         tableView.applyDefaultConfigure()
         tableView.tableHeaderView = tableHeaderView
         tableView.register([HLoginInputCell.self, HLoginCell.self])
-        tableView.backgroundView = UIImageView(image: Images.icon_login_background)
-        
+        tableView.backgroundColor = .clear
+      
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, row in
             switch row {
             case .input(let model):

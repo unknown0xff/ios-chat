@@ -24,8 +24,6 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
         return view
     }()
     
-    private lazy var backgourndView = UIImageView(image: Images.icon_login_background)
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system16.bold
@@ -103,9 +101,6 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
     }
     
     override func configureSubviews() {
-        
-        view.addSubview(backgourndView)
-        
         super.configureSubviews()
         view.addSubview(headerView)
         
@@ -122,13 +117,10 @@ class HForgetPasswordPhoneViewController: HBaseViewController {
     }
     
     override func makeConstraints() {
+        super.makeConstraints()
         
         phoneNumberLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        
-        backgourndView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
         
         headerView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(28)

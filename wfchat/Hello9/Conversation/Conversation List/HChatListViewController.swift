@@ -16,39 +16,8 @@ class HChatListDataSource: UITableViewDiffableDataSource<HChatListViewModel.Sect
     }
 }
 
-class HChatListViewController: HBasicViewController {
-    
-    private lazy var navBarView: HTitleNavBar = {
-        let nav = HTitleNavBar()
-        nav.titleLabel.text = "聊天"
-        
-        let imageView = UIImageView(image: Images.icon_logo)
-        imageView.contentMode = .scaleAspectFit
-        
-        nav.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(-8)
-        }
-        
-        let btn = UIButton(type: .system)
-        btn.setImage(Images.icon_menu.withRenderingMode(.alwaysOriginal), for: .normal)
-        btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
-        
-        nav.addSubview(btn)
-        btn.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.right.equalTo(-24)
-            make.centerY.equalTo(imageView)
-        }
-        
-        nav.titleLabel.snp.updateConstraints { make in
-            make.bottom.equalTo(-13)
-        }
-        return nav
-    }()
-    
+class HChatListViewController: HBaseViewController {
+   
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.applyDefaultConfigure()
@@ -56,12 +25,28 @@ class HChatListViewController: HBasicViewController {
         return tableView
     }()
     
-    private lazy var searchBar: HSearchBar = {
-        let bar = HSearchBar()
-        bar.textField.placeholder = "搜你想搜的"
-        bar.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    private lazy var searchBar: UIView = {
+        let bar = UIView(frame: .init(x: 0, y: 0, width: UIScreen.width, height: 60))
+        let btn = UIButton.search
+        bar.addSubview(btn)
+        btn.snp.makeConstraints { make in
+            make.top.equalTo(10)
+            make.left.equalTo(16)
+            make.width.equalTo(UIScreen.width - 32)
+            make.height.equalTo(40)
+        }
+        btn.addTarget(self, action: #selector(didClickSearchButton(_:)), for: .touchUpInside)
         return bar
     }()
+    
+    private lazy var menuButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(Images.icon_menu, for: .normal)
+        btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var logoView = UIImageView(image: Images.icon_logo_title)
     
     private typealias Section = HChatListViewModel.Section
     private typealias Row = HChatListViewModel.Row
@@ -79,14 +64,14 @@ class HChatListViewController: HBasicViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureSubviews()
-        makeConstraints()
         addObservers()
     }
     
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         
+        tableView.tableHeaderView = searchBar
+        tableView.backgroundColor = .clear
         tableView.register([HChatListCell.self, HFriendRequestCell.self])
         
         dataSource = HChatListDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
@@ -111,8 +96,8 @@ class HChatListViewController: HBasicViewController {
             .store(in: &cancellables)
         
         view.addSubview(tableView)
-        view.addSubview(navBarView)
-        view.addSubview(searchBar)
+        navBar.addSubview(logoView)
+        navBar.addSubview(menuButton)
     }
     
     private func addObservers() {
@@ -131,26 +116,27 @@ class HChatListViewController: HBasicViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
         
-        navBarView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(112)
+        logoView.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.bottom.equalTo(-12)
+            make.height.equalTo(31)
+            make.width.equalTo(106)
+        }
+        
+        menuButton.snp.makeConstraints { make in
+            make.right.equalTo(-18)
+            make.bottom.equalTo(-16)
+            make.width.height.equalTo(24)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBarView.snp.bottom)
+            make.top.equalTo(navBar.snp.bottom)
             make.width.left.right.equalToSuperview()
             make.bottom.equalTo(-HUIConfigure.tabBarHeight)
         }
-        
-        searchBar.snp.makeConstraints { make in
-            make.bottom.equalTo(-HUIConfigure.safeBottomMargin - 24)
-            make.left.equalTo(0)
-            make.right.equalTo(0)
-            make.height.equalTo(48)
-        }
-        
     }
     
     private func setConversationTop(isTop: Bool, at indexPath: IndexPath) {
@@ -227,7 +213,9 @@ class HChatListViewController: HBasicViewController {
         navigationController?.pushViewController(mvc, animated: true)
     }
     
-    override func prefersNavigationBarHidden() -> Bool { true }
+    @objc func didClickSearchButton(_ sender: UIButton) {
+        // TODO search
+    }
 }
 
 // MARK: - UITableViewDelegate

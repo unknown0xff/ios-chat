@@ -30,6 +30,21 @@ extension UIButton {
         return btn
     }
     
+    static var search: UIButton {
+        let btn = UIButton.imageButton(
+            with: Images.icon_search_gray,
+            title: "搜索",
+            titleColor: Colors.themeGray3,
+            placement: .leading,
+            padding: 6
+        )
+        
+        btn.configuration?.cornerStyle = .capsule
+        btn.configuration?.background.backgroundColor = Colors.themeGray4Background
+        
+        return btn
+    }
+    
     class func imageButton(
         with image: UIImage? = nil,
         title: String = "",

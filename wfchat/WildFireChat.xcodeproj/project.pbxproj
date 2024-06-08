@@ -1267,12 +1267,12 @@
 				6088F47C2C0D643F00130A87 /* ChatSet */,
 				60F5CF902C0D55BE0013D912 /* MessageList */,
 				60F5CF782C09C7700013D912 /* Create */,
-				60922A922C084C0700B70AD8 /* List */,
+				60922A922C084C0700B70AD8 /* Conversation List */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
 		};
-		60922A922C084C0700B70AD8 /* List */ = {
+		60922A922C084C0700B70AD8 /* Conversation List */ = {
 			isa = PBXGroup;
 			children = (
 				60922A932C084C5400B70AD8 /* HChatListViewController.swift */,
@@ -1281,7 +1281,7 @@
 				60922A992C084ED500B70AD8 /* HChatListCellModel.swift */,
 				6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */,
 			);
-			path = List;
+			path = "Conversation List";
 			sourceTree = "<group>";
 		};
 		60F5CF782C09C7700013D912 /* Create */ = {

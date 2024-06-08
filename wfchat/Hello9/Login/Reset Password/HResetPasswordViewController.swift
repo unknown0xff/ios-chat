@@ -57,7 +57,7 @@ class HResetPasswordViewController: HBaseViewController {
         tableView.applyDefaultConfigure()
         tableView.tableHeaderView = tableHeaderView
         tableView.register([HLoginInputCell.self, HLoginCell.self])
-        tableView.backgroundView = UIImageView(image: Images.icon_login_background)
+        tableView.backgroundColor = .clear
         
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, row in
             switch row {
@@ -83,7 +83,7 @@ class HResetPasswordViewController: HBaseViewController {
         
         view.addSubview(tableView)
         view.addSubview(footerView)
-        view.sendSubviewToBack(tableView)
+        view.bringSubviewToFront(navBar)
     }
     
     override func makeConstraints() {

@@ -22,8 +22,6 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
         return view
     }()
     
-    private lazy var backgourndView = UIImageView(image: Images.icon_login_background)
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .system16.bold
@@ -50,9 +48,6 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
     }
     
     override func configureSubviews() {
-        
-        view.addSubview(backgourndView)
-        
         super.configureSubviews()
         view.addSubview(headerView)
         
@@ -64,10 +59,7 @@ class HVerifyCodeViewController: HBaseViewController, HVerifyCodeViewDelegate {
     }
     
     override func makeConstraints() {
-        
-        backgourndView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        super.makeConstraints()
         
         headerView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(28)
