@@ -11,7 +11,8 @@ import SnapKit
 
 enum HTabTag: Int {
     case message = 0
-    case mine = 1
+    case node = 1
+    case mine = 2
 }
 
 class HTabViewController: UITabBarController {
@@ -43,7 +44,7 @@ class HTabViewController: UITabBarController {
         let messageVC = HChatListViewController()
         messageVC.hidesBottomBarWhenPushed = false
         let messageNav = HNavigationController(rootViewController: messageVC)
-        let messageItem = UITabBarItem(title: nil, image: Images.tab_message_off, selectedImage: Images.tab_message_on)
+        let messageItem = UITabBarItem(title: "消息", image: Images.tab_message_off, selectedImage: Images.tab_message_on)
         messageItem.tag = HTabTag.message.rawValue
         
         messageNav.tabBarItem = messageItem
@@ -51,10 +52,18 @@ class HTabViewController: UITabBarController {
         
         self.messageNavationController = messageNav
         
+        let node = HBaseViewController()
+        node.hidesBottomBarWhenPushed = false
+        let nodeNav = HNavigationController(rootViewController: node)
+        let nodeItem = UITabBarItem(title: "节点", image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
+        nodeItem.tag = HTabTag.node.rawValue
+        nodeNav.tabBarItem = nodeItem
+        addChild(nodeNav)
+        
         let mineVC = HMineViewController()
         mineVC.hidesBottomBarWhenPushed = false
         let mineNav = HNavigationController(rootViewController: mineVC)
-        let mineItem = UITabBarItem(title: nil, image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
+        let mineItem = UITabBarItem(title: "我的", image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
         mineItem.tag = HTabTag.mine.rawValue
         mineNav.tabBarItem = mineItem
         addChild(mineNav)

@@ -31,7 +31,16 @@ class HTabBarItemView: UIControl {
     
     private var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    private var titleLabel: UILabel = {
+        let l = UILabel()
+        l.font = .system12.bold
+        l.textColor = Colors.themeBlack
+        l.textAlignment = .center
+        return l
     }()
 
     private var badgeContent: UILabel = {
@@ -85,12 +94,18 @@ class HTabBarItemView: UIControl {
     
     private func bindData() {
         imageView.image = isSelected ? barItem.selectedImage : barItem.image
+        titleLabel.text = barItem.title
         badgeLabel.text = barItem.badgeValue
         badgeContent.isHidden = barItem.badgeValue?.isEmpty ?? true
+        
+        titleLabel.font = isSelected ? .system14.bold : .system14
+        titleLabel.textColor = isSelected ? Colors.themeBlack : Colors.themeButtonDisable
+        
     }
     
     private func addChildren() {
         addSubview(imageView)
+        addSubview(titleLabel)
         addSubview(badgeContent)
         badgeContent.addSubview(badgeLabel)
         addSubview(rightLineView)
@@ -98,8 +113,14 @@ class HTabBarItemView: UIControl {
     
     private func makeConstraints() {
         imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
-            make.center.equalToSuperview()
+            make.height.width.equalTo(20)
+            make.top.equalTo(8)
+            make.centerX.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(imageView)
+            make.top.equalTo(imageView.snp.bottom).offset(5)
         }
         
         badgeContent.snp.makeConstraints { make in
