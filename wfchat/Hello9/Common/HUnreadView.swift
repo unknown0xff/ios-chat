@@ -8,6 +8,11 @@
 
 class HUnreadView: UIView {
     
+    enum Style {
+        case gray
+        case red
+    }
+    
     private lazy var backgroundView: UIImageView = UIImageView(image: Images.icon_unread_background)
     
     private lazy var unreadLabel: UILabel = {
@@ -17,6 +22,18 @@ class HUnreadView: UIView {
         label.textAlignment = .center
         return label
     }()
+    
+    var style: Style = .red {
+        didSet {
+            switch style {
+            case .red:
+                backgroundView.image = Images.icon_unread_background
+            case .gray:
+                backgroundView.image = nil
+                backgroundView.backgroundColor = Colors.themeGray4
+            }
+        }
+    }
     
     var unreadCount: Int32 = 0 {
         didSet {

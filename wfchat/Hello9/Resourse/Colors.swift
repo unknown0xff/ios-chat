@@ -82,6 +82,9 @@ enum Colors {
     /// 0xFF 0x67 0x67
     static let themeRed2 = UIColor(named: "themeRed2")!
 
+    /// 0xFF 0x99 0x3E
+    static let themeYellow1 = UIColor(named: "themeYellow1")!
+
     /// 0xFF 0xFF 0xFF
     static let white = UIColor(named: "white")!
 

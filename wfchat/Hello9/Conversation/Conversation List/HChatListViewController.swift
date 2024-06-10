@@ -259,41 +259,41 @@ extension HChatListViewController: UITableViewDelegate {
             configure.performsFirstActionWithFullSwipe = false
             return configure
         case .chat(let model):
-            let mute = UIContextualAction(style: .normal, title: "静音") { [weak self] _ , _ , handle in
+            let mute = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
                 self?.setConversationSilent(isSilent: true, at: indexPath)
                 handle(true)
             }
-            mute.image = Images.icon_mute
-            mute.backgroundColor = Colors.yellow01
+            mute.image = Images.icon_chat_list_mute
+            mute.backgroundColor = Colors.themeYellow1
             
-            let unmute = UIContextualAction(style: .normal, title: "取消静音") { [weak self] _ , _ , handle in
+            let unmute = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
                 self?.setConversationSilent(isSilent: false, at: indexPath)
                 handle(true)
             }
             unmute.image = Images.icon_mute
-            unmute.backgroundColor = Colors.yellow01
+            unmute.backgroundColor = Colors.themeYellow1
             
-            let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
+            let delete = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
                 self?.viewModel.removeConversation(at: indexPath)
                 self?.updateBadgeNumber()
                 handle(true)
             }
-            delete.image = Images.icon_delete_white
-            delete.backgroundColor = Colors.red02
+            delete.image = Images.icon_chat_list_delete
+            delete.backgroundColor = Colors.themeRed2
             
-            let top = UIContextualAction(style: .normal, title: "置顶") { [weak self] _ , _, handle in
+            let top = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _, handle in
                 self?.setConversationTop(isTop: true, at: indexPath)
                 handle(true)
             }
-            top.image = Images.icon_top
-            top.backgroundColor = Colors.gray06
+            top.image = Images.icon_chat_list_top
+            top.backgroundColor = Colors.themeGray4
             
-            let unTop = UIContextualAction(style: .normal, title: "取消置顶") { [weak self] _ , _, handle in
+            let unTop = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _, handle in
                 self?.setConversationTop(isTop: false, at: indexPath)
                 handle(true)
             }
-            unTop.image = Images.icon_top
-            unTop.backgroundColor = Colors.gray06
+            unTop.image = Images.icon_chat_list_top
+            unTop.backgroundColor = Colors.themeGray4
             
             let isTop = model.conversationInfo.isTop == 1
             let isSilent = model.conversationInfo.isSilent

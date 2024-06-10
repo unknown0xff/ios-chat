@@ -59,7 +59,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return s
     }()
     
-    private lazy var topIcon: UIImageView = {
+    private lazy var rightBottomIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .center
         return imageView
@@ -122,7 +122,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         bottomStack.addArrangedSubview(lastMessageIcon)
         bottomStack.addArrangedSubview(lastMessageLabel)
-        bottomStack.addArrangedSubview(topIcon)
+        bottomStack.addArrangedSubview(rightBottomIcon)
         
         contentView.addSubview(topStack)
         contentView.addSubview(bottomStack)
@@ -138,6 +138,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         userNameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         lastTimeLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        lastTimeLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         lastMessageLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         topStack.snp.makeConstraints { make in
@@ -147,8 +148,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             make.height.equalTo(27)
         }
         
-        topIcon.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
+        rightBottomIcon.snp.makeConstraints { make in
+            make.width.equalTo(24)
         }
         
         lastMessageIcon.snp.makeConstraints { make in
@@ -184,14 +185,15 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         if unread == 0 {
             unreadLabel.isHidden = true
         } else {
+            unreadLabel.isHidden = false
+           
             if isSilent {
-                unreadLabel.isHidden = true
+                unreadLabel.style = .gray
             } else {
-                unreadLabel.isHidden = false
+                unreadLabel.style = .red
             }
             unreadLabel.unreadCount = unread
         }
-        
 
         let conversation = data.conversationInfo.conversation ?? .init()
         let isTop = data.conversationInfo.isTop == 1
@@ -204,19 +206,19 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         if lastMessage?.direction == .MessageDirection_Receive,
            conversation.type == .Group_Type,
            unreadMentionAll + unreadMention > 0 {
-            topIcon.image = Images.icon_at
-            topIcon.isHidden = false
+            rightBottomIcon.image = Images.icon_at
+            rightBottomIcon.isHidden = false
         } else if isSilent {
-            topIcon.image = Images.icon_mute_gray
-            topIcon.isHidden = false
+            rightBottomIcon.image = Images.icon_mute_gray
+            rightBottomIcon.isHidden = false
         } else if isTop {
-            topIcon.image = Images.icon_top_gray
-            topIcon.isHidden = false
+            rightBottomIcon.image = Images.icon_top_gray
+            rightBottomIcon.isHidden = false
         } else if conversation.type == .SecretChat_Type {
-            topIcon.image = Images.icon_lock
-            topIcon.isHidden = false
+            rightBottomIcon.image = Images.icon_lock
+            rightBottomIcon.isHidden = false
         } else {
-            topIcon.isHidden = true
+            rightBottomIcon.isHidden = true
         }
         
         switch conversation.type {
