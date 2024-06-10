@@ -12,6 +12,8 @@ enum Images {
 
     static let icon_arrow_down = UIImage(named: "icon_arrow_down")!
 
+    static let icon_at = UIImage(named: "icon_at")!
+
     static let icon_back = UIImage(named: "icon_back")!
 
     static let icon_back01 = UIImage(named: "icon_back01")!
@@ -43,6 +45,12 @@ enum Images {
     static let icon_group = UIImage(named: "icon_group")!
 
     static let icon_light = UIImage(named: "icon_light")!
+
+    static let icon_link = UIImage(named: "icon_link")!
+
+    static let icon_location = UIImage(named: "icon_location")!
+
+    static let icon_lock = UIImage(named: "icon_lock")!
 
     static let icon_login_disable = UIImage(named: "icon_login_disable")!
 
@@ -88,6 +96,8 @@ enum Images {
 
     static let icon_secret = UIImage(named: "icon_secret")!
 
+    static let icon_share = UIImage(named: "icon_share")!
+
     static let icon_success_green = UIImage(named: "icon_success_green")!
 
     static let icon_top = UIImage(named: "icon_top")!
@@ -95,6 +105,10 @@ enum Images {
     static let icon_top_gray = UIImage(named: "icon_top_gray")!
 
     static let icon_unread_background = UIImage(named: "icon_unread_background")!
+
+    static let icon_video = UIImage(named: "icon_video")!
+
+    static let icon_voice = UIImage(named: "icon_voice")!
 
     static let icon_widgets = UIImage(named: "icon_widgets")!
 

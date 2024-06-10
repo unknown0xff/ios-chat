@@ -27,13 +27,6 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return label
     }()
     
-    private lazy var muteView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Images.icon_mute_gray
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
     private lazy var lastMessageLabel: UILabel = {
         let label = UILabel()
         label.font = .system14
@@ -66,7 +59,17 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return s
     }()
     
-    private lazy var topIcon = UIImageView(image: Images.icon_top_gray)
+    private lazy var topIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .center
+        return imageView
+    }()
+    
+    private lazy var lastMessageIcon: UIImageView = {
+        let imageView = UIImageView(image: nil)
+        imageView.contentMode = .center
+        return imageView
+    }()
     
     private lazy var bottomStack: UIStackView = {
         let s = UIStackView()
@@ -109,7 +112,6 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         topStack.addArrangedSubview(userNameLabel)
         topStack.addArrangedSubview(secretTag)
-        topStack.addArrangedSubview(muteView)
         
         let spaceView = UIView()
         spaceView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,6 +120,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         topStack.addArrangedSubview(lastTimeLabel)
         
+        bottomStack.addArrangedSubview(lastMessageIcon)
         bottomStack.addArrangedSubview(lastMessageLabel)
         bottomStack.addArrangedSubview(topIcon)
         
@@ -148,6 +151,10 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             make.width.height.equalTo(24)
         }
         
+        lastMessageIcon.snp.makeConstraints { make in
+            make.width.equalTo(20)
+        }
+        
         bottomStack.snp.makeConstraints { make in
             make.right.left.equalTo(topStack)
             make.bottom.equalTo(avatar)
@@ -159,10 +166,6 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             make.width.lessThanOrEqualTo(40)
             make.top.equalTo(avatar)
             make.left.equalTo(avatar.snp.right).offset(-15)
-        }
-        
-        muteView.snp.makeConstraints { make in
-            make.width.height.equalTo(14)
         }
     }
     
@@ -176,6 +179,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         let unreadCount = data.conversationInfo.unreadCount
         let unread = unreadCount?.unread ?? 0
         let isSilent = data.conversationInfo.isSilent
+        let lastMessage = data.conversationInfo.lastMessage
         
         if unread == 0 {
             unreadLabel.isHidden = true
@@ -188,12 +192,32 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
             unreadLabel.unreadCount = unread
         }
         
-        muteView.isHidden = !isSilent
-        
+
         let conversation = data.conversationInfo.conversation ?? .init()
         let isTop = data.conversationInfo.isTop == 1
         contentView.backgroundColor = isTop ? Colors.themeGray4Background : Colors.white
-        topIcon.isHidden = !isTop
+        
+        // 优先级： 1、@ 消息提醒, 2、声音, 3、置顶,  4、密聊
+        let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
+        let unreadMention = unreadCount?.unreadMention ?? 0
+        // 是否有人@
+        if lastMessage?.direction == .MessageDirection_Receive,
+           conversation.type == .Group_Type,
+           unreadMentionAll + unreadMention > 0 {
+            topIcon.image = Images.icon_at
+            topIcon.isHidden = false
+        } else if isSilent {
+            topIcon.image = Images.icon_mute_gray
+            topIcon.isHidden = false
+        } else if isTop {
+            topIcon.image = Images.icon_top_gray
+            topIcon.isHidden = false
+        } else if conversation.type == .SecretChat_Type {
+            topIcon.image = Images.icon_lock
+            topIcon.isHidden = false
+        } else {
+            topIcon.isHidden = true
+        }
         
         switch conversation.type {
         case .Single_Type:
@@ -237,90 +261,31 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         lastTimeLabel.isHidden = false
         lastTimeLabel.text = WFCUUtilities.formatTimeLabel(data.conversationInfo.timestamp)
-
-        lastMessageLabel.attributedText = nil
-        var secretChatStateText = ""
-        if conversation.type == .SecretChat_Type {
-            let state = WFCCIMService.sharedWFCIM().getSecretChatInfo(conversation.target).state
-            if state == .SecretChatState_Starting {
-                secretChatStateText = "密聊会话建立中，正在等待对方响应。"
-            } else if state == .SecretChatState_Canceled {
-                secretChatStateText = "密聊会话已取消！"
-            }
-        }
         
-        let draft = data.conversationInfo.draft ?? ""
-        
-        if !secretChatStateText.isEmpty {
-            lastMessageLabel.text = secretChatStateText
-        } else if !draft.isEmpty {
-            var attr = NSMutableAttributedString(string: "[草稿]", attributes: [
-                .foregroundColor : Colors.red01
-            ])
-            
-            var text = draft
-            if let dictionary = try? JSONSerialization.jsonObject(with: draft.data(using: .utf8) ?? .init(), options: .init(rawValue: 0)) as? [String: Any] {
-                if let content = dictionary["content"] as? String {
-                    text = content
-                } else if let content = dictionary["text"] as? String {
-                    text = content
-                }
-            }
-            
-            attr.append(.init(string: text))
-            
-            let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
-            let unreadMention = unreadCount?.unreadMention ?? 0
-            
-            if conversation.type == .Group_Type && (unreadMentionAll + unreadMention > 0) {
-                let tempAttr = NSMutableAttributedString(string: "[有人@你]",attributes: [
-                    .foregroundColor : Colors.red01
-                ])
-                tempAttr.append(attr)
-                attr = tempAttr
-            }
-            lastMessageLabel.attributedText = attr
-        } else {
-            let digest = data.conversationInfo.lastMessage?.digest() ?? ""
-            if let lastMessage = data.conversationInfo.lastMessage,
-               lastMessage.direction == .MessageDirection_Receive,
-               conversation.type == .Group_Type {
-                let groupId = conversation.target ?? ""
-                if let sender = WFCCIMService.sharedWFCIM().getUserInfo(lastMessage.fromUser, inGroup: groupId, refresh: false) {
-                    let friendAlias = sender.friendAlias ?? ""
-                    let groupAlias = sender.groupAlias ?? ""
-                    let displayName = sender.displayName ?? ""
-                    
-                    let lastMessageText: String
-                    if !friendAlias.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
-                        lastMessageText = "\(friendAlias):\(digest)"
-                    } else if !groupAlias.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
-                        lastMessageText = "\(groupAlias):\(digest)"
-                    } else if !displayName.isEmpty, let _ = lastMessage.content as? WFCCNotificationMessageContent {
-                        lastMessageText = "\(displayName):\(digest)"
-                    } else {
-                        lastMessageText = digest
-                    }
-                    lastMessageLabel.text = lastMessageText
-                    
-                    let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
-                    let unreadMention = unreadCount?.unreadMention ?? 0
-                    
-                    if (unreadMentionAll + unreadMention > 0) {
-                        let tempAttr = NSMutableAttributedString(string: "[有人@你]",attributes: [
-                            .foregroundColor : Colors.red01
-                        ])
-                        if !lastMessageText.isEmpty {
-                            tempAttr.append(.init(string: lastMessageText))
-                        }
-                        lastMessageLabel.attributedText = tempAttr
-                    }
-                } else {
-                    lastMessageLabel.text = digest
-                }
+        if let lastMessage {
+            lastMessageIcon.isHidden = false
+            if let _ = lastMessage.content as? WFCCSoundMessageContent {
+                lastMessageIcon.image = Images.icon_voice
+                lastMessageLabel.text = "一条语音留言"
+            } else if let _ = lastMessage.content as? WFCCVideoMessageContent {
+                lastMessageIcon.image = Images.icon_video
+                lastMessageLabel.text = "视频留言"
+            } else if let location = lastMessage.content as? WFCCLocationMessageContent {
+                lastMessageIcon.image = Images.icon_location
+                lastMessageLabel.text = location.title ?? ""
+            } else if let _ = lastMessage.content as? WFCCImageMessageContent {
+                lastMessageIcon.image = Images.icon_link
+                lastMessageLabel.text = "图片"
+            } else if let file = lastMessage.content as? WFCCFileMessageContent {
+                lastMessageIcon.image = Images.icon_link
+                lastMessageLabel.text = file.name
             } else {
-                lastMessageLabel.text = digest
+                lastMessageIcon.isHidden = true
+                lastMessageLabel.text = lastMessage.digest() ?? ""
             }
+        } else {
+            lastMessageIcon.isHidden = true
+            lastMessageLabel.text = ""
         }
     }
     
