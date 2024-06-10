@@ -12,33 +12,22 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .system14.bold
-        label.textColor = Colors.gray03
+        label.font = .system17.bold
+        label.textColor = Colors.themeBlack
         return label
     }()
     
     private lazy var lastMessageLabel: UILabel = {
         let label = UILabel()
         label.font = .system14
-        label.textColor = Colors.gray03
+        label.textColor = Colors.themeGray3
         return label
     }()
     
     private lazy var lastTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = .system12
-        label.textColor = Colors.gray04.withAlphaComponent(0.5)
-        return label
-    }()
-    
-    private lazy var unreadLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system13.bold
-        label.textColor = Colors.white
-        label.backgroundColor = Colors.red01
-        label.layer.cornerRadius = 9
-        label.layer.masksToBounds = true
-        label.textAlignment = .center
+        label.font = .system13
+        label.textColor = Colors.themeGray3
         return label
     }()
     
@@ -60,6 +49,18 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         return s
     }()
     
+    private lazy var rightBottomIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .center
+        return imageView
+    }()
+    
+    private lazy var lastMessageIcon: UIImageView = {
+        let imageView = UIImageView(image: nil)
+        imageView.contentMode = .center
+        return imageView
+    }()
+    
     private lazy var bottomStack: UIStackView = {
         let s = UIStackView()
         s.axis = .horizontal
@@ -69,10 +70,12 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         return s
     }()
     
+    private lazy var unreadLabel = HUnreadView()
+    
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 32
+        imageView.layer.cornerRadius = 24
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -94,8 +97,8 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
     }
     
     private func configureSubviews() {
-        contentView.backgroundColor = Colors.gray07
         contentView.addSubview(avatar)
+        contentView.addSubview(unreadLabel)
         
         topStack.addArrangedSubview(userNameLabel)
         
@@ -106,46 +109,64 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         
         topStack.addArrangedSubview(lastTimeLabel)
         
+        bottomStack.addArrangedSubview(lastMessageIcon)
         bottomStack.addArrangedSubview(lastMessageLabel)
-        bottomStack.addArrangedSubview(unreadLabel)
+        bottomStack.addArrangedSubview(rightBottomIcon)
         
-        rightContentView.addArrangedSubview(topStack)
-        rightContentView.addArrangedSubview(bottomStack)
-        
-        contentView.addSubview(rightContentView)
+        contentView.addSubview(topStack)
+        contentView.addSubview(bottomStack)
     }
     
     private func makeConstraints() {
         
         avatar.snp.makeConstraints { make in
-            make.height.width.equalTo(64)
-            make.top.equalTo(16)
-            make.bottom.equalTo(-16)
-            make.left.equalTo(26)
+            make.height.width.equalTo(48)
+            make.centerY.equalToSuperview()
+            make.left.equalTo(16)
         }
         
         userNameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         lastTimeLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
+        lastTimeLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         lastMessageLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        unreadLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
-        rightContentView.snp.makeConstraints { make in
-            make.left.equalTo(avatar.snp.right).offset(16)
-            make.centerY.equalTo(avatar)
-            make.right.equalTo(-26)
+        topStack.snp.makeConstraints { make in
+            make.left.equalTo(avatar.snp.right).offset(13)
+            make.top.equalTo(avatar)
+            make.right.equalTo(-16)
+            make.height.equalTo(27)
+        }
+        
+        rightBottomIcon.snp.makeConstraints { make in
+            make.width.equalTo(24)
+        }
+        
+        lastMessageIcon.snp.makeConstraints { make in
+            make.width.equalTo(20)
+        }
+        
+        bottomStack.snp.makeConstraints { make in
+            make.right.left.equalTo(topStack)
+            make.bottom.equalTo(avatar)
+            make.height.equalTo(22)
         }
         
         unreadLabel.snp.makeConstraints { make in
-            make.width.greaterThanOrEqualTo(18)
+            make.width.greaterThanOrEqualTo(16)
+            make.width.lessThanOrEqualTo(40)
+            make.top.equalTo(avatar)
+            make.left.equalTo(avatar.snp.right).offset(-15)
         }
-        
     }
+    
     
     override func bindData(_ data: [WFCCFriendRequest]?) {
         guard let data else {
             return
         }
+        
+        lastMessageIcon.isHidden = true
+        rightBottomIcon.isHidden = true
         
         let timestamp = data.max { $0.timestamp < $1.timestamp }?.timestamp
         let unread = data.reduce(into: 0) { partialResult, request in
@@ -157,9 +178,11 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         if unread == 0 {
             unreadLabel.isHidden = true
         } else {
-            unreadLabel.text = "\(unread)"
             unreadLabel.isHidden = false
+            unreadLabel.style = .red
+            unreadLabel.unreadCount = Int32(unread)
         }
+
         if let timestamp {
             lastTimeLabel.text = WFCUUtilities.formatTimeLabel(timestamp)
         } else {
@@ -167,8 +190,8 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         }
         
         avatar.image = Images.icon_logo
-        userNameLabel.text = "新朋友"
-        lastMessageLabel.text = "您有新的好友请求待处理"
+        userNameLabel.text = "系统通知"
+        lastMessageLabel.text = "请求添加你为好友"
         
     }
 }
