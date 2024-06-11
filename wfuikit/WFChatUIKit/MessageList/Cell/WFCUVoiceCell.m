@@ -97,18 +97,6 @@
     }
 }
 
-- (UIView *)unplayedView {
-    if (!_unplayedView) {
-        _unplayedView = [[UIView alloc] init];
-        _unplayedView.layer.cornerRadius = 5.f;
-        _unplayedView.layer.masksToBounds = YES;
-        _unplayedView.backgroundColor = [UIColor redColor];
-        
-        [self.contentView addSubview:_unplayedView];
-    }
-    return _unplayedView;
-}
-
 - (UIButton *)playButton {
     if (!_playButton) {
         _playButton = [[UIButton alloc] init];

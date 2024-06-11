@@ -125,6 +125,7 @@
 		607F95932C1404E500648BFF /* HResetPasswordSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95922C1404E500648BFF /* HResetPasswordSuccessViewController.swift */; };
 		607F95952C141F4C00648BFF /* HForgetPasswordEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95942C141F4C00648BFF /* HForgetPasswordEmailViewController.swift */; };
 		607F95972C146B5200648BFF /* HUnreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95962C146B5200648BFF /* HUnreadView.swift */; };
+		607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95982C187E9300648BFF /* HNewFriendListTitleCell.swift */; };
 		6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */; };
 		6088F4802C0D871600130A87 /* HSingleChatSetHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */; };
 		6088F4822C0D8A7600130A87 /* HSingleChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */; };
@@ -466,6 +467,7 @@
 		607F95922C1404E500648BFF /* HResetPasswordSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HResetPasswordSuccessViewController.swift; sourceTree = "<group>"; };
 		607F95942C141F4C00648BFF /* HForgetPasswordEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HForgetPasswordEmailViewController.swift; sourceTree = "<group>"; };
 		607F95962C146B5200648BFF /* HUnreadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUnreadView.swift; sourceTree = "<group>"; };
+		607F95982C187E9300648BFF /* HNewFriendListTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendListTitleCell.swift; sourceTree = "<group>"; };
 		6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewController.swift; sourceTree = "<group>"; };
 		6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetHeadCell.swift; sourceTree = "<group>"; };
 		6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewModel.swift; sourceTree = "<group>"; };
@@ -1228,6 +1230,7 @@
 				6088F49D2C0FFA3400130A87 /* HNewFriendListViewController.swift */,
 				6088F49F2C0FFA5B00130A87 /* HNewFriendListViewModel.swift */,
 				6088F4A12C0FFF5400130A87 /* HNewFriendCell.swift */,
+				607F95982C187E9300648BFF /* HNewFriendListTitleCell.swift */,
 			);
 			path = NewList;
 			sourceTree = "<group>";
@@ -1819,6 +1822,7 @@
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				60F5CF862C0AB1040013D912 /* HCreateGroupViewModel.swift in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
+				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
 				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
 				60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */,

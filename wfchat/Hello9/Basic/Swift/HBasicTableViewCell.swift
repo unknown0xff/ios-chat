@@ -19,3 +19,15 @@ class HBasicTableViewCell<T>: UITableViewCell {
     
     func bindData(_ data: T?) { }
 }
+
+
+class HBasicCollectionViewCell<T>: UICollectionViewListCell {
+    var indexPath: IndexPath!
+    var cellData: T? {
+        didSet {
+            bindData(cellData)
+        }
+    }
+    
+    func bindData(_ data: T?) { }
+}

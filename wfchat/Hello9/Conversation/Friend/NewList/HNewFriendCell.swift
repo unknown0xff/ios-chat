@@ -14,28 +14,28 @@ protocol HNewFriendCellDelegate: AnyObject {
     func onIgnore(_ request: WFCCFriendRequest, at indexPath: IndexPath)
 }
 
-class HNewFriendCell: HBasicTableViewCell<WFCCFriendRequest> {
+class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
     
     weak var delegate: HNewFriendCellDelegate?
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .system14.bold
-        label.textColor = Colors.gray03
+        label.font = .system17.bold
+        label.textColor = Colors.themeBlack
         return label
     }()
     
     private lazy var lastMessageLabel: UILabel = {
         let label = UILabel()
-        label.font = .system14
-        label.textColor = Colors.gray03
+        label.font = .system12
+        label.textColor = Colors.themeGray3
         return label
     }()
     
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 32
+        imageView.layer.cornerRadius = 24
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -86,9 +86,8 @@ class HNewFriendCell: HBasicTableViewCell<WFCCFriendRequest> {
         return btn
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureSubviews()
         makeConstraints()
     }
@@ -117,14 +116,14 @@ class HNewFriendCell: HBasicTableViewCell<WFCCFriendRequest> {
     private func makeConstraints() {
         
         avatar.snp.makeConstraints { make in
-            make.height.width.equalTo(64)
-            make.top.equalTo(16)
-            make.bottom.equalTo(-16)
-            make.left.equalTo(26)
+            make.height.width.equalTo(48)
+            make.top.equalTo(14)
+            make.bottom.equalTo(-14)
+            make.left.equalTo(16)
         }
         
         rightContent.snp.makeConstraints { make in
-            make.left.equalTo(avatar.snp.right).offset(8)
+            make.left.equalTo(avatar.snp.right).offset(12)
             make.centerY.equalTo(avatar)
             make.right.equalTo(rightActions.snp.left).offset(-8)
         }

@@ -10,7 +10,7 @@
 import UIKit
 import Combine
 
-class HNewFriendListViewController: HBasicViewController {
+class HNewFriendListViewController: HBaseViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
@@ -19,9 +19,17 @@ class HNewFriendListViewController: HBasicViewController {
         return tableView
     }()
     
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return collectionView
+    }()
+    
+    
     private typealias Section = HNewFriendListViewModel.Section
     private typealias Row = HNewFriendListViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
+    private var dataSource1: UICollectionViewDiffableDataSource<Section, Row>! = nil
     
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HNewFriendListViewModel()
@@ -33,36 +41,58 @@ class HNewFriendListViewController: HBasicViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureSubviews()
-        makeConstraints()
+        navBar.titleLabel.text = "新朋友"
     }
     
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         
-        tableView.register([HNewFriendCell.self])
+        let header = UICollectionView.CellRegistration<HNewFriendListTitleCell, Row> { (cell, indexPath, item) in
+            cell.cellData = "好友通知"
+        }
         
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
-            let cell = tableView.cell(of: HNewFriendCell.self, for: indexPath)
-            cell.indexPath = indexPath
-            cell.cellData = row
-            cell.delegate = self
-            return cell
-        })
+        let cellRegistration = UICollectionView.CellRegistration<HNewFriendCell, Row> { (cell, indexPath, item) in
+            cell.cellData = item
+        }
+        
+        dataSource1 = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) { collectionView, indexPath, item in
+            
+            if indexPath.item == 0 {
+                return collectionView.dequeueConfiguredReusableCell(using: header, for: indexPath, item: item)
+            } else {
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+            }
+        }
         
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
-                self?.dataSource.apply(snapshot, animatingDifferences: false)
+                self?.dataSource1.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
         
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
     }
     
-    private func makeConstraints() {
-        tableView.snp.makeConstraints { make in
+    private func createLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { section, layoutEnvironment in
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.itemSeparatorHandler = { (indexPath, sectionSeparatorConfiguration) in
+                var configuration = sectionSeparatorConfiguration
+                if indexPath.item == 0 {
+                    configuration.bottomSeparatorVisibility = .hidden
+                }
+                configuration.bottomSeparatorInsets = .init(top: 0, leading: 73, bottom: 0, trailing: 0)
+                return configuration
+            }
+            return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+        }
+    }
+    
+    override func makeConstraints() {
+        super.makeConstraints()
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(HUIConfigure.navigationBarHeight)
             make.width.left.right.bottom.equalToSuperview()
         }
@@ -71,7 +101,6 @@ class HNewFriendListViewController: HBasicViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    //    override func prefersNavigationBarHidden() -> Bool { true }
 }
 
 // MARK: - UITableViewDelegate
