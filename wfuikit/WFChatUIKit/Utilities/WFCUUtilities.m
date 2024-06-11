@@ -16,6 +16,22 @@
 #define  kTabbarSafeBottomMargin        (kIs_iPhoneX ? 34.f : 0.f)
 
 @implementation WFCUUtilities
+
++ (CGSize)getTextDrawingSize:(NSString *)text
+                  attributes:(NSDictionary<NSAttributedStringKey, id> *)attributes
+             constrainedSize:(CGSize)constrainedSize {
+  if (text.length <= 0) {
+    return CGSizeZero;
+  }
+  
+    return [text boundingRectWithSize:constrainedSize
+                              options:(NSStringDrawingTruncatesLastVisibleLine |
+                                       NSStringDrawingUsesLineFragmentOrigin |
+                                       NSStringDrawingUsesFontLeading)
+                           attributes:attributes
+                              context:nil].size;
+}
+
 + (CGSize)getTextDrawingSize:(NSString *)text
                         font:(UIFont *)font
              constrainedSize:(CGSize)constrainedSize {
@@ -23,10 +39,6 @@
     return CGSizeZero;
   }
   
-  if ([text respondsToSelector:@selector(boundingRectWithSize:
-                                         options:
-                                         attributes:
-                                         context:)]) {
     return [text boundingRectWithSize:constrainedSize
                               options:(NSStringDrawingTruncatesLastVisibleLine |
                                        NSStringDrawingUsesLineFragmentOrigin |
@@ -34,13 +46,7 @@
                            attributes:@{
                                         NSFontAttributeName : font
                                         }
-                              context:nil]
-    .size;
-  } else {
-    return [text sizeWithFont:font
-            constrainedToSize:constrainedSize
-                lineBreakMode:NSLineBreakByTruncatingTail];
-  }
+                              context:nil].size;
 }
 
 + (NSString *)formatTimeLabel:(int64_t)timestamp {
@@ -108,7 +114,26 @@
         
     }
 }
-
++ (NSString *)formatTimeOnlyHourLabel:(int64_t)timestamp {
+    if (timestamp == 0) {
+        return nil;
+    }
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
+    
+    NSDate *current = [[NSDate alloc] init];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSInteger months = [calendar component:NSCalendarUnitMonth fromDate:date];
+    NSInteger curMonths = [calendar component:NSCalendarUnitMonth fromDate:current];
+    NSInteger years = [calendar component:NSCalendarUnitYear fromDate:date];
+    NSInteger curYears = [calendar component:NSCalendarUnitYear fromDate:current];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *hourTimeStr =  [formatter stringFromDate:date];
+    return hourTimeStr;
+}
 + (NSString *)formatTimeDetailLabel:(int64_t)timestamp {
     if (timestamp == 0) {
         return nil;

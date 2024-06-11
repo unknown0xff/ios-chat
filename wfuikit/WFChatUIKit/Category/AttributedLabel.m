@@ -105,9 +105,10 @@
         [rangeArr addObject:[self rangesOfString:str inString:subStr]];
     }
     
-    
+    NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc]init];
+    para.lineHeightMultiple = 1.14;
     NSMutableAttributedString *attributedText;
-    attributedText=[[NSMutableAttributedString alloc]initWithString:subStr attributes:@{NSFontAttributeName :self.font}];
+    attributedText=[[NSMutableAttributedString alloc]initWithString:subStr attributes:@{NSFontAttributeName :self.font, NSParagraphStyleAttributeName: para}];
     
     for(NSValue *value in rangeArr) {
         NSInteger index=[rangeArr indexOfObject:value];

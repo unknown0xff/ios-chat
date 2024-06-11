@@ -1268,8 +1268,8 @@
 			children = (
 				6088F4942C0F2F6B00130A87 /* Friend */,
 				6088F47C2C0D643F00130A87 /* ChatSet */,
-				60F5CF902C0D55BE0013D912 /* MessageList */,
-				60F5CF782C09C7700013D912 /* Create */,
+				60F5CF902C0D55BE0013D912 /* Message List */,
+				60F5CF782C09C7700013D912 /* Create Conversation */,
 				60922A922C084C0700B70AD8 /* Conversation List */,
 			);
 			path = Conversation;
@@ -1287,13 +1287,13 @@
 			path = "Conversation List";
 			sourceTree = "<group>";
 		};
-		60F5CF782C09C7700013D912 /* Create */ = {
+		60F5CF782C09C7700013D912 /* Create Conversation */ = {
 			isa = PBXGroup;
 			children = (
 				60F5CF822C0AB0860013D912 /* Group */,
 				60F5CF812C0AB06A0013D912 /* Single */,
 			);
-			path = Create;
+			path = "Create Conversation";
 			sourceTree = "<group>";
 		};
 		60F5CF812C0AB06A0013D912 /* Single */ = {
@@ -1326,13 +1326,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		60F5CF902C0D55BE0013D912 /* MessageList */ = {
+		60F5CF902C0D55BE0013D912 /* Message List */ = {
 			isa = PBXGroup;
 			children = (
 				60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */,
 				60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */,
 			);
-			path = MessageList;
+			path = "Message List";
 			sourceTree = "<group>";
 		};
 		903EBC942136313B00312C16 /* SupportFiles */ = {

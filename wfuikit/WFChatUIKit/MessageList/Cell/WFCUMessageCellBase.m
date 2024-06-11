@@ -14,17 +14,17 @@
 
 @implementation WFCUMessageCellBase
 + (CGSize)sizeForCell:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
-  return CGSizeMake(width, 80);
+    return CGSizeMake(width, 80);
 }
 
 + (CGFloat)hightForHeaderArea:(WFCUMessageModel *)msgModel {
     CGFloat offset;
     if (msgModel.showTimeLabel) {
-        offset = 30;
+        offset = 40;
     } else {
         offset = 5;
     }
-
+    
     if (msgModel.lastReadMessage) {
         offset += 30;
     }
@@ -53,7 +53,7 @@
 - (void)setModel:(WFCUMessageModel *)model {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     
-  _model = model;
+    _model = model;
     CGFloat offset = 5;
     if (model.lastReadMessage) {
         if (!self.lastReadContainerView) {
@@ -88,24 +88,24 @@
         self.lastReadContainerView = nil;
     }
     
-  if (model.showTimeLabel) {
-    if (self.timeLabel == nil) {
-      self.timeLabel = [[UILabel alloc] init];
-      _timeLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleRegular size:14];
-        _timeLabel.textColor = [UIColor colorWithHexString:@"0xb3b3b3"];
-      
-      [self.contentView addSubview:self.timeLabel];
+    if (model.showTimeLabel) {
+        if (self.timeLabel == nil) {
+            self.timeLabel = [[UILabel alloc] init];
+            _timeLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleRegular size:12];
+            _timeLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
+            
+            [self.contentView addSubview:self.timeLabel];
+        }
+        _timeLabel.hidden = NO;
+        _timeLabel.text = [WFCUUtilities formatTimeDetailLabel:model.message.serverTime];
+        
+        
+        CGSize size = [WFCUUtilities getTextDrawingSize:_timeLabel.text font:_timeLabel.font constrainedSize:CGSizeMake(screenWidth, 8000)];
+        CGRect rect = CGRectMake((screenWidth - size.width)/2, offset + 5, size.width, size.height);
+        _timeLabel.frame = rect;
+    } else {
+        _timeLabel.hidden = YES;
     }
-    _timeLabel.hidden = NO;
-    _timeLabel.text = [WFCUUtilities formatTimeDetailLabel:model.message.serverTime];
-
-    
-    CGSize size = [WFCUUtilities getTextDrawingSize:_timeLabel.text font:_timeLabel.font constrainedSize:CGSizeMake(screenWidth, 8000)];
-    CGRect rect = CGRectMake((screenWidth - size.width)/2, offset + 5, size.width, size.height);
-    _timeLabel.frame = rect;
-  } else {
-    _timeLabel.hidden = YES;
-  }
 }
 
 

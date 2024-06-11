@@ -872,7 +872,7 @@
     if (self.modelList) {
         for (WFCUMessageModel *model in self.modelList) {
             if (showAlias && model.message.direction == MessageDirection_Receive) {
-                model.showNameLabel = YES;
+                model.showNameLabel = NO;
             } else {
                 model.showNameLabel = NO;
             }

@@ -12,7 +12,7 @@
 + (instancetype)modelOf:(WFCCMessage *)message showName:(BOOL)showName showTime:(BOOL)showTime {
   WFCUMessageModel *model = [[WFCUMessageModel alloc] init];
   model.message = message;
-  model.showNameLabel = showName;
+  model.showNameLabel = NO;
   model.showTimeLabel = showTime;
   [model loadQuotedMessage];
     

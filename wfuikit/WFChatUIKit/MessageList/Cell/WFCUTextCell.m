@@ -20,8 +20,15 @@
 
 @implementation WFCUTextCell
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
-  WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
-    CGSize size = [WFCUUtilities getTextDrawingSize:txtContent.text font:[UIFont systemFontOfSize:18] constrainedSize:CGSizeMake(width, 8000)];
+    WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
+    
+    NSString *contentTxt = [NSString stringWithFormat:@"%@          ", txtContent.text];
+    
+    NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc]init];
+    para.lineHeightMultiple = 1.14;
+    id attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName: para};
+    
+    CGSize size = [WFCUUtilities getTextDrawingSize:contentTxt attributes:attributes constrainedSize:CGSizeMake(width, 8000)];
     size.height += TEXT_LABEL_TOP_PADDING + TEXT_LABEL_BUTTOM_PADDING;
     if (size.width < 40) {
         size.width += 4;
@@ -31,15 +38,15 @@
             size.width = 24;
         }
     }
-  return size;
+    return size;
 }
 
 - (void)setModel:(WFCUMessageModel *)model {
-  [super setModel:model];
+    [super setModel:model];
     
-  WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)model.message.content;
+    WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)model.message.content;
     CGRect frame = self.contentArea.bounds;
-  self.textLabel.frame = CGRectMake(0, TEXT_LABEL_TOP_PADDING, frame.size.width, frame.size.height - TEXT_LABEL_TOP_PADDING - TEXT_LABEL_BUTTOM_PADDING);
+    self.textLabel.frame = CGRectMake(0, TEXT_LABEL_TOP_PADDING, frame.size.width, frame.size.height - TEXT_LABEL_TOP_PADDING - TEXT_LABEL_BUTTOM_PADDING);
     self.textLabel.textAlignment = NSTextAlignmentLeft;
     [self.textLabel setText:txtContent.text];
 }
@@ -49,7 +56,7 @@
         _textLabel = [[AttributedLabel alloc] init];
         ((AttributedLabel*)_textLabel).attributedLabelDelegate = self;
         _textLabel.numberOfLines = 0;
-        _textLabel.font = [UIFont systemFontOfSize:18];
+        _textLabel.font = [UIFont systemFontOfSize:16];
         _textLabel.userInteractionEnabled = YES;
         [self.contentArea addSubview:_textLabel];
     }
