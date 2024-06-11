@@ -69,7 +69,6 @@
     if (!_maskView) {
         _maskView = [[UIView alloc] init];
         [self.bubbleView addSubview:_maskView];
-        [_maskView setBackgroundColor:[UIColor grayColor]];
         [_maskView setAlpha:0.5];
         [_maskView setClipsToBounds:YES];
     }

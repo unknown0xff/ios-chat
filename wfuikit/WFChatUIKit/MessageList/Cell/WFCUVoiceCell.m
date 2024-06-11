@@ -34,22 +34,53 @@
 
 - (void)setModel:(WFCUMessageModel *)model {
     [super setModel:model];
-    // if (model.message.direction == MessageDirection_Send)
-    CGRect bounds = self.contentArea.bounds;
-    if (model.showNameLabel) {
-        self.playButton.frame = CGRectMake(21, 19 + 16, Play_Button_Size, Play_Button_Size);
+    
+    CGRect bubbleViewFrame = self.bubbleView.frame;
+    CGSize dateSize = self.dateLabel.frame.size;
+    
+    
+    if (model.message.direction == MessageDirection_Send) {
+        self.playButton.backgroundColor = [UIColor colorWithHexString:@"0x326C1C"];
+        self.playButton.frame = CGRectMake(
+            CGRectGetMaxX(self.bubbleView.bounds) - 16 - Play_Button_Size,
+            10, Play_Button_Size, Play_Button_Size);
+        
+        self.voiceBtn.frame = CGRectMake(
+             CGRectGetMinX(self.playButton.frame) - 8 - 111,
+             CGRectGetMinY(self.playButton.frame), 111, 17);
+        
+        self.durationLabel.frame = CGRectMake(
+              CGRectGetMinX(self.playButton.frame) - 8 - 111,
+              CGRectGetMaxY(self.voiceBtn.frame), 111, 19);
+        self.durationLabel.textAlignment = NSTextAlignmentRight;
+        
+        CGFloat l = CGRectGetMinX(self.voiceBtn.frame) ;
+        CGFloat t = bubbleViewFrame.size.height - 8 - dateSize.height - 5;
+        self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
     } else {
-        self.playButton.frame = CGRectMake(21, 10, Play_Button_Size, Play_Button_Size);
+        
+        CGFloat l = bubbleViewFrame.size.width - dateSize.width - 18;
+        CGFloat t = bubbleViewFrame.size.height - 8 - dateSize.height - 5;
+        self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
+        
+        self.playButton.backgroundColor = [UIColor colorWithHexString:@"0x0075FF"];
+        
+        if (model.showNameLabel) {
+            self.playButton.frame = CGRectMake(21, 19 + 16, Play_Button_Size, Play_Button_Size);
+        } else {
+            self.playButton.frame = CGRectMake(21, 10, Play_Button_Size, Play_Button_Size);
+        }
+        
+        self.voiceBtn.frame = CGRectMake(
+             CGRectGetMaxX(self.playButton.frame) + 8,
+             CGRectGetMinY(self.playButton.frame), 111, 17);
+        
+        self.durationLabel.frame = CGRectMake(
+              CGRectGetMinX(self.voiceBtn.frame),
+              CGRectGetMaxY(self.voiceBtn.frame), 111, 19);
+        self.durationLabel.textAlignment = NSTextAlignmentLeft;
     }
-    
-    self.voiceBtn.frame = CGRectMake(
-         CGRectGetMaxX(self.playButton.frame) + 8,
-         CGRectGetMinY(self.playButton.frame), 111, 17);
-    
-    self.durationLabel.frame = CGRectMake(
-          CGRectGetMinX(self.voiceBtn.frame),
-          CGRectGetMaxY(self.voiceBtn.frame), 111, 19);
-    
+   
     WFCCSoundMessageContent *soundContent = (WFCCSoundMessageContent *)model.message.content;
     
     NSInteger min = soundContent.duration / 60;
@@ -80,9 +111,10 @@
 
 - (UIButton *)playButton {
     if (!_playButton) {
-        _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _playButton = [[UIButton alloc] init];
         _playButton.backgroundColor = [UIColor colorWithHexString:@"0x0075FF"];
         _playButton.layer.cornerRadius = Play_Button_Size / 2.0;
+        _playButton.adjustsImageWhenHighlighted = NO;
         [_playButton setImage:[WFCUImage imageNamed:@"voice_stop"] forState:UIControlStateNormal];
         [self.bubbleView addSubview:_playButton];
     }

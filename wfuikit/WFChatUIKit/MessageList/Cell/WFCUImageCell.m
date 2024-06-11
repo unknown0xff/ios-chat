@@ -49,6 +49,8 @@
     if (!_thumbnailView) {
         _thumbnailView = [[UIImageView alloc] init];
         [self.bubbleView addSubview:_thumbnailView];
+        _thumbnailView.layer.cornerRadius = 16;
+        _thumbnailView.layer.masksToBounds = YES;
     }
     return _thumbnailView;
 }

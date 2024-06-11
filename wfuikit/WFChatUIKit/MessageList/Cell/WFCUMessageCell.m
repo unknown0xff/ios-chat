@@ -44,7 +44,6 @@
 @property (nonatomic, strong)UIImageView *failureView;
 @property (nonatomic, strong)UIImageView *maskView;
 
-@property (nonatomic, strong)UILabel *dateLabel;
 @property (nonatomic, strong)ZCCCircleProgressView *receiptView;
 
 @property (nonatomic, strong)UIImageView *selectView;

@@ -17,6 +17,7 @@
 @property (nonatomic, strong)UIView *contentArea;
 @property (nonatomic, strong)UIView *quoteContainer;
 @property (nonatomic, strong)UILabel *quoteLabel;
+@property (nonatomic, strong)UILabel *dateLabel;
 - (void)setMaskImage:(UIImage *)maskImage;
 - (CGFloat)nameLabelLeft;
 - (CGFloat)nameLabelTopMargin;
