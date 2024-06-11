@@ -870,13 +870,13 @@
 - (void)setShowAlias:(BOOL)showAlias {
     _showAlias = showAlias;
     if (self.modelList) {
-        for (WFCUMessageModel *model in self.modelList) {
-            if (showAlias && model.message.direction == MessageDirection_Receive) {
-                model.showNameLabel = NO;
-            } else {
-                model.showNameLabel = NO;
-            }
-        }
+//        for (WFCUMessageModel *model in self.modelList) {
+//            if (showAlias && model.message.direction == MessageDirection_Receive) {
+//                model.showNameLabel = NO;
+//            } else {
+//                model.showNameLabel = NO;
+//            }
+//        }
     }
 }
 
@@ -1963,12 +1963,21 @@
         
         count++;
         
+        BOOL isGroupType = (message.conversation.type == Group_Type && message.direction == MessageDirection_Receive);
+        BOOL showName = NO;
         if (newMessage) {
-            BOOL showTime = YES;
-            if (self.modelList.count > 0 && (message.serverTime -  (self.modelList[self.modelList.count - 1]).message.serverTime < 60 * 1000)) {
-                showTime = NO;
+            BOOL showTime = NO;
+            if (self.modelList.count > 0) {
+                WFCUMessageModel *preModel = self.modelList[self.modelList.count - 1];
+                BOOL isSame = [WFCUUtilities isSameYearAndMonth:preModel.message.serverTime other: message.serverTime];
+                showTime = !isSame;
+                showName = isGroupType && (![message.fromUser isEqualToString:preModel.message.fromUser]);
+            } else {
+                showTime = YES;
+                showName = isGroupType;
             }
-            WFCUMessageModel *model = [WFCUMessageModel modelOf:message showName:message.direction == MessageDirection_Receive && self.showAlias showTime:showTime];
+            
+            WFCUMessageModel *model = [WFCUMessageModel modelOf:message showName:showName showTime:showTime];
             model.selecting = self.multiSelecting;
             model.selected = [self.selectedMessageIds containsObject:@(message.messageId)];
             model.deliveryDict = self.deliveryDict;
@@ -1977,12 +1986,15 @@
             if (self.conversation.type == Group_Type && [message.content isKindOfClass:[WFCCModifyGroupAliasNotificationContent class]]) {
                 [modifiedAliasUsers addObject:message.fromUser];
             }
-            
             [self.nMsgSet addObject:@(message.messageId)];
         } else {
-            if (self.modelList.count > 0 && (self.modelList[0].message.serverTime - message.serverTime < 60 * 1000) && i != 0) {
-                self.modelList[0].showTimeLabel = NO;
+            if (self.modelList.count > 0 ) {
+                WFCUMessageModel *preModel = self.modelList[0];
+                BOOL isSame = [WFCUUtilities isSameYearAndMonth:preModel.message.serverTime other: message.serverTime];
+                preModel.showTimeLabel = !isSame;
+                preModel.showNameLabel = isGroupType && (![message.fromUser isEqualToString:preModel.message.fromUser]);
             }
+            
             WFCUMessageModel *model = [WFCUMessageModel modelOf:message showName:message.direction == MessageDirection_Receive&&self.showAlias showTime:YES];
             if (self.firstUnreadMessageId && message.messageId == self.firstUnreadMessageId) {
                 model.lastReadMessage = YES;
@@ -2272,6 +2284,32 @@
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:objName forIndexPath:indexPath];
     }
+//
+//    NSUInteger next = indexPath.row + 1;
+//    if (self.modelList.count > next) {
+//        WFCUMessageModel *nextModel = self.modelList[next];
+//        if ([nextModel.message.fromUser isEqualToString:model.message.fromUser]) {
+//            model.showBubbleTail = NO;
+//        } else {
+//            model.showBubbleTail = YES;
+//        }
+//    } else {
+//        model.showBubbleTail = YES;
+//    }
+//
+//    BOOL isGroupType = model.message.conversation.type == Group_Type && model.message.direction == MessageDirection_Receive;
+//    NSInteger pre = indexPath.row - 1;
+//    if (pre >= 0) {
+//        WFCUMessageModel *preModel = self.modelList[pre];
+//        BOOL showTime = [WFCUUtilities isSameYearAndMonth:preModel.message.serverTime other:model.message.serverTime];
+//        model.showTimeLabel = !showTime;
+//
+//        model.showNameLabel = isGroupType && (![model.message.fromUser isEqualToString:preModel.message.fromUser]);
+//
+//    } else {
+//        model.showTimeLabel = YES;
+//        model.showNameLabel = isGroupType;
+//    }
     
     cell.delegate = self;
     
@@ -2347,6 +2385,33 @@
     if (!cellCls) {
         cellCls = self.cellContentDict[@([[WFCCUnknownMessageContent class] getContentType])];
     }
+    
+    NSUInteger next = indexPath.row + 1;
+    if (self.modelList.count > next) {
+        WFCUMessageModel *nextModel = self.modelList[next];
+        if ([nextModel.message.fromUser isEqualToString:model.message.fromUser]) {
+            model.showBubbleTail = NO;
+        } else {
+            model.showBubbleTail = YES;
+        }
+    } else {
+        model.showBubbleTail = YES;
+    }
+    
+    BOOL isGroupType = model.message.conversation.type == Group_Type && model.message.direction == MessageDirection_Receive;
+    NSInteger pre = indexPath.row - 1;
+    if (pre >= 0) {
+        WFCUMessageModel *preModel = self.modelList[pre];
+        BOOL showTime = [WFCUUtilities isSameYearAndMonth:preModel.message.serverTime other:model.message.serverTime];
+        model.showTimeLabel = !showTime;
+        
+        model.showNameLabel = isGroupType && (![model.message.fromUser isEqualToString:preModel.message.fromUser]);
+        
+    } else {
+        model.showTimeLabel = YES;
+        model.showNameLabel = isGroupType;
+    }
+    
     return [cellCls sizeForCell:model withViewWidth:self.collectionView.frame.size.width];
 }
 

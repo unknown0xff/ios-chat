@@ -13,6 +13,8 @@
 + (instancetype)modelOf:(WFCCMessage *)message showName:(BOOL)showName showTime:(BOOL)showTime;
 @property (nonatomic, assign)BOOL showTimeLabel;
 @property (nonatomic, assign)BOOL showNameLabel;
+@property (nonatomic, assign)BOOL showBubbleTail;
+@property (nonatomic, assign)BOOL showPortrait;
 @property (nonatomic, strong)WFCCMessage *message;
 @property (nonatomic, strong)WFCCMessage *quotedMessage;
 @property (nonatomic, assign)BOOL mediaDownloading;

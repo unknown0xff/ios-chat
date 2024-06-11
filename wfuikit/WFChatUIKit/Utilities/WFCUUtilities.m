@@ -49,6 +49,19 @@
                               context:nil].size;
 }
 
++ (BOOL)isSameYearAndMonth:(int64_t)timestamp1 other:(int64_t)timestamp2 {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:timestamp1/1000];
+    NSInteger years1 = [calendar component:NSCalendarUnitYear fromDate:date1];
+    NSInteger month1 = [calendar component:NSCalendarUnitMonth fromDate:date1];
+    
+    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:timestamp2/1000];
+    NSInteger years2 = [calendar component:NSCalendarUnitYear fromDate:date2];
+    NSInteger month2 = [calendar component:NSCalendarUnitMonth fromDate:date2];
+    
+    return years1 == years2 && month1 == month2;
+}
+
 + (NSString *)formatTimeLabel:(int64_t)timestamp {
     if (timestamp == 0) {
         return nil;
@@ -123,12 +136,6 @@
     
     NSDate *current = [[NSDate alloc] init];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSInteger months = [calendar component:NSCalendarUnitMonth fromDate:date];
-    NSInteger curMonths = [calendar component:NSCalendarUnitMonth fromDate:current];
-    NSInteger years = [calendar component:NSCalendarUnitYear fromDate:date];
-    NSInteger curYears = [calendar component:NSCalendarUnitYear fromDate:current];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm"];
     NSString *hourTimeStr =  [formatter stringFromDate:date];

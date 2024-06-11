@@ -19,8 +19,8 @@
 #define Portrait_Size 36
 #define Portrait_Margin_Right 2
 #define SelectView_Size 20
-#define Name_Label_Height  14
-#define Name_Label_Padding  6
+#define Name_Label_Height  19
+#define Name_Label_Padding  0
 #define Name_Client_Padding  2
 #define Portrait_Padding_Left 16
 #define Portrait_Padding_Right 16
@@ -226,83 +226,6 @@
     
     [super setModel:model];
     
-    BOOL isGroupType = self.model.message.conversation.type == Group_Type;
-    
-    CGFloat selectViewOffset = model.selecting ? SelectView_Size + Portrait_Padding_Right : 0;
-    if (model.message.direction == MessageDirection_Send) {
-        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
-        self.portraitView.hidden = YES;
-        CGRect frame = self.frame;
-        
-        if (model.showNameLabel) {
-            self.nameLabel.frame = CGRectMake(frame.size.width - Name_Label_Padding - 200 - selectViewOffset, top, 200, Name_Label_Height);
-            self.nameLabel.hidden = NO;
-            self.nameLabel.textAlignment = NSTextAlignmentRight;
-        } else {
-            self.nameLabel.hidden = YES;
-        }
-        
-        CGSize size = [self.class sizeForClientArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
-        self.bubbleView.image = [WFCUImage imageNamed:@"sent_msg_background"];
-        CGFloat left = frame.size.width - size.width - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
-        self.bubbleView.frame = CGRectMake(left, top, size.width + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
-        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding, size.width, size.height);
-        
-        [self updateReceiptView];
-    } else {
-        self.portraitView.hidden = !isGroupType;
-        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
-        if (model.showNameLabel) {
-            self.nameLabel.frame = CGRectMake(Portrait_Padding_Left + Portrait_Size + Name_Label_Padding, top, 200, Name_Label_Height);
-            self.nameLabel.hidden = NO;
-            self.nameLabel.textAlignment = NSTextAlignmentLeft;
-            top +=  Name_Label_Height + Name_Client_Padding;
-        } else {
-            self.nameLabel.hidden = YES;
-        }
-        
-        NSString *bubbleImageName = @"received_msg_background";
-         
-        CGFloat maxClientAreaWidth = [WFCUMessageCell clientAreaWidth];
-        if (isGroupType) {
-            maxClientAreaWidth -= (Portrait_Size + Portrait_Margin_Right);
-        }
-        CGSize size = [self.class sizeForClientArea:model withViewWidth:maxClientAreaWidth];
-        self.bubbleView.image = [WFCUImage imageNamed:bubbleImageName];
-        
-        CGFloat bubbleViewLeft = isGroupType ? (Bubble_Margin_Left + Portrait_Size + Portrait_Margin_Right) : (Bubble_Margin_Left);
-        self.bubbleView.frame = CGRectMake(bubbleViewLeft, top, size.width + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
-        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding, size.width, size.height);
-        
-        CGFloat portraitViewTop = self.bubbleView.frame.origin.y + (self.bubbleView.frame.size.height - Portrait_Size);
-        self.portraitView.frame = CGRectMake(Bubble_Margin_Left, portraitViewTop, Portrait_Size, Portrait_Size);
-        
-        self.receiptView.hidden = YES;
-    }
-    
-    CGRect bubbleViewFrame = self.bubbleView.frame;
-    self.dateLabel.text = [WFCUUtilities formatTimeOnlyHourLabel:model.message.serverTime];
-    CGSize dateSize = [WFCUUtilities getTextDrawingSize:self.dateLabel.text font:self.dateLabel.font constrainedSize:CGSizeMake(400, 8000)];
-    CGFloat l = bubbleViewFrame.size.width - dateSize.width - Bubble_Padding_Another_Side;
-    CGFloat t = bubbleViewFrame.size.height - Client_Bubble_Bottom_Padding - dateSize.height - 3;
-    self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
-    
-    
-    if (model.selecting) {
-        self.selectView.hidden = NO;
-        if (model.selected) {
-            self.selectView.image = [WFCUImage imageNamed:@"multi_selected"];
-        } else {
-            self.selectView.image = [WFCUImage imageNamed:@"multi_unselected"];
-        }
-        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
-        CGRect frame = self.selectView.frame;
-        frame.origin.y = top;
-        self.selectView.frame = frame;
-    } else {
-        self.selectView.hidden = YES;
-    }
-    
     NSString *groupId = nil;
     if (self.model.message.conversation.type == Group_Type) {
         groupId = self.model.message.conversation.target;
@@ -320,6 +243,87 @@
         [self updateUserInfo:userInfo];
     }
     
+    
+    BOOL isGroupType = self.model.message.conversation.type == Group_Type;
+    
+    CGFloat selectViewOffset = model.selecting ? SelectView_Size + Portrait_Padding_Right : 0;
+    if (model.message.direction == MessageDirection_Send) {
+        self.portraitView.hidden = YES;
+        self.nameLabel.hidden = YES;
+        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
+        CGRect frame = self.frame;
+        CGSize size = [self.class sizeForClientArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
+        NSString *sendImageName = model.showBubbleTail ? @"sent_msg_background" : @"sent_msg_background_without_trail";
+        self.bubbleView.image = [WFCUImage imageNamed:sendImageName];
+        CGFloat left = frame.size.width - size.width - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
+        self.bubbleView.frame = CGRectMake(left, top, size.width + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
+        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding, size.width, size.height);
+        [self updateReceiptView];
+    } else {
+        
+        if (isGroupType && model.showBubbleTail) {
+            self.portraitView.hidden = NO;
+        } else {
+            self.portraitView.hidden = YES;
+        }
+        
+        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
+        if (model.showNameLabel) {
+            self.nameLabel.hidden = NO;
+            [self.nameLabel sizeToFit];
+            CGRect nameFrame = CGRectMake(Bubble_Padding_Arraw, top, self.nameLabel.frame.size.width, Name_Label_Height);
+            self.nameLabel.frame = nameFrame;
+        } else {
+            self.nameLabel.hidden = YES;
+        }
+        
+        NSString *receivedImageName = model.showBubbleTail ? @"received_msg_background" : @"received_msg_background_without_trail";
+         
+        CGFloat maxClientAreaWidth = [WFCUMessageCell clientAreaWidth];
+        if (isGroupType) {
+            maxClientAreaWidth -= (Portrait_Size + Portrait_Margin_Right);
+        }
+        CGSize size = [self.class sizeForClientArea:model withViewWidth:maxClientAreaWidth];
+        self.bubbleView.image = [WFCUImage imageNamed:receivedImageName];
+        
+        CGFloat bubbleViewLeft = isGroupType ? (Bubble_Margin_Left + Portrait_Size + Portrait_Margin_Right) : (Bubble_Margin_Left);
+        CGFloat bubbleHeight = size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding
+        + (model.showNameLabel ? Name_Label_Height + Name_Label_Padding : 0);
+        CGFloat bubbleWidth = model.showNameLabel ? MAX(size.width, self.nameLabel.bounds.size.width) : size.width;
+        self.bubbleView.frame = CGRectMake(bubbleViewLeft, top, bubbleWidth + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, bubbleHeight);
+        
+        CGFloat contentTop = model.showNameLabel ? Name_Label_Height + Client_Bubble_Top_Padding : Client_Bubble_Top_Padding;
+        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, contentTop, size.width, size.height);
+        
+        CGFloat portraitViewTop = self.bubbleView.frame.origin.y + (self.bubbleView.frame.size.height - Portrait_Size);
+        self.portraitView.frame = CGRectMake(Bubble_Margin_Left, portraitViewTop, Portrait_Size, Portrait_Size);
+        
+        self.receiptView.hidden = YES;
+    }
+    
+    CGRect bubbleViewFrame = self.bubbleView.frame;
+    self.dateLabel.text = [WFCUUtilities formatTimeOnlyHourLabel:model.message.serverTime];
+    CGSize dateSize = [WFCUUtilities getTextDrawingSize:self.dateLabel.text font:self.dateLabel.font constrainedSize:CGSizeMake(400, 8000)];
+    CGFloat l = bubbleViewFrame.size.width - dateSize.width - Bubble_Padding_Another_Side;
+    CGFloat t = bubbleViewFrame.size.height - Client_Bubble_Bottom_Padding - dateSize.height - 5;
+    self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
+    
+    if (model.selecting) {
+        self.selectView.hidden = NO;
+        if (model.selected) {
+            self.selectView.image = [WFCUImage imageNamed:@"multi_selected"];
+        } else {
+            self.selectView.image = [WFCUImage imageNamed:@"multi_unselected"];
+        }
+        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
+        CGRect frame = self.selectView.frame;
+        frame.origin.y = top;
+        self.selectView.frame = frame;
+    } else {
+        self.selectView.hidden = YES;
+    }
+    
+
     [self updateStatus];
     
     if (model.highlighted) {
@@ -528,9 +532,9 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.font = [UIFont systemFontOfSize:Name_Label_Height-2];
-        _nameLabel.textColor = [UIColor grayColor];
-        [self.contentView addSubview:_nameLabel];
+        _nameLabel.font = [UIFont systemFontOfSize:12];
+        _nameLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
+        [self.bubbleView addSubview:_nameLabel];
     }
     return _nameLabel;
 }

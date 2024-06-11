@@ -19,6 +19,7 @@
 + (NSString *)formatTimeOnlyHourLabel:(int64_t)timestamp;
 + (NSString *)formatTimeLabel:(int64_t)timestamp;
 + (NSString *)formatTimeDetailLabel:(int64_t)timestamp;
++ (BOOL)isSameYearAndMonth:(int64_t)timestamp1 other:(int64_t)timestamp2;
 + (UIImage *)thumbnailWithImage:(UIImage *)originalImage maxSize:(CGSize)size;
 + (NSString *)formatSizeLable:(int64_t)size;
 + (UIImage *)imageForExt:(NSString *)extName;
