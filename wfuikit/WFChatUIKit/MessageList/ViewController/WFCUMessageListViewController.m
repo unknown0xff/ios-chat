@@ -1041,8 +1041,8 @@
     _customFlowLayout.headerReferenceSize = CGSizeMake(320.0f, 20.0f);
     
     CGRect frame = self.view.bounds;
-    frame.origin.y += 136; //[WFCUUtilities wf_navigationFullHeight];
-    frame.size.height -= ([WFCUUtilities wf_safeDistanceBottom] + 136);//[WFCUUtilities wf_navigationFullHeight]);
+    frame.origin.y += 100; //[WFCUUtilities wf_navigationFullHeight];
+    frame.size.height -= ([WFCUUtilities wf_safeDistanceBottom] + 100);//[WFCUUtilities wf_navigationFullHeight]);
     self.backgroundView = [[UIView alloc] initWithFrame:frame];
     [self.view addSubview:self.backgroundView];
     

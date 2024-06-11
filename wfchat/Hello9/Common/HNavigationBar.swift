@@ -10,7 +10,7 @@ class HNavigationBar: UIView {
     
     static let height = 100.0
     
-    private var contentView: UIView = {
+    private(set) var contentView: UIView = {
         let view = UIView()
         
         return view
@@ -22,11 +22,20 @@ class HNavigationBar: UIView {
         return button
     }()
     
+    private(set) lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .system16.bold
+        label.textColor = Colors.themeGray5
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard let _ = superview else { return }
         
         contentView.addSubview(backButton)
+        contentView.addSubview(titleLabel)
         addSubview(contentView)
         
         snp.makeConstraints { make in
@@ -37,6 +46,12 @@ class HNavigationBar: UIView {
         contentView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
             make.height.equalTo(56)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.equalTo(26)
+            make.width.lessThanOrEqualTo(200)
         }
         
         backButton.snp.makeConstraints { make in

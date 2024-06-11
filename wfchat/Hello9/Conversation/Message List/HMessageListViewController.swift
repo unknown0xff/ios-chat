@@ -10,19 +10,31 @@ import UIKit
 
 class HMessageListViewController: WFCUMessageListViewController {
 
-    private lazy var navBar = HMessageNavBar()
+    private lazy var navBar = HNavigationBar()
+    
+    private(set) lazy var avatarButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.imageView?.contentMode = .scaleAspectFit
+        btn.layer.cornerRadius = 18
+        btn.layer.masksToBounds = true
+        return btn
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(navBar)
-        navBar.backButton.addTarget(self, action: #selector(didClickBackButton(_:)), for: .touchUpInside)
-        navBar.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(136)
+        navBar.backgroundColor = Colors.white
+        navBar.contentView.addSubview(avatarButton)
+        avatarButton.snp.makeConstraints { make in
+            make.width.height.equalTo(36)
+            make.right.equalTo(-16)
+            make.centerY.equalToSuperview()
         }
         
-        navBar.moreButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
+        view.addSubview(navBar)
+        
+        navBar.backButton.addTarget(self, action: #selector(didClickBackButton(_:)), for: .touchUpInside)
+        avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
     }
     
     override func updateTitle() {
@@ -32,7 +44,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func setAvatar(_ avatar: String!) {
         let url = URL(string: avatar ?? "")
-        navBar.avatar.sd_setImage(with: url, placeholderImage: Images.icon_logo, context: nil)
+        avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
     }
     
     func prefersNavigationBarHidden() -> Bool { return true }

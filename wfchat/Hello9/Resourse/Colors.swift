@@ -73,6 +73,9 @@ enum Colors {
     /// 0xF7 0xF9 0xFC
     static let themeGray4Background = UIColor(named: "themeGray4Background")!
 
+    /// 0x06 0x12 0x37
+    static let themeGray5 = UIColor(named: "themeGray5")!
+
     /// 0x1B 0xA2 0x7A
     static let themeGreen1 = UIColor(named: "themeGreen1")!
 
