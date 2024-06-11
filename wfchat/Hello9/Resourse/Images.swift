@@ -32,7 +32,11 @@ enum Images {
 
     static let icon_chat_list_mute = UIImage(named: "icon_chat_list_mute")!
 
+    static let icon_chat_list_mute_disable = UIImage(named: "icon_chat_list_mute_disable")!
+
     static let icon_chat_list_top = UIImage(named: "icon_chat_list_top")!
+
+    static let icon_chat_list_top_disable = UIImage(named: "icon_chat_list_top_disable")!
 
     static let icon_common_background = UIImage(named: "icon_common_background")!
 
@@ -125,5 +129,9 @@ enum Images {
     static let tab_mine_off = UIImage(named: "tab_mine_off")!
 
     static let tab_mine_on = UIImage(named: "tab_mine_on")!
+
+    static let tab_node_off = UIImage(named: "tab_node_off")!
+
+    static let tab_node_on = UIImage(named: "tab_node_on")!
 
 }

@@ -37,7 +37,7 @@ class HTabBarItemView: UIControl {
     
     private var titleLabel: UILabel = {
         let l = UILabel()
-        l.font = .system12.bold
+        l.font = .system14.bold
         l.textColor = Colors.themeBlack
         l.textAlignment = .center
         return l
@@ -100,7 +100,6 @@ class HTabBarItemView: UIControl {
         
         titleLabel.font = isSelected ? .system14.bold : .system14
         titleLabel.textColor = isSelected ? Colors.themeBlack : Colors.themeButtonDisable
-        
     }
     
     private func addChildren() {
@@ -113,7 +112,8 @@ class HTabBarItemView: UIControl {
     
     private func makeConstraints() {
         imageView.snp.makeConstraints { make in
-            make.height.width.equalTo(20)
+            make.width.equalTo(24)
+            make.height.equalTo(22)
             make.top.equalTo(8)
             make.centerX.equalToSuperview()
         }

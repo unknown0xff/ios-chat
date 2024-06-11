@@ -248,13 +248,13 @@ extension HChatListViewController: UITableViewDelegate {
         
         switch row {
         case .friend(_):
-            let delete = UIContextualAction(style: .normal, title: "删除") { [weak self] _ , _ , handle in
+            let delete = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
                 self?.viewModel.removeFriendRequest(at: indexPath)
                 self?.updateBadgeNumber()
                 handle(true)
             }
             delete.image = Images.icon_delete_white
-            delete.backgroundColor = Colors.red02
+            delete.backgroundColor = Colors.themeRed2
             let configure = UISwipeActionsConfiguration(actions: [delete])
             configure.performsFirstActionWithFullSwipe = false
             return configure
@@ -270,7 +270,7 @@ extension HChatListViewController: UITableViewDelegate {
                 self?.setConversationSilent(isSilent: false, at: indexPath)
                 handle(true)
             }
-            unmute.image = Images.icon_mute
+            unmute.image = Images.icon_chat_list_mute_disable
             unmute.backgroundColor = Colors.themeYellow1
             
             let delete = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
@@ -292,8 +292,8 @@ extension HChatListViewController: UITableViewDelegate {
                 self?.setConversationTop(isTop: false, at: indexPath)
                 handle(true)
             }
-            unTop.image = Images.icon_chat_list_top
-            unTop.backgroundColor = Colors.themeGray4
+            unTop.image = Images.icon_chat_list_top_disable
+            unTop.backgroundColor = Colors.themeGreen1
             
             let isTop = model.conversationInfo.isTop == 1
             let isSilent = model.conversationInfo.isSilent

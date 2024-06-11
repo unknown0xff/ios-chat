@@ -55,7 +55,7 @@ class HTabViewController: UITabBarController {
         let node = HBaseViewController()
         node.hidesBottomBarWhenPushed = false
         let nodeNav = HNavigationController(rootViewController: node)
-        let nodeItem = UITabBarItem(title: "节点", image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
+        let nodeItem = UITabBarItem(title: "节点", image: Images.tab_node_off, selectedImage: Images.tab_node_on)
         nodeItem.tag = HTabTag.node.rawValue
         nodeNav.tabBarItem = nodeItem
         addChild(nodeNav)

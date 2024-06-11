@@ -11,7 +11,7 @@ import SnapKit
 
 class HTabBar: UITabBar {
     
-    static let barContentHeight = 58.0
+    static let barContentHeight = 64.0
     static let barHeight = barContentHeight + HUIConfigure.safeBottomMargin
     
     var selectedIndex: Int {
