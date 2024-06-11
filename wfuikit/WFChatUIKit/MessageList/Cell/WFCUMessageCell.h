@@ -18,4 +18,6 @@
 @property (nonatomic, strong)UIView *quoteContainer;
 @property (nonatomic, strong)UILabel *quoteLabel;
 - (void)setMaskImage:(UIImage *)maskImage;
+- (CGFloat)nameLabelLeft;
+- (CGFloat)nameLabelTopMargin;
 @end

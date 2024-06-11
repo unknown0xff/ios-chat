@@ -218,6 +218,13 @@
         }
     }
 }
+- (CGFloat)nameLabelLeft {
+    return 16;
+}
+
+- (CGFloat)nameLabelTopMargin {
+    return 8;
+}
 
 - (void)setModel:(WFCUMessageModel *)model {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -271,7 +278,7 @@
         if (model.showNameLabel) {
             self.nameLabel.hidden = NO;
             [self.nameLabel sizeToFit];
-            CGRect nameFrame = CGRectMake(Bubble_Padding_Arraw, top, self.nameLabel.frame.size.width, Name_Label_Height);
+            CGRect nameFrame = CGRectMake(self.nameLabelLeft, self.nameLabelTopMargin, self.nameLabel.frame.size.width, Name_Label_Height);
             self.nameLabel.frame = nameFrame;
         } else {
             self.nameLabel.hidden = YES;

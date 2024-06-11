@@ -9,41 +9,52 @@
 #import "WFCUVoiceCell.h"
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUImage.h"
+#import "UIColor+YH.h"
+
+#define Play_Button_Size 32
 
 @interface WFCUVoiceCell ()
 @property(nonatomic, strong) NSTimer *animationTimer;
 @property(nonatomic) int animationIndex;
+@property(nonatomic, strong) UIButton *playButton;
 @end
 
 @implementation WFCUVoiceCell
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
-    WFCCSoundMessageContent *soundContent = (WFCCSoundMessageContent *)msgModel.message.content;
-    long duration = soundContent.duration;
-    return CGSizeMake(50 + 30 * (MIN(MAX(0, duration-5), 20)/20.0), 30);
+    if (msgModel.showNameLabel) {
+        return CGSizeMake(156, 74);
+    } else {
+        return CGSizeMake(156, 55);
+    }
+}
+
+- (CGFloat)nameLabelLeft {
+    return 21;
 }
 
 - (void)setModel:(WFCUMessageModel *)model {
     [super setModel:model];
-    
+    // if (model.message.direction == MessageDirection_Send)
     CGRect bounds = self.contentArea.bounds;
-    if (model.message.direction == MessageDirection_Send) {
-        self.voiceBtn.frame = CGRectMake(bounds.size.width - 30, 4, 22, 22);
-        self.durationLabel.frame = CGRectMake(bounds.size.width - 48, 19, 18, 9);
-        self.unplayedView.hidden = YES;
+    if (model.showNameLabel) {
+        self.playButton.frame = CGRectMake(21, 19 + 16, Play_Button_Size, Play_Button_Size);
     } else {
-        self.voiceBtn.frame = CGRectMake(4, 4, 22, 22);
-        self.durationLabel.frame = CGRectMake(32, 19, 18, 9);
-        
-        if (model.message.status == Message_Status_Played) {
-            self.unplayedView.hidden = YES;
-        } else {
-            self.unplayedView.hidden = NO;
-            CGRect frame = [self.contentView convertRect:CGRectMake(self.contentArea.bounds.size.width + 10, 12, 10, 10) fromView:self.contentArea];
-            self.unplayedView.frame = frame;
-        }
+        self.playButton.frame = CGRectMake(21, 10, Play_Button_Size, Play_Button_Size);
     }
+    
+    self.voiceBtn.frame = CGRectMake(
+         CGRectGetMaxX(self.playButton.frame) + 8,
+         CGRectGetMinY(self.playButton.frame), 111, 17);
+    
+    self.durationLabel.frame = CGRectMake(
+          CGRectGetMinX(self.voiceBtn.frame),
+          CGRectGetMaxY(self.voiceBtn.frame), 111, 19);
+    
     WFCCSoundMessageContent *soundContent = (WFCCSoundMessageContent *)model.message.content;
-    self.durationLabel.text = [NSString stringWithFormat:@"%ld''", soundContent.duration];
+    
+    NSInteger min = soundContent.duration / 60;
+    NSInteger sec = soundContent.duration - min * 60;
+    self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimationTimer) name:kVoiceMessageStartPlaying object:@(model.message.messageId)];
     
@@ -67,10 +78,21 @@
     return _unplayedView;
 }
 
+- (UIButton *)playButton {
+    if (!_playButton) {
+        _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _playButton.backgroundColor = [UIColor colorWithHexString:@"0x0075FF"];
+        _playButton.layer.cornerRadius = Play_Button_Size / 2.0;
+        [_playButton setImage:[WFCUImage imageNamed:@"voice_stop"] forState:UIControlStateNormal];
+        [self.bubbleView addSubview:_playButton];
+    }
+    return _playButton;
+}
+
 - (UIImageView *)voiceBtn {
     if (!_voiceBtn) {
         _voiceBtn = [[UIImageView alloc] init];
-        [self.contentArea addSubview:_voiceBtn];
+        [self.bubbleView addSubview:_voiceBtn];
     }
     return _voiceBtn;
 }
@@ -78,8 +100,10 @@
 - (UILabel *)durationLabel {
     if (!_durationLabel) {
         _durationLabel = [[UILabel alloc] init];
-        _durationLabel.font = [UIFont systemFontOfSize:9];
-        [self.contentArea addSubview:_durationLabel];
+        _durationLabel.font = [UIFont systemFontOfSize:12];
+        _durationLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
+        _durationLabel.textAlignment = NSTextAlignmentLeft;
+        [self.bubbleView addSubview:_durationLabel];
     }
     return _durationLabel;
 }
@@ -92,6 +116,7 @@
                                                          userInfo:nil
                                                           repeats:YES];
     [self.animationTimer fire];
+    [self.playButton setImage: [WFCUImage imageNamed:@"voice_stop"] forState:UIControlStateNormal];
 }
 
 
@@ -113,7 +138,7 @@
         self.animationTimer = nil;
         self.animationIndex = 0;
     }
-    
+    [self.playButton setImage: [WFCUImage imageNamed:@"voice_play"] forState:UIControlStateNormal];
     if (self.model.message.direction == MessageDirection_Send) {
         [self.voiceBtn setImage:[WFCUImage imageNamed:@"sent_voice"]];
     } else {
