@@ -265,6 +265,7 @@
     if (model.message.direction == MessageDirection_Send) {
         self.portraitView.hidden = YES;
         self.nameLabel.hidden = YES;
+        self.dateLabel.textColor = [UIColor colorWithHexString:@"0x4BAC46"];
         CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
         CGRect frame = self.frame;
         CGSize size = [self.class sizeForClientArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
@@ -278,7 +279,7 @@
         self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding + quote.height, size.width, size.height);
         [self updateReceiptView];
     } else {
-        
+        self.dateLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
         if (isGroupType && model.showBubbleTail) {
             self.portraitView.hidden = NO;
         } else {
