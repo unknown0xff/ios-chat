@@ -38,7 +38,6 @@
 
 #define MESSAGE_BASE_CELL_QUOTE_SIZE 14
 
-
 @interface WFCUMessageCell ()
 @property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong)UIImageView *failureView;
@@ -47,6 +46,9 @@
 @property (nonatomic, strong)ZCCCircleProgressView *receiptView;
 
 @property (nonatomic, strong)UIImageView *selectView;
+
+@property (nonatomic, strong)UIView *quoteInfoView;
+
 @end
 
 @implementation WFCUMessageCell
@@ -63,13 +65,15 @@
     CGFloat portraitSize = Portrait_Size;
     CGFloat nameLabelHeight = Name_Label_Height + Name_Client_Padding;
     
-    CGFloat clientAreaWidth = [self clientAreaWidth];
+    CGFloat bubbleMaxWidth = [self clientAreaWidth];
     BOOL isGroupType = msgModel.message.conversation.type == Group_Type;
     if (isGroupType) {
-        clientAreaWidth -= (Portrait_Size + Portrait_Margin_Right);
+        bubbleMaxWidth -= (Portrait_Size + Portrait_Margin_Right);
     }
     
-    CGSize clientArea = [self sizeForClientArea:msgModel withViewWidth:clientAreaWidth];
+    CGSize quote = [self sizeForQuoteArea:msgModel withViewWidth: bubbleMaxWidth];
+    CGSize clientArea = [self sizeForClientArea:msgModel withViewWidth: bubbleMaxWidth];
+    
     CGFloat nameAndClientHeight = clientArea.height;
     if (msgModel.showNameLabel) {
         nameAndClientHeight += nameLabelHeight;
@@ -84,10 +88,10 @@
         height += nameAndClientHeight;
     }
     height += Client_Arad_Buttom_Padding;   //buttom padding
+
+    height += quote.height;
     
-    height += [self sizeForQuoteArea:msgModel withViewWidth:clientAreaWidth].height;
-    
-    return CGSizeMake(width, height);
+    return CGSizeMake(MAX(width, (quote.width)), height);
 }
 
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
@@ -98,11 +102,17 @@
     if ([msgModel.message.content isKindOfClass:[WFCCTextMessageContent class]]) {
         WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
         if (txtContent.quoteInfo) {
-            CGFloat quoteWidth = width;
-            NSString *quoteTxt = [NSString stringWithFormat:@"%@:%@", txtContent.quoteInfo.userDisplayName, [WFCUMessageCell quoteMessageDigest:msgModel]];
-            CGSize size = [WFCUUtilities getTextDrawingSize:quoteTxt font:[UIFont systemFontOfSize:MESSAGE_BASE_CELL_QUOTE_SIZE] constrainedSize:CGSizeMake(quoteWidth, 44)];
-            size.height += 12;
-            size.width += 8;
+            CGFloat bubbleMaxWidth = [self clientAreaWidth];
+            BOOL isGroupType = msgModel.message.conversation.type == Group_Type;
+            if (isGroupType) {
+                bubbleMaxWidth -= (Portrait_Size + Portrait_Margin_Right);
+            }
+            id attributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:14] };
+            
+            CGSize size = [WFCUUtilities getTextDrawingSize:[WFCUMessageCell quoteMessageDigest:msgModel] attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
+            
+            size.height += 26;
+            size.width += 20;
             return size;
         }
     }
@@ -252,18 +262,20 @@
     
     BOOL isGroupType = self.model.message.conversation.type == Group_Type;
     
-    CGFloat selectViewOffset = model.selecting ? SelectView_Size + Portrait_Padding_Right : 0;
     if (model.message.direction == MessageDirection_Send) {
         self.portraitView.hidden = YES;
         self.nameLabel.hidden = YES;
         CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
         CGRect frame = self.frame;
         CGSize size = [self.class sizeForClientArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
+        CGSize quote = [self.class sizeForQuoteArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
+        
         NSString *sendImageName = model.showBubbleTail ? @"sent_msg_background" : @"sent_msg_background_without_trail";
         self.bubbleView.image = [WFCUImage imageNamed:sendImageName];
-        CGFloat left = frame.size.width - size.width - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
-        self.bubbleView.frame = CGRectMake(left, top, size.width + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
-        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding, size.width, size.height);
+        CGFloat bubbleWidth = MAX(size.width, quote.width);
+        CGFloat left = frame.size.width - bubbleWidth - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
+        self.bubbleView.frame = CGRectMake(left, top, bubbleWidth + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + quote.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
+        self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding + quote.height, size.width, size.height);
         [self updateReceiptView];
     } else {
         
@@ -290,17 +302,19 @@
             maxClientAreaWidth -= (Portrait_Size + Portrait_Margin_Right);
         }
         CGSize size = [self.class sizeForClientArea:model withViewWidth:maxClientAreaWidth];
+        CGSize quote = [self.class sizeForQuoteArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
         self.bubbleView.image = [WFCUImage imageNamed:receivedImageName];
         
         CGFloat bubbleViewLeft = isGroupType ? (Bubble_Margin_Left + Portrait_Size + Portrait_Margin_Right) : (Bubble_Margin_Left);
+        
         CGFloat bubbleHeight = size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding
-        + (model.showNameLabel ? Name_Label_Height + Name_Label_Padding : 0);
-        CGFloat bubbleWidth = model.showNameLabel ? MAX(size.width, self.nameLabel.bounds.size.width) : size.width;
+        + (model.showNameLabel ? Name_Label_Height + Name_Label_Padding : 0) + quote.height;
+        
+        CGFloat bubbleWidth = model.showNameLabel ? MAX(MAX(size.width, self.nameLabel.bounds.size.width), quote.width) : MAX(size.width, quote.width);
         self.bubbleView.frame = CGRectMake(bubbleViewLeft, top, bubbleWidth + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, bubbleHeight);
         
-        CGFloat contentTop = model.showNameLabel ? Name_Label_Height + Client_Bubble_Top_Padding : Client_Bubble_Top_Padding;
+        CGFloat contentTop = (model.showNameLabel ? Name_Label_Height + Client_Bubble_Top_Padding : Client_Bubble_Top_Padding) + quote.height;
         self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, contentTop, size.width, size.height);
-        
         CGFloat portraitViewTop = self.bubbleView.frame.origin.y + (self.bubbleView.frame.size.height - Portrait_Size);
         self.portraitView.frame = CGRectMake(Bubble_Margin_Left, portraitViewTop, Portrait_Size, Portrait_Size);
         
@@ -355,40 +369,49 @@
         if (txtContent.quoteInfo) {
             if (!self.quoteLabel) {
                 self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-                self.quoteLabel.font = [UIFont systemFontOfSize:MESSAGE_BASE_CELL_QUOTE_SIZE];
+                self.quoteLabel.font = [UIFont systemFontOfSize:14];
                 self.quoteLabel.numberOfLines = 0;
                 self.quoteLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-                self.quoteLabel.layer.cornerRadius = 3.f;
-                self.quoteLabel.layer.masksToBounds = YES;
                 self.quoteLabel.userInteractionEnabled = YES;
-                self.quoteLabel.textColor = [UIColor grayColor];
+                self.quoteLabel.textColor = [UIColor colorWithHexString:@"0x121611"];
                 [self.quoteLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onQuoteLabelTaped:)]];
                 
-                self.quoteContainer = [[UIView alloc] initWithFrame:CGRectZero];
-                self.quoteContainer.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.f];
-                self.quoteContainer.layer.cornerRadius = 3.f;
-                self.quoteContainer.layer.masksToBounds = YES;
+                self.quoteContainer = [[UIImageView alloc] initWithFrame:CGRectZero];
+                self.quoteContainer.userInteractionEnabled = YES;
+                self.quoteContainer.backgroundColor = [UIColor clearColor];
                 [self.quoteContainer addSubview:self.quoteLabel];
-                [self.contentView addSubview:self.quoteContainer];
             }
+            
+            if (!self.quoteNameLabel) {
+                self.quoteNameLabel = [[UILabel alloc]init];
+                self.quoteNameLabel.font = [UIFont boldSystemFontOfSize:14];
+                self.quoteNameLabel.textColor = [UIColor colorWithHexString:@"0x326C1C"];
+                [self.quoteContainer addSubview:self.quoteNameLabel];
+            }
+            
+            [self.bubbleView addSubview:self.quoteContainer];
+            
             CGSize size = [self.class sizeForQuoteArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
             
             CGRect frame;
             if (model.message.direction == MessageDirection_Send) {
-                frame = CGRectMake(self.frame.size.width - Portrait_Size - Portrait_Padding_Right - Name_Label_Padding - size.width - Bubble_Padding_Another_Side - selectViewOffset, self.bubbleView.frame.origin.y + self.bubbleView.frame.size.height + 4, size.width, size.height-4);
+                frame = CGRectMake(16, 8, size.width, size.height);
+                self.quoteContainer.image = [WFCUImage imageNamed:@"quote_send"];
             } else {
-                frame = CGRectMake(Portrait_Padding_Left + Portrait_Size + Name_Label_Padding + Bubble_Padding_Arraw, self.bubbleView.frame.origin.y + self.bubbleView.frame.size.height + 4, size.width, size.height-4);
+                if (model.showNameLabel) {
+                    frame = CGRectMake(16, 8 + Name_Label_Height, size.width, size.height);
+                } else {
+                    frame = CGRectMake(16, 8, size.width, size.height);
+                }
+                
+                self.quoteContainer.image = [WFCUImage imageNamed:@"quote_receive"];
             }
             self.quoteContainer.frame = frame;
-            frame = self.quoteContainer.bounds;
-            frame.size.height -= 8;
-            frame.size.width -= 8;
-            frame.origin.x += 4;
-            frame.origin.y += 4;
-            self.quoteLabel.frame = frame;
-            
+            self.quoteNameLabel.frame = CGRectMake(10, 1, frame.size.width - 20, 22);
+            self.quoteLabel.frame = CGRectMake(10, CGRectGetMaxY(self.quoteNameLabel.frame), size.width - 20, size.height - 26);
             self.quoteContainer.hidden = NO;
-            self.quoteLabel.text = [NSString stringWithFormat:@"%@:%@", txtContent.quoteInfo.userDisplayName, [WFCUMessageCell quoteMessageDigest:model]];
+            self.quoteNameLabel.text = txtContent.quoteInfo.userDisplayName;
+            self.quoteLabel.text = [WFCUMessageCell quoteMessageDigest:model];
         }
     }
 }
@@ -563,6 +586,15 @@
     }
     return _contentArea;
 }
+
+- (UIView *)quoteInfoView {
+    if (!_quoteInfoView) {
+        _quoteInfoView = [[UIView alloc] init];
+        [self.bubbleView addSubview:_quoteInfoView];
+    }
+    return _quoteInfoView;
+}
+
 - (UIImageView *)bubbleView {
     if (!_bubbleView) {
         _bubbleView = [[UIImageView alloc] init];

@@ -136,7 +136,7 @@ class HChatListViewController: HBaseViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom)
             make.width.left.right.equalToSuperview()
-            make.bottom.equalTo(-HUIConfigure.tabBarHeight)
+            make.bottom.equalTo(-HTabBar.barHeight)
         }
     }
     
