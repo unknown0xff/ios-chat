@@ -12,24 +12,17 @@ import Combine
 
 class HNewFriendListViewController: HBaseViewController {
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(with: .plain)
-        tableView.applyDefaultConfigure()
-        tableView.delegate = self
-        return tableView
-    }()
-    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
         return collectionView
     }()
     
     
     private typealias Section = HNewFriendListViewModel.Section
     private typealias Row = HNewFriendListViewModel.Row
-    private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
-    private var dataSource1: UICollectionViewDiffableDataSource<Section, Row>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Row>! = nil
     
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HNewFriendListViewModel()
@@ -46,7 +39,7 @@ class HNewFriendListViewController: HBaseViewController {
     
     override func configureSubviews() {
         super.configureSubviews()
-        
+        backgroundView.image = Images.icon_background_linear
         let header = UICollectionView.CellRegistration<HNewFriendListTitleCell, Row> { (cell, indexPath, item) in
             cell.cellData = "好友通知"
         }
@@ -55,7 +48,7 @@ class HNewFriendListViewController: HBaseViewController {
             cell.cellData = item
         }
         
-        dataSource1 = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) { collectionView, indexPath, item in
             
             if indexPath.item == 0 {
                 return collectionView.dequeueConfiguredReusableCell(using: header, for: indexPath, item: item)
@@ -66,7 +59,7 @@ class HNewFriendListViewController: HBaseViewController {
         
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
-                self?.dataSource1.apply(snapshot, animatingDifferences: false)
+                self?.dataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
         
@@ -86,6 +79,7 @@ class HNewFriendListViewController: HBaseViewController {
                 configuration.bottomSeparatorInsets = .init(top: 0, leading: 73, bottom: 0, trailing: 0)
                 return configuration
             }
+            config.backgroundColor = .clear
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         }
     }
@@ -103,9 +97,13 @@ class HNewFriendListViewController: HBaseViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension HNewFriendListViewController: UITableViewDelegate, HNewFriendCellDelegate {
+extension HNewFriendListViewController: UICollectionViewDelegate, HNewFriendCellDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
     
     func onIgnore(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
         let userId = request.target ?? ""
@@ -113,7 +111,7 @@ extension HNewFriendListViewController: UITableViewDelegate, HNewFriendCellDeleg
         viewModel.loadData()
     }
     
-    func onAccept(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
+    func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
         
         let hud = HToast.show(on: view, text: "加载中...")
         let userId = request.target ?? ""

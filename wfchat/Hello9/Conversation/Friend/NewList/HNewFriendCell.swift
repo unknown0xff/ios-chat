@@ -10,7 +10,7 @@
 import UIKit
 
 protocol HNewFriendCellDelegate: AnyObject {
-    func onAccept(_ request: WFCCFriendRequest, at indexPath: IndexPath)
+    func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath)
     func onIgnore(_ request: WFCCFriendRequest, at indexPath: IndexPath)
 }
 
@@ -49,40 +49,23 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         return s
     }()
     
-    private lazy var rightActions: UIStackView = {
-        let s = UIStackView()
-        s.axis = .horizontal
-        s.alignment = .trailing
-        s.distribution = .fillEqually
-        s.spacing = 6
-        return s
-    }()
-    
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.text = "已同意"
-        label.font = .system14
-        label.textColor = Colors.gray01
+        label.font = .system13
+        label.textColor = Colors.themeButtonDisable
         return label
     }()
     
-    private lazy var acceptButton: UIButton = {
+    private lazy var detailButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = Colors.themeBlue1
-        btn.layer.cornerRadius = 15
-        btn.setTitle("同意", for: .normal)
-        btn.setTitleColor(Colors.white, for: .normal)
+        btn.layer.cornerRadius = 8
+        btn.layer.borderWidth = 1
+        btn.layer.borderColor = Colors.theme2.cgColor
+        btn.titleLabel?.font = .system13
+        btn.setTitle("查看", for: .normal)
+        btn.setTitleColor(Colors.themeBlack, for: .normal)
         btn.addTarget(self, action: #selector(didClickAcceptButton(_:)), for: .touchUpInside)
-        return btn
-    }()
-    
-    private lazy var ignoreButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("忽略", for: .normal)
-        btn.backgroundColor = Colors.white
-        btn.layer.cornerRadius = 15
-        btn.setTitleColor(Colors.gray01, for: .normal)
-        btn.addTarget(self, action: #selector(didClickIgnoreButton(_:)), for: .touchUpInside)
         return btn
     }()
     
@@ -96,20 +79,16 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     private func configureSubviews() {
+        
+        selectedBackgroundColor = Colors.white
         contentView.addSubview(avatar)
         
         rightContent.addArrangedSubview(userNameLabel)
         rightContent.addArrangedSubview(lastMessageLabel)
         contentView.addSubview(rightContent)
         
-        rightActions.addArrangedSubview(acceptButton)
-        rightActions.addArrangedSubview(ignoreButton)
-        contentView.addSubview(rightActions)
+        contentView.addSubview(detailButton)
         contentView.addSubview(statusLabel)
     }
     
@@ -125,19 +104,20 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         rightContent.snp.makeConstraints { make in
             make.left.equalTo(avatar.snp.right).offset(12)
             make.centerY.equalTo(avatar)
-            make.right.equalTo(rightActions.snp.left).offset(-8)
+            make.right.equalTo(detailButton.snp.left).offset(-8)
+        }
+        
+        detailButton.snp.makeConstraints { make in
+            make.right.equalTo(-16)
+            make.height.equalTo(30)
+            make.width.equalTo(56)
+            make.centerY.equalTo(avatar)
         }
         
         statusLabel.snp.makeConstraints { make in
             make.right.equalTo(-16)
             make.height.equalTo(30)
-            make.bottom.equalTo(lastMessageLabel)
-        }
-        
-        rightActions.snp.makeConstraints { make in
-            make.right.equalTo(-16)
-            make.height.equalTo(30)
-            make.bottom.equalTo(lastMessageLabel)
+            make.centerY.equalTo(avatar)
         }
     }
     
@@ -151,25 +131,31 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
             avatar.sd_setImage(with: .init(string: userInfo.portrait ?? .init()), placeholderImage: Images.icon_logo)
             userNameLabel.text = userInfo.displayName ?? ""
         }
-        lastMessageLabel.text = data.reason
         
+        if data.direction == 1 {
+            lastMessageLabel.text = "请求添加为好友"
+        } else {
+            lastMessageLabel.text = "请求添加对方为好友"
+        }
         if data.status == 1 {
-            acceptButton.isHidden = true
-            ignoreButton.isHidden = true
+            detailButton.isHidden = true
             statusLabel.isHidden = false
             statusLabel.text = "已同意"
         } else if data.status == 0 {
-            acceptButton.isHidden = false
-            ignoreButton.isHidden = false
-            statusLabel.isHidden = true
+            if data.direction == 1 {
+                detailButton.isHidden = false
+                statusLabel.isHidden = true
+            } else {
+                detailButton.isHidden = true
+                statusLabel.isHidden = false
+                statusLabel.text = "等待验证"
+            }
         } else if data.status == 2 {
-            acceptButton.isHidden = true
-            ignoreButton.isHidden = true
+            detailButton.isHidden = true
             statusLabel.isHidden = false
             statusLabel.text = "已拒绝"
         } else {
-            acceptButton.isHidden = true
-            ignoreButton.isHidden = true
+            detailButton.isHidden = true
             statusLabel.isHidden = true
         }
         
@@ -186,7 +172,7 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         guard let request = cellData, let indexPath = self.indexPath else {
             return
         }
-        delegate?.onAccept(request, at: indexPath)
+        delegate?.onDetail(request, at: indexPath)
     }
 }
 

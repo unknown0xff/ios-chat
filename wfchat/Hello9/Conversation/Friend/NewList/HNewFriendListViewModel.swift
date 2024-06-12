@@ -20,7 +20,10 @@ class HNewFriendListViewModel: HBasicViewModel {
     
     func loadData() {
         WFCCIMService.sharedWFCIM().loadFriendRequestFromRemote()
-        friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
+        let income = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
+        let outgoing = (WFCCIMService.sharedWFCIM().getOutgoingFriendRequest() ?? .init())
+        friendRequest.append(contentsOf: income)
+        friendRequest.append(contentsOf: outgoing)
         applySnapshot()
     }
     

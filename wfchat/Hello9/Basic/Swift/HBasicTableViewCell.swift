@@ -29,5 +29,21 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
         }
     }
     
+    var selectedBackgroundColor: UIColor?
+    
     func bindData(_ data: T?) { }
+    
+    override func updateConfiguration(using state: UICellConfigurationState) {
+        var backgroundConfig = self.backgroundConfiguration
+        
+        if let selectedBackgroundColor = selectedBackgroundColor {
+            if state.isSelected || state.isHighlighted {
+                backgroundConfig?.backgroundColor = selectedBackgroundColor
+            } else {
+                backgroundConfig?.backgroundColor = .white
+            }
+        }
+        self.backgroundConfiguration = backgroundConfig
+    }
+
 }
