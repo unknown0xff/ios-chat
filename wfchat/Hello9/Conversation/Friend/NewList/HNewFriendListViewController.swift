@@ -27,6 +27,7 @@ class HNewFriendListViewController: HBaseViewController {
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HNewFriendListViewModel()
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         WFCCIMService.sharedWFCIM().clearUnreadFriendRequestStatus()
@@ -35,6 +36,10 @@ class HNewFriendListViewController: HBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navBar.titleLabel.text = "新朋友"
+        
+        NotificationCenter.default.addObserver(forName: .init(kFriendRequestUpdated), object: self, queue: .main) { [weak self] _ in
+            self?.viewModel.loadData()
+        }
     }
     
     override func configureSubviews() {
@@ -115,22 +120,6 @@ extension HNewFriendListViewController: UICollectionViewDelegate, HNewFriendCell
     func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
         let vc = HNewFriendDetailViewController(targetId: request.target)
         navigationController?.pushViewController(vc, animated: true)
-        
-        return
-        let hud = HToast.show(on: view, text: "加载中...")
-        let userId = request.target ?? ""
-        WFCCIMService.sharedWFCIM().handleFriendRequest(userId, accept: true, extra: nil) { [weak self] in
-            hud.hide(animated: true)
-            guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "添加成功")
-            self.viewModel.didSuccessAddFriend(userId)
-        } error: { code in
-            if code == 19 {
-                HToast.showAutoHidden(on: self.view, text: "已过期")
-            } else {
-                HToast.showAutoHidden(on: self.view, text: "添加失败")
-            }
-        }
     }
     
     @objc func onUserInfoUpdated(_ sender: Notification) {

@@ -30,6 +30,22 @@ extension UIButton {
         return btn
     }
     
+    class func capsuleButton(title: String, backgroundColor: UIColor = Colors.themeBlack) -> UIButton {
+        let btn = UIButton.imageButton(
+            with: nil,
+            title: title,
+            font: .system16.bold,
+            titleColor: Colors.white,
+            placement: .leading,
+            padding: 0
+        )
+        
+        btn.configuration?.background.cornerRadius = 16
+        btn.configuration?.background.backgroundColor = backgroundColor
+        
+        return btn
+    }
+    
     static var search: UIButton {
         let btn = UIButton.imageButton(
             with: Images.icon_search_gray,

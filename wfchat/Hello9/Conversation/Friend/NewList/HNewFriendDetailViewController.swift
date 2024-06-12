@@ -95,7 +95,7 @@ class HNewFriendDetailViewController: HBaseViewController {
         s.setCustomSpacing(14, after: leftIcon)
         
         s.addArrangedSubview(idLabel)
-        s.setCustomSpacing(23, after: idLabel)
+        s.setCustomSpacing(13, after: idLabel)
         
         let copyIcon = UIButton(type:.system)
         copyIcon.setImage(Images.icon_copy, for: .normal)
@@ -108,6 +108,11 @@ class HNewFriendDetailViewController: HBaseViewController {
         return s
     }()
     
+    lazy var actionButton: UIButton = {
+        let btn = UIButton.capsuleButton(title: "同意")
+        btn.addTarget(self, action: #selector(didClickActionButton(_:)), for: .touchUpInside)
+        return btn
+    }()
     let userInfo: HUserInfoModel
     
     init(targetId: String) {
@@ -133,7 +138,7 @@ class HNewFriendDetailViewController: HBaseViewController {
         avatar.sd_setImage(with: userInfo.portrait, placeholderImage: Images.icon_logo)
         userNameLabel.text = userInfo.displayName
         idLabel.text = userInfo.name.insert(string: "·")
-        signLabel.text = userInfo.social
+        signLabel.text = userInfo.social.isEmpty ? "昨天是一段历史，明天是一个谜团，今天是天赐的礼物" : userInfo.social
     }
     
     override func configureSubviews() {
@@ -142,6 +147,7 @@ class HNewFriendDetailViewController: HBaseViewController {
         
         contentView.addSubview(avatar)
         contentView.addSubview(userInfoView)
+        contentView.addSubview(actionButton)
         
         userInfoView.addSubview(userNameLabel)
         userInfoView.addSubview(idView)
@@ -203,10 +209,35 @@ class HNewFriendDetailViewController: HBaseViewController {
             make.bottom.equalTo(-20)
         }
         
+        actionButton.snp.makeConstraints { make in
+            make.height.equalTo(54)
+            make.left.equalTo(30)
+            make.width.equalToSuperview().offset(-60)
+            make.top.equalTo(userInfoView.snp.bottom).offset(55)
+        }
     }
     
     @objc func didClickCopyButton(_ sender: UIButton) {
         UIPasteboard.general.string = userInfo.name
+    }
+    
+    @objc func didClickActionButton(_ sender: UIButton) {
+        agreeFriendRequest()
+    }
+    
+    func agreeFriendRequest() {
+        let hud = HToast.show(on: view, text: "加载中...")
+        WFCCIMService.sharedWFCIM().handleFriendRequest(userInfo.userId, accept: true, extra: nil) { [weak self] in
+            hud.hide(animated: true)
+            guard let self else { return }
+            HToast.showAutoHidden(on: self.view, text: "添加成功")
+        } error: { code in
+            if code == 19 {
+                HToast.showAutoHidden(on: self.view, text: "已过期")
+            } else {
+                HToast.showAutoHidden(on: self.view, text: "添加失败")
+            }
+        }
     }
 }
 
