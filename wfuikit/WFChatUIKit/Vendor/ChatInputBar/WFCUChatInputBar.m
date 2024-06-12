@@ -20,7 +20,7 @@
 #import "WFCUContactListViewController.h"
 #import "MBProgressHUD.h"
 #import "UIColor+YH.h"
-#import "WFCUPublicMenuButton.h""
+#import "WFCUPublicMenuButton.h"
 #if WFCU_SUPPORT_VOIP
 #import <WFAVEngineKit/WFAVEngineKit.h>
 #endif
@@ -75,6 +75,7 @@
 @property (nonatomic, strong)UIButton *pluginSwitchBtn;
 
 @property (nonatomic, strong)UITextView *textInputView;
+@property (nonatomic, strong)UIView *textInputBackgroundView;
 @property (nonatomic, strong)UIView *inputCoverView;
 
 @property (nonatomic, strong)UIButton *voiceInputBtn;
@@ -151,7 +152,7 @@
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
-    self.backgroundColor = [UIColor colorWithHexString:@"0xf7f7f7"];
+    self.backgroundColor = [UIColor whiteColor];
     
     
     NSArray<WFCCChannelMenu *> *menus = nil;
@@ -235,7 +236,7 @@
     CGFloat voiceBtnPaddingLeft = hasPublic ? CHAT_INPUT_BAR_PADDING/2 : CHAT_INPUT_BAR_PADDING;
     
     CGFloat voiceAndPttOffset;
-    self.voiceSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(voiceBtnPaddingLeft, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
+    self.voiceSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - 16 - 26, 15, 26, 26)];
     [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
     [self.voiceSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.voiceSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
@@ -253,19 +254,23 @@
     }
 #endif
     
-    self.pluginSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - CHAT_INPUT_BAR_HEIGHT + CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
+    self.pluginSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(16, 15, 26, 26)];
     [self.pluginSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_plugin"] forState:UIControlStateNormal];
     [self.pluginSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.pluginSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.pluginSwitchBtn];
     
-    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - CHAT_INPUT_BAR_HEIGHT - CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
+    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.voiceSwitchBtn.frame) - 18 - 26, 15, 26, 26)];
     [self.emojSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_emoj"] forState:UIControlStateNormal];
     [self.emojSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.emojSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.emojSwitchBtn];
 
-    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(voiceAndPttOffset + CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, self.inputContainer.bounds.size.width - voiceAndPttOffset - CHAT_INPUT_BAR_PADDING - CHAT_INPUT_BAR_HEIGHT - CHAT_INPUT_BAR_HEIGHT + CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE)];
+    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 94), 40)];
+    self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 52), 40)];
+    self.textInputBackgroundView.layer.cornerRadius = 10;
+    self.textInputBackgroundView.backgroundColor = [UIColor colorWithHexString:@"0xF6F7FA"];
+    [self.inputContainer insertSubview:self.textInputBackgroundView belowSubview:self.pluginSwitchBtn];
     
     self.textInputView.delegate = self;
     self.textInputView.layoutManager.allowsNonContiguousLayout = NO;
@@ -273,9 +278,12 @@
     [self.textInputView setTextColor:[UIColor blackColor]];
     [self.textInputView setFont:[UIFont systemFontOfSize:16]];
     [self.textInputView setReturnKeyType:UIReturnKeySend];
-    self.textInputView.backgroundColor = [UIColor whiteColor];
+    self.textInputView.backgroundColor = [UIColor clearColor];
     self.textInputView.enablesReturnKeyAutomatically = YES;
     self.textInputView.userInteractionEnabled = YES;
+    UIEdgeInsets inset = self.textInputView.textContainerInset;
+    inset.left = 2.0;
+    self.textInputView.textContainerInset = inset;
     [self.inputContainer addSubview:self.textInputView];
     
     self.inputCoverView = [[UIView alloc] initWithFrame:self.textInputView.bounds];
@@ -284,7 +292,6 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInputView:)];
         tap.numberOfTapsRequired = 1;
         [self.inputCoverView addGestureRecognizer:tap];
-    
     
     self.voiceInputBtn = [[UIButton alloc] initWithFrame:self.textInputView.frame];
     [self.voiceInputBtn setTitle:WFCString(@"HoldToTalk") forState:UIControlStateNormal];
@@ -1317,6 +1324,7 @@
 }
 - (void)changeTextViewHeight:(CGFloat)height needUpdateText:(BOOL)needUpdateText updateRange:(NSRange)range {
     CGRect tvFrame = self.textInputView.frame;
+    CGRect tvBgFrame = self.textInputBackgroundView.frame;
     CGRect baseFrame = self.frame;
     CGRect voiceFrame = self.voiceSwitchBtn.frame;
     CGRect emojFrame = self.emojSwitchBtn.frame;
@@ -1331,15 +1339,18 @@
         quoteHeight = self.quoteContainerView.frame.size.height + CHAT_INPUT_QUOTE_PADDING;
     }
     if (height <= 32.f) {
-        tvFrame.size.height = 32.f;
-        diff = (48.f - baseFrame.size.height + quoteHeight);
-        baseFrame.size.height = 48.f;
+        tvFrame.size.height = 40.f;
+        tvBgFrame.size.height = 40.f;
+        diff = (58.f - baseFrame.size.height + quoteHeight);
+        baseFrame.size.height = 58.f;
     } else if (height > 32.f && height < 50.f) {
         tvFrame.size.height = 50.f;
+        tvBgFrame.size.height = 50.f;
         diff = (66.f - baseFrame.size.height + quoteHeight);
         baseFrame.size.height = 66.f;
     } else {
         tvFrame.size.height = 65.f;
+        tvBgFrame.size.height = 65.f;
         diff = (81.f - baseFrame.size.height + quoteHeight);
         baseFrame.size.height = 81.f;
     }
@@ -1364,6 +1375,7 @@
     __weak typeof(self)ws = self;
     [UIView animateWithDuration:duration animations:^{
         ws.textInputView.frame = tvFrame;
+        ws.textInputBackgroundView.frame = tvBgFrame;
         ws.inputCoverView.frame = ws.textInputView.bounds;
         self.frame = baseFrame;
         self.inputContainer.frame = CGRectMake(0, 0, baseFrame.size.width, baseFrame.size.height);
