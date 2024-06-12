@@ -60,15 +60,23 @@
     return [UIScreen mainScreen].bounds.size.width - Bubble_Margin_Right - Bubble_Margin_Left;
 }
 
+- (CGFloat)selectedLeftMargin {
+    return 21 + 16;
+}
+
 + (CGSize)sizeForCell:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
     CGFloat height = [super hightForHeaderArea:msgModel];
     CGFloat portraitSize = Portrait_Size;
     CGFloat nameLabelHeight = Name_Label_Height + Name_Client_Padding;
     
     CGFloat bubbleMaxWidth = [self clientAreaWidth];
-    BOOL isGroupType = msgModel.message.conversation.type == Group_Type;
+    BOOL isGroupType = (msgModel.message.conversation.type == Group_Type && msgModel.message.direction == MessageDirection_Receive);
     if (isGroupType) {
         bubbleMaxWidth -= (Portrait_Size + Portrait_Margin_Right);
+    }
+    
+    if (msgModel.selecting) {
+        bubbleMaxWidth -= (21 + 16);
     }
     
     CGSize quote = [self sizeForQuoteArea:msgModel withViewWidth: bubbleMaxWidth];
@@ -103,10 +111,14 @@
         WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
         if (txtContent.quoteInfo) {
             CGFloat bubbleMaxWidth = [self clientAreaWidth];
-            BOOL isGroupType = msgModel.message.conversation.type == Group_Type;
+            BOOL isGroupType = (msgModel.message.conversation.type == Group_Type && msgModel.message.direction == MessageDirection_Receive);
             if (isGroupType) {
                 bubbleMaxWidth -= (Portrait_Size + Portrait_Margin_Right);
             }
+            if (msgModel.selecting) {
+                bubbleMaxWidth -= (21 + 16);
+            }
+            
             id attributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:14] };
             
             CGSize size = [WFCUUtilities getTextDrawingSize:[WFCUMessageCell quoteMessageDigest:msgModel] attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
@@ -307,6 +319,7 @@
         self.bubbleView.image = [WFCUImage imageNamed:receivedImageName];
         
         CGFloat bubbleViewLeft = isGroupType ? (Bubble_Margin_Left + Portrait_Size + Portrait_Margin_Right) : (Bubble_Margin_Left);
+        bubbleViewLeft += model.selecting ? [self selectedLeftMargin] : 0;
         
         CGFloat bubbleHeight = size.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding
         + (model.showNameLabel ? Name_Label_Height + Name_Label_Padding : 0) + quote.height;
@@ -317,7 +330,7 @@
         CGFloat contentTop = (model.showNameLabel ? Name_Label_Height + Client_Bubble_Top_Padding : Client_Bubble_Top_Padding) + quote.height;
         self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, contentTop, size.width, size.height);
         CGFloat portraitViewTop = self.bubbleView.frame.origin.y + (self.bubbleView.frame.size.height - Portrait_Size);
-        self.portraitView.frame = CGRectMake(Bubble_Margin_Left, portraitViewTop, Portrait_Size, Portrait_Size);
+        self.portraitView.frame = CGRectMake(Bubble_Margin_Left + (model.selecting ? [self selectedLeftMargin] : 0), portraitViewTop, Portrait_Size, Portrait_Size);
         
         self.receiptView.hidden = YES;
     }
@@ -338,7 +351,8 @@
         }
         CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
         CGRect frame = self.selectView.frame;
-        frame.origin.y = top;
+        frame.origin.y = CGRectGetMidY(self.bubbleView.frame) - 10;
+        frame.origin.x = 16;
         self.selectView.frame = frame;
     } else {
         self.selectView.hidden = YES;

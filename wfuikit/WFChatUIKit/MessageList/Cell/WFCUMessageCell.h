@@ -23,4 +23,5 @@
 - (CGFloat)nameLabelLeft;
 - (CGFloat)nameLabelTopMargin;
 + (CGSize)sizeForQuoteArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width;
++ (CGFloat)clientAreaWidth;
 @end

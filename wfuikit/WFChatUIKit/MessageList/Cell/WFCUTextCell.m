@@ -13,6 +13,8 @@
 
 #define TEXT_LABEL_TOP_PADDING 3
 #define TEXT_LABEL_BUTTOM_PADDING 5
+#define Portrait_Size 36
+#define Portrait_Margin_Right 2
 
 @interface WFCUTextCell () <AttributedLabelDelegate>
 
@@ -20,15 +22,22 @@
 
 @implementation WFCUTextCell
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
+    CGFloat bubbleMaxWidth = [self clientAreaWidth];
+    BOOL isGroupType = (msgModel.message.conversation.type == Group_Type && msgModel.message.direction == MessageDirection_Receive);
+    if (isGroupType) {
+        bubbleMaxWidth -= (Portrait_Size + Portrait_Margin_Right);
+    }
+    if (msgModel.selecting) {
+        bubbleMaxWidth -= (21 + 16);
+    }
+    
     WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
-    
     NSString *contentTxt = [NSString stringWithFormat:@"%@          ", txtContent.text];
-    
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc]init];
     para.lineHeightMultiple = 1.14;
     id attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName: para};
     
-    CGSize size = [WFCUUtilities getTextDrawingSize:contentTxt attributes:attributes constrainedSize:CGSizeMake(width, 8000)];
+    CGSize size = [WFCUUtilities getTextDrawingSize:contentTxt attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth, 8000)];
     size.height += TEXT_LABEL_TOP_PADDING + TEXT_LABEL_BUTTOM_PADDING;
     if (size.width < 40) {
         size.width += 4;
