@@ -44,12 +44,13 @@ class HNewFriendListViewController: HBaseViewController {
             cell.cellData = "好友通知"
         }
         
-        let cellRegistration = UICollectionView.CellRegistration<HNewFriendCell, Row> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<HNewFriendCell, Row> { [weak self] (cell, indexPath, item) in
+            cell.indexPath = indexPath
             cell.cellData = item
+            cell.delegate = self
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) { collectionView, indexPath, item in
-            
             if indexPath.item == 0 {
                 return collectionView.dequeueConfiguredReusableCell(using: header, for: indexPath, item: item)
             } else {
@@ -112,7 +113,10 @@ extension HNewFriendListViewController: UICollectionViewDelegate, HNewFriendCell
     }
     
     func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
+        let vc = HNewFriendDetailViewController(targetId: request.target)
+        navigationController?.pushViewController(vc, animated: true)
         
+        return
         let hud = HToast.show(on: view, text: "加载中...")
         let userId = request.target ?? ""
         WFCCIMService.sharedWFCIM().handleFriendRequest(userId, accept: true, extra: nil) { [weak self] in

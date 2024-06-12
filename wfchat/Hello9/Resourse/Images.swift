@@ -20,6 +20,8 @@ enum Images {
 
     static let icon_background = UIImage(named: "icon_background")!
 
+    static let icon_background_gray = UIImage(named: "icon_background_gray")!
+
     static let icon_background_green = UIImage(named: "icon_background_green")!
 
     static let icon_background_linear = UIImage(named: "icon_background_linear")!
@@ -41,6 +43,8 @@ enum Images {
     static let icon_chat_list_top_disable = UIImage(named: "icon_chat_list_top_disable")!
 
     static let icon_common_background = UIImage(named: "icon_common_background")!
+
+    static let icon_copy = UIImage(named: "icon_copy")!
 
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 

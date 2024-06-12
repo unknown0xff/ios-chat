@@ -25,7 +25,7 @@ struct HUserInfoModel: Hashable {
         name = info.name ?? ""
         displayName = info.displayName ?? ""
         friendAlias = info.friendAlias ?? ""
-        social = info.social ?? ""
+        social = info.social ?? "昨天是一段历史，明天是一个谜团，今天是天赐的礼物"
         if let p = info.portrait {
             portrait = URL(string: p)
         } else {

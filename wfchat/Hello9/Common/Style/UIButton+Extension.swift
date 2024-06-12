@@ -81,4 +81,22 @@ extension UIView {
         return space
     }
     
+    static func space(height: CGFloat) -> UIView {
+        let space = UIView()
+        space.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.height.equalTo(height)
+        }
+        return space
+    }
+    
+    static func space(width: CGFloat) -> UIView {
+        let space = UIView()
+        space.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(1)
+        }
+        return space
+    }
+    
 }
