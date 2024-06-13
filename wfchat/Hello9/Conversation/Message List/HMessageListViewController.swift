@@ -32,6 +32,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         }
         
         view.addSubview(navBar)
+        view.backgroundColor = Colors.white
         
         navBar.backButton.addTarget(self, action: #selector(didClickBackButton(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)

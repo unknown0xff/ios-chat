@@ -15,6 +15,7 @@
 #import "WFCUConfigManager.h"
 #import "WFCUImage.h"
 #import "WFCUUtilities.h"
+#import "UIColor+YH.h"
 
 #define FACE_COUNT_ROW  4
 #define FACE_COUNT_CLU  7
@@ -29,22 +30,24 @@
 
 @interface WFCUFaceBoard() <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate>
 @property(nonatomic, strong) NSArray *faceEmojiArray;
-@property(nonatomic,strong)UIView *tabbarView;
-@property(nonatomic,strong) UIButton *sendBtn;
-@property(nonatomic, strong)UIPageControl *facePageControl;
-@property(nonatomic, strong)UICollectionView *collectionView;
+@property(nonatomic, strong) UIView *tabbarView;
+@property(nonatomic, strong) UIButton *sendBtn;
+@property(nonatomic, strong) UIPageControl *facePageControl;
+@property(nonatomic, strong) UICollectionView *collectionView;
 
-@property(nonatomic, strong)UICollectionView *tabView;
+@property(nonatomic, strong) UICollectionView *tabView;
 
-@property(nonatomic, strong)NSMutableDictionary<NSString *, WFCUStickerItem *> *stickers;
-@property(nonatomic, assign)int selectedTableRow;
+@property(nonatomic, strong) NSMutableDictionary<NSString *, WFCUStickerItem *> *stickers;
+@property(nonatomic, strong) NSMutableArray<NSString*> *gifs;
+@property(nonatomic, strong) NSMutableArray<NSString*> *tie;
+
+@property(nonatomic, assign) NSInteger selectedTableRow;
 @end
 
-#define EMOJ_TAB_HEIGHT 42
+#define EMOJ_TAB_HEIGHT 47
 #define EMOJ_FACE_VIEW_HEIGHT 190
-#define EMOJ_PAGE_CONTROL_HEIGHT 20
 
-#define EMOJ_AREA_HEIGHT (EMOJ_TAB_HEIGHT + EMOJ_FACE_VIEW_HEIGHT + EMOJ_PAGE_CONTROL_HEIGHT)
+#define EMOJ_AREA_HEIGHT (EMOJ_TAB_HEIGHT + EMOJ_FACE_VIEW_HEIGHT)
 @implementation WFCUFaceBoard{
     int width;
     int location;
@@ -94,9 +97,8 @@
     }
 }
 
-- (void)loadStickers {
-    self.stickers = [[NSMutableDictionary alloc] init];
-    
+- (void)loadGifs {
+    self.gifs = [NSMutableArray array];
     NSString *stickerPath = [[WFCUFaceBoard getStickerCachePath] stringByAppendingPathComponent:[WFCUFaceBoard getStickerBundleName]];
     
     NSError * err = nil;
@@ -112,10 +114,6 @@
         NSString *absfile = [stickerPath stringByAppendingPathComponent:file];
         if ([defaultManager fileExistsAtPath:absfile isDirectory:&isDir]) {
             if (!isDir) {
-                WFCUStickerItem *item = [[WFCUStickerItem alloc] init];
-                item.key = file;
-                item.tabIcon = absfile;
-                item.stickerPaths = [[NSMutableArray alloc] init];
                 NSString *name = [[file lastPathComponent] stringByDeletingPathExtension];
                 NSString *stickerSubPath = [stickerPath stringByAppendingPathComponent:name];
                 if ([defaultManager fileExistsAtPath:stickerSubPath isDirectory:&isDir]) {
@@ -129,13 +127,12 @@
                             NSString *stickerabsfile = [stickerSubPath stringByAppendingPathComponent:p];
                             if ([defaultManager fileExistsAtPath:stickerabsfile isDirectory:&isDir]) {
                                 if (!isDir) {
-                                    [item.stickerPaths addObject:stickerabsfile];
+                                    [self.gifs addObject:stickerabsfile];
                                 }
                             }
                         }
                     }
                 }
-                self.stickers[item.key] = item;
             } else {
                 NSLog(@"is dir %@", absfile);
             }
@@ -143,52 +140,39 @@
     }
 }
 
+- (void)loadEmoji {
+    NSString *resourcePath = [[NSBundle bundleForClass:[self class]] resourcePath];
+    NSString *bundlePath = [resourcePath stringByAppendingPathComponent:@"Emoj.plist"];
+    self.faceEmojiArray = [[NSArray alloc]initWithContentsOfFile:bundlePath];
+}
+
 - (id)init {
     width = [UIScreen mainScreen].bounds.size.width;
     self = [super initWithFrame:CGRectMake(0, 0, width, EMOJ_AREA_HEIGHT + [WFCUUtilities wf_safeDistanceBottom])];
-    
-    [self loadStickers];
+    self.tie = [NSMutableArray array];
+    [self loadGifs];
+    [self loadEmoji];
     if (self) {
-
-        self.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
-
-        NSString *resourcePath = [[NSBundle bundleForClass:[self class]] resourcePath];
-        NSString *bundlePath = [resourcePath stringByAppendingPathComponent:@"Emoj.plist"];
+        self.selectedTableRow = 0;
         
-        self.faceEmojiArray = [[NSArray alloc]initWithContentsOfFile:bundlePath];
-
+        self.backgroundColor = [UIColor colorWithHexString:@"0xfbfbfd"];
         [self addSubview:self.collectionView];
 
-        //添加PageControl
-        [self addSubview:self.facePageControl];
+        self.tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - EMOJ_TAB_HEIGHT - [WFCUUtilities wf_safeDistanceBottom], self.frame.size.width, EMOJ_TAB_HEIGHT + [WFCUUtilities wf_safeDistanceBottom])];
+        self.tabbarView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.tabbarView];
         
-        _tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - EMOJ_TAB_HEIGHT - [WFCUUtilities wf_safeDistanceBottom], self.frame.size.width, EMOJ_TAB_HEIGHT)];
-        [self addSubview:_tabbarView];
-        
-        _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sendBtn.tag = 333;
-        _sendBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _sendBtn.frame = CGRectMake(self.frame.size.width - 52,5,52, 37);
-        [_sendBtn setTitle:WFCString(@"Send") forState:UIControlStateNormal];
-        [_sendBtn setTitleColor:[WFCUConfigManager globalManager].textColor forState:UIControlStateNormal];
-        self.sendBtn.layer.borderWidth = 0.5f;
-        self.sendBtn.layer.borderColor = HEXCOLOR(0xdbdbdd).CGColor;
-        [_sendBtn addTarget:self action:@selector(sendBtnHandle:) forControlEvents:UIControlEventTouchUpInside];
-        [_tabbarView addSubview:_sendBtn];
-        
-        [_tabbarView addSubview:self.tabView];
-        
-        [_collectionView reloadData];
-
         [self.tabView setAllowsMultipleSelection:NO];
         self.tabView.allowsSelection = YES;
-        self.selectedTableRow = 0;
+        [self.tabbarView addSubview:self.tabView];
+        
+        [self.collectionView reloadData];
     }
 
     return self;
 }
 
-- (void)setSelectedTableRow:(int)selectedTableRow {
+- (void)setSelectedTableRow:(NSInteger)selectedTableRow {
     _selectedTableRow = selectedTableRow;
     [self.tabView reloadData];
 }
@@ -197,11 +181,13 @@
     if (!_tabView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.minimumInteritemSpacing = 15;
         
-        _tabView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,5,self.frame.size.width - 52, 37) collectionViewLayout:layout];
+        _tabView = [[UICollectionView alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width - 236) / 2, 10, 236, 28) collectionViewLayout:layout];
         _tabView.delegate = self;
         _tabView.dataSource = self;
-        _tabView.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
+        _tabView.scrollEnabled = NO;
+        _tabView.backgroundColor = [UIColor whiteColor];
         _tabView.showsHorizontalScrollIndicator = NO;
         _tabView.userInteractionEnabled = YES;
         [_tabView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellId"];
@@ -212,43 +198,20 @@
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        layout.sectionInset = UIEdgeInsetsMake(8, 16, 8, 16);
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
         CGRect frame = self.bounds;
         frame.size.height = EMOJ_FACE_VIEW_HEIGHT;
         _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.decelerationRate = 90;
-        _collectionView.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
+        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.showsHorizontalScrollIndicator = NO;
-        
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellId"];
     }
     return _collectionView;
-}
-
-- (UIPageControl *)facePageControl {
-    if (!_facePageControl) {
-        _facePageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(width/2-100, EMOJ_FACE_VIEW_HEIGHT, 200, EMOJ_PAGE_CONTROL_HEIGHT)];
-        [_facePageControl addTarget:self
-                            action:@selector(pageChange:)
-                  forControlEvents:UIControlEventValueChanged];
-        
-        _facePageControl.pageIndicatorTintColor = [UIColor grayColor];
-        _facePageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-        
-        _facePageControl.numberOfPages = [self getPagesCount:0];
-        [self.tabView selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        [self.tabView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]];
-        
-        _facePageControl.currentPage = 0;
-        if (@available(iOS 14.0, *)) {
-            _facePageControl.backgroundStyle = UIPageControlBackgroundStyleProminent;
-            _facePageControl.allowsContinuousInteraction = YES;
-        }
-    }
-    return _facePageControl;
 }
 
 - (void)sendBtnHandle:(id)sender {
@@ -257,61 +220,10 @@
     }
 }
 
-- (int)pagesOfIndexPath:(NSIndexPath *)item {
-    int pages = 0;
-    for (int i = 0; i < item.section; i++) {
-        pages += [self collectionView:self.collectionView numberOfItemsInSection:i];
-    }
-    pages += item.row;
-    return pages;
-}
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (scrollView == self.collectionView) {
-        NSArray<NSIndexPath *> *items = [_collectionView indexPathsForVisibleItems];
-        if (items.count == 2) {
-            int pages0 = [self pagesOfIndexPath:items[0]];
-            int pages1 = [self pagesOfIndexPath:items[1]];
-            
-            UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-            CGFloat offset0 = pages0 * (self.collectionView.bounds.size.width + layout.minimumLineSpacing);
-            CGFloat offset1 = pages1 * (self.collectionView.bounds.size.width + layout.minimumInteritemSpacing);
-            
-            NSIndexPath *selectedOne;
-            if (ABS(offset0-targetContentOffset->x) > ABS(offset1 - targetContentOffset->x)) {
-                targetContentOffset->x = offset1;
-                selectedOne = items[1];
-            } else {
-                targetContentOffset->x = offset0;
-                selectedOne = items[0];
-            }
-            
-            if (items[1].section != items[0].section) {
-                self.facePageControl.numberOfPages = [self getPagesCount:selectedOne.section];
-                self.selectedTableRow = selectedOne.section;
-            }
-            
-            [self.facePageControl setCurrentPage:selectedOne.row];
-            [self.facePageControl updateCurrentPageDisplay];
-        } else if(items.count == 1) {
-            int pages0 = [self pagesOfIndexPath:items[0]];
-            
-            UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-            CGFloat offset0 = pages0 * (self.collectionView.bounds.size.width + layout.minimumLineSpacing);
-            targetContentOffset->x = offset0;
-        }
-    }
-}
-
-- (void)pageChange:(id)sender {
-    
-}
-
-- (void)faceButton:(id)sender {
-    int i = (int)((WFCUFaceButton*)sender).buttonIndex;
+- (void)faceButton:(UIButton *)sender {
     if ([delegate respondsToSelector:@selector(didTouchEmoj:)]) {
-        [delegate didTouchEmoj:self.faceEmojiArray[i]];
+        [delegate didTouchEmoj:self.faceEmojiArray[sender.tag]];
     }
-    
 }
 
 - (void)backFace{
@@ -320,41 +232,14 @@
     }
 }
 
-- (NSInteger)getPagesCount:(NSInteger)section {
-    if (section == 0) {
-        int FACE_COUNT_ALL = (int)self.faceEmojiArray.count;
-        int pages;
-        if (FACE_COUNT_ALL > 0) {
-            pages = (FACE_COUNT_ALL - 1)/(FACE_COUNT_ROW * FACE_COUNT_CLU -1) + 1;
-        } else {
-            pages = 0;
-        }
-        return pages;
-    } else {
-        return (self.stickers[[self.stickers.allKeys objectAtIndex:(section - 1)]].stickerPaths.count - 1) / STICKER_COUNT_PAGE + 1;
-    }
-}
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView == self.collectionView) {
-        if (self.disableSticker) {
-            return 1;
-        }
-        return self.stickers.allKeys.count + 1;
-    } else {
-        return 1;
-    }
+    return 1;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.tabView) {
-        NSIndexPath *minOne = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
-        
-        self.facePageControl.numberOfPages = [self getPagesCount:minOne.section];
-        self.facePageControl.currentPage = 0;
-        [_collectionView scrollToItemAtIndexPath:minOne atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-        
-        self.selectedTableRow = indexPath.row;
+        self.selectedTableRow = indexPath.item;
+        [self.collectionView reloadData];
     }
 }
 
@@ -364,20 +249,39 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView == self.collectionView) {
-        return [self getPagesCount:section];
-    } else {
-        if (self.disableSticker) {
-            return 1;
+        if (self.selectedTableRow == 0) {
+            return self.gifs.count;
+        } else if (self.selectedTableRow == 1) {
+            return self.tie.count;
+        } else {
+            return self.faceEmojiArray.count;
         }
-        return self.stickers.allKeys.count + 1;
+    } else {
+        return 3;
     }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.collectionView) {
-        return self.collectionView.bounds.size;
+        if (self.selectedTableRow == 0) {
+            CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 3.0);
+            return CGSizeMake(width, width);
+        } else if (self.selectedTableRow == 1) {
+            CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 4.0);
+            return CGSizeMake(width, width);
+        } else {
+            CGFloat width = 27 + 8;
+            CGFloat height = 27 + 6;
+            return CGSizeMake(width, height);
+        }
     } else {
-        return CGSizeMake(45, 37);
+        if (indexPath.row == 0) {
+            return CGSizeMake(92, 28);
+        } else if (indexPath.row == 1) {
+            return CGSizeMake(53, 28);
+        } else {
+            return CGSizeMake(53, 28);
+        }
     }
 }
 
@@ -389,103 +293,73 @@
     }
     
     if (collectionView == self.collectionView) {
-        if (indexPath.section == 0) {
-            int startPos = (int)indexPath.row * FACE_COUNT_PAGE;
-            int endPos = (int)MIN(self.faceEmojiArray.count, startPos +  FACE_COUNT_PAGE);
-            for (int i = startPos; i <= endPos; i++) {
-                int cli = (i - startPos)/FACE_COUNT_CLU;
-                int col = (i - startPos)%FACE_COUNT_CLU;
-                
-                CGFloat x = col * width/7;
-                CGFloat y = cli * FACE_ICON_SIZE + 8;
-                
-                if ((cli == FACE_COUNT_ROW -1 && col == FACE_COUNT_CLU - 1) || i == self.faceEmojiArray.count) {
-                    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-                    [back setImage:[WFCUImage imageNamed:@"del_emoji_normal"] forState:UIControlStateNormal];
-                    [back setImage:[WFCUImage imageNamed:@"del_emoji_select"] forState:UIControlStateSelected];
-                    [back addTarget:self action:@selector(backFace) forControlEvents:UIControlEventTouchUpInside];
-                    
-                    if (i == self.faceEmojiArray.count) {
-                        x = (FACE_COUNT_CLU - 1) * width/7;
-                        y = (FACE_COUNT_ROW - 1) * FACE_ICON_SIZE + 8;
-                    }
-                    back.frame = CGRectMake( x, y, width/7, FACE_ICON_SIZE);
-                    
-                    [cell addSubview:back];
-                } else {
-                    WFCUFaceButton *faceButton = [WFCUFaceButton buttonWithType:UIButtonTypeCustom];
-                    faceButton.buttonIndex = i;
-                    
-                    [faceButton addTarget:self
-                                   action:@selector(faceButton:)
-                         forControlEvents:UIControlEventTouchUpInside];
-                    
-                    faceButton.frame = CGRectMake( x, y, width/7, FACE_ICON_SIZE);
-                    
-                    [faceButton setTitle:self.faceEmojiArray[i]
-                                forState:UIControlStateNormal];
-                    
-                    [cell addSubview:faceButton];
-                }
+        if (self.selectedTableRow == 0) {
+            CGFloat width = floorf((collectionView.frame.size.width - 32) / 3.0);
+            UIImageView *imageView;
+            NSString *path = self.gifs[indexPath.item];
+            if ([[path pathExtension] isEqualToString:@"gif"]) {
+                imageView = [[YLImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+                imageView.image = [YLGIFImage imageWithContentsOfFile:path];
+            } else {
+                imageView = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, width, width)];
+                imageView.image = [UIImage imageWithContentsOfFile:path];
             }
+            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapSticker:)]];
+            imageView.userInteractionEnabled = YES;
+            imageView.tag = indexPath.item;
+            [cell addSubview:imageView];
+        } else if (self.selectedTableRow == 1) {
+            // TODO:
         } else {
-            NSArray *paths = self.stickers[self.stickers.allKeys[indexPath.section - 1]].stickerPaths;
-            
-            int startPos = (int)indexPath.row * STICKER_COUNT_PAGE;
-            int endPos = (int)MIN(paths.count, startPos +  STICKER_COUNT_PAGE);
-            for (int i = startPos; i < endPos; i++) {
-                int cli = (i - startPos)/STICKER_COUNT_CLU;
-                int col = (i - startPos)%STICKER_COUNT_CLU;
-                
-                CGFloat x = col * width/STICKER_COUNT_CLU;
-                CGFloat y = cli * STICKER_ICON_SIZE + 8;
-                
-                UIImageView *imageView;
-                if ([[paths[i] pathExtension] isEqualToString:@"gif"]) {
-                    imageView = [[YLImageView alloc] initWithFrame:CGRectMake( x + 10, y, width/STICKER_COUNT_CLU - 20, STICKER_ICON_SIZE)];
-                    imageView.image = [YLGIFImage imageWithContentsOfFile:paths[i]];
-                } else {
-                    imageView = [[UIImageView alloc] initWithFrame:CGRectMake( x + 10, y, width/STICKER_COUNT_CLU - 20, STICKER_ICON_SIZE)];
-                    imageView.image = [UIImage imageWithContentsOfFile:paths[i]];
-                }
-                [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapSticker:)]];
-                imageView.userInteractionEnabled = YES;
-                long tag = indexPath.section;
-                tag <<= 16;
-                tag += i;
-                imageView.tag = tag;
-                
-                [cell addSubview:imageView];
-                
-            }
+            UIButton *faceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            faceButton.tag = indexPath.item;
+            [faceButton addTarget:self action:@selector(faceButton:) forControlEvents:UIControlEventTouchUpInside];
+            faceButton.frame = CGRectMake( 0, 0, 26, 26);
+            faceButton.titleLabel.font = [UIFont systemFontOfSize:20];
+            [faceButton setTitle:self.faceEmojiArray[indexPath.item] forState:UIControlStateNormal];
+            [cell addSubview:faceButton];
         }
     } else {
-        UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(11, 7, 23, 23)];
+        
+        UILabel *label = [[UILabel alloc]init];
+        label.textAlignment = NSTextAlignmentCenter;
+        
         if (indexPath.row == self.selectedTableRow) {
-            cell.backgroundColor = HEXCOLOR(0xa8a8a8);;
+            label.backgroundColor = [UIColor colorWithHexString:@"0xD7D9D8"];
+            label.layer.cornerRadius = 13;
+            label.layer.masksToBounds = YES;
+            label.textColor = [UIColor colorWithHexString:@"0x4D5461"];
+            label.font = [UIFont boldSystemFontOfSize: 15];
         } else {
-            cell.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
+            label.backgroundColor = [UIColor whiteColor];
+            label.layer.cornerRadius = 13;
+            label.layer.masksToBounds = YES;
+            label.textColor = [UIColor colorWithHexString:@"0x848D99"];
+            label.font = [UIFont systemFontOfSize: 15];
         }
         
         if (indexPath.row == 0) {
-            iv.image = [WFCUImage imageNamed:@"emoji_btn_normal"];
+            label.text = @"GIF动态图";
+        } else if (indexPath.row == 1) {
+            label.text = @"贴纸";
         } else {
-            iv.image = [UIImage imageWithContentsOfFile:self.stickers[self.stickers.allKeys[indexPath.row - 1]].tabIcon];
+            label.text = @"表情";
         }
+        [label sizeToFit];
+        CGRect frame = label.frame;
+        frame.size.width += 22;
+        frame.size.height = 28;
+        label.frame = frame;
         
-        [cell addSubview:iv];
+        [cell addSubview:label];
     }
-    
-    
     return cell;
 }
 
 - (void)onTapSticker:(UITapGestureRecognizer *)sender {
     UIView *view = sender.view;
     long tag = view.tag;
-    long i = tag & 0xFFFF;
-    long section = tag >> 16;
-    NSString *selectSticker = self.stickers[self.stickers.allKeys[section - 1]].stickerPaths[i];
+    NSString *selectSticker = self.gifs[tag];
     if ([self.delegate respondsToSelector:@selector(didSelectedSticker:)]) {
         [self.delegate didSelectedSticker:selectSticker];
     }
