@@ -96,6 +96,8 @@ enum Images {
 
     static let icon_mute = UIImage(named: "icon_mute")!
 
+    static let icon_mute_black = UIImage(named: "icon_mute_black")!
+
     static let icon_mute_gray = UIImage(named: "icon_mute_gray")!
 
     static let icon_password = UIImage(named: "icon_password")!

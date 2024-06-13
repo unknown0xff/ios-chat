@@ -51,8 +51,9 @@ open class HMenuTabViewController: HBasicViewController, UIScrollViewDelegate {
     
     open private(set) lazy var tabBar: UIStackView = {
         let stack = UIStackView.init()
-        stack.spacing = 20
+        stack.spacing = 0
         stack.alignment = .center
+        stack.distribution = .fillEqually
         return stack
     }()
     

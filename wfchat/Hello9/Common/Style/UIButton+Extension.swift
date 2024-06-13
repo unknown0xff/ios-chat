@@ -61,6 +61,10 @@ extension UIButton {
         return btn
     }
     
+    class func navButton(_ title: String) -> UIButton {
+        UIButton.imageButton(title: title, font: .system16, titleColor: Colors.themeBlack)
+    }
+    
     class func imageButton(
         with image: UIImage? = nil,
         title: String = "",

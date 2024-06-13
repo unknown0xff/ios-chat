@@ -16,7 +16,7 @@ class HGroupChatSetViewModel: HBasicViewModel {
     
     private let conv: WFCCConversation
     
-    private let groupInfo: HGroupInfo
+    let groupInfo: HGroupInfo
     
     init(_ conv: WFCCConversation) {
         self.conv = conv

@@ -8,6 +8,8 @@
 
 class HChatMessageFilterViewController: HMenuTabViewController {
     
+    var isGroup = false
+    
     override func didInitialize() {
         super.didInitialize()
         isScrollEnabled = false
@@ -20,6 +22,11 @@ class HChatMessageFilterViewController: HMenuTabViewController {
         view.backgroundColor = Colors.white
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
+        
+        if isGroup {
+            addController(UIViewController(), title: "  成员")
+        }
+        
         addController(UIViewController(), title: "  多媒体")
         addController(UIViewController(), title: "文件")
         addController(UIViewController(), title: "语音")

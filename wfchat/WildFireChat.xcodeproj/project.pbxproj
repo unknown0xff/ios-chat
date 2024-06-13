@@ -128,10 +128,8 @@
 		607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F95982C187E9300648BFF /* HNewFriendListTitleCell.swift */; };
 		607F959B2C193F1C00648BFF /* HNewFriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607F959A2C193F1C00648BFF /* HNewFriendDetailViewController.swift */; };
 		6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */; };
-		6088F4802C0D871600130A87 /* HSingleChatSetHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */; };
 		6088F4822C0D8A7600130A87 /* HSingleChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */; };
 		6088F4862C0DB20700130A87 /* HGroupChatSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4852C0DB20700130A87 /* HGroupChatSetViewController.swift */; };
-		6088F4882C0DB22100130A87 /* HGroupChatSetHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4872C0DB22100130A87 /* HGroupChatSetHeadCell.swift */; };
 		6088F48A2C0DB22F00130A87 /* HGroupChatSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */; };
 		6088F48C2C0DBA4000130A87 /* HGroupInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48B2C0DBA4000130A87 /* HGroupInfo .swift */; };
 		6088F48E2C0DE79100130A87 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F48D2C0DE79100130A87 /* UIButton+Extension.swift */; };
@@ -476,10 +474,8 @@
 		607F95982C187E9300648BFF /* HNewFriendListTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendListTitleCell.swift; sourceTree = "<group>"; };
 		607F959A2C193F1C00648BFF /* HNewFriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewFriendDetailViewController.swift; sourceTree = "<group>"; };
 		6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewController.swift; sourceTree = "<group>"; };
-		6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetHeadCell.swift; sourceTree = "<group>"; };
 		6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleChatSetViewModel.swift; sourceTree = "<group>"; };
 		6088F4852C0DB20700130A87 /* HGroupChatSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatSetViewController.swift; sourceTree = "<group>"; };
-		6088F4872C0DB22100130A87 /* HGroupChatSetHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatSetHeadCell.swift; sourceTree = "<group>"; };
 		6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatSetViewModel.swift; sourceTree = "<group>"; };
 		6088F48B2C0DBA4000130A87 /* HGroupInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HGroupInfo .swift"; sourceTree = "<group>"; };
 		6088F48D2C0DE79100130A87 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
@@ -1208,7 +1204,6 @@
 			children = (
 				60A3F7A72C1AED1E00F855A2 /* View */,
 				6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */,
-				6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */,
 				6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */,
 			);
 			path = Single;
@@ -1218,7 +1213,6 @@
 			isa = PBXGroup;
 			children = (
 				6088F4852C0DB20700130A87 /* HGroupChatSetViewController.swift */,
-				6088F4872C0DB22100130A87 /* HGroupChatSetHeadCell.swift */,
 				6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */,
 			);
 			path = Group;
@@ -1802,7 +1796,6 @@
 				60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
 				601246812C075B6000635523 /* HMineViewController.swift in Sources */,
-				6088F4882C0DB22100130A87 /* HGroupChatSetHeadCell.swift in Sources */,
 				60922A942C084C5400B70AD8 /* HChatListViewController.swift in Sources */,
 				6012467B2C0721CB00635523 /* HLoginNavigationViewController.swift in Sources */,
 				607F95952C141F4C00648BFF /* HForgetPasswordEmailViewController.swift in Sources */,
@@ -1864,7 +1857,6 @@
 				607F95802C12CED300648BFF /* HForgetPasswordWaysViewController.swift in Sources */,
 				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
-				6088F4802C0D871600130A87 /* HSingleChatSetHeadCell.swift in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				60F5CF862C0AB1040013D912 /* HCreateGroupViewModel.swift in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
