@@ -74,12 +74,13 @@
     } else {
         self.thumbnailView.image = nil;
     }
-    self.bubbleView.image = nil;
 }
 
 - (UIImageView *)thumbnailView {
     if (!_thumbnailView) {
         _thumbnailView = [[UIImageView alloc] init];
+        _thumbnailView.layer.cornerRadius = 16;
+        _thumbnailView.layer.masksToBounds = YES;
         [self.bubbleView addSubview:_thumbnailView];
     }
     return _thumbnailView;
