@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		149B3107241D292C00B935D3 /* UIColor+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3105241D292C00B935D3 /* UIColor+YH.m */; };
 		149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3109241E300C00B935D3 /* UIFont+YH.m */; };
 		149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B311D242247E900B935D3 /* UIImage+ERCategory.m */; };
+		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
 		2B4C027D252F4A570043FA41 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0272252F4A570043FA41 /* AFURLSessionManager.m */; };
@@ -57,7 +58,6 @@
 		2F638934254E8FAB0084EEA6 /* WFCFavoriteImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F638933254E8FAB0084EEA6 /* WFCFavoriteImageCell.m */; };
 		2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C73A2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m */; };
 		2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7268F821F7136600E05F9C /* WFCPrivacyViewController.m */; };
-		2F79F328278304FA00D6F254 /* SDWebImage.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D8F7362783035200752426 /* SDWebImage.xcframework */; };
 		2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F79F32B2783059000D6F254 /* WFChatUIKit.framework */; };
 		2F79F32D2783059000D6F254 /* WFChatUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F79F32B2783059000D6F254 /* WFChatUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F8F8E682723072600151B75 /* ptt_begin.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F8E662723072600151B75 /* ptt_begin.m4a */; };
@@ -616,8 +616,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */,
 				2F196512252F3AEB0005F1A3 /* CoreGraphics.framework in Frameworks */,
-				2F79F328278304FA00D6F254 /* SDWebImage.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,6 +1541,9 @@
 			dependencies = (
 			);
 			name = ShareExtension;
+			packageProductDependencies = (
+				20E996C92C1A8DB300CF0F71 /* SDWebImage */,
+			);
 			productName = ShareExtension;
 			productReference = 2F56F6F3252C956700B829C4 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -2438,6 +2441,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		6012463A2C056AAD00635523 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */;
