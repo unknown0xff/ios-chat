@@ -91,6 +91,7 @@ class HSingleChatSetViewController: HBaseViewController {
     }
     
     func bindData() {
+        navBarBackgroundView.image = Images.icon_nav_background_green
         userNameLabel.text = viewModel.userInfo.name
         avatar.sd_setImage(with: viewModel.userInfo.portrait, placeholderImage: Images.icon_logo)
     }

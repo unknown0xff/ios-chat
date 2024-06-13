@@ -13,7 +13,7 @@ import Combine
 
 class HGroupMemeberViewController: HBasicViewController {
     
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.applyDefaultConfigure()
         tableView.separatorStyle = .singleLine
@@ -80,8 +80,13 @@ class HGroupMemeberViewController: HBasicViewController {
 // MARK: - UITableViewDelegate
 
 extension HGroupMemeberViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 63
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

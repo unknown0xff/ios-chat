@@ -8,6 +8,8 @@
 
 class HChatMessageFilterViewController: HMenuTabViewController {
     
+    private var memberViewController: HGroupMemeberViewController?
+    
     let vm: HGroupChatSetViewModel?
     
     init(vm: HGroupChatSetViewModel? = nil) {
@@ -33,7 +35,8 @@ class HChatMessageFilterViewController: HMenuTabViewController {
         view.layer.masksToBounds = true
         
         if let vm {
-            addController(HGroupMemeberViewController(vm: vm), title: "成员")
+            memberViewController = HGroupMemeberViewController(vm: vm)
+            addController(memberViewController!, title: "成员")
         }
         
         addController(UIViewController(), title: "多媒体")
@@ -41,5 +44,13 @@ class HChatMessageFilterViewController: HMenuTabViewController {
         addController(UIViewController(), title: "语音")
         addController(UIViewController(), title: "链接")
         addController(UIViewController(), title: "GIF")
+    }
+    
+    var subScrollerViews: [UIScrollView] {
+        var result = [UIScrollView]()
+        if let memberViewController {
+            result.append(memberViewController.tableView)
+        }
+        return result
     }
 }

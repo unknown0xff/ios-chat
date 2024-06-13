@@ -93,11 +93,15 @@ class HGroupChatSetViewController: HBaseViewController {
         userNameLabel.text = viewModel.groupInfo.name
         avatar.sd_setImage(with: viewModel.groupInfo.portrait, placeholderImage: Images.icon_logo)
         memberCountLabel.text = "\(viewModel.groupInfo.memberCount)位成员"
+        navBarBackgroundView.image = Images.icon_nav_background_green
+        backgroundView.image = Images.icon_background_gray1
+        containerView.subScrollViews = tabViewController.subScrollerViews
     }
     
     override func configureSubviews() {
         super.configureSubviews()
         
+        view.sendSubviewToBack(navBarBackgroundView)
         containerView.alwaysBounceVertical = true
         
         navBar.contentView.addSubview(editButton)
