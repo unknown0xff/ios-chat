@@ -123,6 +123,9 @@
             
             CGSize size = [WFCUUtilities getTextDrawingSize:[WFCUMessageCell quoteMessageDigest:msgModel] attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
             
+            CGSize nameSize = [WFCUUtilities getTextDrawingSize:txtContent.quoteInfo.userDisplayName attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
+            
+            size.width = MAX(size.width, nameSize.width);
             size.height += 26;
             size.width += 20;
             return size;
@@ -352,7 +355,6 @@
         } else {
             self.selectView.image = [WFCUImage imageNamed:@"multi_unselected"];
         }
-        CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
         CGRect frame = self.selectView.frame;
         frame.origin.y = CGRectGetMidY(self.bubbleView.frame) - 10;
         frame.origin.x = 16;

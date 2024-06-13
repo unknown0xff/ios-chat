@@ -1047,6 +1047,7 @@
     [self.view addSubview:self.backgroundView];
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT) collectionViewLayout:_customFlowLayout];
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 8, 0);
     
     [self.backgroundView addSubview:self.collectionView];
     
