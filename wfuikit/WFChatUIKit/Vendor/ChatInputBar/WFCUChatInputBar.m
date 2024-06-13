@@ -87,6 +87,7 @@
 @property (nonatomic, strong)UIView *pluginInputView;
 
 @property (nonatomic, strong)UIView *quoteContainerView;
+@property (nonatomic, strong)UILabel *quoteNameLabel;
 @property (nonatomic, strong)UILabel *quoteLabel;
 @property (nonatomic, strong)UIButton *quoteDeleteBtn;
 
@@ -301,9 +302,6 @@
     self.voiceInputBtn.layer.borderWidth = 0.5f;
     self.voiceInputBtn.layer.borderColor = HEXCOLOR(0xdbdbdd).CGColor;
     [self.inputContainer addSubview:self.voiceInputBtn];
-    
-    self.layer.borderWidth = 0.5f;
-    self.layer.borderColor = HEXCOLOR(0xdbdbdd).CGColor;
     
     self.inputBarStatus = ChatInputBarDefaultStatus;
     
@@ -1062,30 +1060,53 @@
     }
     
     if (self.quoteInfo.messageUid) {
-        NSString *textContent = [NSString stringWithFormat:@"%@:%@", self.quoteInfo.userDisplayName, self.quoteInfo.messageDigest];
+                
+        CGFloat maxWidth = UIScreen.mainScreen.bounds.size.width;
+        CGFloat left = 67;
+        CGFloat textMaxWidth = maxWidth - left - 40;
         
-        CGFloat deleteBtnWidth = 10;
-        CGRect textViewFrame = self.textInputView.frame;
-        CGSize size = [WFCUUtilities getTextDrawingSize:textContent font:[UIFont systemFontOfSize:12] constrainedSize:CGSizeMake(textViewFrame.size.width-CHAT_INPUT_QUOTE_PADDING-CHAT_INPUT_QUOTE_PADDING-deleteBtnWidth-CHAT_INPUT_QUOTE_PADDING, 30)];
-        size.height += 4;
+        self.quoteNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, textMaxWidth, 0)];
+        self.quoteNameLabel.text = self.quoteInfo.userDisplayName;
+        self.quoteNameLabel.textColor = [UIColor colorWithHexString:@"0x0075FF"];
+        self.quoteNameLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
+        [self.quoteNameLabel sizeToFit];
+        CGSize nameSize = self.quoteNameLabel.bounds.size;
+        self.quoteNameLabel.frame = CGRectMake(left, 8, nameSize.width, nameSize.height);
         
-        self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CHAT_INPUT_QUOTE_PADDING, 0, textViewFrame.size.width-CHAT_INPUT_QUOTE_PADDING-CHAT_INPUT_QUOTE_PADDING-deleteBtnWidth, size.height)];
-        self.quoteLabel.font = [UIFont systemFontOfSize:12];
-        self.quoteLabel.textColor = [UIColor grayColor];
-        self.quoteLabel.text = textContent;
+        self.quoteLabel = [[UILabel alloc] init];
+        self.quoteLabel.font = [UIFont systemFontOfSize:16];
+        self.quoteLabel.textColor = [UIColor blackColor];
+        self.quoteLabel.text = self.quoteInfo.messageDigest;
         self.quoteLabel.numberOfLines = 0;
-        self.quoteDeleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(textViewFrame.size.width-deleteBtnWidth-CHAT_INPUT_QUOTE_PADDING, (size.height-deleteBtnWidth)/2, deleteBtnWidth, deleteBtnWidth)];
-        [self.quoteDeleteBtn setTitle:@"x" forState:UIControlStateNormal];
+        self.quoteLabel.bounds = CGRectMake(0, 0, textMaxWidth, 0);
+        [self.quoteLabel sizeToFit];
+        self.quoteLabel.frame = CGRectMake(left, CGRectGetMaxY(self.quoteNameLabel.frame), self.quoteLabel.bounds.size.width, self.quoteLabel.bounds.size.height);
+        
+        self.quoteDeleteBtn = [[UIButton alloc] init];
+        [self.quoteDeleteBtn setImage:[WFCUImage imageNamed:@"icon_quote_close"] forState:UIControlStateNormal];
         [self.quoteDeleteBtn addTarget:self action:@selector(onQuoteDelBtn:) forControlEvents:UIControlEventTouchUpInside];
+        self.quoteDeleteBtn.frame = CGRectMake(maxWidth - 32, CGRectGetMaxY(self.quoteLabel.frame) / 2 - 8, 16, 16);
         
-        self.quoteContainerView = [[UIView alloc] initWithFrame:CGRectMake(textViewFrame.origin.x, textViewFrame.origin.y+textViewFrame.size.height+CHAT_INPUT_QUOTE_PADDING, textViewFrame.size.width, size.height)];
-        self.quoteContainerView.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.f];
+        self.quoteContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maxWidth, CGRectGetMaxY(self.quoteLabel.frame) + 2)];
+        self.quoteContainerView.backgroundColor = [UIColor whiteColor];
         
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[WFCUImage imageNamed:@"icon_share_blue"]];
+        icon.frame = CGRectMake(16, CGRectGetMidY(self.quoteContainerView.frame) + 2 - 13, 26, 26);
+        
+        UILabel *space = [[UILabel alloc]init];
+        space.backgroundColor = [UIColor colorWithHexString:@"0x0075FF"];
+        space.layer.cornerRadius = 1;
+        space.layer.masksToBounds = YES;
+        space.frame = CGRectMake(59, 16, 2, CGRectGetMaxY(self.quoteContainerView.frame) + 2 - 16 - 8);
+        
+        [self.quoteContainerView addSubview:icon];
+        [self.quoteContainerView addSubview:space];
+        [self.quoteContainerView addSubview:self.quoteNameLabel];
         [self.quoteContainerView addSubview:self.quoteLabel];
         [self.quoteContainerView addSubview:self.quoteDeleteBtn];
         [self addSubview:self.quoteContainerView];
         if (updateFrame) {
-            [self extendUp:(size.height + CHAT_INPUT_QUOTE_PADDING)];
+            [self extendUp:(self.quoteContainerView.frame.size.height)];
         }
     } else {
         CGFloat quoteHeight = self.quoteContainerView.frame.size.height;
@@ -1096,7 +1117,7 @@
         [self.quoteContainerView removeFromSuperview];
         self.quoteContainerView = nil;
         if (updateFrame) {
-            [self extendUp: -quoteHeight - CHAT_INPUT_QUOTE_PADDING];
+            [self extendUp: -quoteHeight];
         }
     }
 }
@@ -1130,9 +1151,20 @@
     pttFrame.origin.y += diff;
 #endif
     
+    CGRect tvFrame = self.textInputView.frame;
+    CGRect tvBgFrame = self.textInputBackgroundView.frame;
+    if (self.quoteContainerView) {
+        tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 10;
+        tvBgFrame.origin.y = tvFrame.origin.y;
+    } else {
+        tvFrame.origin.y = 10;
+        tvBgFrame.origin.y = tvFrame.origin.y;
+    }
     [UIView animateWithDuration:0.5 animations:^{
         self.frame = baseFrame;
         self.inputContainer.frame = CGRectMake(0, 0, baseFrame.size.width, baseFrame.size.height);
+        self.textInputView.frame = tvFrame;
+        self.textInputBackgroundView.frame = tvBgFrame;
         self.voiceSwitchBtn.frame = voiceFrame;
         self.emojSwitchBtn.frame = emojFrame;
         self.pluginSwitchBtn.frame = extendFrame;
@@ -1336,7 +1368,7 @@
     CGFloat diff = 0;
     CGFloat quoteHeight = 0;
     if (self.quoteContainerView) {
-        quoteHeight = self.quoteContainerView.frame.size.height + CHAT_INPUT_QUOTE_PADDING;
+        quoteHeight = self.quoteContainerView.frame.size.height;
     }
     if (height <= 32.f) {
         tvFrame.size.height = 40.f;
@@ -1356,9 +1388,11 @@
     }
     if (self.quoteContainerView) {
         baseFrame.size.height += quoteHeight;
-        CGRect quoteFrame = self.quoteContainerView.frame;
-        quoteFrame.origin.y = tvFrame.origin.y + tvFrame.size.height + CHAT_INPUT_QUOTE_PADDING;
-        self.quoteContainerView.frame = quoteFrame;
+        tvFrame.origin.y = quoteHeight + 10;
+        tvBgFrame.origin.y = quoteHeight + 10;
+    } else {
+        tvFrame.origin.y = 10;
+        tvBgFrame.origin.y = 10;
     }
     
     baseFrame.origin.y -= diff;

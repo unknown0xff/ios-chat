@@ -32,7 +32,7 @@
     }
     
     WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
-    NSString *contentTxt = [NSString stringWithFormat:@"%@          ", txtContent.text];
+    NSString *contentTxt = [NSString stringWithFormat:@"%@  20:20", txtContent.text];
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc]init];
     para.lineHeightMultiple = 1.14;
     id attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName: para};
@@ -58,6 +58,7 @@
     self.textLabel.frame = CGRectMake(0, TEXT_LABEL_TOP_PADDING, frame.size.width, frame.size.height - TEXT_LABEL_TOP_PADDING - TEXT_LABEL_BUTTOM_PADDING);
     self.textLabel.textAlignment = NSTextAlignmentLeft;
     [self.textLabel setText:txtContent.text];
+    [self.textLabel sizeToFit];
 }
 
 - (UILabel *)textLabel {
