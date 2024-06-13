@@ -11,6 +11,7 @@
 #import "WFCUMediaMessageDownloader.h"
 #import <SDWebImage/SDWebImage.h>
 #import "WFCUUtilities.h"
+#import "UIColor+YH.h"
 
 @interface WFCUStickerCell ()
 @property (nonatomic, strong)UIImageView *thumbnailView;
@@ -74,6 +75,11 @@
     } else {
         self.thumbnailView.image = nil;
     }
+    
+    self.dateLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.dateLabel.layer.cornerRadius = 6;
+    self.dateLabel.layer.masksToBounds = YES;
+    self.dateLabel.textColor = [UIColor colorWithHexString:@"0xF7F9FC"];
 }
 
 - (UIImageView *)thumbnailView {
@@ -81,7 +87,7 @@
         _thumbnailView = [[UIImageView alloc] init];
         _thumbnailView.layer.cornerRadius = 16;
         _thumbnailView.layer.masksToBounds = YES;
-        [self.bubbleView addSubview:_thumbnailView];
+        [self.bubbleView insertSubview:_thumbnailView atIndex:0];
     }
     return _thumbnailView;
 }

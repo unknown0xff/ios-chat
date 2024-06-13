@@ -338,6 +338,9 @@
     CGRect bubbleViewFrame = self.bubbleView.frame;
     self.dateLabel.text = [WFCUUtilities formatTimeOnlyHourLabel:model.message.serverTime];
     CGSize dateSize = [WFCUUtilities getTextDrawingSize:self.dateLabel.text font:self.dateLabel.font constrainedSize:CGSizeMake(400, 8000)];
+    self.dateLabel.backgroundColor = [UIColor clearColor];
+    dateSize.height = 19;
+    dateSize.width += 12;
     CGFloat l = bubbleViewFrame.size.width - dateSize.width - Bubble_Padding_Another_Side;
     CGFloat t = bubbleViewFrame.size.height - Client_Bubble_Bottom_Padding - dateSize.height - 5;
     self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
@@ -587,6 +590,7 @@
     if (!_dateLabel) {
         _dateLabel = [[UILabel alloc] init];
         _dateLabel.font = [UIFont systemFontOfSize:12];
+        _dateLabel.textAlignment = NSTextAlignmentCenter;
         _dateLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
         [self.bubbleView addSubview:_dateLabel];
     }

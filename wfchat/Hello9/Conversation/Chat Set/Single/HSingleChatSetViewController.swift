@@ -66,6 +66,8 @@ class HSingleChatSetViewController: HBaseViewController {
         return s
     }()
     
+    private lazy var tabViewController = HChatMessageFilterViewController()
+    
     private typealias Section = HSingleChatSetViewModel.Section
     private typealias Row = HSingleChatSetViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
@@ -113,6 +115,10 @@ class HSingleChatSetViewController: HBaseViewController {
         
         view.addSubview(containerView)
         containerView.addSubview(headerView)
+        
+        addChild(tabViewController)
+        tabViewController.didMove(toParent: self)
+        containerView.addSubview(tabViewController.view)
     }
     
     override func makeConstraints() {
@@ -155,12 +161,19 @@ class HSingleChatSetViewController: HBaseViewController {
         userInfoView.snp.makeConstraints { make in
             make.width.equalToSuperview().offset(-32)
         }
+        
+        tabViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(10)
+            make.left.equalTo(16)
+            make.width.equalTo(tabViewController.childViewWidth)
+            make.height.equalTo(UIScreen.height - HNavigationBar.height)
+            make.bottom.equalToSuperview().priority(.high)
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        containerView.maxContentOffset = CGRectGetMaxY(headerView.frame)
+        containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
     private func actionButton(with image: UIImage, title: String, selector: Selector) -> UIButton {

@@ -120,6 +120,8 @@ enum Images {
 
     static let icon_success_green = UIImage(named: "icon_success_green")!
 
+    static let icon_tab_line = UIImage(named: "icon_tab_line")!
+
     static let icon_top = UIImage(named: "icon_top")!
 
     static let icon_top_gray = UIImage(named: "icon_top_gray")!

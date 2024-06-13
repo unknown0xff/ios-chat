@@ -164,6 +164,10 @@
 		60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */; };
 		60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */; };
 		60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */; };
+		60A3F7AC2C1AFB1500F855A2 /* HMenuTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7AB2C1AFB1500F855A2 /* HMenuTabViewController.swift */; };
+		60A3F7AF2C1AFB8300F855A2 /* HNestedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7AD2C1AFB8300F855A2 /* HNestedScrollView.swift */; };
+		60A3F7B02C1AFB8300F855A2 /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7AE2C1AFB8300F855A2 /* HLabel.swift */; };
+		60A3F7B22C1AFE1600F855A2 /* HChatMessageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -507,6 +511,10 @@
 		60922A9B2C0869B600B70AD8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMultiScrollContainer.swift; sourceTree = "<group>"; };
 		60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleItemView.swift; sourceTree = "<group>"; };
+		60A3F7AB2C1AFB1500F855A2 /* HMenuTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMenuTabViewController.swift; sourceTree = "<group>"; };
+		60A3F7AD2C1AFB8300F855A2 /* HNestedScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNestedScrollView.swift; sourceTree = "<group>"; };
+		60A3F7AE2C1AFB8300F855A2 /* HLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
+		60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatMessageFilterViewController.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1102,6 +1110,9 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7AE2C1AFB8300F855A2 /* HLabel.swift */,
+				60A3F7AD2C1AFB8300F855A2 /* HNestedScrollView.swift */,
+				60A3F7AB2C1AFB1500F855A2 /* HMenuTabViewController.swift */,
 				60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */,
 				601246642C05F8AE00635523 /* HReuseIdentifier.swift */,
 				601246672C05F9B300635523 /* ScrollerView+Extension.swift */,
@@ -1311,6 +1322,7 @@
 		60A3F7AA2C1AF97400F855A2 /* Content Tab */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */,
 			);
 			path = "Content Tab";
 			sourceTree = "<group>";
@@ -1772,6 +1784,7 @@
 				2F50BE84237970780049CD39 /* WFCDiagnoseViewController.m in Sources */,
 				60F5CF842C0AB0E20013D912 /* HCreateGroupViewController.swift in Sources */,
 				607F957E2C12CCDF00648BFF /* HLoginHeaderView.swift in Sources */,
+				60A3F7AF2C1AFB8300F855A2 /* HNestedScrollView.swift in Sources */,
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
 				607F95822C12D67E00648BFF /* HLoginFooterView.swift in Sources */,
 				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
@@ -1824,6 +1837,7 @@
 				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				60F5CF882C0AB5CA0013D912 /* HCreateGroupCell.swift in Sources */,
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
+				60A3F7B02C1AFB8300F855A2 /* HLabel.swift in Sources */,
 				60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */,
 				2FF07F5A21F82E7200A78A62 /* WFCSettingTableViewController.m in Sources */,
 				60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */,
@@ -1860,6 +1874,7 @@
 				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
 				60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */,
 				60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */,
+				60A3F7B22C1AFE1600F855A2 /* HChatMessageFilterViewController.swift in Sources */,
 				149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */,
 				2FCF7218254FD092006CF53B /* WFCFavoriteFileCell.m in Sources */,
 				6088F4862C0DB20700130A87 /* HGroupChatSetViewController.swift in Sources */,
@@ -1876,6 +1891,7 @@
 				607F95872C12EB3200648BFF /* HVerifyCodeView.swift in Sources */,
 				601246702C06CD8600635523 /* Error.swift in Sources */,
 				909ACDB321304CD900A64FE7 /* ChatroomItemCell.m in Sources */,
+				60A3F7AC2C1AFB1500F855A2 /* HMenuTabViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
