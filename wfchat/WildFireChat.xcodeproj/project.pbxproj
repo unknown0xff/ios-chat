@@ -160,6 +160,8 @@
 		60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A972C084EA800B70AD8 /* HChatListCell.swift */; };
 		60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A992C084ED500B70AD8 /* HChatListCellModel.swift */; };
 		60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A9B2C0869B600B70AD8 /* String+Extension.swift */; };
+		60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A12C1A88A400F855A2 /* SDWebImage */; };
+		60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -214,8 +216,6 @@
 		B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CB3A92289BD66C00E9D688 /* WFCChangePasswordViewController.m */; };
 		B7D8F7322783029400752426 /* ZLPhotoBrowser.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D8F7312783029400752426 /* ZLPhotoBrowser.xcframework */; };
 		B7D8F7332783029400752426 /* ZLPhotoBrowser.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7D8F7312783029400752426 /* ZLPhotoBrowser.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B7D8F7372783035200752426 /* SDWebImage.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7D8F7362783035200752426 /* SDWebImage.xcframework */; };
-		B7D8F7382783035200752426 /* SDWebImage.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7D8F7362783035200752426 /* SDWebImage.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7E494E428F670BA00FF2333 /* libyuv.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E494E328F670BA00FF2333 /* libyuv.xcframework */; };
 		B7EDF7DF2858161C0013602E /* WFCDestroyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDF7DD2858161C0013602E /* WFCDestroyAccountViewController.m */; };
 /* End PBXBuildFile section */
@@ -265,7 +265,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B75D81882782E0C5009D4A19 /* WFChatClient.framework in Embed Frameworks */,
-				B7D8F7382783035200752426 /* SDWebImage.xcframework in Embed Frameworks */,
 				2F79F32D2783059000D6F254 /* WFChatUIKit.framework in Embed Frameworks */,
 				B75D816D2782CEB7009D4A19 /* WFAVEngineKit.xcframework in Embed Frameworks */,
 				B75D816B2782CEB5009D4A19 /* WebRTC.xcframework in Embed Frameworks */,
@@ -596,6 +595,8 @@
 				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
 				905177522243CDA60020A2AC /* libc++.tbd in Frameworks */,
 				2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */,
+				60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */,
+				60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */,
 				905177502243CD9A0020A2AC /* libz.tbd in Frameworks */,
 				B7D8F7322783029400752426 /* ZLPhotoBrowser.xcframework in Frameworks */,
 				B75D81872782E0C5009D4A19 /* WFChatClient.framework in Frameworks */,
@@ -604,7 +605,6 @@
 				9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */,
 				601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */,
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
-				B7D8F7372783035200752426 /* SDWebImage.xcframework in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
 				2F1B0DD021E19AF400139CB1 /* NotificationCenter.framework in Frameworks */,
@@ -1521,6 +1521,8 @@
 				6012463A2C056AAD00635523 /* SnapKit */,
 				601246722C06CF8E00635523 /* MBProgressHUD */,
 				6088F4A62C1030B800130A87 /* Algorithms */,
+				60A3F7A12C1A88A400F855A2 /* SDWebImage */,
+				60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -1627,6 +1629,7 @@
 				601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2424,6 +2427,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2441,6 +2452,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
+		};
+		60A3F7A12C1A88A400F855A2 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
