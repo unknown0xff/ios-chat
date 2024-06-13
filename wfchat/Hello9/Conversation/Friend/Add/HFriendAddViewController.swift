@@ -107,11 +107,17 @@ extension HFriendAddViewController: UITableViewDelegate {
             let hud = HToast.show(on: view, text: "发送中...")
             let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
             let reason = "我是\(userInfo.name ?? "")"
-            WFCCIMService.sharedWFCIM().sendFriendRequest(viewModel.friendId, reason: reason, extra: nil)  { [weak self] in
+            
+            let extra = ["receiveUserId": viewModel.friendId]
+            let data = try? JSONEncoder().encode(extra)
+            let jsonExtra = String(data: data ?? .init(), encoding: .utf8)
+            
+            WFCCIMService.sharedWFCIM().sendFriendRequest(viewModel.friendId, reason: reason, extra: jsonExtra)  { [weak self] in
                 hud.hide(animated: true)
                 guard let self else { return }
                 self.viewModel.didSendFriendRequestSuccess()
             } error: { code in
+                hud.hide(animated: true)
                 if(code == 16) {
                     HToast.showAutoHidden(on: self.view, text: "已经发送过添加好友请求了")
                 } else if(code == 18) {

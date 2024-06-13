@@ -132,23 +132,23 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
             userNameLabel.text = userInfo.displayName ?? ""
         }
         
-        if data.direction == 1 {
-            lastMessageLabel.text = "请求添加为好友"
-        } else {
+        if data.direction == 0 {
             lastMessageLabel.text = "请求添加对方为好友"
+        } else {
+            lastMessageLabel.text = "请求添加为好友"
         }
         if data.status == 1 {
             detailButton.isHidden = true
             statusLabel.isHidden = false
             statusLabel.text = "已同意"
         } else if data.status == 0 {
-            if data.direction == 1 {
-                detailButton.isHidden = false
-                statusLabel.isHidden = true
-            } else {
+            if data.direction == 0 {
                 detailButton.isHidden = true
                 statusLabel.isHidden = false
                 statusLabel.text = "等待验证"
+            } else {
+                detailButton.isHidden = false
+                statusLabel.isHidden = true
             }
         } else if data.status == 2 {
             detailButton.isHidden = true

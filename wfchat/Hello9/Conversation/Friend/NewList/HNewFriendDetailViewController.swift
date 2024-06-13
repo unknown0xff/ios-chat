@@ -232,6 +232,7 @@ class HNewFriendDetailViewController: HBaseViewController {
             guard let self else { return }
             HToast.showAutoHidden(on: self.view, text: "添加成功")
         } error: { code in
+            hud.hide(animated: true)
             if code == 19 {
                 HToast.showAutoHidden(on: self.view, text: "已过期")
             } else {

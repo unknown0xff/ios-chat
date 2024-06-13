@@ -61,9 +61,13 @@ class HLoginViewController: HBaseViewController {
         backButtonImage = nil
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadDataIfNeed()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDataIfNeed()
     }
     
     override func configureSubviews() {
