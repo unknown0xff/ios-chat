@@ -16,7 +16,7 @@ class HSingleChatSetViewModel: HBasicViewModel {
     
     private let conv: WFCCConversation
     
-    private let userInfo: HUserInfoModel
+    let userInfo: HUserInfoModel
     
     init(_ conv: WFCCConversation) {
         self.conv = conv

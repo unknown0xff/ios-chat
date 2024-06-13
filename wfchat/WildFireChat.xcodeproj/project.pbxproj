@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -162,6 +162,8 @@
 		60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A9B2C0869B600B70AD8 /* String+Extension.swift */; };
 		60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A12C1A88A400F855A2 /* SDWebImage */; };
 		60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */; };
+		60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */; };
+		60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -503,6 +505,8 @@
 		60922A972C084EA800B70AD8 /* HChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatListCell.swift; sourceTree = "<group>"; };
 		60922A992C084ED500B70AD8 /* HChatListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatListCellModel.swift; sourceTree = "<group>"; };
 		60922A9B2C0869B600B70AD8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMultiScrollContainer.swift; sourceTree = "<group>"; };
+		60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSingleItemView.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1098,6 +1102,7 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */,
 				601246642C05F8AE00635523 /* HReuseIdentifier.swift */,
 				601246672C05F9B300635523 /* ScrollerView+Extension.swift */,
 				601246692C05FD4900635523 /* Font+Extension.swift */,
@@ -1177,18 +1182,20 @@
 			path = "Verify Code";
 			sourceTree = "<group>";
 		};
-		6088F47C2C0D643F00130A87 /* ChatSet */ = {
+		6088F47C2C0D643F00130A87 /* Chat Set */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7AA2C1AF97400F855A2 /* Content Tab */,
 				6088F4842C0DB1DD00130A87 /* Group */,
 				6088F4832C0DB1CF00130A87 /* Single */,
 			);
-			path = ChatSet;
+			path = "Chat Set";
 			sourceTree = "<group>";
 		};
 		6088F4832C0DB1CF00130A87 /* Single */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7A72C1AED1E00F855A2 /* View */,
 				6088F47D2C0D648700130A87 /* HSingleChatSetViewController.swift */,
 				6088F47F2C0D871600130A87 /* HSingleChatSetHeadCell.swift */,
 				6088F4812C0D8A7600130A87 /* HSingleChatSetViewModel.swift */,
@@ -1273,7 +1280,7 @@
 			isa = PBXGroup;
 			children = (
 				6088F4942C0F2F6B00130A87 /* Friend */,
-				6088F47C2C0D643F00130A87 /* ChatSet */,
+				6088F47C2C0D643F00130A87 /* Chat Set */,
 				60F5CF902C0D55BE0013D912 /* Message List */,
 				60F5CF782C09C7700013D912 /* Create Conversation */,
 				60922A922C084C0700B70AD8 /* Conversation List */,
@@ -1291,6 +1298,21 @@
 				6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */,
 			);
 			path = "Conversation List";
+			sourceTree = "<group>";
+		};
+		60A3F7A72C1AED1E00F855A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60A3F7AA2C1AF97400F855A2 /* Content Tab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Content Tab";
 			sourceTree = "<group>";
 		};
 		60F5CF782C09C7700013D912 /* Create Conversation */ = {
@@ -1835,6 +1857,8 @@
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
 				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
+				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
+				60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */,
 				60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */,
 				149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */,
 				2FCF7218254FD092006CF53B /* WFCFavoriteFileCell.m in Sources */,
