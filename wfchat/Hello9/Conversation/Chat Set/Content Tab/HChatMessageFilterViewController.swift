@@ -8,7 +8,16 @@
 
 class HChatMessageFilterViewController: HMenuTabViewController {
     
-    var isGroup = false
+    let vm: HGroupChatSetViewModel?
+    
+    init(vm: HGroupChatSetViewModel? = nil) {
+        self.vm = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func didInitialize() {
         super.didInitialize()
@@ -23,11 +32,11 @@ class HChatMessageFilterViewController: HMenuTabViewController {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         
-        if isGroup {
-            addController(UIViewController(), title: "  成员")
+        if let vm {
+            addController(HGroupMemeberViewController(vm: vm), title: "成员")
         }
         
-        addController(UIViewController(), title: "  多媒体")
+        addController(UIViewController(), title: "多媒体")
         addController(UIViewController(), title: "文件")
         addController(UIViewController(), title: "语音")
         addController(UIViewController(), title: "链接")

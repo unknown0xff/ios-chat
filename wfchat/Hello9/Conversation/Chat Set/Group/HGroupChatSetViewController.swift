@@ -59,7 +59,7 @@ class HGroupChatSetViewController: HBaseViewController {
         return s
     }()
     
-    private lazy var tabViewController = HChatMessageFilterViewController()
+    private lazy var tabViewController = HChatMessageFilterViewController(vm: viewModel)
     
     private(set) lazy var editButton: UIButton = {
         let btn = UIButton.navButton("编辑")
@@ -99,7 +99,6 @@ class HGroupChatSetViewController: HBaseViewController {
         super.configureSubviews()
         
         containerView.alwaysBounceVertical = true
-        tabViewController.isGroup = true
         
         navBar.contentView.addSubview(editButton)
         
