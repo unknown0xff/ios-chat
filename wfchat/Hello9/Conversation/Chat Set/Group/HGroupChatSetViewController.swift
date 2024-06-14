@@ -48,7 +48,26 @@ class HGroupChatSetViewController: HBaseViewController {
     private lazy var actions: UIStackView = {
         let secretButton = self.actionButton(with: Images.icon_mute_black, title: "静音", selector: #selector(didClickBackBarButton(_:)))
         let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
-        let moreButton = self.actionButton(with: Images.icon_more, title: "更多", selector: #selector(didClickBackBarButton(_:)))
+        
+        let moreButton = self.actionButton(with: Images.icon_more, title: "更多")
+        let autoDel = UIAction(title: "开启自动删除", image: Images.icon_menu_clock) { _ in
+            
+        }
+        let clearHistory = UIAction(title: "清空聊天记录", image: Images.icon_menu_clear) { [weak self]_ in
+            self?.didClickClearHistroyMenu()
+        }
+        let quit = UIAction(title: "退出群组", image: Images.icon_menu_quit, attributes: .destructive) { [weak self] _ in
+            self?.didClickQuitMenu()
+        }
+        let del = UIAction(title: "删除群组", image: Images.icon_menu_del, attributes: .destructive) { [weak self]_ in
+            self?.didClickDelGroupMenu()
+        }
+        let subChildren = viewModel.isGroupOwner ? [quit, del] : [quit]
+        let subMenu = UIMenu(title: "", options: .displayInline, children: subChildren)
+        let menu = UIMenu(title: "", children: [autoDel, clearHistory, subMenu])
+        
+        moreButton.menu = menu
+        moreButton.showsMenuAsPrimaryAction = true
         
         let s = UIStackView(arrangedSubviews: [secretButton, searchButton, moreButton])
         s.axis = .horizontal
@@ -178,15 +197,100 @@ class HGroupChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
-    private func actionButton(with image: UIImage, title: String, selector: Selector) -> UIButton {
+    func didClickClearHistroyMenu() {
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let remote = UIAlertAction(title: "从我和 所有人 的设备删除", style: .destructive) { [weak self] _ in
+            self?.clearRemoteMessage()
+        }
+        let local = UIAlertAction(title: "仅为我删除", style: .destructive) { [weak self]_ in
+            self?.clearLocalMessage()
+        }
+        
+        sheet.addAction(remote)
+        sheet.addAction(local)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+    
+    func didClickQuitMenu() {
+        let sheet = UIAlertController(title: "退出群组", message: "您确定要退出 \(viewModel.groupInfo.name) 这个群组吗？", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let quit = UIAlertAction(title: "退出", style: .destructive) { [weak self] _ in
+            self?.quitGroup()
+        }
+        sheet.addAction(quit)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+    
+    func didClickDelGroupMenu() {
+        let sheet = UIAlertController(title: "为所有人删除", message: "您确定要删除群组 \(viewModel.groupInfo.name) 并为所有成员清除相关消息记录吗？", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let quit = UIAlertAction(title: "退出", style: .destructive) { [weak self] _ in
+            self?.dismissGroup()
+        }
+        sheet.addAction(quit)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+    
+    @objc func didClickEditButton(_ sender: UIButton) {
+        
+    }
+    
+    private func actionButton(with image: UIImage, title: String, selector: Selector? = nil) -> UIButton {
         let btn = UIButton.imageButton(with: image, title: title, font: .system13, titleColor: Colors.themeBusiness, placement: .top, padding: 6)
-        btn.addTarget(self, action: selector, for: .touchUpInside)
+        if let selector {
+            btn.addTarget(self, action: selector, for: .touchUpInside)
+        }
         btn.configuration?.background.backgroundColor = Colors.white
         btn.configuration?.background.cornerRadius = 10
         return btn
     }
     
-    @objc func didClickEditButton(_ sender: UIButton) {
-        
+}
+
+extension HGroupChatSetViewController {
+    
+    // 解散
+    func dismissGroup() {
+        let hud = HToast.show(on: view, text: "正在为所有人清除聊天记录")
+        WFCCIMService.sharedWFCIM().remove(viewModel.conv, clearMessage: true)
+        WFCCIMService.sharedWFCIM().dismissGroup(viewModel.conv.target, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] in
+            hud.hide(animated: false)
+            guard let self else { return }
+            HToast.showAutoHidden(on: self.view, text: "删除成功")
+            self.navigationController?.popToRootViewController(animated: true)
+        } error: { _ in }
+    }
+    
+    // 退出
+    func quitGroup() {
+        WFCCIMService.sharedWFCIM().quitGroup(viewModel.conv.target, keepMessage: false, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] in
+            self?.navigationController?.popToRootViewController(animated: true)
+        } error: { _ in }
+    }
+    
+    // 清除本地
+    func clearLocalMessage() {
+        WFCCIMService.sharedWFCIM().clearMessages(self.viewModel.conv)
+        NotificationCenter.default.post(name: .init(kMessageListChanged), object: self.viewModel.conv)
+        HToast.showAutoHidden(on: self.view, text: "删除成功")
+    }
+    
+    // 清除远程
+    func clearRemoteMessage() {
+        let hud = HToast.show(on: view, text: "正在为所有人清除聊天记录")
+        WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(viewModel.conv) { [weak self] in
+            hud.hide(animated: false)
+            guard let self else { return }
+            HToast.showAutoHidden(on: self.view, text: "删除成功")
+            NotificationCenter.default.post(name: .init(kMessageListChanged), object: self.viewModel.conv)
+        } error: { [weak self] _ in
+            hud.hide(animated: false)
+            guard let self else { return }
+            HToast.showAutoHidden(on: self.view, text: "删除失败")
+        }
     }
 }

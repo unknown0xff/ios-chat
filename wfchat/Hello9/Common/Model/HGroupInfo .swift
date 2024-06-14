@@ -15,6 +15,7 @@ struct HGroupInfo: Hashable {
     var displayName: String
     var memberCount: UInt
     var portrait: URL?
+    var owner: String
     
     init(info: WFCCGroupInfo) {
         target = info.target ?? ""
@@ -26,5 +27,6 @@ struct HGroupInfo: Hashable {
             portrait = nil
         }
         memberCount = info.memberCount
+        owner = info.owner ?? ""
     }
 }

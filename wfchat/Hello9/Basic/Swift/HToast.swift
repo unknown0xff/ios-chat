@@ -20,6 +20,7 @@ enum HToast {
     ) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: animated)
         hud.label.text = text
+        hud.mode = .text
         hud.show(animated: animated)
         if let afterDelay {
             hud.hide(animated: animated, afterDelay: afterDelay)

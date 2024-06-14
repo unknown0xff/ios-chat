@@ -339,7 +339,7 @@ open class HMenuTabViewController: HBasicViewController, UIScrollViewDelegate {
     }
 }
 
-private var kIsChildController = "QJNUIKit.kIsChildController"
+private var kIsChildController = "HUIKit.kIsChildController"
 
 private extension UIViewController {
     

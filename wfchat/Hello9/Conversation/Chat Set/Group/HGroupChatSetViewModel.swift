@@ -57,5 +57,11 @@ class HGroupChatSetViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    var isGroupOwner: Bool {
+        if conv.type != .Group_Type {
+            return false
+        }
+        return groupInfo.owner == IMUserInfo.userId
+    }
 }
 

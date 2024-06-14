@@ -84,6 +84,14 @@ enum Images {
 
     static let icon_menu = UIImage(named: "icon_menu")!
 
+    static let icon_menu_clear = UIImage(named: "icon_menu_clear")!
+
+    static let icon_menu_clock = UIImage(named: "icon_menu_clock")!
+
+    static let icon_menu_del = UIImage(named: "icon_menu_del")!
+
+    static let icon_menu_quit = UIImage(named: "icon_menu_quit")!
+
     static let icon_message = UIImage(named: "icon_message")!
 
     static let icon_mine_feedback = UIImage(named: "icon_mine_feedback")!

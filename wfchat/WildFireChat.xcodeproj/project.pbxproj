@@ -168,6 +168,12 @@
 		60A3F7B22C1AFE1600F855A2 /* HChatMessageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */; };
 		60A3F7B42C1B136200F855A2 /* HGroupMemeberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B32C1B136200F855A2 /* HGroupMemeberViewController.swift */; };
 		60A3F7B82C1B1BBB00F855A2 /* HGroupMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B72C1B1BBB00F855A2 /* HGroupMemberCell.swift */; };
+		60A3F7BA2C1BF2DA00F855A2 /* HModalPresentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */; };
+		60A3F7BE2C1BF32500F855A2 /* HBasicTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */; };
+		60A3F7BF2C1BF32500F855A2 /* HAlertTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */; };
+		60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */; };
+		60A3F7C42C1BF4E700F855A2 /* HAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */; };
+		60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -515,6 +521,12 @@
 		60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatMessageFilterViewController.swift; sourceTree = "<group>"; };
 		60A3F7B32C1B136200F855A2 /* HGroupMemeberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupMemeberViewController.swift; sourceTree = "<group>"; };
 		60A3F7B72C1B1BBB00F855A2 /* HGroupMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupMemberCell.swift; sourceTree = "<group>"; };
+		60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HModalPresentNavigationController.swift; sourceTree = "<group>"; };
+		60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBasicTransition.swift; sourceTree = "<group>"; };
+		60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertTransition.swift; sourceTree = "<group>"; };
+		60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTranslucentPresentController.swift; sourceTree = "<group>"; };
+		60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerView.swift; sourceTree = "<group>"; };
+		60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerViewController.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1110,6 +1122,9 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7C22C1BF4D000F855A2 /* Alert */,
+				60A3F7BB2C1BF32500F855A2 /* Transitions */,
+				60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */,
 				60A3F7AE2C1AFB8300F855A2 /* HLabel.swift */,
 				60A3F7AD2C1AFB8300F855A2 /* HNestedScrollView.swift */,
 				60A3F7AB2C1AFB1500F855A2 /* HMenuTabViewController.swift */,
@@ -1325,6 +1340,25 @@
 				60A3F7B12C1AFE1600F855A2 /* HChatMessageFilterViewController.swift */,
 			);
 			path = "Content Tab";
+			sourceTree = "<group>";
+		};
+		60A3F7BB2C1BF32500F855A2 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */,
+				60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */,
+				60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */,
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
+		60A3F7C22C1BF4D000F855A2 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */,
+				60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		60F5CF782C09C7700013D912 /* Create Conversation */ = {
@@ -1790,6 +1824,7 @@
 				607F95822C12D67E00648BFF /* HLoginFooterView.swift in Sources */,
 				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,
+				60A3F7BA2C1BF2DA00F855A2 /* HModalPresentNavigationController.swift in Sources */,
 				6012465F2C05D30000635523 /* HLoginViewController.swift in Sources */,
 				2E1D200A1FAF0AE600F4405D /* main.m in Sources */,
 				2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */,
@@ -1798,10 +1833,12 @@
 				6088F48E2C0DE79100130A87 /* UIButton+Extension.swift in Sources */,
 				607F95852C12DD4D00648BFF /* HForgetPasswordPhoneViewController.swift in Sources */,
 				60922A7C2C075F1500B70AD8 /* HBasicViewModel.swift in Sources */,
+				60A3F7BE2C1BF32500F855A2 /* HBasicTransition.swift in Sources */,
 				B764D48F295854700082492F /* OrgService.m in Sources */,
 				60922A8D2C082C3900B70AD8 /* HTitleNavBar.swift in Sources */,
 				60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
+				60A3F7C42C1BF4E700F855A2 /* HAlertContainerView.swift in Sources */,
 				601246812C075B6000635523 /* HMineViewController.swift in Sources */,
 				60922A942C084C5400B70AD8 /* HChatListViewController.swift in Sources */,
 				6012467B2C0721CB00635523 /* HLoginNavigationViewController.swift in Sources */,
@@ -1844,6 +1881,7 @@
 				60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */,
 				6088F4A22C0FFF5400130A87 /* HNewFriendCell.swift in Sources */,
 				6012464C2C058C2E00635523 /* HTabBar.swift in Sources */,
+				60A3F7BF2C1BF32500F855A2 /* HAlertTransition.swift in Sources */,
 				90E927F222DFF45F00F168BC /* WFCPrivacyTableViewController.m in Sources */,
 				607F958B2C12F22200648BFF /* HCountDownButton.swift in Sources */,
 				60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */,
@@ -1868,6 +1906,7 @@
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				60F5CF862C0AB1040013D912 /* HCreateGroupViewModel.swift in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
+				60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */,
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
 				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
@@ -1884,6 +1923,7 @@
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
 				6088F4932C0F27E000130A87 /* HFriendRequestCell.swift in Sources */,
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
+				60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */,
 				60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */,
