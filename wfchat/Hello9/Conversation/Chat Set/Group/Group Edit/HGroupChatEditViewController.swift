@@ -3,75 +3,12 @@
 //  Hello9
 //
 //  Created by Ada on 6/14/24.
-//  Copyright © 2024 WildFireChat. All rights reserved.
+//  Copyright © 2024 Hello9. All rights reserved.
 //
 
 
 import UIKit
 import Combine
-
-struct HGroupChatEditModel: Hashable {
-    
-    enum Category: CaseIterable {
-        case name, info, type, link, history, member,
-             auth, manager, unableUser, recently
-    }
-    
-    let icon: UIImage?
-    let value: String
-    let title: String
-    let category: Category
-    private let identifier = UUID()
-}
-
-class HGroupChatEditViewModel: HBasicViewModel {
-    
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
-    
-    enum Section: Int, CaseIterable {
-        case header
-        case info
-        case section
-        case section1
-    }
-    
-    enum Row: Hashable {
-        case header(_ imageUrl: URL?)
-        case info(_ model: HGroupChatEditModel)
-    }
-    
-    init() {
-        applySnapshot()
-    }
-    
-    func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
-        snapshot.appendSections([.header, .info, .section, .section1])
-        
-        let info = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "群名称", category: .name),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "简介", category: .info)]
-        
-        let section = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "群组类型", category: .type),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "邀请链接", category: .link),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "聊天记录", category: .history)]
-        
-        let section1 = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "成员", category: .member),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "权限", category: .auth),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "管理员", category: .manager),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "被封禁用户", category: .unableUser),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "近期操作", category: .recently)]
-        
-        snapshot.appendItems(info.map { Row.info($0)}, toSection: .info)
-        snapshot.appendItems(section.map { Row.info($0)}, toSection: .section)
-        snapshot.appendItems(section1.map { Row.info($0)}, toSection: .section1)
-        
-        self.snapshot = snapshot
-    }
-    
-}
 
 class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegate {
     
@@ -82,7 +19,6 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
         return collectionView
     }()
     
-    
     private typealias Section = HGroupChatEditViewModel.Section
     private typealias Row = HGroupChatEditViewModel.Row
     private var dataSource: UICollectionViewDiffableDataSource<Section, Row>! = nil
@@ -90,39 +26,11 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HGroupChatEditViewModel()
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func configureSubviews() {
         super.configureSubviews()
         
-        let subTitleCell = UICollectionView.CellRegistration<HGroupChatEditSubTitleCell, HGroupChatEditModel> { (cell, indexPath, model) in
-            cell.indexPath = indexPath
-            cell.cellData = model
-        }
-        
-        let listCell = UICollectionView.CellRegistration<HGroupChatEditListCell, HGroupChatEditModel> { (cell, indexPath, model) in
-            cell.indexPath = indexPath
-            cell.cellData = model
-            cell.accessories = [.disclosureIndicator()]
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) {
-            (collectionView, indexPath, row) -> UICollectionViewCell? in
-            switch row {
-            case .info(let model):
-                if indexPath.section == Section.info.rawValue {
-                    return collectionView.dequeueConfiguredReusableCell(using: subTitleCell, for: indexPath, item: model)
-                } else {
-                    return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: model)
-                }
-            case .header(let url):
-                return nil
-            }
-        }
+        configureNavBar()
+        configureDataSource()
         
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
@@ -139,6 +47,59 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
             make.top.equalTo(navBar.snp.bottom)
             make.width.left.right.bottom.equalToSuperview()
         }
+    }
+    
+    private func configureDataSource() {
+        let headCell = UICollectionView.CellRegistration<HGroupChatEditHeadCell, String> { (cell, indexPath, model) in
+            cell.indexPath = indexPath
+            cell.cellData = .init(string: model)
+        }
+        
+        let subTitleCell = UICollectionView.CellRegistration<HGroupChatEditSubTitleCell, HGroupChatEditModel> { (cell, indexPath, model) in
+            cell.indexPath = indexPath
+            cell.cellData = model
+        }
+        
+        let listCell = UICollectionView.CellRegistration<HGroupChatEditListCell, HGroupChatEditModel> { (cell, indexPath, model) in
+            cell.indexPath = indexPath
+            cell.cellData = model
+            cell.accessories = [.image()]
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) {
+            (collectionView, indexPath, row) -> UICollectionViewCell? in
+            switch row {
+            case .info(let model):
+                if indexPath.section == Section.info.rawValue {
+                    return collectionView.dequeueConfiguredReusableCell(using: subTitleCell, for: indexPath, item: model)
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: model)
+                }
+            case .header(let url):
+                return collectionView.dequeueConfiguredReusableCell(using: headCell, for: indexPath, item: url)
+            }
+        }
+    }
+
+    private func configureNavBar() {
+        backButtonImage = nil
+        
+        let cancelButton = UIButton.navButton("取消", titleColor: Colors.themeBlue1)
+        cancelButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
+        navBar.contentView.addSubview(cancelButton)
+        cancelButton.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.centerY.equalToSuperview()
+        }
+        
+        let doneButton = UIButton.navButton("完成", titleColor: Colors.themeBlue1)
+        doneButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
+        navBar.contentView.addSubview(doneButton)
+        doneButton.snp.makeConstraints { make in
+            make.right.equalTo(-16)
+            make.centerY.equalToSuperview()
+        }
+        
     }
     
     private func createLayout() -> UICollectionViewLayout {

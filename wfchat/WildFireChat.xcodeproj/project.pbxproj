@@ -177,6 +177,8 @@
 		60A3F7C92C1C2ABA00F855A2 /* HCustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C82C1C2ABA00F855A2 /* HCustomToastView.swift */; };
 		60A3F7CB2C1C557400F855A2 /* HGroupChatEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */; };
 		60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */; };
+		60A3F7D02C1C797B00F855A2 /* HGroupChatEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */; };
+		60A3F7D22C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -533,6 +535,8 @@
 		60A3F7C82C1C2ABA00F855A2 /* HCustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCustomToastView.swift; sourceTree = "<group>"; };
 		60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditViewController.swift; sourceTree = "<group>"; };
 		60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditListCell.swift; sourceTree = "<group>"; };
+		60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditViewModel.swift; sourceTree = "<group>"; };
+		60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditHeadCell.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1382,6 +1386,8 @@
 			children = (
 				60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */,
 				60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */,
+				60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */,
+				60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */,
 			);
 			path = "Group Edit";
 			sourceTree = "<group>";
@@ -1846,6 +1852,7 @@
 				607F957E2C12CCDF00648BFF /* HLoginHeaderView.swift in Sources */,
 				60A3F7AF2C1AFB8300F855A2 /* HNestedScrollView.swift in Sources */,
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
+				60A3F7D22C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift in Sources */,
 				607F95822C12D67E00648BFF /* HLoginFooterView.swift in Sources */,
 				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,
@@ -1927,6 +1934,7 @@
 				6088F4AA2C103EC500130A87 /* HFriendSearchViewModel.swift in Sources */,
 				607F95932C1404E500648BFF /* HResetPasswordSuccessViewController.swift in Sources */,
 				607F95802C12CED300648BFF /* HForgetPasswordWaysViewController.swift in Sources */,
+				60A3F7D02C1C797B00F855A2 /* HGroupChatEditViewModel.swift in Sources */,
 				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,

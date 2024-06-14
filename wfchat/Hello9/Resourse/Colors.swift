@@ -52,6 +52,9 @@ enum Colors {
     /// 0x00 0x75 0xFF
     static let themeBlue1 = UIColor(named: "themeBlue1")!
 
+    /// 0xCF 0xE5 0xFF
+    static let themeBlue2 = UIColor(named: "themeBlue2")!
+
     /// 0x00 0x23 0x35
     static let themeBusiness = UIColor(named: "themeBusiness")!
 

@@ -61,8 +61,12 @@ extension UIButton {
         return btn
     }
     
-    class func navButton(_ title: String) -> UIButton {
-        UIButton.imageButton(title: title, font: .system16, titleColor: Colors.themeBlack)
+    class func navButton(_ title: String, titleColor: UIColor = Colors.themeBlack) -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setTitle(title, for: .normal)
+        btn.setTitleColor(titleColor, for: .normal)
+        btn.titleLabel?.font = .system16
+        return btn
     }
     
     class func imageButton(
@@ -73,7 +77,8 @@ extension UIButton {
         placement: NSDirectionalRectEdge = .leading,
         padding: CGFloat = 0
     ) -> UIButton {
-        var configuration = UIButton.Configuration.plain()
+        let btn = UIButton(type: .system)
+        var configuration = btn.configuration ?? .plain()
         configuration.imagePlacement = placement
         configuration.imagePadding = padding
         configuration.image = image
@@ -82,7 +87,6 @@ extension UIButton {
             .font : font,
             .foregroundColor: titleColor
         ]))
-        let btn = UIButton(type: .system)
         btn.configuration = configuration
         return btn
     }

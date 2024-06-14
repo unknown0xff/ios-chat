@@ -58,3 +58,10 @@ extension UIResponder {
     }
     
 }
+
+extension UICellAccessory {
+    static func image(_ image: UIImage = Images.icon_disclosure_indicator_gray, placement: UICellAccessory.Placement = .trailing()) -> UICellAccessory {
+        let imageView = UIImageView(image: image)
+        return .customView(configuration: .init(customView: imageView, placement: placement))
+    }
+}
