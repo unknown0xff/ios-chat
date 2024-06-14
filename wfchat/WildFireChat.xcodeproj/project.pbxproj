@@ -175,6 +175,8 @@
 		60A3F7C42C1BF4E700F855A2 /* HAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */; };
 		60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */; };
 		60A3F7C92C1C2ABA00F855A2 /* HCustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C82C1C2ABA00F855A2 /* HCustomToastView.swift */; };
+		60A3F7CB2C1C557400F855A2 /* HGroupChatEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */; };
+		60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -529,6 +531,8 @@
 		60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerView.swift; sourceTree = "<group>"; };
 		60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerViewController.swift; sourceTree = "<group>"; };
 		60A3F7C82C1C2ABA00F855A2 /* HCustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCustomToastView.swift; sourceTree = "<group>"; };
+		60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditViewController.swift; sourceTree = "<group>"; };
+		60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditListCell.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1237,6 +1241,7 @@
 				6088F4892C0DB22F00130A87 /* HGroupChatSetViewModel.swift */,
 				60A3F7B32C1B136200F855A2 /* HGroupMemeberViewController.swift */,
 				60A3F7B72C1B1BBB00F855A2 /* HGroupMemberCell.swift */,
+				60A3F7CC2C1C627E00F855A2 /* Group Edit */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1370,6 +1375,15 @@
 				60A3F7C82C1C2ABA00F855A2 /* HCustomToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		60A3F7CC2C1C627E00F855A2 /* Group Edit */ = {
+			isa = PBXGroup;
+			children = (
+				60A3F7CA2C1C557400F855A2 /* HGroupChatEditViewController.swift */,
+				60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */,
+			);
+			path = "Group Edit";
 			sourceTree = "<group>";
 		};
 		60F5CF782C09C7700013D912 /* Create Conversation */ = {
@@ -1922,11 +1936,13 @@
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
 				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
+				60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */,
 				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
 				60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */,
 				60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */,
 				60A3F7B22C1AFE1600F855A2 /* HChatMessageFilterViewController.swift in Sources */,
 				149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */,
+				60A3F7CB2C1C557400F855A2 /* HGroupChatEditViewController.swift in Sources */,
 				2FCF7218254FD092006CF53B /* WFCFavoriteFileCell.m in Sources */,
 				6088F4862C0DB20700130A87 /* HGroupChatSetViewController.swift in Sources */,
 				6012466E2C06BAF700635523 /* Layout+Extension.swift in Sources */,

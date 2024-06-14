@@ -236,7 +236,7 @@ class HGroupChatSetViewController: HBaseViewController {
     }
     
     @objc func didClickEditButton(_ sender: UIButton) {
-        
+        HModalPresentNavigationController.show(root: HGroupChatEditViewController(), preferredStyle: .actionSheet)
     }
     
     private func actionButton(with image: UIImage, title: String, selector: Selector? = nil) -> UIButton {
