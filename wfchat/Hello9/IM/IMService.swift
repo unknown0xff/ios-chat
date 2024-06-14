@@ -315,7 +315,8 @@ extension IMService: WFCCDefaultPortraitProvider {
 extension IMService: WFAVEngineDelegate {
     
     func didReceiveCall(_ session: WFAVCallSession) {
-        callKitManager.didReceiveCall(session)
+        IMServiceBridge.didReceiveCall(session)
+        // callKitManager.didReceiveCall(session)
     }
     
     func shouldStartRing(_ isIncoming: Bool) {

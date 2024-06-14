@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class WFCCMessage;
+@class WFAVCallSession;
 
 @interface IMServiceBridge : NSObject
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)cancelNotification:(long long)messageUid;
 + (void)onFriendRequestUpdated:(NSNotification *)notification;
 + (void)prepardDataForShareExtension;
++ (void)didReceiveCall:(WFAVCallSession *)session;
 
 @end
 

@@ -244,4 +244,44 @@
     }
 }
 
++ (void)didReceiveCall:(WFAVCallSession *)session {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([WFAVEngineKit sharedEngineKit].currentSession.state != kWFAVEngineStateIncomming && [WFAVEngineKit sharedEngineKit].currentSession.state != kWFAVEngineStateConnected && [WFAVEngineKit sharedEngineKit].currentSession.state != kWFAVEngineStateConnecting) {
+            return;
+        }
+        
+        UIViewController *videoVC;
+        if (session.conversation.type == Group_Type && [WFAVEngineKit sharedEngineKit].supportMultiCall) {
+            videoVC = [[WFCUMultiVideoViewController alloc] initWithSession:session];
+        } else {
+            videoVC = [[WFCUVideoViewController alloc] initWithSession:session];
+        }
+        
+        [[WFAVEngineKit sharedEngineKit] presentViewController:videoVC];
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+            if([[WFCCIMService sharedWFCIMService] isVoipNotificationSilent]) {
+                NSLog(@"用户设置禁止voip通知，忽略来电提醒");
+                return;
+            }
+            
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+            content.body = @"来电话了";
+            
+                WFCCUserInfo *sender = [[WFCCIMService sharedWFCIMService] getUserInfo:session.inviter refresh:NO];
+                if (sender.displayName) {
+                    content.title = sender.displayName;
+                }
+            content.sound = [UNNotificationSound soundNamed:@"ring.caf"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"hello_call_notification" content:content trigger:nil];
+                [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                    
+                }];
+            });
+        } else {
+        }
+    });
+}
+
 @end
