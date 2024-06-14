@@ -30,7 +30,7 @@
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
     NSString *text = [WFCUCallSummaryCell getCallText:msgModel.message.content];
     CGSize textSize = [WFCUUtilities getTextDrawingSize:text font:[UIFont systemFontOfSize:18] constrainedSize:CGSizeMake(width, 8000)];
-    return CGSizeMake(textSize.width + 25, 30);
+    return CGSizeMake(textSize.width + 25 + 42, 30);
 }
 
 + (NSString *)getCallText:(WFCCCallStartMessageContent *)startContent {
@@ -135,18 +135,13 @@
 - (void)setModel:(WFCUMessageModel *)model {
     [super setModel:model];
     
-    CGFloat width = self.contentArea.bounds.size.width;
+    CGFloat height = self.bubbleView.bounds.size.height;
     
-    self.infoLabel.text = [WFCUCallSummaryCell getCallText:model.message.content];
-    self.infoLabel.layoutMargins = UIEdgeInsetsMake(TEXT_TOP_PADDING, TEXT_LEFT_PADDING, TEXT_BUTTOM_PADDING, TEXT_RIGHT_PADDING);
-    
-    if (model.message.direction == MessageDirection_Send) {
-        self.infoLabel.frame = CGRectMake(0, 0, width - 25, 30);
-        self.modeImageView.frame = CGRectMake(width - 25, 3, 25, 25);
-    } else {
-        self.infoLabel.frame = CGRectMake(0, 0, width-25, 30);
-        self.modeImageView.frame = CGRectMake(width-25, 3, 25, 25);
-    }
+    self.infoLabel.text = [WFCUCallSummaryCell getCallText: model.message.content];
+    [self.infoLabel sizeToFit];
+    self.infoLabel.frame = CGRectMake(16, 0, self.infoLabel.bounds.size.width, height);
+    self.modeImageView.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame) + 3, (height - 25) / 2, 25, 25);
+  
     if ([self.model.message.content isKindOfClass:[WFCCCallStartMessageContent class]]) {
         WFCCCallStartMessageContent *startContent = (WFCCCallStartMessageContent *)self.model.message.content;
         if (startContent.isAudioOnly) {
@@ -160,26 +155,18 @@
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc] init];
-        _infoLabel.numberOfLines = 0;
         _infoLabel.font = [UIFont systemFontOfSize:14];
-        
-        _infoLabel.numberOfLines = 0;
         _infoLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _infoLabel.textAlignment = NSTextAlignmentCenter;
-        _infoLabel.font = [UIFont systemFontOfSize:14.f];
-        _infoLabel.layer.masksToBounds = YES;
-        _infoLabel.layer.cornerRadius = 5.f;
-        _infoLabel.textAlignment = NSTextAlignmentCenter;
         _infoLabel.userInteractionEnabled = YES;
-        
-        [self.contentArea addSubview:_infoLabel];
+        [self.bubbleView addSubview:_infoLabel];
     }
     return _infoLabel; 
 }
 - (UIImageView *)modeImageView {
     if (!_modeImageView) {
         _modeImageView = [[UIImageView alloc] init];
-        [self.contentArea addSubview:_modeImageView];
+        [self.bubbleView addSubview:_modeImageView];
     }
     return _modeImageView;
 }
