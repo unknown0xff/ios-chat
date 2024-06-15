@@ -8,56 +8,71 @@
 
 import Foundation
 
-struct HMineTitleCellModel: Hashable {
+struct HMineListCellModel: Hashable {
     
-    enum Tag: Hashable {
-        case setting
-        case verify(_ progress: CGFloat)
-        case feedback
-        case logout
+    enum Tag: Int {
+        case avatar
+        case material
+        case privacy
+        case notification
+        case data
     }
     
     let title: String
     let image: UIImage?
     let tag: Tag
-    
-    static let all: [Self] = [
-        .init(title: "设置", image: Images.icon_mine_setting, tag: .setting),
-        .init(title: "辅助验证",image: Images.icon_mine_verify, tag: .verify(0.5)),
-        .init(title: "问题反馈", image: Images.icon_mine_feedback,tag: .feedback),
-        .init(title: "登出", image: Images.icon_mine_logout, tag: .logout),
-    ]
 }
 
 class HMineViewModel: HBasicViewModel {
     
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection, Row>.init()
+    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
     
     private var avatarModel = HUserInfoModel.current
     
+    enum Section: Int, CaseIterable {
+        case header
+        case avatar
+        case material
+        case other
+    }
+    
     enum Row: Hashable {
         case avatar(_ model: HUserInfoModel)
-        case title(_ model: HMineTitleCellModel)
+        case list(_ model: HMineListCellModel)
     }
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
+        
+        NotificationCenter.default.addObserver(forName: .init(kUserInfoUpdated), object: self, queue: .main) { [weak self] _ in
+            self?.onUserInfoUpdated()
+        }
         applySnapshot()
     }
     
     func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
-        snapshot.appendSections([.main])
+        snapshot.appendSections(Section.allCases)
         
-        snapshot.appendItems([.avatar(avatarModel)])
+        snapshot.appendItems([.avatar(avatarModel)], toSection: .header)
         
-        let rows = HMineTitleCellModel.all.map { Row.title($0) }
-        snapshot.appendItems(rows)
+        snapshot.appendItems([
+            .list(.init(title: "更换头像", image: Images.icon_mine_setting, tag: .avatar))
+        ], toSection: .avatar)
+        
+        snapshot.appendItems([
+            .list(.init(title: "我的资料",image: Images.icon_mine_verify, tag: .material))
+        ], toSection: .material)
+        
+        snapshot.appendItems([
+            .list(.init(title: "隐私与安全", image: Images.icon_mine_feedback, tag: .privacy)),
+            .list(.init(title: "通知与声音", image: Images.icon_mine_feedback, tag: .notification)),
+            .list(.init(title: "数据和储存", image: Images.icon_mine_logout, tag: .data))
+        ], toSection: .other)
         
         self.snapshot = snapshot
     }
     
-    @objc func onUserInfoUpdated(_ sender: Notification) {
+    func onUserInfoUpdated() {
         avatarModel = HUserInfoModel.current
         applySnapshot()
     }

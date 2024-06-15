@@ -29,24 +29,18 @@ class HGroupChatEditHeadCell: HBasicCollectionViewCell<URL> {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
+        
         selectedBackgroundColor = .clear
         unselectedBackgroundColor = .clear
         contentView.addSubview(avatar)
         contentView.addSubview(titleLabel)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
+        
         avatar.snp.makeConstraints { make in
             make.width.height.equalTo(102)
             make.top.equalTo(10)

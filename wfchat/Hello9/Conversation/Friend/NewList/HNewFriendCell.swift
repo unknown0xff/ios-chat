@@ -69,17 +69,8 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         return btn
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         
         selectedBackgroundColor = Colors.white
         contentView.addSubview(avatar)
@@ -92,7 +83,8 @@ class HNewFriendCell: HBasicCollectionViewCell<WFCCFriendRequest> {
         contentView.addSubview(statusLabel)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
         
         avatar.snp.makeConstraints { make in
             make.height.width.equalTo(48)

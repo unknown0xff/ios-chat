@@ -29,8 +29,25 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureSubviews()
+        makeConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureSubviews() {  }
+    
+    func makeConstraints() { }
+        
     var selectedBackgroundColor: UIColor?
     var unselectedBackgroundColor: UIColor = .white
+    
+    
     func bindData(_ data: T?) { }
     
     override func updateConfiguration(using state: UICellConfigurationState) {
@@ -42,7 +59,7 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
             } else {
                 backgroundConfig?.backgroundColor = unselectedBackgroundColor
             }
-        }
+        } 
         self.backgroundConfiguration = backgroundConfig
     }
 

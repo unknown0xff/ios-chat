@@ -10,81 +10,62 @@
 import UIKit
 import SDWebImage
 
-class HMineAvatarCell: HBasicTableViewCell<HUserInfoModel> {
-    private let kAvatarHeight = 112.0
+class HMineAvatarCell: HBasicCollectionViewCell<HUserInfoModel> {
+    private let kAvatarHeight = 102.0
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .system27.bold
-        label.textColor = Colors.gray03
+        label.font = .system24.bold
+        label.textColor = Colors.themeBlack
         return label
     }()
     
     private lazy var userIdLabel: UILabel = {
         let label = UILabel()
-        label.font = .system14.medium
-        label.textColor = Colors.gray04.withAlphaComponent(0.5)
+        label.font = .system16
+        label.textColor = Colors.themeGray3
         return label
     }()
     
     private lazy var avatar: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = kAvatarHeight / 2.0
-        imageView.layer.masksToBounds = true
-        imageView.backgroundColor = Colors.gray02
-        return imageView
+        let view = UIImageView()
+        view.backgroundColor = Colors.themeBlue2
+        view.layer.masksToBounds = true
+        view.layer.borderWidth = 2
+        view.layer.borderColor = Colors.white.cgColor
+        view.layer.cornerRadius = kAvatarHeight / 2.0
+        view.contentMode = .center
+        return view
     }()
     
-    private lazy var editButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(Images.icon_edit.withRenderingMode(.alwaysOriginal), for: .normal)
-        return btn
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
+        selectedBackgroundColor = .clear
+        unselectedBackgroundColor = .clear
         contentView.addSubview(avatar)
         contentView.addSubview(userNameLabel)
         contentView.addSubview(userIdLabel)
-        contentView.addSubview(editButton)
     }
     
-    private func makeConstraints() {
-        
+    override func makeConstraints() {
+        super.makeConstraints()
         avatar.snp.makeConstraints { make in
-            make.top.equalTo(15)
+            make.top.equalTo(10)
             make.width.height.equalTo(kAvatarHeight)
             make.centerX.equalToSuperview()
         }
         
         userNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(avatar.snp.bottom).offset(12)
-            make.height.equalTo(41)
+            make.top.equalTo(avatar.snp.bottom).offset(16)
+            make.height.equalTo(38)
             make.centerX.equalToSuperview()
         }
         
         userIdLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom)
-            make.height.equalTo(21)
+            make.top.equalTo(userNameLabel.snp.bottom).offset(3)
+            make.height.equalTo(26)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(-28)
-        }
-        
-        editButton.snp.makeConstraints { make in
-            make.width.equalTo(72)
-            make.top.equalTo(20)
-            make.right.equalTo(-18)
-            make.height.equalTo(24)
+            make.bottom.equalTo(-16)
         }
     }
     

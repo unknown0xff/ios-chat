@@ -1,106 +1,116 @@
 //
 //  HMineViewController.swift
-//  ios-hello9
+//  Hello9
 //
 //  Created by Ada on 5/29/24.
-//  Copyright © 2024 ios-hello9. All rights reserved.
+//  Copyright © 2024 Hello9. All rights reserved.
 //
 
 
 import UIKit
 import Combine
 
-class HMineViewController: HBasicViewController {
+
+import UIKit
+import Combine
+
+class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(with: .plain)
-        tableView.applyDefaultConfigure()
-        tableView.delegate = self
-        return tableView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        return collectionView
     }()
-    
-    private lazy var navBarView = HTitleNavBar()
-    
     
     private typealias Section = HMineViewModel.Section
     private typealias Row = HMineViewModel.Row
-    private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Row>! = nil
     
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HMineViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func configureSubviews() {
+        super.configureSubviews()
         
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    private func configureSubviews() {
-        
-        tableView.register([HMineTitleCell.self, HMineAvatarCell.self])
-        
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in
-            switch row {
-            case .title(let model):
-                let cell = tableView.cell(of: HMineTitleCell.self, for: indexPath)
-                cell.cellData = model
-                return cell
-            case .avatar(let model):
-                let cell = tableView.cell(of: HMineAvatarCell.self, for: indexPath)
-                cell.cellData = model
-                return cell
-            }
-        })
+        configureNavBar()
+        configureDataSource()
         
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
                 self?.dataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
-        
-        navBarView.titleLabel.text = "我的"
-        
-        view.addSubview(navBarView)
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
     }
     
-    private func makeConstraints() {
-        navBarView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(112)
-        }
+    override func makeConstraints() {
+        super.makeConstraints()
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBarView.snp.bottom)
-            make.width.left.right.equalToSuperview()
-            make.bottom.equalTo(-HUIConfigure.tabBarHeight)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.width.left.right.bottom.equalToSuperview()
         }
     }
     
-    override func prefersNavigationBarHidden() -> Bool { true }
-}
-
-// MARK: - UITableViewDelegate
-
-extension HMineViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    private func configureDataSource() {
         
-        guard let row = dataSource.itemIdentifier(for: indexPath) else {
-            return
+        let avatarCell = UICollectionView.CellRegistration<HMineAvatarCell, HUserInfoModel> { (cell, indexPath, model) in
+            cell.indexPath = indexPath
+            cell.cellData = model
         }
-        switch row {
-        case .title(let model):
-            if model.tag == .logout {
-                IMService.share.logout()
-                let loginNav = HLoginNavigationViewController()
-                UIApplication.shared.delegate?.window??.rootViewController = loginNav
+        
+        let listCell = UICollectionView.CellRegistration<HMineListCell, HMineListCellModel> { (cell, indexPath, model) in
+            cell.indexPath = indexPath
+            cell.cellData = model
+            if model.tag == .avatar {
+                cell.titleLabel.textColor = Colors.themeBlue1
+                cell.accessories = []
+            } else {
+                cell.accessories = [.image()]
             }
-        case .avatar(_):
-            break
         }
         
+        dataSource = UICollectionViewDiffableDataSource<Section, Row>(collectionView: collectionView) {
+            (collectionView, indexPath, row) -> UICollectionViewCell? in
+            switch row {
+            case .avatar(let model):
+                return collectionView.dequeueConfiguredReusableCell(using: avatarCell, for: indexPath, item: model)
+            case .list(let model):
+                return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: model)
+            }
+        }
+    }
+    
+    private func configureNavBar() {
+        backButtonImage = nil
+        
+        let qrButton = UIButton.navButton("二维码", titleColor: Colors.themeBlue1)
+        navBar.contentView.addSubview(qrButton)
+        qrButton.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.centerY.equalToSuperview()
+        }
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        
+        return UICollectionViewCompositionalLayout.init { sectionIndex, layoutEnvironment in
+            guard let sectionKind = Section(rawValue: sectionIndex) else {
+                return nil
+            }
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.backgroundColor = .clear
+            let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+            
+            if sectionKind != .header {
+                config.separatorConfiguration.bottomSeparatorInsets = .init(top: 5, leading: 16, bottom: 5, trailing: 16)
+                config.separatorConfiguration.color = Colors.themeSeperatorColor
+                section.contentInsets = .init(top: 5, leading: 16, bottom: 5, trailing: 16)
+            } else {
+                section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+            }
+            return section
+        }
     }
 }
-

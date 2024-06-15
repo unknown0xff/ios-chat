@@ -25,24 +25,17 @@ class HGroupChatEditSubTitleCell: HBasicCollectionViewCell<HGroupChatEditModel> 
         return label
     }()
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
+        
         isUserInteractionEnabled = false
         contentView.addSubview(titleLabel)
         contentView.addSubview(subTitleLabel)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
+        
         titleLabel.snp.makeConstraints { make in
             make.top.left.equalTo(16)
             make.height.equalTo(22)
@@ -66,65 +59,7 @@ class HGroupChatEditSubTitleCell: HBasicCollectionViewCell<HGroupChatEditModel> 
     }
 }
 
-
-
-
-class HGroupChatEditListCell: HBasicCollectionViewCell<HGroupChatEditModel> {
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system16
-        label.textColor = Colors.themeBlack
-        return label
-    }()
-    
-    private lazy var subTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system14
-        label.textColor = Colors.themeGray4
-        return label
-    }()
-    
-    private lazy var icon: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
-        contentView.addSubview(icon)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subTitleLabel)
-    }
-    
-    private func makeConstraints() {
-        icon.snp.makeConstraints { make in
-            make.top.equalTo(20)
-            make.left.equalTo(20)
-            make.width.height.equalTo(32)
-            make.bottom.equalTo(-20)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(icon.snp.right).offset(16)
-            make.centerY.equalToSuperview()
-        }
-        
-        subTitleLabel.snp.makeConstraints { make in
-            make.right.equalTo(-6)
-            make.centerY.equalToSuperview()
-        }
-    }
+class HGroupChatEditListCell: HCollectionViewListCell<HGroupChatEditModel> {
     
     override func bindData(_ data: HGroupChatEditModel?) {
         guard let data else {
@@ -136,4 +71,3 @@ class HGroupChatEditListCell: HBasicCollectionViewCell<HGroupChatEditModel> {
         subTitleLabel.text = data.value
     }
 }
-
