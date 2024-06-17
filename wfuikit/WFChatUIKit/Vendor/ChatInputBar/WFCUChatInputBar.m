@@ -295,8 +295,6 @@
     [self.voiceInputBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.voiceInputBtn.layer.cornerRadius = 4;
     self.voiceInputBtn.layer.masksToBounds = YES;
-    self.voiceInputBtn.layer.borderWidth = 0.5f;
-    self.voiceInputBtn.layer.borderColor = HEXCOLOR(0xdbdbdd).CGColor;
     [self.inputContainer addSubview:self.voiceInputBtn];
     
     self.inputBarStatus = ChatInputBarDefaultStatus;
