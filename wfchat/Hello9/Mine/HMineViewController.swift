@@ -101,13 +101,19 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
             }
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             config.backgroundColor = .clear
-            let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             
+            let section: NSCollectionLayoutSection
             if sectionKind != .header {
-                config.separatorConfiguration.bottomSeparatorInsets = .init(top: 5, leading: 16, bottom: 5, trailing: 16)
-                config.separatorConfiguration.color = Colors.themeSeperatorColor
+                config.itemSeparatorHandler = { (indexPath, sectionSeparatorConfiguration) in
+                    var separatorConfig = sectionSeparatorConfiguration
+                    separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 84, bottom: 0, trailing: 0)
+                    separatorConfig.color = Colors.themeSeperatorColor
+                    return separatorConfig
+                }
+                section = .list(using: config, layoutEnvironment: layoutEnvironment)
                 section.contentInsets = .init(top: 5, leading: 16, bottom: 5, trailing: 16)
             } else {
+                section = .list(using: config, layoutEnvironment: layoutEnvironment)
                 section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
             }
             return section
