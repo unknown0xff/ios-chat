@@ -181,6 +181,10 @@
 		60A3F7D02C1C797B00F855A2 /* HGroupChatEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */; };
 		60A3F7D22C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */; };
 		60A3F7D52C1D2B2500F855A2 /* HCollectionViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D42C1D2B2500F855A2 /* HCollectionViewListCell.swift */; };
+		60A3F7D82C2008C700F855A2 /* HMyFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D72C2008C700F855A2 /* HMyFriendListViewController.swift */; };
+		60A3F7DA2C20098A00F855A2 /* HMyFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */; };
+		60A3F7DC2C200B0800F855A2 /* HMyFriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */; };
+		60A3F7DE2C2020E100F855A2 /* HIndexBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -541,6 +545,10 @@
 		60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditViewModel.swift; sourceTree = "<group>"; };
 		60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditHeadCell.swift; sourceTree = "<group>"; };
 		60A3F7D42C1D2B2500F855A2 /* HCollectionViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollectionViewListCell.swift; sourceTree = "<group>"; };
+		60A3F7D72C2008C700F855A2 /* HMyFriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendListViewController.swift; sourceTree = "<group>"; };
+		60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendListViewModel.swift; sourceTree = "<group>"; };
+		60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendListCell.swift; sourceTree = "<group>"; };
+		60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIndexBar.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1257,6 +1265,7 @@
 		6088F4942C0F2F6B00130A87 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				60A3F7D62C2008A900F855A2 /* Friend List */,
 				6088F49C2C0FFA0400130A87 /* NewList */,
 				6088F49B2C0FF9F900130A87 /* Add */,
 			);
@@ -1396,6 +1405,17 @@
 				60A3F7D42C1D2B2500F855A2 /* HCollectionViewListCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		60A3F7D62C2008A900F855A2 /* Friend List */ = {
+			isa = PBXGroup;
+			children = (
+				60A3F7D72C2008C700F855A2 /* HMyFriendListViewController.swift */,
+				60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */,
+				60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */,
+				60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */,
+			);
+			path = "Friend List";
 			sourceTree = "<group>";
 		};
 		60F5CF782C09C7700013D912 /* Create Conversation */ = {
@@ -1851,6 +1871,7 @@
 				60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
 				60F5CF7E2C09D0A30013D912 /* HSelectedActionCell.swift in Sources */,
+				60A3F7DC2C200B0800F855A2 /* HMyFriendListCell.swift in Sources */,
 				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
 				601246612C05F80000635523 /* HLoginViewModel.swift in Sources */,
 				B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */,
@@ -1917,7 +1938,9 @@
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
 				60A3F7B02C1AFB8300F855A2 /* HLabel.swift in Sources */,
 				60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */,
+				60A3F7D82C2008C700F855A2 /* HMyFriendListViewController.swift in Sources */,
 				2FF07F5A21F82E7200A78A62 /* WFCSettingTableViewController.m in Sources */,
+				60A3F7DA2C20098A00F855A2 /* HMyFriendListViewModel.swift in Sources */,
 				60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */,
 				6088F4A22C0FFF5400130A87 /* HNewFriendCell.swift in Sources */,
 				6012464C2C058C2E00635523 /* HTabBar.swift in Sources */,
@@ -1962,6 +1985,7 @@
 				2FCF7218254FD092006CF53B /* WFCFavoriteFileCell.m in Sources */,
 				6088F4862C0DB20700130A87 /* HGroupChatSetViewController.swift in Sources */,
 				6012466E2C06BAF700635523 /* Layout+Extension.swift in Sources */,
+				60A3F7DE2C2020E100F855A2 /* HIndexBar.swift in Sources */,
 				6088F47E2C0D648700130A87 /* HSingleChatSetViewController.swift in Sources */,
 				6012463E2C05764600635523 /* HNavigationController.m in Sources */,
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,

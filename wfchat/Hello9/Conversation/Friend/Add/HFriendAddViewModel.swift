@@ -33,7 +33,6 @@ class HFriendAddViewModel: HBasicViewModel {
     func loadData(_ refresh: Bool) {
         let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(friendId, refresh: refresh) ?? .init()
         let friendInfo = HUserInfoModel(info: userInfo)
-        print(userInfo.toJsonStr())
         let isMyFriend = WFCCIMService.sharedWFCIM().isMyFriend(friendId)
         
         model = HFriendAddContentModel(friendInfo: friendInfo, isFriend: isMyFriend)
