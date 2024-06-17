@@ -48,14 +48,19 @@ class HSingleChatSetViewController: HBaseViewController {
         return s
     }()
     
+    private lazy var moreButton: UIButton = {
+       let btn = actionButton(with: Images.icon_more, title: "更多", selector: #selector(didClickBackBarButton(_:)))
+        return btn
+    }()
     private lazy var actions: UIStackView = {
-        let secretButton = self.actionButton(with: Images.icon_lock, title: "密聊", selector: #selector(didClickBackBarButton(_:)))
+        let secretButton = actionButton(with: Images.icon_lock, title: "密聊", selector: #selector(didClickBackBarButton(_:)))
         
-        let msgButton = self.actionButton(with: Images.icon_message, title: "发送消息", selector: #selector(didClickBackBarButton(_:)))
+        let msgButton = actionButton(with: Images.icon_message, title: "发送消息", selector: #selector(didClickBackBarButton(_:)))
         
-        let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
+        let searchButton = actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
         
-        let moreButton = self.actionButton(with: Images.icon_more, title: "更多", selector: #selector(didClickBackBarButton(_:)))
+        moreButton.menu = createMenu()
+        moreButton.showsMenuAsPrimaryAction = true
         
         let s = UIStackView(arrangedSubviews: [secretButton, msgButton, searchButton, moreButton])
         s.axis = .horizontal
@@ -177,11 +182,106 @@ class HSingleChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
+    
+    func createMenu() -> UIMenu {
+        let voice = UIAction(title: "声音", image: Images.icon_menu_voice) { _ in
+        }
+        let share = UIAction(title: "分享好友名片", image: Images.icon_menu_share) { _ in
+            
+        }
+        let autoDel = UIAction(title: "开启自动删除", image: Images.icon_menu_clock) { _ in
+            
+        }
+        let clearHistory = UIAction(title: "清空聊天记录", image: Images.icon_menu_clear) { [weak self]_ in
+            self?.didClickClearHistroyMenu()
+        }
+        
+        let isBlackListed = WFCCIMService.sharedWFCIM().isBlackListed(viewModel.userInfo.userId)
+        let blackList: UIAction
+        if isBlackListed {
+            blackList = UIAction(title: "取消屏蔽", image: Images.icon_menu_shield, attributes: .destructive) { [weak self] _ in
+                self?.removeFromBlackList()
+            }
+        } else {
+            blackList = UIAction(title: "屏蔽用户", image: Images.icon_menu_shield, attributes: .destructive) { [weak self] _ in
+                self?.addToBlackList()
+            }
+        }
+        
+        let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList])
+        let menu = UIMenu(title: "", children: [voice, share, autoDel, clearHistory, subMenu])
+        return menu
+    }
+    
+    
     private func actionButton(with image: UIImage, title: String, selector: Selector) -> UIButton {
         let btn = UIButton.imageButton(with: image, title: title, font: .system13, titleColor: Colors.themeBusiness, placement: .top, padding: 6)
         btn.addTarget(self, action: selector, for: .touchUpInside)
         btn.configuration?.background.backgroundColor = Colors.white
         btn.configuration?.background.cornerRadius = 10
         return btn
+    }
+    
+    func didClickClearHistroyMenu() {
+        let sheet = UIAlertController(title: nil, message: "您确定要删除与 \(viewModel.userInfo.displayName) 的所有消息记录吗？", preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let remote = UIAlertAction(title: "从我和 \(viewModel.userInfo.displayName) 的设备删除", style: .destructive) { [weak self] _ in
+            self?.clearRemoteMessage()
+        }
+        let local = UIAlertAction(title: "仅为我删除", style: .destructive) { [weak self]_ in
+            self?.clearLocalMessage()
+        }
+        
+        sheet.addAction(remote)
+        sheet.addAction(local)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+}
+
+extension HSingleChatSetViewController {
+    
+    func removeFromBlackList() {
+        setBlackList(add: false)
+    }
+    
+    func addToBlackList() {
+        setBlackList(add: true)
+    }
+    
+    func setBlackList(add: Bool) {
+        let hud = HToast.showLoading()
+        WFCCIMService.sharedWFCIM().setBlackList(viewModel.userInfo.userId, isBlackListed: add) { [weak self] in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "设置成功")
+            self?.moreButton.menu = self?.createMenu()
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "设置失败")
+        }
+    }
+    
+    // 清除本地
+    func clearLocalMessage() {
+        let conv = viewModel.conv.duplicate()
+        HToast.showUndoMode("正在为您清除聊天记录", onCountdownFinished: {
+            WFCCIMService.sharedWFCIM().clearMessages(conv)
+            NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+            HToast.showTipAutoHidden(text: "删除成功")
+        })
+    }
+    
+    // 清除远程
+    func clearRemoteMessage() {
+        let conv = viewModel.conv.duplicate()
+        HToast.showUndoMode("正在为双方清除聊天记录", onCountdownFinished: {
+            WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(conv) {
+                HToast.showTipAutoHidden(text: "删除成功")
+                NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+            } error: { _ in
+                HToast.showTipAutoHidden(text: "删除失败")
+            }
+        })
+        
     }
 }

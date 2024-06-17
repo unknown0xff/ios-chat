@@ -71,8 +71,9 @@ class HChatListViewController: HBaseViewController {
     override func configureSubviews() {
         super.configureSubviews()
         
+        navBarBackgroundView.image = nil
         tableView.tableHeaderView = searchBar
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = Colors.white
         tableView.register([HChatListCell.self, HFriendRequestCell.self])
         
         dataSource = HChatListDataSource(tableView: tableView, cellProvider: { tableView, indexPath, row in

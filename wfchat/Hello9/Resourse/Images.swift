@@ -96,6 +96,12 @@ enum Images {
 
     static let icon_menu_quit = UIImage(named: "icon_menu_quit")!
 
+    static let icon_menu_share = UIImage(named: "icon_menu_share")!
+
+    static let icon_menu_shield = UIImage(named: "icon_menu_shield")!
+
+    static let icon_menu_voice = UIImage(named: "icon_menu_voice")!
+
     static let icon_message = UIImage(named: "icon_message")!
 
     static let icon_mine_feedback = UIImage(named: "icon_mine_feedback")!
@@ -135,8 +141,6 @@ enum Images {
     static let icon_search_gray = UIImage(named: "icon_search_gray")!
 
     static let icon_secret = UIImage(named: "icon_secret")!
-
-    static let icon_share = UIImage(named: "icon_share")!
 
     static let icon_success_green = UIImage(named: "icon_success_green")!
 

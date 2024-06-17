@@ -14,7 +14,7 @@ class HSingleChatSetViewModel: HBasicViewModel {
         case header(_ userInfo: HUserInfoModel)
     }
     
-    private let conv: WFCCConversation
+    let conv: WFCCConversation
     
     let userInfo: HUserInfoModel
     

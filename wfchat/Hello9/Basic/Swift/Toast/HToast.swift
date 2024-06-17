@@ -68,7 +68,7 @@ enum HToast {
     @discardableResult
     static func showUndoMode(
         _ text: String,
-        remainingTime: Int = 3,
+        remainingTime: Int = 5,
         animated: Bool = true,
         onCountdownFinished: (() -> Void)? = nil,
         onCancelled: (() -> Void)? = nil
@@ -85,7 +85,7 @@ enum HToast {
             make.height.equalTo(85 + HUIConfigure.safeBottomMargin)
         }
         
-        let hud = MBProgressHUD(view: placeHolderView)
+        let hud = MBProgressHUD.showAdded(to: placeHolderView, animated: true)
         let customView = HCustomToastView(frame: .zero, remainingTime: remainingTime)
         customView.onCountdownFinished = { [weak hud] in
             if let onCountdownFinished {
@@ -115,6 +115,26 @@ enum HToast {
         return hud
     }
    
+    @discardableResult
+    static func showLoading(
+        _ text: String = "加载中...",
+        animated: Bool = true,
+        afterDelay: TimeInterval? = nil
+    ) -> MBProgressHUD? {
+        guard let view = UIViewController.h_top?.view else {
+            return nil
+        }
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        hud.label.text = text
+        hud.mode = .indeterminate
+        hud.show(animated: animated)
+        if let afterDelay {
+            hud.hide(animated: animated, afterDelay: afterDelay)
+        }
+        return hud
+    }
+    
+    
     @discardableResult
     static func show(
         on view: UIView,

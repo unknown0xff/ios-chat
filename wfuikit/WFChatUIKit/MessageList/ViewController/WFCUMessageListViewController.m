@@ -1765,6 +1765,7 @@
                     }
                 }
             }
+            [ws.collectionView reloadData];
         } error:^(int error_code) {
             
         }];
@@ -2285,33 +2286,6 @@
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:objName forIndexPath:indexPath];
     }
-//
-//    NSUInteger next = indexPath.row + 1;
-//    if (self.modelList.count > next) {
-//        WFCUMessageModel *nextModel = self.modelList[next];
-//        if ([nextModel.message.fromUser isEqualToString:model.message.fromUser]) {
-//            model.showBubbleTail = NO;
-//        } else {
-//            model.showBubbleTail = YES;
-//        }
-//    } else {
-//        model.showBubbleTail = YES;
-//    }
-//
-//    BOOL isGroupType = model.message.conversation.type == Group_Type && model.message.direction == MessageDirection_Receive;
-//    NSInteger pre = indexPath.row - 1;
-//    if (pre >= 0) {
-//        WFCUMessageModel *preModel = self.modelList[pre];
-//        BOOL showTime = [WFCUUtilities isSameYearAndMonth:preModel.message.serverTime other:model.message.serverTime];
-//        model.showTimeLabel = !showTime;
-//
-//        model.showNameLabel = isGroupType && (![model.message.fromUser isEqualToString:preModel.message.fromUser]);
-//
-//    } else {
-//        model.showTimeLabel = YES;
-//        model.showNameLabel = isGroupType;
-//    }
-    
     cell.delegate = self;
     
     [[NSNotificationCenter defaultCenter] removeObserver:cell];
@@ -2342,6 +2316,10 @@
 
 #pragma mark -UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= self.modelList.count) {
+        return;
+    }
+    
     WFCUMessageModel *model = self.modelList[indexPath.row];
     
     if (self.mentionedMsgs.count) {

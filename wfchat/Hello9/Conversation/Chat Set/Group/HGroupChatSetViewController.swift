@@ -50,23 +50,7 @@ class HGroupChatSetViewController: HBaseViewController {
         let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
         
         let moreButton = self.actionButton(with: Images.icon_more, title: "更多")
-        let autoDel = UIAction(title: "开启自动删除", image: Images.icon_menu_clock) { _ in
-            
-        }
-        let clearHistory = UIAction(title: "清空聊天记录", image: Images.icon_menu_clear) { [weak self]_ in
-            self?.didClickClearHistroyMenu()
-        }
-        let quit = UIAction(title: "退出群组", image: Images.icon_menu_quit, attributes: .destructive) { [weak self] _ in
-            self?.didClickQuitMenu()
-        }
-        let del = UIAction(title: "删除群组", image: Images.icon_menu_del, attributes: .destructive) { [weak self]_ in
-            self?.didClickDelGroupMenu()
-        }
-        let subChildren = viewModel.isGroupOwner ? [quit, del] : [quit]
-        let subMenu = UIMenu(title: "", options: .displayInline, children: subChildren)
-        let menu = UIMenu(title: "", children: [autoDel, clearHistory, subMenu])
-        
-        moreButton.menu = menu
+        moreButton.menu = createMenu()
         moreButton.showsMenuAsPrimaryAction = true
         
         let s = UIStackView(arrangedSubviews: [secretButton, searchButton, moreButton])
@@ -197,6 +181,27 @@ class HGroupChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
+    
+    func createMenu() -> UIMenu {
+        let autoDel = UIAction(title: "开启自动删除", image: Images.icon_menu_clock) { _ in
+            
+        }
+        let clearHistory = UIAction(title: "清空聊天记录", image: Images.icon_menu_clear) { [weak self]_ in
+            self?.didClickClearHistroyMenu()
+        }
+        let quit = UIAction(title: "退出群组", image: Images.icon_menu_quit, attributes: .destructive) { [weak self] _ in
+            self?.didClickQuitMenu()
+        }
+        let del = UIAction(title: "删除群组", image: Images.icon_menu_del, attributes: .destructive) { [weak self]_ in
+            self?.didClickDelGroupMenu()
+        }
+        let subChildren = viewModel.isGroupOwner ? [quit, del] : [quit]
+        let subMenu = UIMenu(title: "", options: .displayInline, children: subChildren)
+        let menu = UIMenu(title: "", children: [autoDel, clearHistory, subMenu])
+        
+        return menu
+    }
+    
     func didClickClearHistroyMenu() {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: "取消", style: .cancel)
@@ -274,23 +279,25 @@ extension HGroupChatSetViewController {
     
     // 清除本地
     func clearLocalMessage() {
-        WFCCIMService.sharedWFCIM().clearMessages(self.viewModel.conv)
-        NotificationCenter.default.post(name: .init(kMessageListChanged), object: self.viewModel.conv)
-        HToast.showAutoHidden(on: self.view, text: "删除成功")
+        let conv = viewModel.conv.duplicate()
+        HToast.showUndoMode("正在为您清除聊天记录", onCountdownFinished: {
+            WFCCIMService.sharedWFCIM().clearMessages(conv)
+            NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+            HToast.showTipAutoHidden(text: "删除成功")
+        })
     }
     
     // 清除远程
     func clearRemoteMessage() {
-        let hud = HToast.show(on: view, text: "正在为所有人清除聊天记录")
-        WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(viewModel.conv) { [weak self] in
-            hud.hide(animated: false)
-            guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "删除成功")
-            NotificationCenter.default.post(name: .init(kMessageListChanged), object: self.viewModel.conv)
-        } error: { [weak self] _ in
-            hud.hide(animated: false)
-            guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "删除失败")
-        }
+        let conv = viewModel.conv.duplicate()
+        HToast.showUndoMode("正在为所有人清除聊天记录", onCountdownFinished: {
+            WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(conv) {
+                HToast.showTipAutoHidden(text: "删除成功")
+                NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+            } error: { _ in
+                HToast.showTipAutoHidden(text: "删除失败")
+            }
+        })
+        
     }
 }

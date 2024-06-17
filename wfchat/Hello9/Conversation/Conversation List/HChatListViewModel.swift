@@ -79,8 +79,7 @@ class HChatListViewModel: HBasicViewModel {
         }
         let conv = conversations[indexPath.row].conversation
         return await withCheckedContinuation { result in
-            WFCCIMService.sharedWFCIM().setConversation(conv, top: isTop ? 1 : 0) { [weak self] in
-                self?.refresh()
+            WFCCIMService.sharedWFCIM().setConversation(conv, top: isTop ? 1 : 0) { 
                 result.resume(returning: nil)
             } error: { code in
                 result.resume(returning: HError(code: code, message: ""))
@@ -95,8 +94,7 @@ class HChatListViewModel: HBasicViewModel {
         let conv = conversations[indexPath.row].conversation
         
         return await withCheckedContinuation { result in
-            WFCCIMService.sharedWFCIM().setConversation(conv, silent: isSilent) { [weak self] in
-                self?.refresh()
+            WFCCIMService.sharedWFCIM().setConversation(conv, silent: isSilent) {
                 result.resume(returning: nil)
             } error: { code in
                 result.resume(returning: HError(code: code, message: ""))
