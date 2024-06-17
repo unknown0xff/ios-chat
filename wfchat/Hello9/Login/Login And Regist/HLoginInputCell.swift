@@ -54,18 +54,8 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         return btn
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
@@ -90,8 +80,8 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         rightButton.addTarget(self, action: #selector(didClickRightButton(_:)), for: .touchUpInside)
     }
     
-    private func makeConstraints() {
-        
+    override func makeConstraints() {
+        super.makeConstraints()
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(13)

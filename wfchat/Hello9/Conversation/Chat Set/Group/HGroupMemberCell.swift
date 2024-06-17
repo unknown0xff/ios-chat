@@ -33,24 +33,16 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
         return imageView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         contentView.addSubview(avatar)
         contentView.addSubview(nameLabel)
         contentView.addSubview(typeLabel)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
+        
         avatar.snp.makeConstraints { make in
             make.left.equalTo(16)
             make.top.equalTo(12)

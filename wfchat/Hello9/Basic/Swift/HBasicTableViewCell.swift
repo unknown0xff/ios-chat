@@ -17,6 +17,39 @@ class HBasicTableViewCell<T>: UITableViewCell {
         }
     }
     
+    lazy var separatorView: UIImageView = UIImageView()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(separatorView)
+        configureSubviews()
+        makeConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureSubviews() { }
+    func makeConstraints() { }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if tableView?.separatorStyle == .singleLine {
+            separatorView.backgroundColor = tableView?.separatorColor
+        } else {
+            separatorView.backgroundColor = .clear
+        }
+        
+        var frame = contentView.frame
+        frame.origin.x = separatorInset.left
+        frame.origin.y = frame.size.height - 1
+        frame.size.width = frame.size.width - separatorInset.left - separatorInset.right
+        frame.size.height = 1
+        separatorView.frame = frame
+    }
+    
     func bindData(_ data: T?) { }
 }
 

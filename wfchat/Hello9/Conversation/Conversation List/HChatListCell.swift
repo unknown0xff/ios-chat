@@ -90,23 +90,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         return imageView
     }()
     
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
+        
         contentView.addSubview(avatar)
         contentView.addSubview(unreadLabel)
         
@@ -128,7 +118,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         contentView.addSubview(bottomStack)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
         
         avatar.snp.makeConstraints { make in
             make.height.width.equalTo(48)

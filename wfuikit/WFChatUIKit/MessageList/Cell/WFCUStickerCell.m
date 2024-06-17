@@ -27,6 +27,12 @@
         float scale = MIN(width/size.height, width/size.width);
         size = CGSizeMake(size.width * scale, size.height * scale);
     }
+    
+    CGFloat aspect = size.width / size.height;
+    
+    size.width = MIN(UIScreen.mainScreen.bounds.size.width / 2.0, size.width);
+    size.height = size.width / aspect;
+    
     return size;
 }
 

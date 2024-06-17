@@ -32,23 +32,14 @@ class HSelectedActionCell: HBasicTableViewCell<HSelectActionType> {
     }()
     
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureSubviews()
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureSubviews() {
+    override func configureSubviews() {
+        super.configureSubviews()
         contentView.addSubview(iconBackgroundView)
         contentView.addSubview(titleLabel)
     }
     
-    private func makeConstraints() {
+    override func makeConstraints() {
+        super.makeConstraints()
         iconBackgroundView.snp.makeConstraints { make in
             make.left.equalTo(24)
             make.width.height.equalTo(44)
