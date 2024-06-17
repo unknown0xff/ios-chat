@@ -283,25 +283,30 @@ extension HSingleChatSetViewController {
     
     // 清除本地
     func clearLocalMessage() {
+        navigationController?.popViewController(animated: true)
         let conv = viewModel.conv.duplicate()
-        HToast.showUndoMode("正在为您清除聊天记录", onCountdownFinished: {
-            WFCCIMService.sharedWFCIM().clearMessages(conv)
-            NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
-            HToast.showTipAutoHidden(text: "删除成功")
-        })
+        DispatchQueue.main.async {
+            HToast.showUndoMode("正在为您清除聊天记录", onCountdownFinished: {
+                WFCCIMService.sharedWFCIM().clearMessages(conv)
+                NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+                HToast.showTipAutoHidden(text: "删除成功")
+            })
+        }
     }
     
     // 清除远程
     func clearRemoteMessage() {
+        navigationController?.popViewController(animated: true)
         let conv = viewModel.conv.duplicate()
-        HToast.showUndoMode("正在为双方清除聊天记录", onCountdownFinished: {
-            WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(conv) {
-                HToast.showTipAutoHidden(text: "删除成功")
-                NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
-            } error: { _ in
-                HToast.showTipAutoHidden(text: "删除失败")
-            }
-        })
-        
+        DispatchQueue.main.async {
+            HToast.showUndoMode("正在为双方清除聊天记录", onCountdownFinished: {
+                WFCCIMService.sharedWFCIM().clearRemoteConversationMessage(conv) {
+                    HToast.showTipAutoHidden(text: "删除成功")
+                    NotificationCenter.default.post(name: .init(kMessageListChanged), object: conv)
+                } error: { _ in
+                    HToast.showTipAutoHidden(text: "删除失败")
+                }
+            })
+        }
     }
 }
