@@ -218,9 +218,6 @@ class HChatListViewController: HBaseViewController {
     
     @objc func didClickSearchButton(_ sender: UIButton) {
         // TODO search
-        let vc = HMyFriendListViewController()
-//        vc.viewModel.maxSelectedCount = 3
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -332,7 +329,7 @@ extension HChatListViewController {
     }
     
     @objc func didClickMenuButton(_ sender: UIButton) {
-        let vc = HSelectedUserViewController()
+        let vc = HCreateConversationViewController()
         vc.output.receive(on: RunLoop.main)
             .sink { [weak self] (useIds, isSecret) in
                 self?.createChat(useIds, isSecret: isSecret)

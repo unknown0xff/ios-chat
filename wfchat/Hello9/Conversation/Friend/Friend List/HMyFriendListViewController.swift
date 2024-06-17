@@ -12,7 +12,7 @@ import Combine
 
 class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.applyDefaultConfigure()
         tableView.delegate = self
@@ -28,7 +28,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     private typealias Row = HMyFriendListViewModel.Row
     private var dataSource: HMyFriendListDataSource! = nil
     
-    private var cancellables = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     var viewModel = HMyFriendListViewModel()
     
     override func viewDidLoad() {

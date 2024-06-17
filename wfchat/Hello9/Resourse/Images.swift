@@ -10,6 +10,8 @@ enum Images {
 
     static let icon_add_friend = UIImage(named: "icon_add_friend")!
 
+    static let icon_add_group = UIImage(named: "icon_add_group")!
+
     static let icon_arrow_back_outline = UIImage(named: "icon_arrow_back_outline")!
 
     static let icon_arrow_down = UIImage(named: "icon_arrow_down")!
@@ -75,6 +77,8 @@ enum Images {
     static let icon_group = UIImage(named: "icon_group")!
 
     static let icon_key_gray = UIImage(named: "icon_key_gray")!
+
+    static let icon_key_yellow = UIImage(named: "icon_key_yellow")!
 
     static let icon_light = UIImage(named: "icon_light")!
 
