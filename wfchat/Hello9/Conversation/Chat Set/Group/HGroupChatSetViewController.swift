@@ -45,15 +45,32 @@ class HGroupChatSetViewController: HBaseViewController {
         return s
     }()
     
+    private lazy var silentButton: UIButton = {
+        let silentButton = self.actionButton(with: Images.icon_mute_black, title: "静音", selector: #selector(didClickSilentButton(_:)))
+        
+        silentButton.configurationUpdateHandler = { btn in
+            var config = btn.configuration
+            let title = btn.state == .selected ? "取消静音" : "静音"
+            config?.attributedTitle = AttributedString(title, attributes: .init([
+                .font : UIFont.system13,
+                .foregroundColor: Colors.themeBusiness
+            ]))
+            btn.configuration = config
+        }
+        
+        silentButton.setTitle("取消静音", for: .selected)
+        silentButton.setImage(Images.icon_mute_black, for: .selected)
+        return silentButton
+    }()
+    
     private lazy var actions: UIStackView = {
-        let secretButton = self.actionButton(with: Images.icon_mute_black, title: "静音", selector: #selector(didClickBackBarButton(_:)))
         let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
         
         let moreButton = self.actionButton(with: Images.icon_more, title: "更多")
         moreButton.menu = createMenu()
         moreButton.showsMenuAsPrimaryAction = true
         
-        let s = UIStackView(arrangedSubviews: [secretButton, searchButton, moreButton])
+        let s = UIStackView(arrangedSubviews: [silentButton, searchButton, moreButton])
         s.axis = .horizontal
         s.spacing = 11
         s.distribution = .fillEqually
@@ -99,6 +116,9 @@ class HGroupChatSetViewController: HBaseViewController {
         navBarBackgroundView.image = Images.icon_nav_background_green
         backgroundView.image = Images.icon_background_gray1
         containerView.subScrollViews = tabViewController.subScrollerViews
+        
+        editButton.isHidden = !viewModel.isGroupOwner
+        silentButton.isSelected = viewModel.isSilent
     }
     
     override func configureSubviews() {
@@ -181,7 +201,6 @@ class HGroupChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
-    
     func createMenu() -> UIMenu {
         let autoDel = UIAction(title: "开启自动删除", image: Images.icon_menu_clock) { _ in
             
@@ -240,6 +259,14 @@ class HGroupChatSetViewController: HBaseViewController {
         present(sheet, animated: true)
     }
     
+    @objc func didClickSilentButton(_ sender: UIButton) {
+        if sender.isSelected {
+            setSilent(false)
+        } else {
+            setSilent(true)
+        }
+    }
+    
     @objc func didClickEditButton(_ sender: UIButton) {
         HModalPresentNavigationController.show(root: HGroupChatEditViewController(), preferredStyle: .actionSheet)
     }
@@ -253,10 +280,17 @@ class HGroupChatSetViewController: HBaseViewController {
         btn.configuration?.background.cornerRadius = 10
         return btn
     }
-    
 }
 
 extension HGroupChatSetViewController {
+    
+    func setSilent(_ isSilent: Bool) {
+        WFCCIMService.sharedWFCIM().setConversation(viewModel.conv, silent: isSilent) { [weak self] in
+            self?.silentButton.isSelected = isSilent
+        } error: { code in
+            
+        }
+    }
     
     // 解散
     func dismissGroup() {

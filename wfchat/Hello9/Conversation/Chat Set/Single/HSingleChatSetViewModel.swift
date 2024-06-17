@@ -34,5 +34,8 @@ class HSingleChatSetViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    var isSilent: Bool {
+        return WFCCIMService.sharedWFCIM().isConversationSilent(conv)
+    }
 }
 

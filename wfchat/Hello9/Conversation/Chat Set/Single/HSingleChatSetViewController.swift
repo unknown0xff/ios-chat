@@ -182,10 +182,18 @@ class HSingleChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
-    
     func createMenu() -> UIMenu {
-        let voice = UIAction(title: "声音", image: Images.icon_menu_voice) { _ in
+        let voice: UIAction
+        if viewModel.isSilent {
+            voice = UIAction(title: "取消静音", image: Images.icon_menu_voice) { [weak self] _ in
+                self?.setSilent(false)
+            }
+        } else {
+            voice = UIAction(title: "静音", image: Images.icon_menu_voice) { [weak self] _ in
+                self?.setSilent(true)
+            }
         }
+        
         let share = UIAction(title: "分享好友名片", image: Images.icon_menu_share) { _ in
             
         }
@@ -256,6 +264,18 @@ extension HSingleChatSetViewController {
             HToast.showTipAutoHidden(text: "设置成功")
             self?.moreButton.menu = self?.createMenu()
         } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "设置失败")
+        }
+    }
+    
+    func setSilent(_ isSilent: Bool) {
+        let hud = HToast.showLoading()
+        WFCCIMService.sharedWFCIM().setConversation(viewModel.conv, silent: isSilent) { [weak self] in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "设置成功")
+            self?.moreButton.menu = self?.createMenu()
+        } error: { code in
             hud?.hide(animated: true)
             HToast.showTipAutoHidden(text: "设置失败")
         }

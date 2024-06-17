@@ -57,6 +57,9 @@ class HGroupChatSetViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    var isSilent: Bool {
+        return WFCCIMService.sharedWFCIM().isConversationSilent(conv)
+    }
     var isGroupOwner: Bool {
         if conv.type != .Group_Type {
             return false
