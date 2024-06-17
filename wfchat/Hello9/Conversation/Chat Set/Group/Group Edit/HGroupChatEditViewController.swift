@@ -24,7 +24,16 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
     private var dataSource: UICollectionViewDiffableDataSource<Section, Row>! = nil
     
     private var cancellables = Set<AnyCancellable>()
-    var viewModel = HGroupChatEditViewModel()
+    let viewModel: HGroupChatEditViewModel
+    
+    init(conv: WFCCConversation) {
+        viewModel = HGroupChatEditViewModel(conv: conv)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func configureSubviews() {
         super.configureSubviews()

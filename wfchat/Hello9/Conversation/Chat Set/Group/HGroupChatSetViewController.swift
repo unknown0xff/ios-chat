@@ -214,7 +214,7 @@ class HGroupChatSetViewController: HBaseViewController {
         let del = UIAction(title: "删除群组", image: Images.icon_menu_del, attributes: .destructive) { [weak self]_ in
             self?.didClickDelGroupMenu()
         }
-        let subChildren = viewModel.isGroupOwner ? [quit, del] : [quit]
+        let subChildren = viewModel.isGroupOwner ? [del] : [quit]
         let subMenu = UIMenu(title: "", options: .displayInline, children: subChildren)
         let menu = UIMenu(title: "", children: [autoDel, clearHistory, subMenu])
         
@@ -268,7 +268,7 @@ class HGroupChatSetViewController: HBaseViewController {
     }
     
     @objc func didClickEditButton(_ sender: UIButton) {
-        HModalPresentNavigationController.show(root: HGroupChatEditViewController(), preferredStyle: .actionSheet)
+        HModalPresentNavigationController.show(root: HGroupChatEditViewController(conv: viewModel.conv), preferredStyle: .actionSheet)
     }
     
     private func actionButton(with image: UIImage, title: String, selector: Selector? = nil) -> UIButton {

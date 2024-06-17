@@ -34,8 +34,12 @@ class HGroupChatEditViewModel: HBasicViewModel {
         case header(_ imageUrl: String)
         case info(_ model: HGroupChatEditModel)
     }
-    
-    init() {
+    private(set) var conv: WFCCConversation
+    private var groupInfo = HGroupInfo(info: .init())
+    init(conv: WFCCConversation) {
+        self.conv = conv
+        let info = WFCCIMService.sharedWFCIM().getGroupInfo(conv.target, refresh: false) ?? .init()
+        self.groupInfo = .init(info: info)
         applySnapshot()
     }
     
@@ -44,22 +48,22 @@ class HGroupChatEditViewModel: HBasicViewModel {
         snapshot.appendSections([.header, .info, .section, .section1])
         
         let info = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "@jinyu1288", title: "群名称", category: .name),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "天将降大任于斯人也，必先苦其心志劳其筋骨，饿其体肤", title: "简介", category: .info)]
+            HGroupChatEditModel(icon: Images.icon_logo, value: groupInfo.displayName, title: "群名称", category: .name),
+            HGroupChatEditModel(icon: Images.icon_logo, value: "暂无", title: "简介", category: .info)]
         
         let section = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "私密", title: "群组类型", category: .type),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "1", title: "邀请链接", category: .link),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "可见", title: "聊天记录", category: .history)]
+            HGroupChatEditModel(icon: Images.icon_member_group, value: "私密", title: "群组类型", category: .type),
+            HGroupChatEditModel(icon: Images.icon_link_yellow, value: "1", title: "邀请链接", category: .link),
+            HGroupChatEditModel(icon: Images.icon_chat_green, value: "可见", title: "聊天记录", category: .history)]
         
         let section1 = [
-            HGroupChatEditModel(icon: Images.icon_logo, value: "15", title: "成员", category: .member),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "13/13", title: "权限", category: .auth),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "1", title: "管理员", category: .manager),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "1", title: "被封禁用户", category: .unableUser),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "", title: "近期操作", category: .recently)]
+            HGroupChatEditModel(icon: Images.icon_people, value: "\(groupInfo.memberCount)", title: "成员", category: .member),
+            HGroupChatEditModel(icon: Images.icon_key_gray, value: "13/13", title: "权限", category: .auth),
+            HGroupChatEditModel(icon: Images.icon_owner, value: "1", title: "管理员", category: .manager),
+            HGroupChatEditModel(icon: Images.icon_forbind, value: "1", title: "被封禁用户", category: .unableUser),
+            HGroupChatEditModel(icon: Images.icon_recent, value: "", title: "近期操作", category: .recently)]
         
-        snapshot.appendItems([Row.header("")], toSection: .header)
+        snapshot.appendItems([Row.header(groupInfo.portrait?.absoluteString ?? "")], toSection: .header)
         snapshot.appendItems(info.map { Row.info($0)}, toSection: .info)
         snapshot.appendItems(section.map { Row.info($0)}, toSection: .section)
         snapshot.appendItems(section1.map { Row.info($0)}, toSection: .section1)

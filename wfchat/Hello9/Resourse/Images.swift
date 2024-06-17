@@ -38,6 +38,10 @@ enum Images {
 
     static let icon_camera = UIImage(named: "icon_camera")!
 
+    static let icon_camera_blue = UIImage(named: "icon_camera_blue")!
+
+    static let icon_chat_green = UIImage(named: "icon_chat_green")!
+
     static let icon_chat_list_delete = UIImage(named: "icon_chat_list_delete")!
 
     static let icon_chat_list_mute = UIImage(named: "icon_chat_list_mute")!
@@ -66,11 +70,17 @@ enum Images {
 
     static let icon_eye_open = UIImage(named: "icon_eye_open")!
 
+    static let icon_forbind = UIImage(named: "icon_forbind")!
+
     static let icon_group = UIImage(named: "icon_group")!
+
+    static let icon_key_gray = UIImage(named: "icon_key_gray")!
 
     static let icon_light = UIImage(named: "icon_light")!
 
     static let icon_link = UIImage(named: "icon_link")!
+
+    static let icon_link_yellow = UIImage(named: "icon_link_yellow")!
 
     static let icon_location = UIImage(named: "icon_location")!
 
@@ -85,6 +95,8 @@ enum Images {
     static let icon_logo42 = UIImage(named: "icon_logo42")!
 
     static let icon_logo_title = UIImage(named: "icon_logo_title")!
+
+    static let icon_member_group = UIImage(named: "icon_member_group")!
 
     static let icon_menu = UIImage(named: "icon_menu")!
 
@@ -124,15 +136,21 @@ enum Images {
 
     static let icon_nav_background_green = UIImage(named: "icon_nav_background_green")!
 
+    static let icon_owner = UIImage(named: "icon_owner")!
+
     static let icon_password = UIImage(named: "icon_password")!
 
     static let icon_password_hidden = UIImage(named: "icon_password_hidden")!
+
+    static let icon_people = UIImage(named: "icon_people")!
 
     static let icon_phone = UIImage(named: "icon_phone")!
 
     static let icon_phone_black = UIImage(named: "icon_phone_black")!
 
     static let icon_qr_code = UIImage(named: "icon_qr_code")!
+
+    static let icon_recent = UIImage(named: "icon_recent")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
 
