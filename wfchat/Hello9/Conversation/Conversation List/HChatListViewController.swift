@@ -36,6 +36,7 @@ class HChatListViewController: HBaseViewController {
             make.width.equalTo(UIScreen.width - 32)
             make.height.equalTo(40)
         }
+        bar.backgroundColor = Colors.white
         btn.addTarget(self, action: #selector(didClickSearchButton(_:)), for: .touchUpInside)
         return bar
     }()
@@ -98,8 +99,8 @@ class HChatListViewController: HBaseViewController {
             .store(in: &cancellables)
         
         view.addSubview(tableView)
-        navBar.addSubview(logoView)
-        navBar.addSubview(menuButton)
+        navBar.contentView.addSubview(logoView)
+        navBar.contentView.addSubview(menuButton)
     }
     
     private func addObservers() {
@@ -123,14 +124,14 @@ class HChatListViewController: HBaseViewController {
         
         logoView.snp.makeConstraints { make in
             make.left.equalTo(16)
-            make.bottom.equalTo(-12)
-            make.height.equalTo(31)
-            make.width.equalTo(106)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(19)
+            make.width.equalTo(104)
         }
         
         menuButton.snp.makeConstraints { make in
-            make.right.equalTo(-18)
-            make.bottom.equalTo(-16)
+            make.right.equalTo(-16)
+            make.centerY.equalToSuperview()
             make.width.height.equalTo(24)
         }
         
