@@ -22,6 +22,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     }()
     
     private lazy var indexBar = HIndexBar()
+    private lazy var selectedView = HMyFriendSelectedView(vm: viewModel)
     
     private typealias Section = HMyFriendListViewModel.Section
     private typealias Row = HMyFriendListViewModel.Row
@@ -30,10 +31,10 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HMyFriendListViewModel()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.loadData()
+        addObserver()
     }
     
     override func configureSubviews() {
@@ -48,29 +49,57 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
             return cell
         }
         
+        indexBar.titles = ["#", "A", "B", "C"]
+        
+        view.addSubview(selectedView)
+        view.addSubview(tableView)
+        view.addSubview(indexBar)
+    }
+    
+    func addObserver() {
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
                 self?.dataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancellables)
         
-        indexBar.titles = ["#", "A", "B", "C"]
+        viewModel.$selectedItems
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.updateSubviewConstraints()
+            }.store(in: &cancellables)
+    }
+    
+    func updateSubviewConstraints() {
+        if viewModel.enableMutiSelected {
+            let offset = viewModel.selectedItems.isEmpty ? -68 : 0
+            UIView.animate(withDuration: 0.2) {
+                self.tableView.snp.updateConstraints { make in
+                    make.top.equalTo(self.selectedView.snp.bottom).offset(offset)
+                }
+                self.tableView.layoutIfNeeded()
+            }
+        }
         
-        view.addSubview(tableView)
-        view.addSubview(indexBar)
     }
     
     override func makeConstraints() {
         super.makeConstraints()
+        selectedView.snp.makeConstraints { make in
+            make.left.right.width.equalToSuperview()
+            make.height.equalTo(68)
+            make.top.equalTo(navBar.snp.bottom).offset(10)
+        }
         
+        let offset = viewModel.selectedItems.isEmpty ? -68 : 0
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
+            make.top.equalTo(selectedView.snp.bottom).offset(offset)
             make.width.left.right.bottom.equalToSuperview()
         }
         
         indexBar.snp.makeConstraints { make in
             make.right.equalToSuperview()
-            make.width.equalTo(24)
             make.centerY.equalTo(tableView)
         }
     }
@@ -81,5 +110,14 @@ extension HMyFriendListViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         64
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        if let item = dataSource.itemIdentifier(for: indexPath) {
+            viewModel.toggleItemSelected(item: item, at: indexPath)
+        }
+        
     }
 }

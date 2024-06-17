@@ -27,9 +27,12 @@ class HMyFriendListViewModel: HBasicViewModel {
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<HBasicSection, Row>.init()
     
+    @Published private(set) var selectedItems = [HMyFriendListModel]()
+    
     typealias Row = HMyFriendListModel
     
     var maxSelectedCount: Int = 1
+    var enableMutiSelected: Bool { maxSelectedCount > 1 }
     
     private var friends = [HMyFriendListModel]()
     
@@ -38,7 +41,7 @@ class HMyFriendListViewModel: HBasicViewModel {
         let friendsInfo = WFCCIMService.sharedWFCIM().getUserInfos(ids, inGroup: nil) ?? .init()
         friends = friendsInfo.map {
             var model = HMyFriendListModel(userInfo: $0)
-            model.enableMutiSelected = self.maxSelectedCount > 1
+            model.enableMutiSelected = self.enableMutiSelected
             return model
         }
         applySnapshot()
@@ -51,6 +54,24 @@ class HMyFriendListViewModel: HBasicViewModel {
         snapshot.appendItems(friends)
         
         self.snapshot = snapshot
+    }
+    
+    func toggleItemSelected(item: HMyFriendListModel, at indexPath: IndexPath) {
+        
+        let isSelected = item.isSelected
+        if isSelected {
+            selectedItems.removeAll { $0 == item }
+        } else {
+            var m = item
+            m.isSelected = true
+            selectedItems.append(m)
+        }
+        
+        if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
+            friends[index].isSelected.toggle()
+        }
+        
+        applySnapshot()
     }
     
 }

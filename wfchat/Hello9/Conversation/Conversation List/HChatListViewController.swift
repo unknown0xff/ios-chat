@@ -219,7 +219,7 @@ class HChatListViewController: HBaseViewController {
     @objc func didClickSearchButton(_ sender: UIButton) {
         // TODO search
         let vc = HMyFriendListViewController()
-        vc.viewModel.maxSelectedCount = 3
+//        vc.viewModel.maxSelectedCount = 3
         navigationController?.pushViewController(vc, animated: true)
     }
 }

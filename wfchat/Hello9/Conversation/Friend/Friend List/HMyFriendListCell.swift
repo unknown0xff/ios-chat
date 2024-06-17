@@ -32,6 +32,7 @@ class HMyFriendListCell: HBasicTableViewCell<HMyFriendListModel> {
     
     override func configureSubviews() {
         super.configureSubviews()
+        selectionStyle = .none
         contentView.addSubview(icon)
         contentView.addSubview(titleLabel)
         contentView.addSubview(editIcon)

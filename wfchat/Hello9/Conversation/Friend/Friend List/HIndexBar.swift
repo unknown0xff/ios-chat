@@ -178,13 +178,12 @@ private extension HIndexBarItem {
     }
     
     func makeConstraints() {
-        titleLabel
-            .snp
-            .makeConstraints { make in
-                make.center.equalToSuperview()
-                make.width.equalTo(13)
-                make.top.equalToSuperview().inset(4)
-                make.left.equalToSuperview()
-            }
+        titleLabel.snp.makeConstraints { make in
+            make.width.equalTo(13)
+            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().inset(4)
+            make.left.equalTo(4)
+            make.right.equalTo(-7)
+        }
     }
 }

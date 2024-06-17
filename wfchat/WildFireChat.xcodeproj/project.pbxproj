@@ -185,6 +185,7 @@
 		60A3F7DA2C20098A00F855A2 /* HMyFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */; };
 		60A3F7DC2C200B0800F855A2 /* HMyFriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */; };
 		60A3F7DE2C2020E100F855A2 /* HIndexBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */; };
+		60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DF2C20252F00F855A2 /* HMyFriendSelectedView.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
 		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
 		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
@@ -549,6 +550,7 @@
 		60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendListViewModel.swift; sourceTree = "<group>"; };
 		60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendListCell.swift; sourceTree = "<group>"; };
 		60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIndexBar.swift; sourceTree = "<group>"; };
+		60A3F7DF2C20252F00F855A2 /* HMyFriendSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendSelectedView.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
 		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
@@ -1414,6 +1416,7 @@
 				60A3F7D92C20098A00F855A2 /* HMyFriendListViewModel.swift */,
 				60A3F7DB2C200B0800F855A2 /* HMyFriendListCell.swift */,
 				60A3F7DD2C2020E100F855A2 /* HIndexBar.swift */,
+				60A3F7DF2C20252F00F855A2 /* HMyFriendSelectedView.swift */,
 			);
 			path = "Friend List";
 			sourceTree = "<group>";
@@ -1935,6 +1938,7 @@
 				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				60A3F7B42C1B136200F855A2 /* HGroupMemeberViewController.swift in Sources */,
 				60F5CF882C0AB5CA0013D912 /* HCreateGroupCell.swift in Sources */,
+				60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */,
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
 				60A3F7B02C1AFB8300F855A2 /* HLabel.swift in Sources */,
 				60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */,
