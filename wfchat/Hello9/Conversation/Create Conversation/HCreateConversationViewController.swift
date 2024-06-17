@@ -61,7 +61,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
         navBar.titleLabel.text = "发起会话"
     }
     
-    @objc func didClickSearchButton(_ sender: UIButton) {
+    @objc override func didClickSearchButton(_ sender: UIButton) {
         
     }
     

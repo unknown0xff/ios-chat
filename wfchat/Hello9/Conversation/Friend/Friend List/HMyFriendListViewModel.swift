@@ -33,7 +33,14 @@ class HMyFriendListViewModel: HBasicViewModel {
     
     var maxSelectedCount: Int = 1
     var enableMutiSelected: Bool { maxSelectedCount > 1 }
+    var showSearchBar: Bool = false
     
+    var searchWord: String = "" {
+        didSet {
+            search()
+        }
+    }
+    @Published private(set) var searchFriends = [HMyFriendListModel]()
     private var friends = [HMyFriendListModel]()
     
     func loadData() {
@@ -56,7 +63,24 @@ class HMyFriendListViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
-    func toggleItemSelected(item: HMyFriendListModel, at indexPath: IndexPath) {
+    func selectedItem(item: HMyFriendListModel) {
+        let contain = selectedItems.contains(where: { $0.userId == item.userId })
+        if contain {
+            return
+        }
+        
+        var m = item
+        m.isSelected = true
+        selectedItems.append(m)
+        
+        if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
+            friends[index].isSelected = true
+        }
+        
+        applySnapshot()
+    }
+    
+    func toggleItemSelected(item: HMyFriendListModel) {
         
         let isSelected = item.isSelected
         if isSelected {
@@ -74,6 +98,18 @@ class HMyFriendListViewModel: HBasicViewModel {
         applySnapshot()
     }
     
+    func search() {
+        if searchWord.isEmpty {
+            searchFriends = []
+        } else {
+            let result = WFCCIMService.sharedWFCIM().searchFriends(searchWord) ?? .init()
+            searchFriends = result.map {
+                var model = HMyFriendListModel(userInfo: $0)
+                model.enableMutiSelected = false
+                return model
+            }
+        }
+    }
 }
 
 

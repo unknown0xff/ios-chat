@@ -65,3 +65,15 @@ extension UICellAccessory {
         return .customView(configuration: .init(customView: imageView, placement: placement))
     }
 }
+
+extension CACornerMask {
+    
+    public static var leftTop: CACornerMask { layerMinXMinYCorner }
+
+    public static var rightTop: CACornerMask { layerMaxXMinYCorner }
+
+    public static var leftBottom: CACornerMask { layerMinXMaxYCorner }
+
+    public static var rightBottom: CACornerMask { layerMaxXMaxYCorner }
+    
+}

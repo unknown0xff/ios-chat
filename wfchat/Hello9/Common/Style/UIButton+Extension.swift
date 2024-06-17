@@ -65,6 +65,7 @@ extension UIButton {
         let btn = UIButton(type: .system)
         btn.setTitle(title, for: .normal)
         btn.setTitleColor(titleColor, for: .normal)
+        btn.setTitleColor(titleColor.withAlphaComponent(0.618), for: .disabled)
         btn.titleLabel?.font = .system16
         return btn
     }

@@ -73,9 +73,12 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegate {
         group.interItemSpacing = .fixed(10)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.orthogonalScrollingBehavior = .continuous
+        
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 14, bottom: 16, trailing: 14)
-        return UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+       
+        return layout
     }
 }
 
@@ -89,6 +92,9 @@ class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel
         contentView.addSubview(avatar)
         avatar.layer.cornerRadius = 20
         avatar.layer.masksToBounds = true
+        
+        selectedBackgroundColor = .clear
+        unselectedBackgroundColor = .clear
     }
     
     override func makeConstraints() {

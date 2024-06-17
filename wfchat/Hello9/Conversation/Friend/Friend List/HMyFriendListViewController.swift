@@ -21,6 +21,13 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         return tableView
     }()
     
+    private lazy var searchButton: UIButton = {
+        let btn = UIButton.search
+        btn.configuration?.background.backgroundColor = Colors.white
+        btn.addTarget(self, action: #selector(didClickSearchButton(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
     private lazy var indexBar = HIndexBar()
     private lazy var selectedView = HMyFriendSelectedView(vm: viewModel)
     
@@ -42,15 +49,13 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         
         tableView.register([HMyFriendListCell.self])
         
-        dataSource = .init(tableView: tableView) { tableView, indexPath, row in
-            let cell = tableView.cell(of: HMyFriendListCell.self, for: indexPath)
-            cell.indexPath = indexPath
-            cell.cellData = row
-            return cell
-        }
+        dataSource = .init(tableView: tableView, cellProvider: cellProvider())
         
         indexBar.titles = ["#", "A", "B", "C"]
         
+        if viewModel.showSearchBar {
+            view.addSubview(searchButton)
+        }
         view.addSubview(selectedView)
         view.addSubview(tableView)
         view.addSubview(indexBar)
@@ -84,12 +89,36 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         
     }
     
+    func cellProvider() ->  HMyFriendListDataSource.CellProvider {
+        return { tableView, indexPath, row in
+           let cell = tableView.cell(of: HMyFriendListCell.self, for: indexPath)
+           cell.indexPath = indexPath
+           cell.cellData = row
+           return cell
+       }
+    }
+    
     override func makeConstraints() {
         super.makeConstraints()
-        selectedView.snp.makeConstraints { make in
-            make.left.right.width.equalToSuperview()
-            make.height.equalTo(68)
-            make.top.equalTo(navBar.snp.bottom).offset(10)
+        
+        if viewModel.showSearchBar {
+            searchButton.snp.makeConstraints { make in
+                make.left.equalTo(16)
+                make.right.equalTo(-16)
+                make.height.equalTo(40)
+                make.top.equalTo(navBar.snp.bottom).offset(10)
+            }
+            selectedView.snp.makeConstraints { make in
+                make.left.right.width.equalToSuperview()
+                make.height.equalTo(68)
+                make.top.equalTo(searchButton.snp.bottom).offset(20)
+            }
+        } else {
+            selectedView.snp.makeConstraints { make in
+                make.left.right.width.equalToSuperview()
+                make.height.equalTo(68)
+                make.top.equalTo(navBar.snp.bottom).offset(10)
+            }
         }
         
         let offset = viewModel.selectedItems.isEmpty ? -68 : 0
@@ -104,6 +133,9 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         }
     }
     
+    @objc func didClickSearchButton(_ sender: UIButton) {
+        
+    }
 }
 
 extension HMyFriendListViewController {
@@ -116,7 +148,7 @@ extension HMyFriendListViewController {
         tableView.deselectRow(at: indexPath, animated: false)
         
         if let item = dataSource.itemIdentifier(for: indexPath) {
-            viewModel.toggleItemSelected(item: item, at: indexPath)
+            viewModel.toggleItemSelected(item: item)
         }
         
     }

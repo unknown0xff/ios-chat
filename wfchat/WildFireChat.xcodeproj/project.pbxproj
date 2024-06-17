@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3109241E300C00B935D3 /* UIFont+YH.m */; };
 		149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B311D242247E900B935D3 /* UIImage+ERCategory.m */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
+		2070377B2C206EA0000DEC5E /* HSelectedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037792C206EA0000DEC5E /* HSelectedFriendCell.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
@@ -188,13 +189,7 @@
 		60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7DF2C20252F00F855A2 /* HMyFriendSelectedView.swift */; };
 		60A3F7E22C203A9D00F855A2 /* HCreateConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7E12C203A9D00F855A2 /* HCreateConversationViewController.swift */; };
 		60F5CF772C0974DE0013D912 /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF762C0974DE0013D912 /* HSearchBar.swift */; };
-		60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */; };
-		60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */; };
-		60F5CF7E2C09D0A30013D912 /* HSelectedActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */; };
-		60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */; };
 		60F5CF842C0AB0E20013D912 /* HCreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF832C0AB0E20013D912 /* HCreateGroupViewController.swift */; };
-		60F5CF862C0AB1040013D912 /* HCreateGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF852C0AB1040013D912 /* HCreateGroupViewModel.swift */; };
-		60F5CF882C0AB5CA0013D912 /* HCreateGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF872C0AB5CA0013D912 /* HCreateGroupCell.swift */; };
 		60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF892C0AF3880013D912 /* HUserInfoModel.swift */; };
 		60F5CF922C0D55DB0013D912 /* HMessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */; };
 		60F5CF942C0D55FA0013D912 /* HMessageNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */; };
@@ -308,6 +303,7 @@
 		149B311C242247E900B935D3 /* UIImage+ERCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ERCategory.h"; sourceTree = "<group>"; };
 		149B311D242247E900B935D3 /* UIImage+ERCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ERCategory.m"; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		207037792C206EA0000DEC5E /* HSelectedFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSelectedFriendCell.swift; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2B4C026D252F4A570043FA41 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -554,13 +550,7 @@
 		60A3F7DF2C20252F00F855A2 /* HMyFriendSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMyFriendSelectedView.swift; sourceTree = "<group>"; };
 		60A3F7E12C203A9D00F855A2 /* HCreateConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateConversationViewController.swift; sourceTree = "<group>"; };
 		60F5CF762C0974DE0013D912 /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
-		60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewController.swift; sourceTree = "<group>"; };
-		60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedUserViewModel.swift; sourceTree = "<group>"; };
-		60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedActionCell.swift; sourceTree = "<group>"; };
-		60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedFriendCell.swift; sourceTree = "<group>"; };
 		60F5CF832C0AB0E20013D912 /* HCreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupViewController.swift; sourceTree = "<group>"; };
-		60F5CF852C0AB1040013D912 /* HCreateGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupViewModel.swift; sourceTree = "<group>"; };
-		60F5CF872C0AB5CA0013D912 /* HCreateGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupCell.swift; sourceTree = "<group>"; };
 		60F5CF892C0AF3880013D912 /* HUserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserInfoModel.swift; sourceTree = "<group>"; };
 		60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageListViewController.swift; sourceTree = "<group>"; };
 		60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageNavBar.swift; sourceTree = "<group>"; };
@@ -705,6 +695,14 @@
 				149B3109241E300C00B935D3 /* UIFont+YH.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		207037782C206E7C000DEC5E /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				207037792C206EA0000DEC5E /* HSelectedFriendCell.swift */,
+			);
+			path = Single;
 			sourceTree = "<group>";
 		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
@@ -1426,30 +1424,17 @@
 		60F5CF782C09C7700013D912 /* Create Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				207037782C206E7C000DEC5E /* Single */,
 				60A3F7E12C203A9D00F855A2 /* HCreateConversationViewController.swift */,
 				60F5CF822C0AB0860013D912 /* Group */,
-				60F5CF812C0AB06A0013D912 /* Single */,
 			);
 			path = "Create Conversation";
-			sourceTree = "<group>";
-		};
-		60F5CF812C0AB06A0013D912 /* Single */ = {
-			isa = PBXGroup;
-			children = (
-				60F5CF792C09CB880013D912 /* HSelectedUserViewController.swift */,
-				60F5CF7B2C09CC270013D912 /* HSelectedUserViewModel.swift */,
-				60F5CF7D2C09D0A30013D912 /* HSelectedActionCell.swift */,
-				60F5CF7F2C09E0720013D912 /* HSelectedFriendCell.swift */,
-			);
-			path = Single;
 			sourceTree = "<group>";
 		};
 		60F5CF822C0AB0860013D912 /* Group */ = {
 			isa = PBXGroup;
 			children = (
 				60F5CF832C0AB0E20013D912 /* HCreateGroupViewController.swift */,
-				60F5CF852C0AB1040013D912 /* HCreateGroupViewModel.swift */,
-				60F5CF872C0AB5CA0013D912 /* HCreateGroupCell.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1876,7 +1861,6 @@
 				601246302C047F7C00635523 /* IMService.swift in Sources */,
 				60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */,
 				2F4B0EB3245C232E000A41C6 /* CreateDeviceViewController.m in Sources */,
-				60F5CF7E2C09D0A30013D912 /* HSelectedActionCell.swift in Sources */,
 				60A3F7DC2C200B0800F855A2 /* HMyFriendListCell.swift in Sources */,
 				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
 				601246612C05F80000635523 /* HLoginViewModel.swift in Sources */,
@@ -1896,13 +1880,13 @@
 				2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */,
 				601246442C0578F100635523 /* HBasicViewController.m in Sources */,
 				601246652C05F8AE00635523 /* HReuseIdentifier.swift in Sources */,
+				2070377B2C206EA0000DEC5E /* HSelectedFriendCell.swift in Sources */,
 				6088F48E2C0DE79100130A87 /* UIButton+Extension.swift in Sources */,
 				607F95852C12DD4D00648BFF /* HForgetPasswordPhoneViewController.swift in Sources */,
 				60922A7C2C075F1500B70AD8 /* HBasicViewModel.swift in Sources */,
 				60A3F7BE2C1BF32500F855A2 /* HBasicTransition.swift in Sources */,
 				B764D48F295854700082492F /* OrgService.m in Sources */,
 				60922A8D2C082C3900B70AD8 /* HTitleNavBar.swift in Sources */,
-				60F5CF7C2C09CC270013D912 /* HSelectedUserViewModel.swift in Sources */,
 				2F70C73B2417DB6C0058BD27 /* DiscoverMomentsTableViewCell.m in Sources */,
 				60A3F7E22C203A9D00F855A2 /* HCreateConversationViewController.swift in Sources */,
 				60A3F7C42C1BF4E700F855A2 /* HAlertContainerView.swift in Sources */,
@@ -1941,7 +1925,6 @@
 				60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */,
 				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				60A3F7B42C1B136200F855A2 /* HGroupMemeberViewController.swift in Sources */,
-				60F5CF882C0AB5CA0013D912 /* HCreateGroupCell.swift in Sources */,
 				60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */,
 				2E1D20B01FAF125D00F4405D /* WFCBaseTabBarController.m in Sources */,
 				60A3F7B02C1AFB8300F855A2 /* HLabel.swift in Sources */,
@@ -1977,11 +1960,9 @@
 				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
-				60F5CF862C0AB1040013D912 /* HCreateGroupViewModel.swift in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
 				60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */,
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
-				60F5CF802C09E0720013D912 /* HSelectedFriendCell.swift in Sources */,
 				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
 				60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */,
 				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
@@ -2001,7 +1982,6 @@
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
-				60F5CF7A2C09CB880013D912 /* HSelectedUserViewController.swift in Sources */,
 				60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,
 				607F95872C12EB3200648BFF /* HVerifyCodeView.swift in Sources */,
