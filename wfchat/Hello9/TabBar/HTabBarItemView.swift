@@ -99,7 +99,7 @@ class HTabBarItemView: UIControl {
         badgeContent.isHidden = barItem.badgeValue?.isEmpty ?? true
         
         titleLabel.font = isSelected ? .system14.bold : .system14
-        titleLabel.textColor = isSelected ? Colors.themeBlack : Colors.themeButtonDisable
+        titleLabel.textColor = isSelected ? Colors.themeBlue1 : Colors.themeButtonDisable
     }
     
     private func addChildren() {
