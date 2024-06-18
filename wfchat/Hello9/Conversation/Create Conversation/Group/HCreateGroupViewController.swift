@@ -96,7 +96,8 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
         }
         
         searchBar.snp.makeConstraints { make in
-            make.left.width.equalToSuperview()
+            make.left.equalTo(10)
+            make.right.equalTo(-10)
             make.height.equalTo(44)
             make.bottom.equalTo(-5)
         }
