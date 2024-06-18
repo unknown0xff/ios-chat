@@ -16,6 +16,7 @@ struct HGroupInfo: Hashable {
     var memberCount: UInt
     var portrait: URL?
     var owner: String
+    var groupExtra: String
     
     init(info: WFCCGroupInfo) {
         target = info.target ?? ""
@@ -28,5 +29,12 @@ struct HGroupInfo: Hashable {
         }
         memberCount = info.memberCount
         owner = info.owner ?? ""
+        
+        groupExtra = info.extra ?? ""
+    }
+    
+    var desc: String {
+        let dic = (try? JSONDecoder().decode([String:String].self, from: groupExtra.data(using: .utf8) ?? .init())) ?? .init()
+        return dic["desc", default: "暂无"]
     }
 }

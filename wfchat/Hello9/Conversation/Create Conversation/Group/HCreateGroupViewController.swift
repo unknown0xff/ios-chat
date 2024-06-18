@@ -194,8 +194,12 @@ extension HCreateGroupViewController {
 extension HCreateGroupViewController {
     
     @objc func didClickDoneButton(_ sender: UIBarButtonItem) {
-        output.send(viewModel.selectedItems.map { $0.userId } )
-        navigationController?.popViewController(animated: true)
+        let userIds = viewModel.selectedItems.map { $0.userId }
+        let vc = HCreateGroupConfirmViewController(userIds: userIds)
+        HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)
+        
+//        output.send(viewModel.selectedItems.map { $0.userId } )
+//        navigationController?.popViewController(animated: true)
     }
     
 }

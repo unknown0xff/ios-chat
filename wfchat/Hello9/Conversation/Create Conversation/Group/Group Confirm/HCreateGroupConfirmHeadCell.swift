@@ -1,14 +1,14 @@
 //
-//  HGroupChatEditHeadCell.swift
+//  HCreateGroupConfirmHeadCell.swift
 //  Hello9
 //
-//  Created by Ada on 6/14/24.
-//  Copyright © 2024 Hello9. All rights reserved.
+//  Created by Ada on 2024/6/18.
+//  Copyright © 2024 WildFireChat. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class HGroupChatEditHeadCell: HBasicCollectionViewCell<URL> {
+class HCreateGroupConfirmHeadCell: HBasicCollectionViewCell<UIImage> {
     
     private lazy var avatar: UIImageView = {
         let view = UIImageView()
@@ -18,6 +18,7 @@ class HGroupChatEditHeadCell: HBasicCollectionViewCell<URL> {
         view.layer.borderColor = Colors.white.cgColor
         view.layer.cornerRadius = 51
         view.contentMode = .scaleAspectFit
+        
         return view
     }()
     
@@ -55,13 +56,8 @@ class HGroupChatEditHeadCell: HBasicCollectionViewCell<URL> {
         }
     }
     
-    override func bindData(_ data: URL?) {
-        avatar.sd_setImage(with: data, placeholderImage: Images.icon_camera) { [weak self] image, _, _, _ in
-            if let _ = image {
-                self?.avatar.contentMode = .scaleAspectFit
-            } else {
-                self?.avatar.contentMode = .center
-            }
-        }
+    override func bindData(_ data: UIImage?) {
+        avatar.image = data ?? Images.icon_camera
+        avatar.contentMode = (data != nil) ? .scaleAspectFit : .center
     }
 }

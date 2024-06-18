@@ -47,9 +47,11 @@ class HGroupChatEditViewModel: HBasicViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.header, .info, .section, .section1])
         
+        
+        
         let info = [
             HGroupChatEditModel(icon: Images.icon_logo, value: groupInfo.displayName, title: "群名称", category: .name),
-            HGroupChatEditModel(icon: Images.icon_logo, value: "暂无", title: "简介", category: .info)]
+            HGroupChatEditModel(icon: Images.icon_logo, value: groupInfo.desc, title: "简介", category: .info)]
         
         let section = [
             HGroupChatEditModel(icon: Images.icon_member_group, value: "私密", title: "群组类型", category: .type),
