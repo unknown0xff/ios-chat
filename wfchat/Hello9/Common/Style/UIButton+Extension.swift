@@ -125,3 +125,17 @@ extension UIView {
     }
     
 }
+
+extension UISearchBar {
+    
+    static var defaultBar: UISearchBar {
+        let bar = UISearchBar()
+        bar.backgroundColor = Colors.themeGray4Background
+        bar.placeholder = "搜索"
+        bar.backgroundImage = UIImage()
+        bar.searchTextField.backgroundColor = Colors.white
+        bar.searchTextField.leftView = UIImageView(image: Images.icon_search_gray)
+        return bar
+    }
+    
+}

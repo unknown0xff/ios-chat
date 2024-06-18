@@ -62,7 +62,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
     }
     
     @objc override func didClickSearchButton(_ sender: UIButton) {
-        
+        navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
     }
     
     @objc func didClickSecretGroupButton(_ sender: UIButton) {

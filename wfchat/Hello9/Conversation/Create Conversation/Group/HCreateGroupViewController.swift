@@ -12,13 +12,8 @@ import Combine
 class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelegate {
     
     private lazy var searchBar: UISearchBar = {
-        let bar = UISearchBar()
-        bar.backgroundColor = Colors.themeGray4Background
-        bar.placeholder = "搜索"
-        bar.backgroundImage = UIImage()
+        let bar = UISearchBar.defaultBar
         bar.delegate = self
-        bar.searchTextField.backgroundColor = Colors.white
-        bar.searchTextField.leftView = UIImageView(image: Images.icon_search_gray)
         return bar
     }()
     
@@ -197,9 +192,6 @@ extension HCreateGroupViewController {
         let userIds = viewModel.selectedItems.map { $0.userId }
         let vc = HCreateGroupConfirmViewController(userIds: userIds)
         HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)
-        
-//        output.send(viewModel.selectedItems.map { $0.userId } )
-//        navigationController?.popViewController(animated: true)
     }
     
 }
