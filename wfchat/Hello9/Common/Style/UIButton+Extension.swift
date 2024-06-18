@@ -31,18 +31,12 @@ extension UIButton {
     }
     
     class func capsuleButton(title: String, backgroundColor: UIColor = Colors.themeBlack) -> UIButton {
-        let btn = UIButton.imageButton(
-            with: nil,
-            title: title,
-            font: .system16.bold,
-            titleColor: Colors.white,
-            placement: .leading,
-            padding: 0
-        )
-        
-        btn.configuration?.background.cornerRadius = 16
-        btn.configuration?.background.backgroundColor = backgroundColor
-        
+        let btn = UIButton(type: .system)
+        btn.setTitle(title, for: .normal)
+        btn.setTitleColor(Colors.white, for: .normal)
+        btn.titleLabel?.font = .system16.bold
+        btn.backgroundColor = backgroundColor
+        btn.layer.cornerRadius = 16
         return btn
     }
     

@@ -66,8 +66,12 @@ class HFriendSearchViewModel {
             return
         }
         
+        let friends = (WFCCIMService.sharedWFCIM().getFriendList(false) ?? .init()).map { $0.userId }
         WFCCIMService.sharedWFCIM().searchUser(keyword, search: .SearchUserType_General, page: 0) { [weak self] users in
-            self?.userInfos = (users ?? .init()).map { .init(userInfo: $0) }
+            let usersResult = users?
+                .filter { !friends.contains($0.userId) }
+                .map { HFriendSearchListModel(userInfo: $0) }
+            self?.userInfos = usersResult ?? .init()
             
             let result = WFCCIMService.sharedWFCIM().searchGroups(self?.keyword ?? "") ?? .init()
             self?.groupInfos = result.map { HFriendSearchListModel(group: $0.groupInfo) }

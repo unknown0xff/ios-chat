@@ -124,6 +124,14 @@ extension HFriendSearchListViewController: UITableViewDelegate {
             return
         }
         
+        switch row {
+        case .item(let model):
+            let vc = HNewFriendDetailViewController(targetId: model.targetId, isGroup: model.isGroup)
+            navigationController?.pushViewController(vc, animated: true)
+        case .header:
+            break
+        }
+        
     }
 }
 

@@ -109,15 +109,21 @@ class HNewFriendDetailViewController: HBaseViewController {
     }()
     
     lazy var actionButton: UIButton = {
-        let btn = UIButton.capsuleButton(title: "同意")
+        let btn = UIButton.capsuleButton(title: "")
         btn.addTarget(self, action: #selector(didClickActionButton(_:)), for: .touchUpInside)
         return btn
     }()
-    let userInfo: HUserInfoModel
     
-    init(targetId: String) {
-        let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(targetId, refresh: false) ?? .init()
-        self.userInfo = .init(info: userInfo)
+    private var userInfo: HUserInfoModel = .init(info: .init())
+    private var groupInfo: HGroupInfo = .init(info: .init())
+    let isGroup: Bool
+    let targetId: String
+    let isHandleFriendRequest: Bool
+    
+    init(targetId: String, isGroup: Bool = false, isHandleFriendRequest: Bool = false) {
+        self.targetId = targetId
+        self.isGroup = isGroup
+        self.isHandleFriendRequest = isHandleFriendRequest
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -128,17 +134,67 @@ class HNewFriendDetailViewController: HBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureSubviews()
-        makeConstraints()
-        
-        bindData()
+        addNotifications()
+        loadData()
+    }
+    
+    func loadData() {
+        DispatchQueue.main.async {
+            if self.isGroup {
+                let groupInfo = WFCCIMService.sharedWFCIM().getGroupInfo(self.targetId, refresh: true) ?? .init()
+                self.groupInfo = .init(info: groupInfo)
+            } else {
+                let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(self.targetId, refresh: true) ?? .init()
+                self.userInfo = .init(info: userInfo)
+            }
+            self.bindData()
+        }
     }
     
     func bindData() {
-        avatar.sd_setImage(with: userInfo.portrait, placeholderImage: Images.icon_logo)
-        userNameLabel.text = userInfo.displayName
-        idLabel.text = userInfo.name.insert(string: "·")
-        signLabel.text = userInfo.social.isEmpty ? "昨天是一段历史，明天是一个谜团，今天是天赐的礼物" : userInfo.social
+        if isGroup {
+            avatar.sd_setImage(with: groupInfo.portrait, placeholderImage: Images.icon_logo)
+            userNameLabel.text = groupInfo.displayName
+            idLabel.text = groupInfo.target.insert(string: "·")
+            signLabel.text = groupInfo.desc
+            titleLabel.text = "群介绍"
+            actionButton.setTitle("申请加群", for: .normal)
+        } else {
+            avatar.sd_setImage(with: userInfo.portrait, placeholderImage: Images.icon_logo)
+            userNameLabel.text = userInfo.displayName
+            idLabel.text = userInfo.name.insert(string: "·")
+            signLabel.text = userInfo.social.isEmpty ? "昨天是一段历史，明天是一个谜团，今天是天赐的礼物" : userInfo.social
+            titleLabel.text = "个人简介"
+            
+            if userInfo.isFriend {
+                actionButton.setTitle("发信息", for: .normal)
+            } else {
+                if isHandleFriendRequest {
+                    actionButton.setTitle("同意", for: .normal)
+                } else {
+                    actionButton.setTitle("添加好友", for: .normal)
+                }
+                
+            }
+        }
+    }
+    
+    func addNotifications() {
+        if isGroup {
+            NotificationCenter.default.addObserver(forName: .init(kGroupInfoUpdated), object: nil, queue: .main) { [weak self] noti in
+                if let groupInfoList = noti.userInfo?["groupInfoList"] as? [WFCCGroupInfo] {
+                    let groupInfo = (groupInfoList.first { $0.target == self?.targetId }) ?? .init()
+                    self?.groupInfo = .init(info: groupInfo)
+                    self?.bindData()
+                }
+            }
+        } else {
+            NotificationCenter.default.addObserver(forName: .init(kUserInfoUpdated), object: nil, queue: .main) { [weak self] noti in
+                let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(self?.targetId, refresh: false) ?? .init()
+                self?.userInfo = .init(info: userInfo)
+                self?.bindData()
+            }
+        }
     }
     
     override func configureSubviews() {
@@ -222,17 +278,64 @@ class HNewFriendDetailViewController: HBaseViewController {
     }
     
     @objc func didClickActionButton(_ sender: UIButton) {
-        agreeFriendRequest()
+        
+        if isGroup {
+            // TODO: xianda.yang
+        } else {
+            if userInfo.isFriend {
+                beginChat()
+            } else {
+                if isHandleFriendRequest {
+                    agreeFriendRequest()
+                } else {
+                    addFriend()
+                }
+            }
+        }
+        
     }
     
-    func agreeFriendRequest() {
-        let hud = HToast.show(on: view, text: "加载中...")
-        WFCCIMService.sharedWFCIM().handleFriendRequest(userInfo.userId, accept: true, extra: nil) { [weak self] in
-            hud.hide(animated: true)
-            guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "添加成功")
+    private func beginChat() {
+        let conversation = WFCCConversation(type: .Single_Type, target: targetId, line: 0)!
+        let mvc = HMessageListViewController()
+        mvc.conversation = conversation
+        mvc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(mvc, animated: true)
+    }
+    
+    private func addFriend() {
+        let hud = HToast.showLoading("发送中...")
+        let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
+        let reason = "我是\(userInfo.name ?? "")"
+        
+        let extra = ["receiveUserId": userInfo.userId]
+        let data = try? JSONEncoder().encode(extra)
+        let jsonExtra = String(data: data ?? .init(), encoding: .utf8)
+        
+        WFCCIMService.sharedWFCIM().sendFriendRequest(userInfo.userId, reason: reason, extra: jsonExtra)  {
+            hud?.hide(animated: true)
         } error: { code in
-            hud.hide(animated: true)
+            hud?.hide(animated: true)
+            if(code == 16) {
+                HToast.showTipAutoHidden(text: "已经发送过添加好友请求了")
+            } else if(code == 18) {
+                HToast.showTipAutoHidden(text: "好友请求已被拒绝")
+                HToast.showAutoHidden(on: self.view, text: "好友请求已被拒绝")
+            } else {
+                HToast.showTipAutoHidden(text: "发送失败")
+            }
+        }
+    }
+    
+    private func agreeFriendRequest() {
+        let hud = HToast.showLoading("发送中...")
+        WFCCIMService.sharedWFCIM().handleFriendRequest(userInfo.userId, accept: true, extra: nil) { [weak self] in
+            hud?.hide(animated: true)
+            guard let self else { return }
+            HToast.showTipAutoHidden(text: "添加成功")
+            self.actionButton.setTitle("发信息", for: .normal)
+        } error: { code in
+            hud?.hide(animated: true)
             if code == 19 {
                 HToast.showAutoHidden(on: self.view, text: "已过期")
             } else {

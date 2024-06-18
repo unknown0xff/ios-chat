@@ -28,6 +28,12 @@ class HNewFriendListViewController: HBaseViewController {
     var viewModel = HNewFriendListViewModel()
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.loadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         WFCCIMService.sharedWFCIM().clearUnreadFriendRequestStatus()
@@ -118,7 +124,7 @@ extension HNewFriendListViewController: UICollectionViewDelegate, HNewFriendCell
     }
     
     func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
-        let vc = HNewFriendDetailViewController(targetId: request.target)
+        let vc = HNewFriendDetailViewController(targetId: request.target, isHandleFriendRequest: true)
         navigationController?.pushViewController(vc, animated: true)
     }
     

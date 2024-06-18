@@ -102,7 +102,7 @@ class HFriendSearchGroupHeaderCell: HBasicTableViewCell<String> {
     
     override func configureSubviews() {
         super.configureSubviews()
-        
+        isUserInteractionEnabled = false
         separatorView.isHidden = true
         contentView.addSubview(gap)
         contentView.addSubview(titleLabel)

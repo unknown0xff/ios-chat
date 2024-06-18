@@ -14,10 +14,6 @@ class HNewFriendListViewModel: HBasicViewModel {
     
     typealias Row = WFCCFriendRequest
     
-    init() {
-        loadData()
-    }
-    
     func loadData() {
         WFCCIMService.sharedWFCIM().loadFriendRequestFromRemote()
         let incomming = WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init()
@@ -38,6 +34,8 @@ class HNewFriendListViewModel: HBasicViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.main])
         
+        // 头数据，占位使用
+        snapshot.appendItems([.init()])
         snapshot.appendItems(friendRequest)
         
         self.snapshot = snapshot
