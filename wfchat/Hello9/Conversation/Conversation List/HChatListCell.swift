@@ -295,7 +295,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
     
     func updateUserInfo(_ userInfo: WFCCUserInfo) {
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
-        avatar.sd_setImage(with: URL(string: (userInfo.portrait ?? "")), placeholderImage: Images.icon_logo)
+        avatar.sd_setImage(with: URL(string: (userInfo.portrait ?? "")), placeholderImage: userInfo.portraitPlaceholder)
         let friendAlias = userInfo.friendAlias ?? ""
         let displayName = userInfo.displayName ?? ""
         if !friendAlias.isEmpty {
@@ -316,13 +316,13 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         
         if groupInfo.type == .GroupType_Organization {
             if !groupInfo.portrait.isEmpty {
-                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: Images.icon_logo)
+                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: groupInfo.portraitPlaceholder)
             } else {
                 avatar.image = Images.icon_logo
             }
         } else {
             if !groupInfo.portrait.isEmpty {
-                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: Images.icon_logo)
+                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: groupInfo.portraitPlaceholder)
             } else {
                 let groupId = groupInfo.target
                 
@@ -407,3 +407,25 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
     }
 }
 
+import SDWebImage
+
+private extension WFCCUserInfo {
+    var portraitUrl: URL? {
+        return URL(string: portrait ?? "")
+    }
+    
+    var portraitPlaceholder: UIImage {
+        SDImageCache.shared.imageFromCache(forKey: portraitUrl?.absoluteString ?? "") ?? Images.icon_logo
+    }
+}
+
+private extension WFCCGroupInfo {
+    
+    var portraitUrl: URL? {
+        return URL(string: portrait ?? "")
+    }
+    
+    var portraitPlaceholder: UIImage {
+        SDImageCache.shared.imageFromCache(forKey: portraitUrl?.absoluteString ?? "") ?? Images.icon_logo
+    }
+}

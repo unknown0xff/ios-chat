@@ -57,9 +57,8 @@ class HChatListViewController: HBaseViewController {
     private var cancellables = Set<AnyCancellable>()
     var viewModel = HChatListViewModel()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.refresh()
         updateBadgeNumber()
     }
