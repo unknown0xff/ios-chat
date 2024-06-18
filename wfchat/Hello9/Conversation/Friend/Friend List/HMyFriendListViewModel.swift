@@ -19,7 +19,7 @@ struct HMyFriendListModel: Hashable {
         self.isSelected = isSelected
         self.portrait = .init(string: userInfo.portrait ?? "")
         self.dispalyName = userInfo.displayName ?? ""
-        self.userId = userInfo.userId
+        self.userId = userInfo.userId ?? ""
     }
 }
 

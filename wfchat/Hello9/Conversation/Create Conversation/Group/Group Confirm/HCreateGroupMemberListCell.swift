@@ -74,3 +74,44 @@ class HCreateGroupMemberListCell: HBasicCollectionViewCell<HMyFriendListModel> {
     }
 }
 
+class HCreateGroupMemberListHeaderCell: HBasicCollectionViewCell<String> {
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .system14.bold
+        label.textColor = Colors.themeBlack
+        label.text = "成员"
+        return label
+    }()
+    
+    private lazy var animationLineView: UIImageView = {
+        let v = UIImageView(image: Images.icon_tab_line)
+        return v
+    }()
+    
+    override func configureSubviews() {
+        super.configureSubviews()
+        isUserInteractionEnabled = false
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(animationLineView)
+    }
+    
+    override func makeConstraints() {
+        super.makeConstraints()
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(20)
+            make.left.equalTo(16)
+            make.height.equalTo(22)
+        }
+        
+        animationLineView.snp.makeConstraints { make in
+            make.centerX.equalTo(titleLabel)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.height.equalTo(4)
+            make.width.equalTo(25)
+            make.bottom.equalTo(0)
+        }
+    }
+    
+}

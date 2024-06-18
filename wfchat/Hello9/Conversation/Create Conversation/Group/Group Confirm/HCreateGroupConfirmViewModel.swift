@@ -54,6 +54,7 @@ class HCreateGroupConfirmViewModel: HBasicViewModel {
         
         snapshot.appendItems([Row.avatar(.init(image: avatar))], toSection: .avatar)
         snapshot.appendItems([.groupInfo(groupName, tag: 0), .groupInfo(groupInfo, tag: 1)], toSection: .groupInfo)
+        snapshot.appendItems([Row.member(.init(userInfo: .init()))], toSection: .groupMember)
         snapshot.appendItems(members.map { Row.member($0) }, toSection: .groupMember)
         
         self.snapshot = snapshot

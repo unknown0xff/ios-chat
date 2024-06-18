@@ -77,6 +77,8 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
             cell.delegate = self
         }
         
+        let listHeaderCell = UICollectionView.CellRegistration<HCreateGroupMemberListHeaderCell, String> { _, _, _ in }
+        
         let listCell = UICollectionView.CellRegistration<HCreateGroupMemberListCell, HMyFriendListModel> { (cell, indexPath, model) in
             cell.indexPath = indexPath
             cell.cellData = model
@@ -90,6 +92,9 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
             case .groupInfo(let item, _):
                 return collectionView.dequeueConfiguredReusableCell(using: inputCell, for: indexPath, item: item)
             case .member(let item):
+                if indexPath.item == 0 {
+                    return collectionView.dequeueConfiguredReusableCell(using: listHeaderCell, for: indexPath, item: "")
+                }
                 return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: item)
             }
         }
@@ -143,7 +148,12 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
             case .groupMember:
                 config.itemSeparatorHandler = { (indexPath, sectionSeparatorConfiguration) in
                     var separatorConfig = sectionSeparatorConfiguration
-                    separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 73, bottom: 0, trailing: 0)
+                    if indexPath.item == 0 {
+                        separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+                    } else {
+                        separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 73, bottom: 0, trailing: 0)
+                    }
+                    
                     separatorConfig.color = Colors.themeSeperatorColor
                     return separatorConfig
                 }
