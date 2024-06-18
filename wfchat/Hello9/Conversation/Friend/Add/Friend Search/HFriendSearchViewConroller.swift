@@ -14,6 +14,7 @@ class HFriendSearchViewConroller: HMenuTabViewController, UISearchBarDelegate {
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar.defaultBar
         bar.delegate = self
+        bar.showsCancelButton = true
         return bar
     }()
     
