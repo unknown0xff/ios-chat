@@ -78,8 +78,12 @@ class HCreateConversationViewController: HMyFriendListViewController {
     }
     
     private func goToCreateSingleConv() {
-        output.send((viewModel.selectedItems.map { $0.userId }, false))
-        navigationController?.popViewController(animated: true)
+        let userIds = viewModel.selectedItems.map { $0.userId }
+        let conversation = WFCCConversation(type: .Single_Type, target: userIds.first!, line: 0)!
+        let mvc = HMessageListViewController()
+        mvc.conversation = conversation
+        mvc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(mvc, animated: true)
     }
     
     private func goToCreateGroup(isSecrect: Bool) {
@@ -106,7 +110,6 @@ class HCreateConversationViewController: HMyFriendListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
-        
         goToCreateSingleConv()
     }
 }
