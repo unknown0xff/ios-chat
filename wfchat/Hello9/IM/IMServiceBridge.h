@@ -8,6 +8,7 @@
 //  一些暂未翻译的oc代码，桥接一下
 
 #import <Foundation/Foundation.h>
+#import <WFAVEngineKit/WFAVEngineKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)onFriendRequestUpdated:(NSNotification *)notification;
 + (void)prepardDataForShareExtension;
 + (void)didReceiveCall:(WFAVCallSession *)session;
-
++ (void)shouldStartRing:(BOOL)isIncoming;
++ (void)shouldStopRing;
++ (void)didCallEnded:(WFAVCallEndReason)reason duration:(int)callDuration;
++ (void)didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
+                                  forType:(NSString *)type;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -59,7 +59,10 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
+        //从后台回到前台时，如果是在来电状态，需要播放来电铃声。
+        if WFAVEngineKit.shared().currentSession?.state == .incomming {
+            IMService.share.shouldStartRing(true)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -80,9 +83,11 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
         IMService.share.setDeviceToken(token)
     }
     
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("----------willPresentNotification")
     }
+    
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("----------didReceiveNotificationResponse")

@@ -14,6 +14,8 @@
 #import "SharedConversation.h"
 #import "Hello9-Swift.h"
 
+AVAudioPlayer *audioPlayer;
+                
 @implementation IMServiceBridge
 
 + (BOOL)cancelNotification:(long long)messageUid {
@@ -267,11 +269,11 @@
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
             content.body = @"来电话了";
             
-                WFCCUserInfo *sender = [[WFCCIMService sharedWFCIMService] getUserInfo:session.inviter refresh:NO];
-                if (sender.displayName) {
-                    content.title = sender.displayName;
-                }
-            content.sound = [UNNotificationSound soundNamed:@"ring.caf"];
+            WFCCUserInfo *sender = [[WFCCIMService sharedWFCIMService] getUserInfo:session.inviter refresh:NO];
+            if (sender.displayName) {
+                content.title = sender.displayName;
+            }
+            content.sound = [UNNotificationSound soundNamed:@"default_call.wav"];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"hello_call_notification" content:content trigger:nil];
@@ -284,4 +286,101 @@
     });
 }
 
++ (void)shouldStartRing:(BOOL)isIncoming {
+#if !USE_CALL_KIT
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([WFAVEngineKit sharedEngineKit].currentSession.state == kWFAVEngineStateIncomming || [WFAVEngineKit sharedEngineKit].currentSession.state == kWFAVEngineStateOutgoing) {
+            if([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+                if([[WFCCIMService sharedWFCIMService] isVoipNotificationSilent]) {
+                    NSLog(@"用户设置禁止voip通知，忽略来电震动");
+                    return;
+                }
+                AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, NULL, NULL, systemAudioCallback, NULL);
+                AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+            } else {
+                AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+                //默认情况按静音或者锁屏键会静音
+                [audioSession setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+                [audioSession setActive:YES error:nil];
+                
+                if (audioPlayer) {
+                    [self shouldStopRing];
+                }
+                
+                NSURL *url = [[NSBundle mainBundle] URLForResource:@"default_call" withExtension:@"wav"];
+                NSError *error = nil;
+                audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+                if (!error) {
+                    audioPlayer.numberOfLoops = -1;
+                    audioPlayer.volume = 1.0;
+                    [audioPlayer prepareToPlay];
+                    [audioPlayer play];
+                }
+            }
+        }
+    });
+#endif
+}
+
+void systemAudioCallback (SystemSoundID soundID, void* clientData) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+            if ([WFAVEngineKit sharedEngineKit].currentSession.state == kWFAVEngineStateIncomming) {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            }
+        }
+    });
+}
+
++ (void)shouldStopRing {
+    if (audioPlayer) {
+        [audioPlayer stop];
+        audioPlayer = nil;
+    }
+}
+
++ (void)didCallEnded:(WFAVCallEndReason)reason duration:(int)callDuration {
+#if !USE_CALL_KIT
+    //在后台时，如果电话挂断，清除掉来电通知，如果未接听超时或者未接通对方挂掉，弹出结束本地通知。
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        
+        [UNUserNotificationCenter.currentNotificationCenter removeAllPendingNotificationRequests];
+        
+        
+        if(reason == kWFAVCallEndReasonTimeout || (reason == kWFAVCallEndReasonRemoteHangup && callDuration == 0)) {
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+            content.body = @"来电话了";
+            if(reason == kWFAVCallEndReasonTimeout) {
+                content.body = @"来电未接听";
+            } else {
+                content.body = @"来电已取消";
+            }
+            content.title = @"网络通话";
+            if([WFAVEngineKit sharedEngineKit].currentSession.inviter) {
+                WFCCUserInfo *sender = [[WFCCIMService sharedWFCIMService] getUserInfo:[WFAVEngineKit sharedEngineKit].currentSession.inviter refresh:NO];
+                if (sender.displayName) {
+                    content.title = sender.displayName;
+                }
+            }
+            // content.sound = [UNNotificationSound soundNamed:@"default_call.wav"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"hello_call_end_notification" content:content trigger:nil];
+                [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                    
+                }];
+            });
+        }
+    }
+#else
+    [self.callKitManager didCallEnded:reason duration:callDuration];
+#endif
+}
+
++ (void)didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
+                                  forType:(NSString *)type {
+    NSLog(@"didReceiveIncomingPushWithPayload");
+#if USE_CALL_KIT
+    [self.callKitManager didReceiveIncomingPushWithPayload:payload forType:type];
+#endif
+}
 @end

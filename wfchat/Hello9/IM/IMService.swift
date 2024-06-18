@@ -316,22 +316,21 @@ extension IMService: WFAVEngineDelegate {
     
     func didReceiveCall(_ session: WFAVCallSession) {
         IMServiceBridge.didReceiveCall(session)
-        // callKitManager.didReceiveCall(session)
     }
     
     func shouldStartRing(_ isIncoming: Bool) {
-        
+        IMServiceBridge.shouldStartRing(isIncoming)
     }
     
     func shouldStopRing() {
-        
+        IMServiceBridge.shouldStopRing()
     }
     
     func didCallEnded(_ reason: WFAVCallEndReason, duration callDuration: Int32) {
-        callKitManager.didCallEnded(reason, duration: callDuration)
+        IMServiceBridge.didCallEnded(reason, duration: callDuration)
     }
     
     func didReceiveIncomingPush(with payload: PKPushPayload, forType type: String) {
-        callKitManager.didReceiveIncomingPush(with: payload, forType: type)
+        IMServiceBridge.didReceiveIncomingPush(with: payload, forType: type)
     }
 }

@@ -17,6 +17,7 @@
 		204B7E012C21222100459C7A /* HCreateGroupMemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7E002C21222100459C7A /* HCreateGroupMemberListCell.swift */; };
 		204B7E032C21509500459C7A /* HFriendSearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7E022C21509500459C7A /* HFriendSearchListCell.swift */; };
 		204B7E052C215BD000459C7A /* HFriendSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7E042C215BD000459C7A /* HFriendSearchListViewController.swift */; };
+		204B7E072C218BA500459C7A /* default_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 204B7E062C218BA500459C7A /* default_call.wav */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -28,7 +29,6 @@
 		2B4C0281252F4A570043FA41 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0279252F4A570043FA41 /* MBProgressHUD.m */; };
 		2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B840F3F2442111F006BE3D8 /* WFCThemeTableViewController.m */; };
 		2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B840F422442125B006BE3D8 /* WFCThemeTableViewCell.m */; };
-		2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1D1FFB1FAF0AE600F4405D /* AppDelegate.m */; };
 		2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1D20001FAF0AE600F4405D /* Main.storyboard */; };
 		2E1D20041FAF0AE600F4405D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E1D20031FAF0AE600F4405D /* Assets.xcassets */; };
 		2E1D20071FAF0AE600F4405D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1D20051FAF0AE600F4405D /* LaunchScreen.storyboard */; };
@@ -315,6 +315,7 @@
 		204B7E002C21222100459C7A /* HCreateGroupMemberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupMemberListCell.swift; sourceTree = "<group>"; };
 		204B7E022C21509500459C7A /* HFriendSearchListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendSearchListCell.swift; sourceTree = "<group>"; };
 		204B7E042C215BD000459C7A /* HFriendSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendSearchListViewController.swift; sourceTree = "<group>"; };
+		204B7E062C218BA500459C7A /* default_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = default_call.wav; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -1478,6 +1479,7 @@
 		903EBC942136313B00312C16 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				204B7E062C218BA500459C7A /* default_call.wav */,
 				2F8F8E662723072600151B75 /* ptt_begin.m4a */,
 				2F8F8E672723072600151B75 /* ptt_end.m4a */,
 				2E1D20001FAF0AE600F4405D /* Main.storyboard */,
@@ -1793,6 +1795,7 @@
 				601246582C05AF4100635523 /* Images.xcassets in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
+				204B7E072C218BA500459C7A /* default_call.wav in Resources */,
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
 				90C1D911208C12A900E923F4 /* foreman.mp4 in Resources */,
 				2F8F8E682723072600151B75 /* ptt_begin.m4a in Resources */,
@@ -1985,7 +1988,6 @@
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
 				60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */,
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
-				2E1D1FFC1FAF0AE600F4405D /* AppDelegate.m in Sources */,
 				60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */,
 				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
 				60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */,
