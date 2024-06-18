@@ -87,6 +87,21 @@ extension HGroupMemeberViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let row = dataSource.itemIdentifier(for: indexPath) {
+            switch row {
+            case .member(let item):
+                guard let model = item else {
+                    // 邀请新成员 TODO: - xianda.yang
+                    return
+                }
+                if model.memberId == IMUserInfo.userId {
+                    return
+                }
+                let vc = HNewFriendDetailViewController(targetId: model.memberId)
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
