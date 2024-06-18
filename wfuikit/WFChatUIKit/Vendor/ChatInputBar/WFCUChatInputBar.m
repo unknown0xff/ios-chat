@@ -35,6 +35,7 @@
 #import "WFPttViewController.h"
 #endif
 #import "WFCUImage.h"
+#import "UITextView+Placeholder.h"
 
 #define CHAT_INPUT_BAR_PADDING 8
 #define CHAT_INPUT_BAR_ICON_SIZE (CHAT_INPUT_BAR_HEIGHT - CHAT_INPUT_BAR_PADDING - CHAT_INPUT_BAR_PADDING)
@@ -276,6 +277,8 @@
     [self.textInputView setFont:[UIFont systemFontOfSize:16]];
     [self.textInputView setReturnKeyType:UIReturnKeySend];
     self.textInputView.backgroundColor = [UIColor clearColor];
+    self.textInputView.placeholderTextView.backgroundColor = [UIColor clearColor];
+    
     self.textInputView.enablesReturnKeyAutomatically = YES;
     self.textInputView.userInteractionEnabled = YES;
     UIEdgeInsets inset = self.textInputView.textContainerInset;

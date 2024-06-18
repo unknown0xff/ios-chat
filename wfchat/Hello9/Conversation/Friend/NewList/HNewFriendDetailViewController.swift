@@ -308,11 +308,11 @@ class HNewFriendDetailViewController: HBaseViewController {
         let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
         let reason = "我是\(userInfo.name ?? "")"
         
-        let extra = ["receiveUserId": userInfo.userId]
+        let extra = ["receiveUserId": targetId]
         let data = try? JSONEncoder().encode(extra)
         let jsonExtra = String(data: data ?? .init(), encoding: .utf8)
         
-        WFCCIMService.sharedWFCIM().sendFriendRequest(userInfo.userId, reason: reason, extra: jsonExtra)  {
+        WFCCIMService.sharedWFCIM().sendFriendRequest(targetId, reason: reason, extra: jsonExtra)  {
             hud?.hide(animated: true)
         } error: { code in
             hud?.hide(animated: true)

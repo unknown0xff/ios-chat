@@ -134,10 +134,12 @@ class HChatListViewModel: HBasicViewModel {
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
-        snapshot.appendSections(Section.allCases)
-    
-        let friendRows = [Row.friend(friendRequest)]
-        snapshot.appendItems(friendRows, toSection: .friendRequest)
+        snapshot.appendSections([.friendRequest, .conversation])
+        
+        if !friendRequest.isEmpty {
+            let friendRows = [Row.friend(friendRequest)]
+            snapshot.appendItems(friendRows, toSection: .friendRequest)
+        }
         
         let rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
         snapshot.appendItems(rows, toSection: .conversation)
