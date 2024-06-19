@@ -212,4 +212,8 @@ enum Images {
 
     static let tab_node_on = UIImage(named: "tab_node_on")!
 
+    static let tab_setting_off = UIImage(named: "tab_setting_off")!
+
+    static let tab_setting_on = UIImage(named: "tab_setting_on")!
+
 }

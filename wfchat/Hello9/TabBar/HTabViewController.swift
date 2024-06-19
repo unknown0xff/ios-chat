@@ -62,7 +62,7 @@ class HTabViewController: UITabBarController {
         let mineVC = HMineViewController()
         mineVC.hidesBottomBarWhenPushed = false
         let mineNav = HNavigationController(rootViewController: mineVC)
-        let mineItem = UITabBarItem(title: L10n.mine, image: Images.tab_mine_off, selectedImage: Images.tab_mine_on)
+        let mineItem = UITabBarItem(title: L10n.setting, image: Images.tab_setting_off, selectedImage: Images.tab_setting_on)
         mineItem.tag = HTabTag.mine.rawValue
         mineNav.tabBarItem = mineItem
         addChild(mineNav)

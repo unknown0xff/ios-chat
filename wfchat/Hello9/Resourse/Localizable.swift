@@ -11,12 +11,14 @@
 enum L10n {
     private static var table = "Localizable"
     
-    /// 节点
-    static var node: String { L10n.tr("node") }
     /// 消息
     static var message: String { L10n.tr("message") }
     /// 我的
     static var mine: String { L10n.tr("mine") }
+    /// 设置
+    static var setting: String { L10n.tr("setting") }
+    /// 节点
+    static var node: String { L10n.tr("node") }
 }
 
 extension L10n {
