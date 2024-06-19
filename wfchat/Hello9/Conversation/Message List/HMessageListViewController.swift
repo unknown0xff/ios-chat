@@ -88,6 +88,12 @@ class HMessageListViewController: WFCUMessageListViewController {
     }
     
     private func playSendSound() {
+        
+        guard let info = WFCCIMService.sharedWFCIM().getConversationInfo(conversation),
+            !info.isSilent else  {
+            return
+        }
+        
         if player == nil {
             if let url = Bundle.main.url(forResource: "message_alert", withExtension: "wav") {
                 player = try? AVAudioPlayer(contentsOf: url)
