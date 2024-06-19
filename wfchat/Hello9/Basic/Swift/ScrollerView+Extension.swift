@@ -40,7 +40,6 @@ extension UITableViewCell: HReuseIdentifier { }
 extension UITableViewHeaderFooterView: HReuseIdentifier { }
 
 extension UICollectionReusableView: HReuseIdentifier { }
-extension UICollectionViewCell: HReuseIdentifier { }
 
 extension UITableView {
     func registerSectionHeaderFooter(_ supplementaryViews: [UITableViewHeaderFooterView.Type]) {

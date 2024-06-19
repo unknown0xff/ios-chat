@@ -86,16 +86,10 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
                 self.tableView.layoutIfNeeded()
             }
         }
-        
     }
     
     func cellProvider() ->  HMyFriendListDataSource.CellProvider {
-        return { tableView, indexPath, row in
-           let cell = tableView.cell(of: HMyFriendListCell.self, for: indexPath)
-           cell.indexPath = indexPath
-           cell.cellData = row
-           return cell
-       }
+        return HMyFriendListCell.CellProvider(of: Section.self)
     }
     
     override func makeConstraints() {
