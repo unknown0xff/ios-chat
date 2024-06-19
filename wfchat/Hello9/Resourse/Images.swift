@@ -80,6 +80,12 @@ enum Images {
 
     static let icon_key_yellow = UIImage(named: "icon_key_yellow")!
 
+    static let icon_lanuch_arc_bottom_right = UIImage(named: "icon_lanuch_arc_bottom_right")!
+
+    static let icon_lanuch_arc_top_left = UIImage(named: "icon_lanuch_arc_top_left")!
+
+    static let icon_lanuch_logo = UIImage(named: "icon_lanuch_logo")!
+
     static let icon_light = UIImage(named: "icon_light")!
 
     static let icon_link = UIImage(named: "icon_link")!

@@ -308,6 +308,8 @@
 		149B3109241E300C00B935D3 /* UIFont+YH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YH.m"; sourceTree = "<group>"; };
 		149B311C242247E900B935D3 /* UIImage+ERCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ERCategory.h"; sourceTree = "<group>"; };
 		149B311D242247E900B935D3 /* UIImage+ERCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ERCategory.m"; sourceTree = "<group>"; };
+		20499A2E2C2261820005B1D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		20499A302C2261860005B1D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		204B7DF72C21137D00459C7A /* HCreateGroupConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmViewController.swift; sourceTree = "<group>"; };
 		204B7DFA2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmHeadCell.swift; sourceTree = "<group>"; };
 		204B7DFC2C21169700459C7A /* HCreateGroupInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupInputCell.swift; sourceTree = "<group>"; };
@@ -1756,7 +1758,7 @@
 			};
 			buildConfigurationList = 2E1D1FF21FAF0AE600F4405D /* Build configuration list for PBXProject "WildFireChat" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -2098,6 +2100,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E1D20061FAF0AE600F4405D /* Base */,
+				20499A2E2C2261820005B1D9 /* zh-Hans */,
+				20499A302C2261860005B1D9 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

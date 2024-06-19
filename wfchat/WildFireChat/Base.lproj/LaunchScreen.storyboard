@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,52 +20,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo_launch" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-1x-2BB">
-                                <rect key="frame" x="117" y="188" width="194" height="194"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享和享受" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-5b-Shi">
+                                <rect key="frame" x="175.66666666666666" y="484" width="77" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.50196078431372548" green="0.52941176470588236" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lanuch_arc_top_left" translatesAutoresizingMaskIntoConstraints="NO" id="aCk-8j-XCK">
+                                <rect key="frame" x="163.66666666666666" y="472" width="12" height="12"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="dSp-1x-2BB" secondAttribute="height" id="1M1-wV-mKO"/>
+                                    <constraint firstAttribute="width" constant="12" id="BvI-rk-rJE"/>
+                                    <constraint firstAttribute="height" constant="12" id="x4q-Mb-dst"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6D2-rU-zdq">
-                                <rect key="frame" x="105.00000000000001" y="404" width="218.33333333333337" height="48"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello 9" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edH-Iu-s9y">
-                                <rect key="frame" x="149" y="468" width="130.33333333333337" height="48"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <color key="textColor" red="0.31372549020000001" green="0.61568627450000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="坏而不恶" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWJ-N6-Y4v">
-                                <rect key="frame" x="0.0" y="532" width="428" height="20"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lanuch_arc_bottom_right" translatesAutoresizingMaskIntoConstraints="NO" id="auf-PZ-lQK">
+                                <rect key="frame" x="252.66666666666663" y="502" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="euY-w6-QIK"/>
+                                    <constraint firstAttribute="width" constant="12" id="xk0-Dk-8dh"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lanuch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="jWV-3F-hq9">
+                                <rect key="frame" x="100.66666666666669" y="202" width="227" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="227" id="TlQ-yG-ywU"/>
+                                    <constraint firstAttribute="height" constant="162" id="tAx-AB-pha"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6D2-rU-zdq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-35" id="00y-kH-sax"/>
-                            <constraint firstItem="edH-Iu-s9y" firstAttribute="top" secondItem="6D2-rU-zdq" secondAttribute="bottom" constant="16" id="Jz4-Ib-C7P"/>
-                            <constraint firstItem="edH-Iu-s9y" firstAttribute="centerX" secondItem="6D2-rU-zdq" secondAttribute="centerX" id="K6g-gF-rEH"/>
-                            <constraint firstItem="RWJ-N6-Y4v" firstAttribute="top" secondItem="edH-Iu-s9y" secondAttribute="bottom" constant="16" id="O9X-jp-Yo2"/>
-                            <constraint firstItem="RWJ-N6-Y4v" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="S5K-A1-Ee7"/>
-                            <constraint firstItem="dSp-1x-2BB" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aYC-Y5-QEO"/>
-                            <constraint firstItem="RWJ-N6-Y4v" firstAttribute="centerX" secondItem="edH-Iu-s9y" secondAttribute="centerX" id="d0P-vH-eVW"/>
-                            <constraint firstItem="6D2-rU-zdq" firstAttribute="centerX" secondItem="dSp-1x-2BB" secondAttribute="centerX" id="dIp-cm-yVR"/>
-                            <constraint firstItem="6D2-rU-zdq" firstAttribute="top" secondItem="dSp-1x-2BB" secondAttribute="bottom" constant="22" id="ymg-RF-xC6"/>
+                            <constraint firstItem="ZVw-5b-Shi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ddg-qp-7xG"/>
+                            <constraint firstItem="ZVw-5b-Shi" firstAttribute="top" secondItem="jWV-3F-hq9" secondAttribute="bottom" constant="120" id="IIE-sO-a56"/>
+                            <constraint firstItem="auf-PZ-lQK" firstAttribute="bottom" secondItem="ZVw-5b-Shi" secondAttribute="bottom" constant="12" id="TXb-8k-kfN"/>
+                            <constraint firstItem="auf-PZ-lQK" firstAttribute="leading" secondItem="ZVw-5b-Shi" secondAttribute="trailing" constant="-2.8421709430404007e-14" id="cXd-V7-qgq"/>
+                            <constraint firstItem="ZVw-5b-Shi" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="30" id="kly-f9-rJo"/>
+                            <constraint firstItem="jWV-3F-hq9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vcN-wD-Ojd"/>
+                            <constraint firstItem="aCk-8j-XCK" firstAttribute="top" secondItem="ZVw-5b-Shi" secondAttribute="top" constant="-12" id="xjO-98-oVN"/>
+                            <constraint firstItem="ZVw-5b-Shi" firstAttribute="leading" secondItem="aCk-8j-XCK" secondAttribute="trailing" id="yIj-b0-xzJ"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50.724637681159422" y="373.66071428571428"/>
+            <point key="canvasLocation" x="50.467289719626166" y="373.21814254859612"/>
         </scene>
     </scenes>
     <resources>
-        <image name="icon_logo_launch" width="194" height="194"/>
+        <image name="icon_lanuch_arc_bottom_right" width="13" height="13"/>
+        <image name="icon_lanuch_arc_top_left" width="12" height="13"/>
+        <image name="icon_lanuch_logo" width="226.33332824707031" height="162"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
