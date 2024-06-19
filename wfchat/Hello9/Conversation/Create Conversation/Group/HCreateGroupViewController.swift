@@ -122,7 +122,6 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
                 self?.applySearchResult(result)
-                print("####### \(result.count)")
             }
             .store(in: &cancellables)
     }
@@ -189,7 +188,7 @@ extension HCreateGroupViewController {
 
 extension HCreateGroupViewController {
     
-    @objc func didClickDoneButton(_ sender: UIBarButtonItem) {
+    @objc func didClickDoneButton(_ sender: UIButton) {
         let userIds = viewModel.selectedItems.map { $0.userId }
         let vc = HCreateGroupConfirmViewController(userIds: userIds)
         HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)
