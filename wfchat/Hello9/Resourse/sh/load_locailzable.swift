@@ -51,8 +51,7 @@ do {
     let obj = ((try? JSONSerialization.jsonObject(with: fileContents.data(using: .utf8) ?? Data(), options: .allowFragments)) as? [String:Any]) ?? [String:Any]()
     
     if let strings = obj["strings"] as? [String:Any] {
-        strings.keys.forEach { key in
-            
+        strings.keys.sorted(by: <).forEach { key in
             var value = ""
             if let dic = strings[key] as? [String: Any],
                let loc = dic["localizations"] as? [String: Any],

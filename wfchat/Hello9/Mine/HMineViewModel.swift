@@ -76,5 +76,4 @@ class HMineViewModel: HBasicViewModel {
         avatarModel = HUserInfoModel.current
         applySnapshot()
     }
-    
 }
