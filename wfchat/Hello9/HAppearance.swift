@@ -12,7 +12,14 @@ struct HAppearance {
     
     static func install() {
         
-        UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().barStyle = .default
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundImage = UIImage()
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        
         UITableView.appearance().separatorColor = Colors.themeSeperatorColor
         // UITabBar
         UITabBarItem.appearance().badgeColor = Colors.red01

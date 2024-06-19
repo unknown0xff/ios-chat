@@ -13,10 +13,10 @@ enum L10n {
     
     /// 节点
     static var node: String { L10n.tr("node") }
-    /// 我的
-    static var mine: String { L10n.tr("mine") }
     /// 消息
     static var message: String { L10n.tr("message") }
+    /// 我的
+    static var mine: String { L10n.tr("mine") }
 }
 
 extension L10n {
