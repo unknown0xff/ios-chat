@@ -144,7 +144,7 @@ class HChatListViewController: HBaseViewController {
     private func setConversationTop(isTop: Bool, at indexPath: IndexPath) {
         Task {
             if let _ = await viewModel.setConversationTop(isTop, at: indexPath) {
-                HToast.showAutoHidden(on: self.view, text: "更新失败")
+                HToast.showTipAutoHidden(text: "更新失败")
             }
         }
     }
@@ -152,7 +152,7 @@ class HChatListViewController: HBaseViewController {
     private func setConversationSilent(isSilent: Bool, at indexPath: IndexPath) {
         Task {
             if let _ = await viewModel.setConversationSilent(isSilent, at: indexPath) {
-                HToast.showAutoHidden(on: self.view, text: "更新失败")
+                HToast.showTipAutoHidden(text: "更新失败")
             } else {
                 updateBadgeNumber()
             }
@@ -202,9 +202,8 @@ class HChatListViewController: HBaseViewController {
             mvc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(mvc, animated: true)
             
-        } error: { [weak self] code in
-            guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "创建失败")
+        } error: { _ in
+            HToast.showTipAutoHidden(text: "创建失败")
         }
     }
     

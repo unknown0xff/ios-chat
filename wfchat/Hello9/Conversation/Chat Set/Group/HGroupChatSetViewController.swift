@@ -300,14 +300,17 @@ extension HGroupChatSetViewController {
     
     // 解散
     func dismissGroup() {
-        let hud = HToast.show(on: view, text: "正在为所有人清除聊天记录")
+        let hud = HToast.showLoading("正在为所有人清除聊天记录")
         WFCCIMService.sharedWFCIM().remove(viewModel.conv, clearMessage: true)
         WFCCIMService.sharedWFCIM().dismissGroup(viewModel.conv.target, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] in
-            hud.hide(animated: false)
+            hud?.hide(animated: false)
             guard let self else { return }
-            HToast.showAutoHidden(on: self.view, text: "删除成功")
+            HToast.showTipAutoHidden(text: "删除成功")
             self.navigationController?.popToRootViewController(animated: true)
-        } error: { _ in }
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "删除失败")
+        }
     }
     
     // 退出

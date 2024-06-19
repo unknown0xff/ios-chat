@@ -117,14 +117,14 @@ extension HResetPasswordViewController: HLoginInputCellDelegate {
         view.resignFirstResponder()
         
         if viewModel.isValid {
-            let hud = HToast.show(on: view, text: "加载中...")
+            let hud = HToast.showLoading()
             Task {
                 let result: Error? = await viewModel.login()
                 await MainActor.run {
-                    hud.hide(animated:true)
+                    hud?.hide(animated:true)
                     
                     if result != nil {
-                        HToast.showAutoHidden(on: view, text: "修改失败")
+                        HToast.showTipAutoHidden(text: "修改失败")
                         self.navigationController?.pushViewController(HResetPasswordSuccessViewController(), animated: true)
                     } else {
                         self.navigationController?.pushViewController(HResetPasswordSuccessViewController(), animated: true)

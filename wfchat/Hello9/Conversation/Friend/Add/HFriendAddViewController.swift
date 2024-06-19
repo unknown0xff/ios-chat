@@ -104,7 +104,7 @@ extension HFriendAddViewController: UITableViewDelegate {
             navigationController?.pushViewController(mvc, animated: true)
             
         } else {
-            let hud = HToast.show(on: view, text: "发送中...")
+            let hud = HToast.showLoading("发送中...")
             let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
             let reason = "我是\(userInfo.name ?? "")"
             
@@ -113,17 +113,17 @@ extension HFriendAddViewController: UITableViewDelegate {
             let jsonExtra = String(data: data ?? .init(), encoding: .utf8)
             
             WFCCIMService.sharedWFCIM().sendFriendRequest(viewModel.friendId, reason: reason, extra: jsonExtra)  { [weak self] in
-                hud.hide(animated: true)
+                hud?.hide(animated: true)
                 guard let self else { return }
                 self.viewModel.didSendFriendRequestSuccess()
             } error: { code in
-                hud.hide(animated: true)
+                hud?.hide(animated: true)
                 if(code == 16) {
-                    HToast.showAutoHidden(on: self.view, text: "已经发送过添加好友请求了")
+                    HToast.showTipAutoHidden(text: "已经发送过添加好友请求了")
                 } else if(code == 18) {
-                    HToast.showAutoHidden(on: self.view, text: "好友请求已被拒绝")
+                    HToast.showTipAutoHidden(text: "好友请求已被拒绝")
                 } else {
-                    HToast.showAutoHidden(on: self.view, text: "发送失败")
+                    HToast.showTipAutoHidden(text: "发送失败")
                 }
             }
         }

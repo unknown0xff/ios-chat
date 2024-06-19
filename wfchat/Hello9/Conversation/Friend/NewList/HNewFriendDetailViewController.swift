@@ -320,7 +320,6 @@ class HNewFriendDetailViewController: HBaseViewController {
                 HToast.showTipAutoHidden(text: "已经发送过添加好友请求了")
             } else if(code == 18) {
                 HToast.showTipAutoHidden(text: "好友请求已被拒绝")
-                HToast.showAutoHidden(on: self.view, text: "好友请求已被拒绝")
             } else {
                 HToast.showTipAutoHidden(text: "发送失败")
             }
@@ -337,9 +336,9 @@ class HNewFriendDetailViewController: HBaseViewController {
         } error: { code in
             hud?.hide(animated: true)
             if code == 19 {
-                HToast.showAutoHidden(on: self.view, text: "已过期")
+                HToast.showTipAutoHidden(text: "已过期")
             } else {
-                HToast.showAutoHidden(on: self.view, text: "添加失败")
+                HToast.showTipAutoHidden(text: "添加失败")
             }
         }
     }

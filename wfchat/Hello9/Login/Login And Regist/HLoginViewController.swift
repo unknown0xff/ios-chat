@@ -125,16 +125,16 @@ class HLoginViewController: HBaseViewController {
     
     func loadDataIfNeed() {
         if viewModel.isNewUser {
-            let hud = HToast.show(on: view, text: "获取Hello号中...")
+            let hud = HToast.showLoading("获取Hello号中...")
             Task {
                 if let error = await viewModel.requestAccountId() {
                     await MainActor.run {
-                        hud.hide(animated:true)
-                        HToast.showAutoHidden(on: self.view, text: error.localizedDescription)
+                        hud?.hide(animated:true)
+                        HToast.showTipAutoHidden(text:  error.localizedDescription)
                     }
                 } else {
                     await MainActor.run {
-                        hud.hide(animated:true)
+                        hud?.hide(animated:true)
                         self.tableView.reloadData()
                     }
                 }
@@ -180,7 +180,7 @@ extension HLoginViewController: HLoginInputCellDelegate {
         view.resignFirstResponder()
         
         if viewModel.isValid {
-            let hud = HToast.show(on: view, text: "登录中...")
+            let hud = HToast.showLoading("登录中...")
             Task {
                 let result: Error?
                 if viewModel.isNewUser {
@@ -190,10 +190,10 @@ extension HLoginViewController: HLoginInputCellDelegate {
                 }
                 
                 await MainActor.run {
-                    hud.hide(animated:true)
+                    hud?.hide(animated:true)
                     
                     if result != nil {
-                        HToast.showAutoHidden(on: view, text: "登录失败")
+                        HToast.showTipAutoHidden(text:  "登录失败")
                     } else {
                         self.output.send(.onLoginSucess)
                     }
