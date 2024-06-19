@@ -85,10 +85,11 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     private func configureNavBar() {
         backButtonImage = nil
         
-        let qrButton = UIButton.navButton("二维码", titleColor: Colors.themeBlue1)
+        let qrButton = UIButton.with(image: Images.icon_qr_code)
         navBar.contentView.addSubview(qrButton)
         qrButton.snp.makeConstraints { make in
             make.left.equalTo(16)
+            make.width.height.equalTo(24)
             make.centerY.equalToSuperview()
         }
     }

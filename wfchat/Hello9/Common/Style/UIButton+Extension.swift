@@ -64,6 +64,12 @@ extension UIButton {
         return btn
     }
     
+    class func with(image: UIImage) -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setImage(image, for: .normal)
+        return btn
+    }
+    
     class func imageButton(
         with image: UIImage? = nil,
         title: String = "",

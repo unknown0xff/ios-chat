@@ -34,6 +34,8 @@ enum Images {
 
     static let icon_bell = UIImage(named: "icon_bell")!
 
+    static let icon_bell_yellow = UIImage(named: "icon_bell_yellow")!
+
     static let icon_blue_background = UIImage(named: "icon_blue_background")!
 
     static let icon_button_background_green = UIImage(named: "icon_button_background_green")!
@@ -41,6 +43,8 @@ enum Images {
     static let icon_camera = UIImage(named: "icon_camera")!
 
     static let icon_camera_blue = UIImage(named: "icon_camera_blue")!
+
+    static let icon_camera_blue_outline = UIImage(named: "icon_camera_blue_outline")!
 
     static let icon_chat_green = UIImage(named: "icon_chat_green")!
 
@@ -75,6 +79,8 @@ enum Images {
     static let icon_forbind = UIImage(named: "icon_forbind")!
 
     static let icon_group = UIImage(named: "icon_group")!
+
+    static let icon_key_blue = UIImage(named: "icon_key_blue")!
 
     static let icon_key_gray = UIImage(named: "icon_key_gray")!
 
@@ -154,6 +160,8 @@ enum Images {
 
     static let icon_people = UIImage(named: "icon_people")!
 
+    static let icon_persional = UIImage(named: "icon_persional")!
+
     static let icon_phone = UIImage(named: "icon_phone")!
 
     static let icon_phone_black = UIImage(named: "icon_phone_black")!
@@ -169,6 +177,8 @@ enum Images {
     static let icon_search_gray = UIImage(named: "icon_search_gray")!
 
     static let icon_secret = UIImage(named: "icon_secret")!
+
+    static let icon_securty_green = UIImage(named: "icon_securty_green")!
 
     static let icon_selected = UIImage(named: "icon_selected")!
 

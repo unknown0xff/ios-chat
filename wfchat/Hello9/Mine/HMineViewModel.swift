@@ -56,17 +56,17 @@ class HMineViewModel: HBasicViewModel {
         snapshot.appendItems([.avatar(avatarModel)], toSection: .header)
         
         snapshot.appendItems([
-            .list(.init(title: "更换头像", image: Images.icon_mine_setting, tag: .avatar))
+            .list(.init(title: "更换头像", image: Images.icon_camera_blue_outline, tag: .avatar))
         ], toSection: .avatar)
         
         snapshot.appendItems([
-            .list(.init(title: "我的资料",image: Images.icon_mine_verify, tag: .material))
+            .list(.init(title: "我的资料",image: Images.icon_persional, tag: .material))
         ], toSection: .material)
         
         snapshot.appendItems([
-            .list(.init(title: "隐私与安全", image: Images.icon_mine_feedback, tag: .privacy)),
-            .list(.init(title: "通知与声音", image: Images.icon_mine_feedback, tag: .notification)),
-            .list(.init(title: "数据和储存", image: Images.icon_mine_logout, tag: .data))
+            .list(.init(title: "隐私与安全", image: Images.icon_key_blue, tag: .privacy)),
+            .list(.init(title: "通知与声音", image: Images.icon_bell_yellow, tag: .notification)),
+            .list(.init(title: "数据和储存", image: Images.icon_securty_green, tag: .data))
         ], toSection: .other)
         
         self.snapshot = snapshot
