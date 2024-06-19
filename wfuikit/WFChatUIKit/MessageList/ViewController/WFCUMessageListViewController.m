@@ -2052,7 +2052,7 @@
             }
         });
     } else if (forceButtom) {
-        [self scrollToBottom:YES];
+        [self scrollToBottom:newMessage];
     }
     
     if (modifiedAliasUsers.count) {

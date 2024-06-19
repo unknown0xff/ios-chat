@@ -199,7 +199,6 @@
 		60F5CF842C0AB0E20013D912 /* HCreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF832C0AB0E20013D912 /* HCreateGroupViewController.swift */; };
 		60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF892C0AF3880013D912 /* HUserInfoModel.swift */; };
 		60F5CF922C0D55DB0013D912 /* HMessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */; };
-		60F5CF942C0D55FA0013D912 /* HMessageNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */; };
 		9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774B2243CD830020A2AC /* SystemConfiguration.framework */; };
 		9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774D2243CD8D0020A2AC /* Security.framework */; };
 		905177502243CD9A0020A2AC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9051774F2243CD9A0020A2AC /* libz.tbd */; };
@@ -570,7 +569,6 @@
 		60F5CF832C0AB0E20013D912 /* HCreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupViewController.swift; sourceTree = "<group>"; };
 		60F5CF892C0AF3880013D912 /* HUserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserInfoModel.swift; sourceTree = "<group>"; };
 		60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageListViewController.swift; sourceTree = "<group>"; };
-		60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageNavBar.swift; sourceTree = "<group>"; };
 		9051774B2243CD830020A2AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9051774D2243CD8D0020A2AC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9051774F2243CD9A0020A2AC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -1484,7 +1482,6 @@
 			isa = PBXGroup;
 			children = (
 				60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */,
-				60F5CF932C0D55FA0013D912 /* HMessageNavBar.swift */,
 			);
 			path = "Message List";
 			sourceTree = "<group>";
@@ -1947,7 +1944,6 @@
 				607F957C2C12B17D00648BFF /* UITextField+Extension.swift in Sources */,
 				6088F49E2C0FFA3400130A87 /* HNewFriendListViewController.swift in Sources */,
 				204B7E012C21222100459C7A /* HCreateGroupMemberListCell.swift in Sources */,
-				60F5CF942C0D55FA0013D912 /* HMessageNavBar.swift in Sources */,
 				6088F4A02C0FFA5B00130A87 /* HNewFriendListViewModel.swift in Sources */,
 				B7EDF7DF2858161C0013602E /* WFCDestroyAccountViewController.m in Sources */,
 				149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */,
