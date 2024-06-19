@@ -795,19 +795,17 @@
         [self.textInputView setHidden:NO];
         self.quoteContainerView.hidden = NO;
         [self.voiceInputBtn setHidden:YES];
+        self.textInputView.inputView = nil;
+        if (_inputBarStatus == ChatInputBarKeyboardStatus) {
+            [self.textInputView reloadInputViews];
+        }
+        
         if (!self.textInputView.isFirstResponder && _inputBarStatus == ChatInputBarKeyboardStatus) {
             [self.textInputView becomeFirstResponder];
         }
         
         if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
             [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
-        }
-        
-        self.textInputView.inputView = nil;
-        if (_inputBarStatus == ChatInputBarKeyboardStatus) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.textInputView reloadInputViews];
-            });
         }
     }
     

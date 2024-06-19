@@ -12,6 +12,7 @@
 		149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B311D242247E900B935D3 /* UIImage+ERCategory.m */; };
 		20499A3E2C227E910005B1D9 /* HChatSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */; };
 		20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 20499A3F2C2298700005B1D9 /* Localizable.xcstrings */; };
+		20499A442C22B20B0005B1D9 /* message_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 20499A432C22B20B0005B1D9 /* message_alert.wav */; };
 		204B7DF82C21137D00459C7A /* HCreateGroupConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DF72C21137D00459C7A /* HCreateGroupConfirmViewController.swift */; };
 		204B7DFB2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DFA2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift */; };
 		204B7DFD2C21169700459C7A /* HCreateGroupInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DFC2C21169700459C7A /* HCreateGroupInputCell.swift */; };
@@ -314,6 +315,7 @@
 		20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatSearchViewController.swift; sourceTree = "<group>"; };
 		20499A3F2C2298700005B1D9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		20499A412C229D690005B1D9 /* load_locailzable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = load_locailzable.swift; sourceTree = "<group>"; };
+		20499A432C22B20B0005B1D9 /* message_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message_alert.wav; sourceTree = "<group>"; };
 		204B7DF72C21137D00459C7A /* HCreateGroupConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmViewController.swift; sourceTree = "<group>"; };
 		204B7DFA2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmHeadCell.swift; sourceTree = "<group>"; };
 		204B7DFC2C21169700459C7A /* HCreateGroupInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupInputCell.swift; sourceTree = "<group>"; };
@@ -1502,6 +1504,7 @@
 		903EBC942136313B00312C16 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				20499A432C22B20B0005B1D9 /* message_alert.wav */,
 				204B7E062C218BA500459C7A /* default_call.wav */,
 				2F8F8E662723072600151B75 /* ptt_begin.m4a */,
 				2F8F8E672723072600151B75 /* ptt_end.m4a */,
@@ -1819,6 +1822,7 @@
 				20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
+				20499A442C22B20B0005B1D9 /* message_alert.wav in Resources */,
 				204B7E072C218BA500459C7A /* default_call.wav in Resources */,
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
 				90C1D911208C12A900E923F4 /* foreman.mp4 in Resources */,

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class WFCCConversation;
+@class WFCCMessageContent;
+@class WFCCMessage;
+
 @interface WFCUMessageListViewController : UIViewController
 @property (nonatomic, strong)WFCCConversation *conversation;
 
@@ -35,5 +38,7 @@
 - (void)setAvatar:(NSString *)avatar;
 
 - (void)registerCell:(Class)cellCls forContent:(Class)msgContentCls;
+- (void)sendMessage:(WFCCMessageContent *)content;
+- (void)didReceiveMessages:(NSArray<WFCCMessage *> *)messages;
 
 @end

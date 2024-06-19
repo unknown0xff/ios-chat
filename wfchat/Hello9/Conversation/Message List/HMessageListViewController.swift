@@ -10,6 +10,8 @@ import UIKit
 
 class HMessageListViewController: WFCUMessageListViewController {
 
+    private var player: AVAudioPlayer?
+    
     private lazy var navBar = HNavigationBar()
     
     private(set) lazy var avatarButton: UIButton = {
@@ -46,6 +48,56 @@ class HMessageListViewController: WFCUMessageListViewController {
     override func setAvatar(_ avatar: String!) {
         let url = URL(string: avatar ?? "")
         avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
+    }
+    
+    override func sendMessage(_ content: WFCCMessageContent!) {
+        super.sendMessage(content)
+        if let content, enablePlaySoundMessage(content) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.playSendSound()
+            }
+        }
+    }
+    
+    override func didReceive(_ messages: [WFCCMessage]!) {
+        super.didReceive(messages)
+        guard let messages, !messages.isEmpty else {
+            return
+        }
+        
+        let result = messages
+            .filter { $0.conversation.target == self.conversation.target }
+            .map { $0.content }
+            .filter { enablePlaySoundMessage($0) }
+        
+        if result.isEmpty {
+            return
+        }
+        
+        if UIViewController.h_top != self {
+            return
+        }
+        playSendSound()
+    }
+    
+    private func enablePlaySoundMessage(_ content: WFCCMessageContent) -> Bool {
+        content is WFCCTextMessageContent ||
+        content is WFCCImageMessageContent ||
+        content is WFCCStickerMessageContent ||
+        content is WFCCLocationMessageContent
+    }
+    
+    private func playSendSound() {
+        if player == nil {
+            if let url = Bundle.main.url(forResource: "message_alert", withExtension: "wav") {
+                player = try? AVAudioPlayer(contentsOf: url)
+            }
+        }
+        try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+        try? AVAudioSession.sharedInstance().setActive(true)
+        player?.numberOfLoops = 0
+        player?.volume = 1
+        player?.play()
     }
     
     func prefersNavigationBarHidden() -> Bool { return true }

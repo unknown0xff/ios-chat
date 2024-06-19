@@ -160,6 +160,9 @@
 @property (nonatomic, assign)BOOL isAtButtom;
 
 @property (nonatomic, strong)NSMutableDictionary<NSString*, NSDictionary*> *typingDict;
+
+@property (nonatomic, strong)AVAudioPlayer *audioPlayer;
+
 @end
 
 @implementation WFCUMessageListViewController
@@ -1258,7 +1261,6 @@
     [self.chatInputBar resetInputBarStatue];
 }
 
-
 - (void)sendMessage:(WFCCMessageContent *)content {
     //发送消息时，client会发出"kSendingMessageStatusUpdated“的通知，消息界面收到通知后加入到列表中。
     __weak typeof(self) ws = self;
@@ -1336,7 +1338,11 @@
     }
     
     [[WFCCIMService sharedWFCIMService] clearUnreadStatus:self.conversation];
+    
+    [self didReceiveMessages:messages];
 }
+
+- (void)didReceiveMessages:(NSArray<WFCCMessage *> *)messages { }
 
 - (void)updateQuotedMessageWhenRecall:(long long)messageUid {
     for (int i = 0; i < self.modelList.count; i++) {
