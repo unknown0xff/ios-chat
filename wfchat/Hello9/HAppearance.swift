@@ -14,6 +14,7 @@ struct HAppearance {
         
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().barStyle = .default
+        UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundImage = UIImage()
