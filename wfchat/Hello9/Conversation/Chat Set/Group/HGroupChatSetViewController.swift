@@ -259,6 +259,12 @@ class HGroupChatSetViewController: HBaseViewController {
         present(sheet, animated: true)
     }
     
+    @objc func didClickSearchButton(_ sender: UIButton) {
+        let vc = HChatSearchViewController()
+        vc.conversation = viewModel.conv
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc func didClickSilentButton(_ sender: UIButton) {
         if sender.isSelected {
             setSilent(false)

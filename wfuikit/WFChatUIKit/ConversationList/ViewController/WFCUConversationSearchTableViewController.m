@@ -23,11 +23,11 @@
 #import "WFCUConfigManager.h"
 #import "WFCUImage.h"
 
-@interface WFCUConversationSearchTableViewController () <UISearchControllerDelegate, UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong)NSMutableArray<WFCCMessage* > *messages;
+@interface WFCUConversationSearchTableViewController ()<UISearchBarDelegate>
 @property (nonatomic, strong)  UISearchController       *searchController;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *searchViewContainer;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end
 
 @implementation WFCUConversationSearchTableViewController
@@ -36,21 +36,9 @@
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     
-    if (@available(iOS 9.1, *)) {
-        self.searchController.obscuresBackgroundDuringPresentation = NO;
-    }
-    
-    if (@available(iOS 13, *)) {
-        self.searchController.searchBar.searchBarStyle = UISearchBarStyleDefault;
-        self.searchController.searchBar.searchTextField.backgroundColor = [WFCUConfigManager globalManager].naviBackgroudColor;
-        UIImage* searchBarBg = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(self.view.frame.size.width - 8 * 2, 36) cornerRadius:4];
-        [self.searchController.searchBar setSearchFieldBackgroundImage:searchBarBg forState:UIControlStateNormal];
-    } else {
-        [self.searchController.searchBar setValue:WFCString(@"Cancel") forKey:@"_cancelButtonText"];
-    }
-    
-    self.searchController.searchBar.placeholder = WFCString(@"Search");
-    
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 44)];
+    self.searchBar.placeholder = WFCString(@"Search");
+    self.searchBar.delegate = self;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
@@ -61,15 +49,7 @@
         self.tableView.sectionHeaderTopPadding = 0;
     }
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.searchController = _searchController;
-        self.navigationItem.hidesSearchBarWhenScrolling = NO;
-        _searchController.hidesNavigationBarDuringPresentation = YES;
-    } else {
-        self.tableView.tableHeaderView = _searchController.searchBar;
-    }
-    
-    self.definesPresentationContext = YES;
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 - (void)viewDidLoad {
@@ -78,8 +58,16 @@
     [self initSearchUIAndTableView];
 
     self.extendedLayoutIncludesOpaqueBars = YES;
-    [self.searchController.searchBar setText:self.keyword];
-    self.searchController.active = YES;
+    [self.searchBar setText:self.keyword];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.searchBar becomeFirstResponder];
+        [self.searchBar setShowsCancelButton:YES animated:YES];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,10 +156,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self goToConversation:self.messages[indexPath.row].conversation messgeId:self.messages[indexPath.row].messageId];
+}
+
+- (void)goToConversation:(WFCCConversation*)conv messgeId:(long)messageId {
     WFCUMessageListViewController *mvc = [[WFCUMessageListViewController alloc] init];
-    
-    mvc.conversation = self.messages[indexPath.row].conversation;
-    mvc.highlightMessageId = self.messages[indexPath.row].messageId;
+    mvc.conversation = conv;
+    mvc.highlightMessageId = messageId;
     mvc.highlightText = self.keyword;
     mvc.multiSelecting = self.messageSelecting;
     mvc.selectedMessageIds = self.selectedMessageIds;
@@ -186,12 +177,11 @@
 
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _searchController = nil;
 }
 
 #pragma mark - UISearchControllerDelegate
--(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *searchString = [self.searchController.searchBar text];
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSString *searchString = searchText;
     if (searchString.length) {
         self.messages = [[[WFCCIMService sharedWFCIMService] searchMessage:self.conversation keyword:searchString order:YES limit:100 offset:0 withUser:nil] mutableCopy];
         self.keyword = searchString;
@@ -202,4 +192,9 @@
     //刷新表格
     [self.tableView reloadData];
 }
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

@@ -50,6 +50,8 @@ class HSingleChatSetViewController: HBaseViewController {
     
     private lazy var moreButton: UIButton = {
        let btn = actionButton(with: Images.icon_more, title: "更多", selector: #selector(didClickBackBarButton(_:)))
+        btn.menu = createMenu()
+        btn.showsMenuAsPrimaryAction = true
         return btn
     }()
     private lazy var actions: UIStackView = {
@@ -57,11 +59,7 @@ class HSingleChatSetViewController: HBaseViewController {
         
         let msgButton = actionButton(with: Images.icon_message, title: "发送消息", selector: #selector(didClickBackBarButton(_:)))
         
-        let searchButton = actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
-        
-        moreButton.menu = createMenu()
-        moreButton.showsMenuAsPrimaryAction = true
-        
+        let searchButton = actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickSearchButton(_:)))
         let s = UIStackView(arrangedSubviews: [secretButton, msgButton, searchButton, moreButton])
         s.axis = .horizontal
         s.spacing = 11
@@ -245,6 +243,13 @@ class HSingleChatSetViewController: HBaseViewController {
         sheet.addAction(cancel)
         present(sheet, animated: true)
     }
+    
+    @objc func didClickSearchButton(_ sender: UIButton) {
+        let vc = HChatSearchViewController()
+        vc.conversation = viewModel.conv
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension HSingleChatSetViewController {

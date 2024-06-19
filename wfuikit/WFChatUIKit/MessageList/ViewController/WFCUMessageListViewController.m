@@ -458,12 +458,14 @@
 
 - (void)setHasNewMessage:(BOOL)hasNewMessage {
     _hasNewMessage = hasNewMessage;
-    UICollectionViewFlowLayout *_customFlowLayout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
-    if (hasNewMessage) {
-        _customFlowLayout.footerReferenceSize = CGSizeMake(320.0f, 20.0f);
-    } else {
-        _customFlowLayout.footerReferenceSize = CGSizeZero;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UICollectionViewFlowLayout *_customFlowLayout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+        if (hasNewMessage) {
+            _customFlowLayout.footerReferenceSize = CGSizeMake(320.0f, 20.0f);
+        } else {
+            _customFlowLayout.footerReferenceSize = CGSizeZero;
+        }
+    });
 }
 
 - (void)loadRemoteHistoryMessages:(void (^ __nullable)(BOOL more))completion {

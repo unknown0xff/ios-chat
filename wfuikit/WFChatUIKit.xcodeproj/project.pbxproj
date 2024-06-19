@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -410,7 +410,7 @@
 		2FDF87152723E01100AC6C36 /* WFPttViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FDF87132723E01100AC6C36 /* WFPttViewController.h */; };
 		2FDF87162723E01100AC6C36 /* WFPttViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDF87142723E01100AC6C36 /* WFPttViewController.m */; };
 		2FE689A821AE9C0200DE54CC /* WFCUConversationSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE689A621AE9C0100DE54CC /* WFCUConversationSearchTableViewController.m */; };
-		2FE689A921AE9C0200DE54CC /* WFCUConversationSearchTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FE689A721AE9C0200DE54CC /* WFCUConversationSearchTableViewController.h */; };
+		2FE689A921AE9C0200DE54CC /* WFCUConversationSearchTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FE689A721AE9C0200DE54CC /* WFCUConversationSearchTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FF70EAC2402101000946D2D /* WFCUWaitingAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF70EAA2402101000946D2D /* WFCUWaitingAnimationView.h */; };
 		2FF70EAD2402101000946D2D /* WFCUWaitingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF70EAB2402101000946D2D /* WFCUWaitingAnimationView.m */; };
 		9029D0FE21C5D7930002EBAA /* WFCUCreateChannelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9029D0FC21C5D7930002EBAA /* WFCUCreateChannelViewController.h */; };
