@@ -34,7 +34,7 @@ class HLoginHeaderView: UIView {
         super.init(frame: frame)
         titleLabel.text = title
         
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.14
         subTitleLabel.attributedText = NSMutableAttributedString(string: subTitle, attributes: [.paragraphStyle: paragraphStyle])
     }

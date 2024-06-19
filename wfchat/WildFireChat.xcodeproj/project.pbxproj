@@ -11,6 +11,7 @@
 		149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3109241E300C00B935D3 /* UIFont+YH.m */; };
 		149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B311D242247E900B935D3 /* UIImage+ERCategory.m */; };
 		20499A3E2C227E910005B1D9 /* HChatSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */; };
+		20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 20499A3F2C2298700005B1D9 /* Localizable.xcstrings */; };
 		204B7DF82C21137D00459C7A /* HCreateGroupConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DF72C21137D00459C7A /* HCreateGroupConfirmViewController.swift */; };
 		204B7DFB2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DFA2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift */; };
 		204B7DFD2C21169700459C7A /* HCreateGroupInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7DFC2C21169700459C7A /* HCreateGroupInputCell.swift */; };
@@ -311,6 +312,8 @@
 		20499A2E2C2261820005B1D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		20499A302C2261860005B1D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatSearchViewController.swift; sourceTree = "<group>"; };
+		20499A3F2C2298700005B1D9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		20499A412C229D690005B1D9 /* load_locailzable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = load_locailzable.swift; sourceTree = "<group>"; };
 		204B7DF72C21137D00459C7A /* HCreateGroupConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmViewController.swift; sourceTree = "<group>"; };
 		204B7DFA2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupConfirmHeadCell.swift; sourceTree = "<group>"; };
 		204B7DFC2C21169700459C7A /* HCreateGroupInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCreateGroupInputCell.swift; sourceTree = "<group>"; };
@@ -718,6 +721,15 @@
 				20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */,
 			);
 			path = "Chat Search";
+			sourceTree = "<group>";
+		};
+		20499A422C22A52E0005B1D9 /* sh */ = {
+			isa = PBXGroup;
+			children = (
+				601246562C05A38E00635523 /* load_resourse.sh */,
+				20499A412C229D690005B1D9 /* load_locailzable.swift */,
+			);
+			path = sh;
 			sourceTree = "<group>";
 		};
 		204B7DF92C21155F00459C7A /* Group Confirm */ = {
@@ -1149,12 +1161,13 @@
 		601246552C059B3D00635523 /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				20499A422C22A52E0005B1D9 /* sh */,
 				601246532C059A6300635523 /* Colors.swift */,
 				601246592C05AFB200635523 /* Images.swift */,
-				601246512C05993200635523 /* Colors.xcassets */,
-				601246562C05A38E00635523 /* load_resourse.sh */,
-				601246572C05AF4100635523 /* Images.xcassets */,
 				6012465B2C05B82E00635523 /* Localizable.swift */,
+				601246512C05993200635523 /* Colors.xcassets */,
+				601246572C05AF4100635523 /* Images.xcassets */,
+				20499A3F2C2298700005B1D9 /* Localizable.xcstrings */,
 			);
 			path = Resourse;
 			sourceTree = "<group>";
@@ -1803,6 +1816,7 @@
 				2E1D20041FAF0AE600F4405D /* Assets.xcassets in Resources */,
 				2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */,
 				601246582C05AF4100635523 /* Images.xcassets in Resources */,
+				20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
 				204B7E072C218BA500459C7A /* default_call.wav in Resources */,
@@ -1855,7 +1869,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/Hello9/Resourse/load_resourse.sh\" \"${SRCROOT}\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/Hello9/Resourse/sh/load_resourse.sh\" \"${SRCROOT}\"\nswift ${SRCROOT}/Hello9/Resourse/sh/load_locailzable.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -271,7 +271,7 @@ open class HMenuTabViewController: HBasicViewController, UIScrollViewDelegate {
             
             let width: CGFloat = animationLineView.frame.width
             let height: CGFloat = animationLineView.frame.height
-            var x = frame.origin.x + (frame.width - width) / 2.0
+            let x = frame.origin.x + (frame.width - width) / 2.0
             let y = animationLineViewTop
             
             if animationLineView.superview == nil {

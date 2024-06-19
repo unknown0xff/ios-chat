@@ -206,7 +206,7 @@ private extension HAlertContainerView {
             make.top.equalTo(buttonContainer).offset(-1)
         }
 
-        if let leftTitle = leftButtonTitle, let rightTitle = rightButtonTitle {
+        if let _ = leftButtonTitle, let _ = rightButtonTitle {
             buttonGapLine.snp.makeConstraints { make in
                 make.center.equalTo(buttonContainer)
                 make.height.equalTo(28)
