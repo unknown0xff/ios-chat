@@ -47,7 +47,7 @@ alpha:1.0]
 //删除掉应用工程中的WebRTC.framework和WFAVEngineKit.framework这两个库。
 #define WFCU_SUPPORT_VOIP 1
 
-#define WFCString(key) [[NSBundle bundleForClass:[self class]] localizedStringForKey:key value:@"" table:@"wfc"]
+#define WFCString(key) [[NSBundle bundleForClass:NSClassFromString(@"WFCUMessageListViewController")] localizedStringForKey:key value:@"" table:@"wfc"]
 
 //对讲功能开关，在Chat工程也有同样的一个开关，需要保持同步
 //#define WFC_PTT
