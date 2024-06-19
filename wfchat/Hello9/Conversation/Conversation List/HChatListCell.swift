@@ -321,8 +321,8 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
                 avatar.image = Images.icon_logo
             }
         } else {
-            if !groupInfo.portrait.isEmpty {
-                avatar.sd_setImage(with: URL(string: groupInfo.portrait ?? ""), placeholderImage: groupInfo.portraitPlaceholder)
+            if !groupInfo.portrait.isEmpty, let url = URL(string: groupInfo.portrait ?? "") {
+                avatar.sd_setImage(with: url, placeholderImage: groupInfo.portraitPlaceholder)
             } else {
                 let groupId = groupInfo.target
                 

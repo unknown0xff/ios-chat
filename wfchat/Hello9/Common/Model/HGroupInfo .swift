@@ -22,10 +22,10 @@ struct HGroupInfo: Hashable {
         target = info.target ?? ""
         name = info.name ?? ""
         displayName = info.displayName ?? ""
-        if let p = info.portrait {
-            portrait = URL(string: p)
+        if let p = info.portrait, let url = URL(string: p) {
+            portrait = url
         } else {
-            portrait = nil
+            portrait = info.localUrl
         }
         memberCount = info.memberCount
         owner = info.owner ?? ""
@@ -36,5 +36,17 @@ struct HGroupInfo: Hashable {
     var desc: String {
         let dic = (try? JSONDecoder().decode([String:String].self, from: groupExtra.data(using: .utf8) ?? .init())) ?? .init()
         return dic["desc", default: "暂无"]
+    }
+}
+
+extension WFCCGroupInfo {
+    var localUrl: URL? {
+        let path = WFCCUtilities.getGroupGridPortrait(target, width: 80, generateIfNotExist: true) { userId in
+            return Images.icon_logo
+        }
+        if let path {
+            return URL(fileURLWithPath: path)
+        }
+        return nil
     }
 }

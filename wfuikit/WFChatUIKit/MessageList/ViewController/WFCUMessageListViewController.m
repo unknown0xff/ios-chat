@@ -825,7 +825,6 @@
 - (void)setTargetGroup:(WFCCGroupInfo *)targetGroup {
     _targetGroup = targetGroup;
     [self updateTitle];
-    [self setAvatar:targetGroup.portrait];
     [self setupNavigationItem];
     
     ChatInputBarStatus defaultStatus = ChatInputBarDefaultStatus;

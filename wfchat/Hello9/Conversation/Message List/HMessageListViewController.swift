@@ -50,6 +50,16 @@ class HMessageListViewController: WFCUMessageListViewController {
         avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
     }
     
+    // 群头像单独设置
+    override func setTargetGroup(_ targetGroup: WFCCGroupInfo!) {
+        super.setTargetGroup(targetGroup)
+        if let url = URL(string: targetGroup.portrait ?? "") {
+            avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
+        } else {
+            avatarButton.sd_setImage(with: targetGroup.localUrl, for: .normal, placeholderImage: Images.icon_logo)
+        }
+    }
+    
     override func sendMessage(_ content: WFCCMessageContent!) {
         super.sendMessage(content)
         if let content, enablePlaySoundMessage(content) {

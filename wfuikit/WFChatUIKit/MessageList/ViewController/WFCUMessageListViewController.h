@@ -11,6 +11,7 @@
 @class WFCCConversation;
 @class WFCCMessageContent;
 @class WFCCMessage;
+@class WFCCGroupInfo;
 
 @interface WFCUMessageListViewController : UIViewController
 @property (nonatomic, strong)WFCCConversation *conversation;
@@ -40,5 +41,5 @@
 - (void)registerCell:(Class)cellCls forContent:(Class)msgContentCls;
 - (void)sendMessage:(WFCCMessageContent *)content;
 - (void)didReceiveMessages:(NSArray<WFCCMessage *> *)messages;
-
+- (void)setTargetGroup:(WFCCGroupInfo *)targetGroup;
 @end
