@@ -176,6 +176,7 @@ class HGroupChatSetViewController: HBaseViewController {
         
         userNameLabel.snp.makeConstraints { make in
             make.height.equalTo(38)
+            make.width.equalToSuperview().offset(-32)
         }
         
         memberCountLabel.snp.makeConstraints { make in

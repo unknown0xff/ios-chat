@@ -145,6 +145,7 @@ class HSingleChatSetViewController: HBaseViewController {
         
         userNameLabel.snp.makeConstraints { make in
             make.height.equalTo(38)
+            make.width.equalToSuperview().offset(-32)
         }
         
         actions.snp.makeConstraints { make in
