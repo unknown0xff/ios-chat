@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension UIScrollView {
+    
+}
+
 extension UITableView {
     
     convenience init(with style: UITableView.Style) {

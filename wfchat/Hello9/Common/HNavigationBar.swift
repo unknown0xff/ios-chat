@@ -10,15 +10,28 @@ class HNavigationBar: UIView {
     
     static let height = 100.0
     
+    var blurEffectStyle: UIBlurEffect.Style? {
+        didSet {
+            reloadBlurStyle()
+        }
+    }
+    
+    init(blurEffectStyle: UIBlurEffect.Style? = nil) {
+        self.blurEffectStyle = blurEffectStyle
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var visualEffectView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: .light)
-        let effectView = UIVisualEffectView(effect: effect)
+        let effectView = UIVisualEffectView()
         return effectView
     }()
     
     private(set) var contentView: UIView = {
         let view = UIView()
-        
         return view
     }()
     
@@ -36,6 +49,14 @@ class HNavigationBar: UIView {
         return label
     }()
     
+    func reloadBlurStyle() {
+        if let style = self.blurEffectStyle {
+            let effect = UIBlurEffect(style: style)
+            visualEffectView.effect = effect
+        } else {
+            visualEffectView.effect = nil
+        }
+    }
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard let _ = superview else { return }
