@@ -112,12 +112,6 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
         } 
         self.backgroundConfiguration = backgroundConfig
     }
-
-    @discardableResult
-    static func build(on collectionView: UICollectionView, item: T, for indexPath: IndexPath) -> Self {
-        let configure = UICollectionView.CellRegistration<Self, T>.build()
-        return collectionView.dequeueConfiguredReusableCell(using: configure, for: indexPath, item: item)
-    }
 }
 
 extension UICollectionView.CellRegistration where Cell: HBasicCollectionViewCell<Item> {
@@ -133,11 +127,9 @@ extension UICollectionView.CellRegistration where Cell: HBasicCollectionViewCell
 class HBasicCollectionReusableView<T>: UICollectionReusableView {
     var indexPath: IndexPath!
     
-    /// UICollectionView.elementKindSectionHeader   或者是
-    /// UICollectionView.elementKindSectionFooter
-    private var elementKind: String = ""
-    var isHeaderElementKind: Bool { elementKind == UICollectionView.elementKindSectionHeader }
-    var isFooterElementKind: Bool { elementKind == UICollectionView.elementKindSectionFooter }
+    static var elementKind: String {
+        Self.reuseIdentifier
+    }
     
     var cellData: T? {
         didSet {
@@ -159,26 +151,19 @@ class HBasicCollectionReusableView<T>: UICollectionReusableView {
     func configureSubviews() {  }
     func makeConstraints() { }
     func bindData(_ data: T?) { }
-    
-    @discardableResult
-    static func buildHeader(on collectionView: UICollectionView, item: T, for indexPath: IndexPath) -> Self {
-        return build(on: collectionView, item: item, for: indexPath, elementKind: UICollectionView.elementKindSectionHeader)
+}
+
+struct HSupplementaryRegistration<Supplementary, Item> where Supplementary : HBasicCollectionReusableView<Item> {
+    static func Registration(_ item: Item) -> UICollectionView.SupplementaryRegistration<Supplementary> {
+        return HSupplementaryRegistration<Supplementary, Item>(item).registration
     }
     
-    @discardableResult
-    static func buildFooter(on collectionView: UICollectionView, item: T, for indexPath: IndexPath) -> Self {
-        return build(on: collectionView, item: item, for: indexPath, elementKind: UICollectionView.elementKindSectionFooter)
-    }
-    
-    @discardableResult
-    private static func build(on collectionView: UICollectionView, item: T, for indexPath: IndexPath, elementKind: String) -> Self {
-        let configure = UICollectionView.SupplementaryRegistration<Self>(elementKind: elementKind) { supplementaryView, elementKind, indexPath in
-            supplementaryView.elementKind = elementKind
-            supplementaryView.indexPath = indexPath
-            
-        }
-        let sectionView = collectionView.dequeueConfiguredReusableSupplementary(using: configure, for: indexPath)
-        sectionView.cellData = item
-        return sectionView
+    private var registration: UICollectionView.SupplementaryRegistration<Supplementary>
+    private init(_ item: Item) {
+        self.registration = UICollectionView.SupplementaryRegistration<Supplementary>
+           .init(elementKind: Supplementary.elementKind) { supplementaryView, elementKind, indexPath in
+               supplementaryView.indexPath = indexPath
+               supplementaryView.cellData = item
+           }
     }
 }

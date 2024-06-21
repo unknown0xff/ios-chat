@@ -24,6 +24,9 @@ struct HAppearance {
         UITableView.appearance().separatorColor = Colors.themeSeperatorColor
         // UITabBar
         UITabBarItem.appearance().badgeColor = Colors.red01
+        
+        UITextField.appearance().tintColor = Colors.themeBlue1
+        UITextView.appearance().tintColor = Colors.themeBlue1
     }
     
 }

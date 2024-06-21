@@ -21,6 +21,11 @@
 		204B7E032C21509500459C7A /* HFriendSearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7E022C21509500459C7A /* HFriendSearchListCell.swift */; };
 		204B7E052C215BD000459C7A /* HFriendSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B7E042C215BD000459C7A /* HFriendSearchListViewController.swift */; };
 		204B7E072C218BA500459C7A /* default_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 204B7E062C218BA500459C7A /* default_call.wav */; };
+		205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */; };
+		205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */; };
+		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
+		205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */; };
+		205C5A6C2C251A5E000D54FE /* HBasicButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -324,6 +329,11 @@
 		204B7E022C21509500459C7A /* HFriendSearchListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendSearchListCell.swift; sourceTree = "<group>"; };
 		204B7E042C215BD000459C7A /* HFriendSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendSearchListViewController.swift; sourceTree = "<group>"; };
 		204B7E062C218BA500459C7A /* default_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = default_call.wav; sourceTree = "<group>"; };
+		205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoEditViewController.swift; sourceTree = "<group>"; };
+		205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoAvatarView.swift; sourceTree = "<group>"; };
+		205C5A672C242453000D54FE /* HMineInfoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoNameCell.swift; sourceTree = "<group>"; };
+		205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicFooterTipView.swift; sourceTree = "<group>"; };
+		205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicButtonCell.swift; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -744,6 +754,35 @@
 				204B7E002C21222100459C7A /* HCreateGroupMemberListCell.swift */,
 			);
 			path = "Group Confirm";
+			sourceTree = "<group>";
+		};
+		205C5A602C23B99F000D54FE /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				601246802C075B6000635523 /* HMineViewController.swift */,
+				60922A792C075CE600B70AD8 /* HMineViewModel.swift */,
+				60922A7D2C0763BF00B70AD8 /* HMineTitleCell.swift */,
+				60922A7F2C0767C600B70AD8 /* HMineAvatarCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		205C5A612C23B9B6000D54FE /* Edit Info */ = {
+			isa = PBXGroup;
+			children = (
+				205C5A642C2423E5000D54FE /* View */,
+				205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */,
+			);
+			path = "Edit Info";
+			sourceTree = "<group>";
+		};
+		205C5A642C2423E5000D54FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */,
+				205C5A672C242453000D54FE /* HMineInfoNameCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
@@ -1205,6 +1244,8 @@
 				60922A892C0822E100B70AD8 /* HProgressView.swift */,
 				60922A9B2C0869B600B70AD8 /* String+Extension.swift */,
 				207037762C1FED1E000DEC5E /* UIView+Extension.swift */,
+				205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */,
+				205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1227,10 +1268,8 @@
 		6012467F2C075AEE00635523 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				601246802C075B6000635523 /* HMineViewController.swift */,
-				60922A792C075CE600B70AD8 /* HMineViewModel.swift */,
-				60922A7D2C0763BF00B70AD8 /* HMineTitleCell.swift */,
-				60922A7F2C0767C600B70AD8 /* HMineAvatarCell.swift */,
+				205C5A612C23B9B6000D54FE /* Edit Info */,
+				205C5A602C23B99F000D54FE /* Home */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1891,6 +1930,7 @@
 				601246502C05916700635523 /* HAppearance.swift in Sources */,
 				2F518FF3235ED7DD00FA3D58 /* AppService.m in Sources */,
 				2FF07F5D21F82E7200A78A62 /* WFCMeTableViewHeaderViewCell.m in Sources */,
+				205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */,
 				60A3F7B82C1B1BBB00F855A2 /* HGroupMemberCell.swift in Sources */,
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
 				601246752C06D21800635523 /* HToast.swift in Sources */,
@@ -1921,6 +1961,7 @@
 				60A3F7AF2C1AFB8300F855A2 /* HNestedScrollView.swift in Sources */,
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
 				60A3F7D22C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift in Sources */,
+				205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */,
 				607F95822C12D67E00648BFF /* HLoginFooterView.swift in Sources */,
 				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,
@@ -1956,6 +1997,7 @@
 				60922A962C084D8F00B70AD8 /* HChatListViewModel.swift in Sources */,
 				6088F4982C0F300C00130A87 /* HFriendAddViewModel.swift in Sources */,
 				B7A192D82A4BDF3A003A27DC /* WFCPrivacyFindMeViewController.m in Sources */,
+				205C5A6C2C251A5E000D54FE /* HBasicButtonCell.swift in Sources */,
 				601246542C059A6300635523 /* Colors.swift in Sources */,
 				2F638934254E8FAB0084EEA6 /* WFCFavoriteImageCell.m in Sources */,
 				6088F49A2C0F313E00130A87 /* HFriendAddContentCell.swift in Sources */,
@@ -1998,8 +2040,10 @@
 				60A3F7C92C1C2ABA00F855A2 /* HCustomToastView.swift in Sources */,
 				6012465C2C05B82E00635523 /* Localizable.swift in Sources */,
 				2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */,
+				205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */,
 				2FC50B7C245273A700B36F8A /* PCSessionViewController.m in Sources */,
 				607F95752C114EF100648BFF /* IMServiceBridge.m in Sources */,
+				205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */,
 				2F638930254E82B90084EEA6 /* WFCFavoriteTextCell.m in Sources */,
 				2F5527C0252CB33E00B0CDCB /* SharedConversation.m in Sources */,
 				2FF07F5921F82E7200A78A62 /* WFCAboutViewController.m in Sources */,
