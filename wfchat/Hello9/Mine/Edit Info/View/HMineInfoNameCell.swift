@@ -87,6 +87,8 @@ class HMineInfoDescCell: HBasicCollectionViewCell<String> {
         let tv = UITextView()
         tv.textColor = Colors.themeBlack
         tv.font = .system16
+        tv.showsHorizontalScrollIndicator = false
+        tv.showsVerticalScrollIndicator = false
         return tv
     }()
     

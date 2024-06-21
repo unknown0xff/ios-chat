@@ -92,9 +92,12 @@ class HMineViewModel: HBasicViewModel {
     }
     
     func modifyAvatar(_ portrait: String) {
+        let hud = HToast.showLoading("头像上传中...")
         WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: WFCCMediaType.Media_Type_PORTRAIT.rawValue) : portrait ]) {
+            hud?.hide(animated: true)
             HToast.showTipAutoHidden(text: "修改成功")
         } error: { _ in
+            hud?.hide(animated: true)
             HToast.showTipAutoHidden(text: "头像上传失败, 服务器错误")
         }
     }
