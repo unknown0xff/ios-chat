@@ -49,7 +49,7 @@ extension UIButton {
             padding: 6
         )
         
-        btn.configuration?.cornerStyle = .capsule
+        btn.configuration?.background.cornerRadius = 10
         btn.configuration?.background.backgroundColor = Colors.themeGray4Background
         
         return btn

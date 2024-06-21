@@ -13,7 +13,7 @@ class HSearchBar: UIControl {
     private lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.gray08
-        view.layer.cornerRadius = 24
+        view.layer.cornerRadius = 10
         return view
     }()
     
