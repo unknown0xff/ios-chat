@@ -28,13 +28,13 @@
     
     [imageButton addTarget:self action:@selector(itemPlugined:) forControlEvents:UIControlEventTouchUpInside];
     imageButton.userInteractionEnabled = YES;
-    
+    imageButton.backgroundColor = HEXCOLOR(0xF6F7FA);
     [myView addSubview:imageButton];
     
     UILabel *label = [UILabel new];
     [label setText:title];
-    [label setTextColor:HEXCOLOR(0x6f7277)];
-    [label setFont:[UIFont systemFontOfSize:11]];
+    [label setTextColor:HEXCOLOR(0x83899B)];
+    [label setFont:[UIFont systemFontOfSize:12]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [myView addSubview:label];
     [self addSubview:myView];

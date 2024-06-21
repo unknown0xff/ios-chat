@@ -10,6 +10,7 @@
 #import "WFCUPluginItemView.h"
 #import "WFCUConfigManager.h"
 #import "WFCUImage.h"
+#import "WFCUUtilities.h"
 
 #define PLUGIN_AREA_HEIGHT 211
 
@@ -49,13 +50,13 @@
 
 @implementation WFCUPluginBoardView
 - (instancetype)initWithDelegate:(id<WFCUPluginBoardViewDelegate>)delegate withVoip:(BOOL)withWoip withPtt:(BOOL)withPtt {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width-16;
-    self = [super initWithFrame:CGRectMake(0, 0, width, PLUGIN_AREA_HEIGHT)];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    self = [super initWithFrame:CGRectMake(0, 0, width, 228 + [WFCUUtilities wf_safeDistanceBottom])];
     if (self) {
         self.delegate = delegate;
         self.hasVoip = withWoip;
         self.hasPtt = withPtt;
-        self.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
+        self.backgroundColor = [UIColor whiteColor];
         
         int FACE_COUNT_ALL = (int)self.pluginItems.count;
         
@@ -89,19 +90,17 @@
 - (NSMutableArray *)pluginItems {
     if (!_pluginItems) {
         _pluginItems = [@[
-                          [[PluginItem alloc] initWithTitle:WFCString(@"Album") image:[WFCUImage imageNamed:@"icon_photo"] tag:1],
-//                          [[PluginItem alloc] initWithTitle:WFCString(@"TakePhoto") image:[WFCUImage imageNamed:@"chat_input_plugin_camera"] tag:2],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"VoiceCall") image:[WFCUImage imageNamed:@"icon_call"] tag:7],
-                          [[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"icon_video"] tag:8],
-//                          [[PluginItem alloc] initWithTitle:WFCString(@"Location") image:[WFCUImage imageNamed:@"chat_input_plugin_location"] tag:3],
-//                          [[PluginItem alloc] initWithTitle:WFCString(@"Files") image:[WFCUImage imageNamed:@"chat_input_plugin_file"] tag:5],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"Album") image:[WFCUImage imageNamed:@"chat_input_plugin_album"] tag:1],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"TakePhoto") image:[WFCUImage imageNamed:@"chat_input_plugin_camera"] tag:2],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"Location") image:[WFCUImage imageNamed:@"chat_input_plugin_location"] tag:3],
+                          [[PluginItem alloc] initWithTitle:WFCString(@"Files") image:[WFCUImage imageNamed:@"chat_input_plugin_file"] tag:5],
 //                          [[PluginItem alloc] initWithTitle:WFCString(@"Card") image:[WFCUImage imageNamed:@"chat_input_plugin_card"] tag:6]
                           ] mutableCopy];
 
 #if WFCU_SUPPORT_VOIP
-//        if (self.hasVoip) {
-//            [_pluginItems insertObject:[[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"chat_input_plugin_video_call"] tag:4] atIndex:2];
-//        }
+        if (self.hasVoip) {
+            [_pluginItems insertObject:[[PluginItem alloc] initWithTitle:WFCString(@"VideoCall") image:[WFCUImage imageNamed:@"chat_input_plugin_video_call"] tag:4] atIndex:2];
+        }
 #endif
 #ifdef WFC_PTT
         if(self.hasPtt) {
