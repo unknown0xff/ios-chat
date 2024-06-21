@@ -215,7 +215,11 @@ class HSingleChatSetViewController: HBaseViewController {
             }
         }
         
-        let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList])
+        let removeFriend = UIAction(title: "删除好友", image: Images.icon_menu_clear, attributes: .destructive) { [weak self] _ in
+            self?.removeFriend()
+        }
+        
+        let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList, removeFriend])
         let menu = UIMenu(title: "", children: [voice, share, autoDel, clearHistory, subMenu])
         return menu
     }
@@ -254,6 +258,36 @@ class HSingleChatSetViewController: HBaseViewController {
 }
 
 extension HSingleChatSetViewController {
+    
+    func removeFriend() {
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let removeAll = UIAlertAction(title: "从我和Ta的设备删除联系人", style: .destructive) { [weak self] _ in
+            self?.removeFriend(false)
+        }
+        
+        let removeMine = UIAlertAction(title: "仅为我删除联系人", style: .destructive) { [weak self] _ in
+            self?.removeFriend(true)
+        }
+        sheet.addAction(removeAll)
+        sheet.addAction(removeMine)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+    
+    func removeFriend(_ isLocal: Bool) {
+        let hud = HToast.showLoading()
+        WFCCIMService.sharedWFCIM().deleteFriend(viewModel.userInfo.userId) { [weak self] in
+            hud?.hide(animated: true)
+            DispatchQueue.main.async {
+                HToast.showTipAutoHidden(text: "删除成功")
+            }
+            self?.navigationController?.popToRootViewController(animated: true)
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "删除失败")
+        }
+    }
     
     func removeFromBlackList() {
         setBlackList(add: false)
