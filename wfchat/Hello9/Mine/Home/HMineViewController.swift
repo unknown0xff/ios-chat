@@ -7,9 +7,7 @@
 //
 
 
-import UIKit
-import Combine
-
+import PhotosUI
 
 import UIKit
 import Combine
@@ -122,14 +120,45 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     }
 }
 
+extension HMineViewController: PHPickerViewControllerDelegate {
+    func showImagePicker() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = .images
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard !results.isEmpty else { return }
+        let itemProvider = results.first!.itemProvider
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    if let selectedImage = image as? UIImage {
+                        self.viewModel.uploadAvatar(selectedImage)
+                    }
+                }
+            }
+        }
+    }
+}
+
 extension HMineViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let section = Section(rawValue: indexPath.section) else {
             return
         }
+        
         if section == .material {
             HModalPresentNavigationController.show(root: HMineInfoEditViewController(), preferredStyle: .actionSheet)
+        } else if section == .avatar {
+            showImagePicker()
         }
     }
 }

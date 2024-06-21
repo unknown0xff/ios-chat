@@ -72,6 +72,33 @@ class HMineViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    func uploadAvatar(_ image: UIImage) {
+        guard let thumbImage = WFCUUtilities.thumbnail(with: image, maxSize: .init(width: 600, height: 600)), let data = thumbImage.jpegData(compressionQuality: 1) else {
+            return
+        }
+        
+        let hud = HToast.showLoading("头像上传中...")
+        WFCCIMService.sharedWFCIM().uploadMedia(nil, mediaData: data, mediaType: .Media_Type_PORTRAIT) { [weak self] portrait in
+            hud?.hide(animated: true)
+            if let portrait {
+                self?.modifyAvatar(portrait)
+            } else {
+                HToast.showTipAutoHidden(text: "头像上传失败")
+            }
+        } progress: { _ , _  in } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "头像上传失败")
+        }
+    }
+    
+    func modifyAvatar(_ portrait: String) {
+        WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: WFCCMediaType.Media_Type_PORTRAIT.rawValue) : portrait ]) {
+            HToast.showTipAutoHidden(text: "修改成功")
+        } error: { _ in
+            HToast.showTipAutoHidden(text: "头像上传失败, 服务器错误")
+        }
+    }
+    
     func onUserInfoUpdated() {
         avatarModel = HUserInfoModel.current
         applySnapshot()
