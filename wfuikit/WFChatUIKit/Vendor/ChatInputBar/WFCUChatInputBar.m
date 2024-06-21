@@ -28,7 +28,7 @@
 #import "WFCUShareMessageView.h"
 #import "TYAlertController.h"
 #import "UIView+TYAlertView.h"
-#import <ZLPhotoBrowser/ZLPhotoBrowser-Swift.h>
+@import ZLPhotoBrowser;
 #import "WFCUConfigManager.h"
 #ifdef WFC_PTT
 #import <PttClient/WFPttClient.h>

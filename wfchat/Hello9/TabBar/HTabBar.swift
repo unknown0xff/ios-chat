@@ -14,6 +14,12 @@ class HTabBar: UITabBar {
     static let barContentHeight = 64.0
     static let barHeight = barContentHeight + HUIConfigure.safeBottomMargin
     
+    private lazy var effectView: UIVisualEffectView = {
+        let effect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: effect)
+        return effectView
+    }()
+    
     var selectedIndex: Int {
         didSet {
             itemViews.forEach { itemView in
@@ -63,8 +69,6 @@ class HTabBar: UITabBar {
         addChildren()
         makeConstraints()
         
-        backgroundColor = Colors.white
-        
         layer.shadowColor = Colors.themeBlack.withAlphaComponent(0.0392).cgColor
         layer.shadowOffset = CGSize(width: 0, height: -1)
         layer.shadowOpacity = 1.0
@@ -87,10 +91,16 @@ class HTabBar: UITabBar {
     }
     
     private func addChildren() {
+        addSubview(effectView)
         addSubview(content)
     }
     
     private func makeConstraints() {
+        
+        effectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         content.snp.makeConstraints { make in
             make.height.equalTo(Self.barContentHeight)
             make.top.equalTo(0)
@@ -100,7 +110,7 @@ class HTabBar: UITabBar {
     
     private func removeOriginView() {
         subviews.forEach { view in
-            if view != content {
+            if view != content && view != effectView {
                 view.removeFromSuperview()
             }
         }

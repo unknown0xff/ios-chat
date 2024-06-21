@@ -23,6 +23,7 @@ class HChatListViewController: HBaseViewController {
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 73, bottom: 0, right: 0)
         tableView.delegate = self
+        tableView.contentInset = UIEdgeInsets(top: HNavigationBar.height, left: 0, bottom: -HTabBar.barHeight, right: 0)
         return tableView
     }()
     
@@ -97,7 +98,7 @@ class HChatListViewController: HBaseViewController {
             }
             .store(in: &cancellables)
         
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: navBar)
         navBar.contentView.addSubview(logoView)
         navBar.contentView.addSubview(menuButton)
     }
@@ -135,9 +136,7 @@ class HChatListViewController: HBaseViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
-            make.width.left.right.equalToSuperview()
-            make.bottom.equalTo(-HTabBar.barHeight)
+            make.edges.equalToSuperview()
         }
     }
     

@@ -10,6 +10,12 @@ class HNavigationBar: UIView {
     
     static let height = 100.0
     
+    private lazy var visualEffectView: UIVisualEffectView = {
+        let effect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: effect)
+        return effectView
+    }()
+    
     private(set) var contentView: UIView = {
         let view = UIView()
         
@@ -34,13 +40,20 @@ class HNavigationBar: UIView {
         super.didMoveToSuperview()
         guard let _ = superview else { return }
         
+        addSubview(visualEffectView)
+        
         contentView.addSubview(backButton)
         contentView.addSubview(titleLabel)
         addSubview(contentView)
         
+        
         snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(HNavigationBar.height)
+        }
+        
+        visualEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in

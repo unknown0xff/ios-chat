@@ -26,6 +26,7 @@
         float scale = MIN(width/size.height, width/size.width);
         size = CGSizeMake(size.width * scale, size.height * scale);
     }
+    size.height += 24;
     return size;
 }
 
@@ -33,7 +34,9 @@
     [super setModel:model];
     
     WFCCLocationMessageContent *imgContent = (WFCCLocationMessageContent *)model.message.content;
-    self.thumbnailView.frame = self.bubbleView.bounds;
+    CGRect imageFrame = self.bubbleView.bounds;
+    imageFrame.size.height = imageFrame.size.height - 24;
+    self.thumbnailView.frame = imageFrame;
     self.thumbnailView.image = imgContent.thumbnail;
     self.titleLabel.text = imgContent.title;
 }
@@ -41,6 +44,8 @@
 - (UIImageView *)thumbnailView {
     if (!_thumbnailView) {
         _thumbnailView = [[UIImageView alloc] init];
+        _thumbnailView.layer.cornerRadius = 12;
+        _thumbnailView.layer.masksToBounds = YES;
         [self.bubbleView addSubview:_thumbnailView];
     }
     return _thumbnailView;
@@ -48,10 +53,10 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bubbleView.frame.size.width, 20)];
-        _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.backgroundColor = [UIColor colorWithRed:0.7f green:0.7f blue:0.7f alpha:0.5f];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.bubbleView.frame.size.height - 24, self.bubbleView.frame.size.width, 24)];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.textColor = [UIColor blackColor];
         [self.bubbleView addSubview:_titleLabel];
     }
     return _titleLabel;
