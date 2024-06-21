@@ -121,3 +121,15 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
         }
     }
 }
+
+extension HMineViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let section = Section(rawValue: indexPath.section) else {
+            return
+        }
+        if section == .material {
+            HModalPresentNavigationController.show(root: HMineInfoEditViewController(), preferredStyle: .actionSheet)
+        }
+    }
+}

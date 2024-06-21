@@ -10,17 +10,26 @@ import Foundation
 
 struct HUserInfoModel: Hashable {
     
-    var userId: String
-    var name: String
-    var displayName: String
-    var friendAlias: String
-    var portrait: URL?
-    var social: String
+    var userId: String = ""
+    var name: String = ""
+    var displayName: String = ""
+    var friendAlias: String = ""
+    var portrait: URL? = nil
+    var social: String = ""
     var title: String {
         return friendAlias.isEmpty ? name: friendAlias
     }
     
-    init(info: WFCCUserInfo) {
+    var mobile: String = ""
+    var email: String = ""
+    
+    var firstName: String = ""
+    var lastName: String = ""
+    
+    init(info: WFCCUserInfo?) {
+        guard let info else {
+            return
+        }
         userId = info.userId ?? ""
         name = info.name ?? ""
         displayName = info.displayName ?? ""
@@ -31,6 +40,8 @@ struct HUserInfoModel: Hashable {
         } else {
             portrait = nil
         }
+        mobile = info.mobile ?? ""
+        email = info.email ?? ""
     }
     
     var isFriend: Bool {
