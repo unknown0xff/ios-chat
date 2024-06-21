@@ -118,8 +118,6 @@
 
 @property (nonatomic, strong)id<UIGestureRecognizerDelegate> scrollBackDelegate;
 
-@property (nonatomic, strong)UIView *backgroundView;
-
 @property (nonatomic, assign)BOOL showAlias;
 
 @property (nonatomic, strong)WFCUMessageCellBase *cell4Menu;
@@ -140,8 +138,6 @@
 @property (nonatomic, strong)NSMutableDictionary<NSString *, NSNumber *> *deliveryDict;
 @property (nonatomic, strong)NSMutableDictionary<NSString *, NSNumber *> *readDict;
 @property (nonatomic, strong)NSMutableSet<NSNumber *> *nMsgSet;
-
-@property (nonatomic, strong)UIView *multiSelectPanel;
 
 @property (nonatomic, assign)long firstUnreadMessageId;
 @property (nonatomic, assign)int unreadMessageCount;
@@ -2705,6 +2701,11 @@
         }
     }
 }
+
+- (void)didTapSelectView:(BOOL)isSelected {
+    
+}
+
 - (void)didTapResendBtn:(WFCUMessageModel *)model {
     NSInteger index = [self.modelList indexOfObject:model];
     if (index >= 0) {

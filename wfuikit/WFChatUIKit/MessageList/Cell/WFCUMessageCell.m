@@ -677,6 +677,7 @@
     } else {
         self.selectView.image = [WFCUImage imageNamed:@"multi_unselected"];
     }
+    [self.delegate didTapSelectView:self.model.selected];
 }
 
 - (void)onResend:(id)sender {

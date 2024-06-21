@@ -62,6 +62,8 @@ enum Images {
 
     static let icon_copy = UIImage(named: "icon_copy")!
 
+    static let icon_del_blue = UIImage(named: "icon_del_blue")!
+
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
     static let icon_disclosure_indicator_gray = UIImage(named: "icon_disclosure_indicator_gray")!
@@ -181,6 +183,10 @@ enum Images {
     static let icon_securty_green = UIImage(named: "icon_securty_green")!
 
     static let icon_selected = UIImage(named: "icon_selected")!
+
+    static let icon_send_blue = UIImage(named: "icon_send_blue")!
+
+    static let icon_share_blue = UIImage(named: "icon_share_blue")!
 
     static let icon_success_green = UIImage(named: "icon_success_green")!
 

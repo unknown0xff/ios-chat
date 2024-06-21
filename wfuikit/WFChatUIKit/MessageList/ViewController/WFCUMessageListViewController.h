@@ -34,6 +34,11 @@
 //VC是presented的，关闭方式与push进入有所不同。
 @property (nonatomic, assign)BOOL presented;
 
+// 多选底部按钮视图
+@property (nonatomic, strong)UIView *multiSelectPanel;
+
+@property (nonatomic, strong)UIView *backgroundView;
+
 - (void)updateTitle;
 
 - (void)setAvatar:(NSString *)avatar;
@@ -42,4 +47,9 @@
 - (void)sendMessage:(WFCCMessageContent *)content;
 - (void)didReceiveMessages:(NSArray<WFCCMessage *> *)messages;
 - (void)setTargetGroup:(WFCCGroupInfo *)targetGroup;
+
+- (void)didTapSelectView:(BOOL)isSelected;
+- (void)onMultiSelectCancel:(id)sender;
+- (void)onDeleteMultiSelectedMessage:(id)sender;
+- (void)onForwardMultiSelectedMessage:(id)sender;
 @end
