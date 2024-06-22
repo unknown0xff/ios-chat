@@ -10,7 +10,7 @@
 #import <WFChatClient/WFCChatClient.h>
 
 @interface WFCULocationCell ()
-@property(nonatomic, strong) UIImageView *shadowMaskView;
+@property (nonatomic, strong) UIImageView *shadowMaskView;
 @property (nonatomic, strong)UIImageView *thumbnailView;
 @property (nonatomic, strong)UILabel *titleLabel;
 @end
@@ -26,7 +26,7 @@
         float scale = MIN(width/size.height, width/size.width);
         size = CGSizeMake(size.width * scale, size.height * scale);
     }
-    size.height += 24;
+    size.height += 32;
     return size;
 }
 
@@ -35,7 +35,7 @@
     
     WFCCLocationMessageContent *imgContent = (WFCCLocationMessageContent *)model.message.content;
     CGRect imageFrame = self.bubbleView.bounds;
-    imageFrame.size.height = imageFrame.size.height - 24;
+    imageFrame.size.height = imageFrame.size.height - 32;
     self.thumbnailView.frame = imageFrame;
     self.thumbnailView.image = imgContent.thumbnail;
     self.titleLabel.text = imgContent.title;

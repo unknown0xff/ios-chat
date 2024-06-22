@@ -38,6 +38,12 @@ class HMessageListViewController: WFCUMessageListViewController {
             make.height.equalTo(56)
         }
         multiSelectPanel.isHidden = !multiSelecting
+        
+        registerCell()
+    }
+    
+    private func registerCell() {
+        registerCell(HMessageLocationCell.self, forContent: WFCCLocationMessageContent.self)
     }
     
     override func updateTitle() {

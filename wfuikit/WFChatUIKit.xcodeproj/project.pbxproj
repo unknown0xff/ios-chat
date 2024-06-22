@@ -138,10 +138,10 @@
 		2F551095217F5CC200F56C26 /* WFCUInformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550EB8217F5CC000F56C26 /* WFCUInformationCell.m */; };
 		2F551096217F5CC200F56C26 /* WFCUImageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EB9217F5CC000F56C26 /* WFCUImageCell.h */; };
 		2F551097217F5CC200F56C26 /* WFCUVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550EBA217F5CC000F56C26 /* WFCUVoiceCell.m */; };
-		2F551098217F5CC200F56C26 /* WFCUMessageCellBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EBB217F5CC000F56C26 /* WFCUMessageCellBase.h */; };
+		2F551098217F5CC200F56C26 /* WFCUMessageCellBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EBB217F5CC000F56C26 /* WFCUMessageCellBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F551099217F5CC200F56C26 /* WFCUTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550EBC217F5CC000F56C26 /* WFCUTextCell.m */; };
 		2F55109A217F5CC200F56C26 /* WFCUVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550EBD217F5CC000F56C26 /* WFCUVideoCell.m */; };
-		2F55109B217F5CC200F56C26 /* WFCUMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EBE217F5CC000F56C26 /* WFCUMessageCell.h */; };
+		2F55109B217F5CC200F56C26 /* WFCUMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EBE217F5CC000F56C26 /* WFCUMessageCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F55109C217F5CC200F56C26 /* WFCUStickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EBF217F5CC000F56C26 /* WFCUStickerCell.h */; };
 		2F55109D217F5CC200F56C26 /* WFCUMediaMessageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EC0217F5CC000F56C26 /* WFCUMediaMessageCell.h */; };
 		2F55109E217F5CC200F56C26 /* WFCUFileCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550EC1217F5CC000F56C26 /* WFCUFileCell.h */; };
@@ -155,7 +155,7 @@
 		2F5510A7217F5CC200F56C26 /* WFCUMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550ECA217F5CC000F56C26 /* WFCUMessageCell.m */; };
 		2F5510A8217F5CC200F56C26 /* WFCUVideoCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550ECB217F5CC000F56C26 /* WFCUVideoCell.h */; };
 		2F5510A9217F5CC200F56C26 /* WFCUMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550ECD217F5CC000F56C26 /* WFCUMessageModel.m */; };
-		2F5510AA217F5CC200F56C26 /* WFCUMessageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550ECE217F5CC000F56C26 /* WFCUMessageModel.h */; };
+		2F5510AA217F5CC200F56C26 /* WFCUMessageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550ECE217F5CC000F56C26 /* WFCUMessageModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F5510AB217F5CC200F56C26 /* WFCUMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550ED0217F5CC000F56C26 /* WFCUMessageListViewController.m */; };
 		2F5510AC217F5CC200F56C26 /* WFCUMessageListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550ED1217F5CC000F56C26 /* WFCUMessageListViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F5510AD217F5CC200F56C26 /* WFCUProfileTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550ED3217F5CC000F56C26 /* WFCUProfileTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
