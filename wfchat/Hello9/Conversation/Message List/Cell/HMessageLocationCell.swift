@@ -53,7 +53,7 @@ class HMessageLocationCell: HMessageCell<WFCCLocationMessageContent> {
     override class func size(of content: WFCCLocationMessageContent) -> CGSize {
         var size = content.thumbnail.size
         let aspect = size.width / size.height
-        size.width = min(UIScreen.width / 2, size.width)
+        size.width = min(UIScreen.width * 0.618, size.width)
         size.height = size.width / aspect
         
         size.height += 40

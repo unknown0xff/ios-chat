@@ -32,7 +32,7 @@
     
     content.localPath = path;
     content.size = image.size;
-    content.thumbnail = [WFCCUtilities generateThumbnail:image withWidth:120 withHeight:120];
+    content.thumbnail = [WFCCUtilities generateThumbnail:image withWidth:240 withHeight:240];
     
     return content;
 }
@@ -51,7 +51,7 @@
         if(!self.thumbnail && self.localPath.length) {
             UIImage *image = [UIImage imageWithContentsOfFile:self.localPath];
             if(image) {
-                self.thumbnail = [WFCCUtilities generateThumbnail:image withWidth:120 withHeight:120];
+                self.thumbnail = [WFCCUtilities generateThumbnail:image withWidth:240 withHeight:240];
             }
         }
         payload.binaryContent = UIImageJPEGRepresentation(self.thumbnail, 0.45);
@@ -111,7 +111,7 @@
     
     if (!_thumbnail && self.localPath.length && [[NSFileManager defaultManager] isExecutableFileAtPath:self.localPath]) {
         UIImage *image = [UIImage imageWithContentsOfFile:self.localPath];
-        _thumbnail = [WFCCUtilities generateThumbnail:image withWidth:120 withHeight:120];
+        _thumbnail = [WFCCUtilities generateThumbnail:image withWidth:240 withHeight:240];
     }
     if(!_thumbnail) {
         _thumbnail = [WFCCIMService sharedWFCIMService].defaultThumbnailImage;

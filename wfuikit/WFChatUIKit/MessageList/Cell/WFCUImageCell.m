@@ -22,14 +22,13 @@
     if(imgContent.thumbnail) {
         size = imgContent.thumbnail.size;
     } else {
-        size = [WFCCUtilities imageScaleSize:imgContent.size targetSize:CGSizeMake(120, 120) thumbnailPoint:nil];
+        size = [WFCCUtilities imageScaleSize:imgContent.size targetSize:CGSizeMake(240, 240) thumbnailPoint:nil];
     }
     
-    
-    if (size.height > width || size.width > width) {
-        float scale = MIN(width/size.height, width/size.width);
-        size = CGSizeMake(size.width * scale, size.height * scale);
-    }
+    CGFloat scale = size.width / size.height;
+    size.width = 60;
+    size.height = size.width / scale;
+
     return size;
 }
 
