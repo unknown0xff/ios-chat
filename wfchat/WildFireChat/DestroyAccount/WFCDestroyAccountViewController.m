@@ -11,7 +11,7 @@
 #import <WFChatUIKit/WFChatUIKit.h>
 #import "AppDelegate.h"
 #import "WFCBaseTabBarController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "WFCPrivacyViewController.h"
 #import "AppService.h"

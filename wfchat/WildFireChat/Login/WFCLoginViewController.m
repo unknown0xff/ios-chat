@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "WFCBaseTabBarController.h"
 #import "WFCResetPasswordViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "WFCPrivacyViewController.h"
 #import "AppService.h"

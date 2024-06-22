@@ -23,7 +23,7 @@
 #import "WFCUOrganizationEx.h"
 #import "WFCUConfigManager.h"
 #import "WFCUEmployeeEx.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUImage.h"
 
 #define SearchBarMinWidth 80

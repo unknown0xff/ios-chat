@@ -7,7 +7,7 @@
 //
 
 #import "WFCUModifyMyProfileViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUConfigManager.h"
 #import "UIView+Toast.h"

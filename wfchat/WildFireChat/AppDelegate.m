@@ -37,7 +37,7 @@
 #if USE_CALL_KIT
 #import "WFCCallKitManager.h"
 #endif
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 
 

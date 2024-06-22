@@ -7,7 +7,7 @@
 //
 
 #import "WFCUGeneralSwitchTableViewCell.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 
 @interface WFCUGeneralSwitchTableViewCell()

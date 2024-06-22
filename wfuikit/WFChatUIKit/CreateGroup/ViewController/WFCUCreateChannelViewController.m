@@ -9,7 +9,7 @@
 #import "WFCUCreateChannelViewController.h"
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUUtilities.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import <SDWebImage/SDWebImage.h>
 #import "UIView+Toast.h"
 #import "WFCUConfigManager.h"

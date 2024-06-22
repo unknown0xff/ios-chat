@@ -12,7 +12,7 @@
 #import "WFCUCompositeBaseCell.h"
 #import "WFCUCompositeTextCell.h"
 #import <CommonCrypto/CommonCrypto.h>
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 
 @interface WFCUCompositeMessageViewController () <UITableViewDelegate, UITableViewDataSource>

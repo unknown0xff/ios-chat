@@ -18,7 +18,7 @@
 #import "UIView+Toast.h"
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUContactListViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "UIColor+YH.h"
 #import "WFCUPublicMenuButton.h"
 #if WFCU_SUPPORT_VOIP

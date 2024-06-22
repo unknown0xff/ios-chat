@@ -21,7 +21,7 @@
 #import "WFCUGroupMemberCollectionViewController.h"
 #import "WFCUFilesViewController.h"
 #import "WFCUSeletedUserViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUMyProfileTableViewController.h"
 #import "WFCUConversationSearchTableViewController.h"
 #import "WFCUChannelProfileViewController.h"

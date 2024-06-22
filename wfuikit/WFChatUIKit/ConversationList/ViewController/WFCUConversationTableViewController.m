@@ -23,7 +23,7 @@
 #import "UITabBar+badge.h"
 #import "KxMenu.h"
 #import "UIImage+ERCategory.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUPinyinUtility.h"
 
 #import "WFCUContactTableViewCell.h"

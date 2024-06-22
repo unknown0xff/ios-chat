@@ -8,7 +8,7 @@
 
 #import "WFCChangePasswordViewController.h"
 #import "AppService.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 @interface WFCChangePasswordViewController () <UITextFieldDelegate>
 @property(nonatomic, strong)UILabel *oldLabel;

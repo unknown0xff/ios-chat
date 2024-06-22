@@ -5,11 +5,10 @@
 //  Created by WF Chat on 2017/10/6.
 //  Copyright © 2017年 WildFireChat. All rights reserved.
 //
-
+@import MBProgressHUD;
 #import "WFCUMyPortraitViewController.h"
 #import <WFChatClient/WFCChatClient.h>
 #import <SDWebImage/SDWebImage.h>
-#import "MBProgressHUD.h"
 #import "WFCUUtilities.h"
 #import "MWPhotoBrowser.h"
 #import "WFCUImage.h"

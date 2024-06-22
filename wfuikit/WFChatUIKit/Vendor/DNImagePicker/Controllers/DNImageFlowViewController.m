@@ -16,7 +16,7 @@
 #import "DNImagePickerHelper.h"
 #import "DNAlbum.h"
 #import "DNAsset.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import <Photos/Photos.h>
 #import "UIView+Toast.h"
 

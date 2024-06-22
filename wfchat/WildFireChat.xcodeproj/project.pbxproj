@@ -30,6 +30,7 @@
 		2065F6812C266DE6006BAD27 /* HMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6802C266DE6006BAD27 /* HMessageCell.swift */; };
 		2065F6832C267E1B006BAD27 /* HLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6822C267E1B006BAD27 /* HLocationViewController.swift */; };
 		2065F6852C26AF35006BAD27 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */; };
+		2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6892C26F984006BAD27 /* MBProgressHUD */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -38,7 +39,6 @@
 		2B4C027E252F4A570043FA41 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0273252F4A570043FA41 /* AFURLRequestSerialization.m */; };
 		2B4C027F252F4A570043FA41 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0275252F4A570043FA41 /* AFNetworkReachabilityManager.m */; };
 		2B4C0280252F4A570043FA41 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0276252F4A570043FA41 /* AFSecurityPolicy.m */; };
-		2B4C0281252F4A570043FA41 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0279252F4A570043FA41 /* MBProgressHUD.m */; };
 		2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B840F3F2442111F006BE3D8 /* WFCThemeTableViewController.m */; };
 		2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B840F422442125B006BE3D8 /* WFCThemeTableViewCell.m */; };
 		2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1D20001FAF0AE600F4405D /* Main.storyboard */; };
@@ -353,8 +353,6 @@
 		2B4C0275252F4A570043FA41 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		2B4C0276252F4A570043FA41 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		2B4C0277252F4A570043FA41 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		2B4C0279252F4A570043FA41 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		2B4C027A252F4A570043FA41 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		2B840F3E2442111F006BE3D8 /* WFCThemeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCThemeTableViewController.h; sourceTree = "<group>"; };
 		2B840F3F2442111F006BE3D8 /* WFCThemeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCThemeTableViewController.m; sourceTree = "<group>"; };
 		2B840F412442125B006BE3D8 /* WFCThemeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCThemeTableViewCell.h; sourceTree = "<group>"; };
@@ -384,7 +382,6 @@
 		2F143A4D217F607300B3E38A /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
 		2F143A50217F607300B3E38A /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
 		2F143A53217F607300B3E38A /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		2F143A5C217F60B600B3E38A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		2F196511252F3AEB0005F1A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2F1B0DCC21E19AF400139CB1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		2F1B0DCD21E19AF400139CB1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -690,6 +687,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */,
 				20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */,
 				2F196512252F3AEB0005F1A3 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -802,7 +800,6 @@
 			isa = PBXGroup;
 			children = (
 				2B4C026A252F4A570043FA41 /* AFNetworking */,
-				2B4C0278252F4A570043FA41 /* MBProgressHUD */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -825,15 +822,6 @@
 				2B4C0277252F4A570043FA41 /* AFHTTPSessionManager.h */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		2B4C0278252F4A570043FA41 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				2B4C0279252F4A570043FA41 /* MBProgressHUD.m */,
-				2B4C027A252F4A570043FA41 /* MBProgressHUD.h */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		2BCBC82F23954AC4009321AD /* Moments */ = {
@@ -896,7 +884,6 @@
 				2F7268FA21F7137C00E05F9C /* YBAttributeTextTapAction */,
 				2F7268F621F7136600E05F9C /* Privacy */,
 				2FEA5D6721F4AC8900280B23 /* Login */,
-				2F143A5A217F60B600B3E38A /* MBProgressHUD */,
 				2F143A46217F607300B3E38A /* AFNetworking */,
 				2E1D20BC1FAF127100F4405D /* Discover */,
 				2BF692E5232DBA840072036A /* Utilities */,
@@ -965,15 +952,6 @@
 			);
 			name = AFNetworking;
 			path = ../../wfuikit/WFChatUIKit/Vendor/AFNetworking;
-			sourceTree = "<group>";
-		};
-		2F143A5A217F60B600B3E38A /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				2F143A5C217F60B600B3E38A /* MBProgressHUD.h */,
-			);
-			name = MBProgressHUD;
-			path = ../../wfuikit/WFChatUIKit/Vendor/MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		2F518FF0235ED77700FA3D58 /* AppService */ = {
@@ -1760,6 +1738,7 @@
 			name = ShareExtension;
 			packageProductDependencies = (
 				20E996C92C1A8DB300CF0F71 /* SDWebImage */,
+				2065F6892C26F984006BAD27 /* MBProgressHUD */,
 			);
 			productName = ShareExtension;
 			productReference = 2F56F6F3252C956700B829C4 /* ShareExtension.appex */;
@@ -2123,7 +2102,6 @@
 				2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */,
 				2FB28E652538183C00DDD387 /* ConversationCell.m in Sources */,
 				2B4C027E252F4A570043FA41 /* AFURLRequestSerialization.m in Sources */,
-				2B4C0281252F4A570043FA41 /* MBProgressHUD.m in Sources */,
 				2F56F6F7252C956700B829C4 /* ShareViewController.m in Sources */,
 				2B4C027F252F4A570043FA41 /* AFNetworkReachabilityManager.m in Sources */,
 				2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */,
@@ -2697,6 +2675,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2065F6892C26F984006BAD27 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
+		};
 		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;

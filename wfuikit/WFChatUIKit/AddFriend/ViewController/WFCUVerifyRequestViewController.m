@@ -8,7 +8,7 @@
 
 #import "WFCUVerifyRequestViewController.h"
 #import <WFChatClient/WFCChatClient.h>
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUConfigManager.h"
 #import "WFCUUtilities.h"
 

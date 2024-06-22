@@ -5,12 +5,11 @@
 //  Created by WF Chat on 2021/9/3.
 //  Copyright © 2021年 WildFireChat. All rights reserved.
 //
-
+@import MBProgressHUD;
 #import "WFZStartConferenceViewController.h"
 #if WFCU_SUPPORT_VOIP
 #import <WFChatClient/WFCChatClient.h>
 #import <WFAVEngineKit/WFAVEngineKit.h>
-#import "MBProgressHUD.h"
 #import "WFZConferenceInfoViewController.h"
 #import "WFCUConfigManager.h"
 #import "WFZConferenceInfo.h"

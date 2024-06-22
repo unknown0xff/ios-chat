@@ -9,7 +9,7 @@
 #import "PCSessionViewController.h"
 #import <WFChatClient/WFCChatClient.h>
 #import <WFChatUIKit/WFChatUIKit.h>
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "AppService.h"
 
 

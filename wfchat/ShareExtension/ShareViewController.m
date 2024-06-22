@@ -11,7 +11,7 @@
 #import "ShareAppService.h"
 #import "WFCConfig.h"
 #import "ShareUtility.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 
 @interface ShareViewController () <UITableViewDataSource, UITableViewDelegate>

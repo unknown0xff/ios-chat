@@ -10,7 +10,7 @@
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUProfileTableViewController.h"
 #import <SDWebImage/SDWebImage.h>
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUConfigManager.h"
 #import "UIImage+ERCategory.h"
 #import "WFCUImage.h"

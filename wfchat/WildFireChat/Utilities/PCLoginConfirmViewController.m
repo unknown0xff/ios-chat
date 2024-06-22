@@ -8,7 +8,7 @@
 
 #import "PCLoginConfirmViewController.h"
 #import <WFChatClient/WFCChatClient.h>
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "AppService.h"
 
 @interface PCLoginConfirmViewController ()

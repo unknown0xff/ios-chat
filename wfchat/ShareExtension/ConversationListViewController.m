@@ -11,8 +11,8 @@
 #import "ShareUtility.h"
 #import "SharePredefine.h"
 #import "ShareAppService.h"
-#import "MBProgressHUD.h"
 #import "ConversationCell.h"
+@import MBProgressHUD;
 
 @interface ConversationListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong)NSData *cookiesData;

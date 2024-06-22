@@ -11,7 +11,7 @@
 #import "CreateDeviceViewController.h"
 #import "Device.h"
 #import "AppService.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 @interface DeviceTableViewController () <UITableViewDataSource, UITableViewDelegate>
 @property(nonatomic, strong)UITableView *tableView;

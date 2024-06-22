@@ -11,7 +11,7 @@
 #import "WFCUProfileTableViewController.h"
 #import <SDWebImage/SDWebImage.h>
 #import "WFCUFriendRequestTableViewCell.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUAddFriendViewController.h"
 #import "UIView+Toast.h"
 #import "WFCUConfigManager.h"

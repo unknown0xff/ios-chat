@@ -24,6 +24,7 @@
 		149B3111241E65D500B935D3 /* UIColor+YH.h in Headers */ = {isa = PBXBuildFile; fileRef = 149B310D241E65D500B935D3 /* UIColor+YH.h */; };
 		149B3112241E65D500B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B310E241E65D500B935D3 /* UIFont+YH.m */; };
 		205C5A6F2C259562000D54FE /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 205C5A6E2C259562000D54FE /* ZLPhotoBrowser */; };
+		2065F6882C26F91C006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6872C26F91C006BAD27 /* MBProgressHUD */; };
 		20E996C62C1A8C7900CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C52C1A8C7900CF0F71 /* SDWebImage */; };
 		20E996C82C1A8C7900CF0F71 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C72C1A8C7900CF0F71 /* SDWebImageMapKit */; };
 		2B07FBE1247562D90035C4DF /* WFCUReceiptViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B07FBDF247562D90035C4DF /* WFCUReceiptViewController.h */; };
@@ -261,8 +262,6 @@
 		2F55116D217F5CC200F56C26 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550FAE217F5CC100F56C26 /* AFNetworkReachabilityManager.m */; };
 		2F55116E217F5CC200F56C26 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550FAF217F5CC100F56C26 /* AFSecurityPolicy.m */; };
 		2F55116F217F5CC200F56C26 /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550FB0217F5CC100F56C26 /* AFHTTPSessionManager.h */; };
-		2F55118D217F5CC200F56C26 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F550FD6217F5CC100F56C26 /* MBProgressHUD.m */; };
-		2F55118E217F5CC200F56C26 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550FD7217F5CC100F56C26 /* MBProgressHUD.h */; };
 		2F55118F217F5CC200F56C26 /* UIView+SDExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550FD9217F5CC100F56C26 /* UIView+SDExtension.h */; };
 		2F551190217F5CC200F56C26 /* SDRefreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550FDA217F5CC100F56C26 /* SDRefreshFooterView.h */; };
 		2F551191217F5CC200F56C26 /* SDRefreshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F550FDB217F5CC100F56C26 /* SDRefreshView.h */; };
@@ -1248,6 +1247,7 @@
 				B75D817C2782DFE1009D4A19 /* WFChatClient.framework in Frameworks */,
 				20E996C82C1A8C7900CF0F71 /* SDWebImageMapKit in Frameworks */,
 				B75D81642782B800009D4A19 /* WebRTC.xcframework in Frameworks */,
+				2065F6882C26F91C006BAD27 /* MBProgressHUD in Frameworks */,
 				205C5A6F2C259562000D54FE /* ZLPhotoBrowser in Frameworks */,
 				20E996C62C1A8C7900CF0F71 /* SDWebImage in Frameworks */,
 				B75D81652782B800009D4A19 /* WFAVEngineKit.xcframework in Frameworks */,
@@ -2790,7 +2790,6 @@
 				B7D0758D2827570D008A6C63 /* WFCUMultiCallOngoingExpendedCell.h in Headers */,
 				B7311DF028EB02C0009E88B5 /* WFCUConferenceHandupTableViewController.h in Headers */,
 				2F551152217F5CC200F56C26 /* KZVideoSupport.h in Headers */,
-				2F55118E217F5CC200F56C26 /* MBProgressHUD.h in Headers */,
 				2F535BFF25296E6600C9AF09 /* WFCUQuoteViewController.h in Headers */,
 				2F5510EF217F5CC200F56C26 /* CCHMapClusterControllerDebugPolygon.h in Headers */,
 				2BDF57AF24AD70C8003C1F08 /* DNTapDetectingImageView.h in Headers */,
@@ -2959,6 +2958,7 @@
 				20E996C52C1A8C7900CF0F71 /* SDWebImage */,
 				20E996C72C1A8C7900CF0F71 /* SDWebImageMapKit */,
 				205C5A6E2C259562000D54FE /* ZLPhotoBrowser */,
+				2065F6872C26F91C006BAD27 /* MBProgressHUD */,
 			);
 			productName = WFChatUIKit;
 			productReference = 2F550BDF217F4D7B00F56C26 /* WFChatUIKit.framework */;
@@ -2991,6 +2991,7 @@
 			packageReferences = (
 				20E996C42C1A8C7900CF0F71 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				205C5A6D2C259562000D54FE /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
+				2065F6862C26F91C006BAD27 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 			);
 			productRefGroup = 2F550BE0217F4D7B00F56C26 /* Products */;
 			projectDirPath = "";
@@ -3236,7 +3237,6 @@
 				2F551095217F5CC200F56C26 /* WFCUInformationCell.m in Sources */,
 				2FD2EE81218F15B500CBA8B0 /* WFCUVerifyRequestViewController.m in Sources */,
 				B7D0758A282756F4008A6C63 /* WFCUMultiCallOngoingCell.m in Sources */,
-				2F55118D217F5CC200F56C26 /* MBProgressHUD.m in Sources */,
 				2F55122C217F5CC300F56C26 /* WFCUUtilities.m in Sources */,
 				B764D48B295852500082492F /* WFCUEmployee.m in Sources */,
 				B7C5443528D5876700A2550F /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
@@ -3557,6 +3557,14 @@
 				minimumVersion = 4.5.3;
 			};
 		};
+		2065F6862C26F91C006BAD27 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/MBProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		20E996C42C1A8C7900CF0F71 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -3572,6 +3580,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 205C5A6D2C259562000D54FE /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
+		};
+		2065F6872C26F91C006BAD27 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2065F6862C26F91C006BAD27 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
 		};
 		20E996C52C1A8C7900CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

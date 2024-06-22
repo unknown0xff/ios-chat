@@ -17,7 +17,7 @@
 #import "UITabBar+badge.h"
 #import "KxMenu.h"
 #import "UIImage+ERCategory.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 
 #import "WFCUConversationSearchTableViewCell.h"
 #import "WFCUConfigManager.h"

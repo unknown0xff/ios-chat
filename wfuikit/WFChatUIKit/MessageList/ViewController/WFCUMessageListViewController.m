@@ -44,7 +44,7 @@
 #import "WFCUContactListViewController.h"
 #import "WFCUBrowserViewController.h"
 
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUMediaMessageDownloader.h"
 
 #import "VideoPlayerKit.h"

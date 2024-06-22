@@ -10,7 +10,7 @@
 #import <WFChatClient/WFCChatClient.h>
 #import <SDWebImage/SDWebImage.h>
 #import "WFCUConfigManager.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUImage.h"
 #import "WFCUUtilities.h"
 #import "UIView+Toast.h"

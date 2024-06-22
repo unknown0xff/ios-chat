@@ -8,7 +8,7 @@
 
 #import "CreateDeviceViewController.h"
 #import "AppService.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 @interface CreateDeviceViewController () <UITextFieldDelegate>
 @property (nonatomic, strong)UITextField *deviceNameField;
 @property (nonatomic, strong)UITextField *deviceIdField;

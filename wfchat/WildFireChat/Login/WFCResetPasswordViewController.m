@@ -8,7 +8,7 @@
 
 #import "WFCResetPasswordViewController.h"
 #import "AppService.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "UIColor+YH.h"
 #import "UIFont+YH.h"
 

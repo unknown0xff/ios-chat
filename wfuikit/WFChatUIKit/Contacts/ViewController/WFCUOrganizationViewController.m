@@ -18,7 +18,7 @@
 #import "UITabBar+badge.h"
 #import "WFCUNewFriendTableViewCell.h"
 #import "WFCUAddFriendViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUFavChannelTableViewController.h"
 #import "WFCUConfigManager.h"
 #import "UIView+Toast.h"

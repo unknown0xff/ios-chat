@@ -7,7 +7,7 @@
 //
 
 #import "WFCUGeneralModifyViewController.h"
-#import "MBProgressHUD.h"
+@import MBProgressHUD;
 #import "WFCUConfigManager.h"
 #import "WFCUUtilities.h"
 
