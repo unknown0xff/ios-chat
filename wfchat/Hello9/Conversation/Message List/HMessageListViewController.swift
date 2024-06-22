@@ -96,7 +96,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         playSendSound()
     }
     
-    func prefersNavigationBarHidden() -> Bool { return true }
+    @objc func prefersNavigationBarHidden() -> Bool { return true }
     
     private func enablePlaySoundMessage(_ content: WFCCMessageContent) -> Bool {
         content is WFCCTextMessageContent ||

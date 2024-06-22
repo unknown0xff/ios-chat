@@ -17,7 +17,11 @@ struct HAppearance {
         UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
         
         let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.backgroundImage = UIImage()
+        navBarAppearance.backgroundImage = UIImage.image(withColor: Colors.white.withAlphaComponent(0.99))
+        navBarAppearance.shadowImage = UIImage.image(withColor: Colors.white)
+        navBarAppearance.setBackIndicatorImage(Images.icon_arrow_back_outline, transitionMaskImage: Images.icon_arrow_back_outline)
+        navBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = .init(horizontal: -1000, vertical: 0)
+        
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         
@@ -27,6 +31,8 @@ struct HAppearance {
         
         UITextField.appearance().tintColor = Colors.themeBlue1
         UITextView.appearance().tintColor = Colors.themeBlue1
+        
+        WFCUConfigManager.global().naviBackgroudColor = Colors.white
     }
     
 }

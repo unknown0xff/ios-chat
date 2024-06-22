@@ -29,6 +29,7 @@
 		2065F67F2C266601006BAD27 /* HMessageLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F67E2C266601006BAD27 /* HMessageLocationCell.swift */; };
 		2065F6812C266DE6006BAD27 /* HMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6802C266DE6006BAD27 /* HMessageCell.swift */; };
 		2065F6832C267E1B006BAD27 /* HLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6822C267E1B006BAD27 /* HLocationViewController.swift */; };
+		2065F6852C26AF35006BAD27 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -337,6 +338,7 @@
 		2065F67E2C266601006BAD27 /* HMessageLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageLocationCell.swift; sourceTree = "<group>"; };
 		2065F6802C266DE6006BAD27 /* HMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageCell.swift; sourceTree = "<group>"; };
 		2065F6822C267E1B006BAD27 /* HLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLocationViewController.swift; sourceTree = "<group>"; };
+		2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -1257,6 +1259,7 @@
 				207037762C1FED1E000DEC5E /* UIView+Extension.swift */,
 				205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */,
 				205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */,
+				2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1934,6 +1937,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2065F6852C26AF35006BAD27 /* UIImage+Extension.swift in Sources */,
 				149B3107241D292C00B935D3 /* UIColor+YH.m in Sources */,
 				607F95772C12995200648BFF /* HNavigationBar.swift in Sources */,
 				2FEA5D6A21F4AC8900280B23 /* WFCLoginViewController.m in Sources */,

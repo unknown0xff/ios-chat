@@ -184,4 +184,8 @@
         [self.webView removeJavascriptObject:nil];
     }
 }
+
+- (BOOL)prefersNavigationBarHidden {
+    return NO;
+}
 @end

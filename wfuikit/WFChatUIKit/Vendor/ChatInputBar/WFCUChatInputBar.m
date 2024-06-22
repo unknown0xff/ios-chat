@@ -1569,8 +1569,8 @@
         [[UIActionSheet alloc] initWithTitle:nil
                                     delegate:self
                            cancelButtonTitle:WFCString(@"Cancel")
-                      destructiveButtonTitle:@"视频"
-                           otherButtonTitles:@"音频", nil];
+                      destructiveButtonTitle:@"视频通话"
+                           otherButtonTitles:@"语音通话", nil];
         [actionSheet showInView:self.parentView];
 #endif
     } else if(itemTag == 5) {

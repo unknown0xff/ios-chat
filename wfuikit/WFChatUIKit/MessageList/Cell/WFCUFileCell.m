@@ -39,6 +39,9 @@
     self.fileImageView.image = [WFCUUtilities imageForExt:ext];
     self.fileNameLabel.text = fileContent.name;
     self.sizeLabel.text = [WFCUUtilities formatSizeLable:fileContent.size];
+    
+    // 先隐藏，等UI
+    self.dateLabel.text = @"";
 }
 
 - (UIView *)getProgressParentView {
