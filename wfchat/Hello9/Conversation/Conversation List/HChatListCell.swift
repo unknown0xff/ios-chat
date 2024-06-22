@@ -188,7 +188,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
 
         let conversation = data.conversationInfo.conversation ?? .init()
         let isTop = data.conversationInfo.isTop == 1
-        contentView.backgroundColor = isTop ? Colors.themeGray4Background : .clear
+        backgroundColor = isTop ? Colors.themeGray4Background : Colors.white
         
         // 优先级： 1、@ 消息提醒, 2、声音, 3、置顶,  4、密聊
         let unreadMentionAll = unreadCount?.unreadMentionAll ?? 0
