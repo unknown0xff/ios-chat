@@ -1040,15 +1040,19 @@
     _customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     _customFlowLayout.headerReferenceSize = CGSizeMake(320.0f, 20.0f);
     
+    CGFloat navHeight = 100;
     CGRect frame = self.view.bounds;
-    frame.origin.y += 100; //[WFCUUtilities wf_navigationFullHeight];
-    frame.size.height -= ([WFCUUtilities wf_safeDistanceBottom] + 100);//[WFCUUtilities wf_navigationFullHeight]);
+    frame.size.height -= [WFCUUtilities wf_safeDistanceBottom];//[WFCUUtilities wf_navigationFullHeight]);
     self.backgroundView = [[UIView alloc] initWithFrame:frame];
     [self.view addSubview:self.backgroundView];
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT) collectionViewLayout:_customFlowLayout];
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 8, 0);
-    
+    self.collectionView.contentInset = UIEdgeInsetsMake(navHeight, 0, 8, 0);
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+    }
     [self.backgroundView addSubview:self.collectionView];
     
     self.backgroundView.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
@@ -1056,7 +1060,6 @@
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.alwaysBounceVertical = YES;
-    
     
     self.view.backgroundColor = self.collectionView.backgroundColor;
     

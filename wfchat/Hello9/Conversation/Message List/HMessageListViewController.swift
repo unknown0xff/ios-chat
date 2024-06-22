@@ -163,7 +163,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     }
     
     private func configureNavbar() {
-        navBar.backgroundColor = Colors.white
+        navBar.blurEffectStyle = .light
         navBar.contentView.addSubview(avatarButton)
         avatarButton.snp.makeConstraints { make in
             make.width.height.equalTo(36)
