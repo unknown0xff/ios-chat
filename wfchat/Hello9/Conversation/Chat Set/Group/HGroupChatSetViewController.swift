@@ -64,7 +64,7 @@ class HGroupChatSetViewController: HBaseViewController {
     }()
     
     private lazy var actions: UIStackView = {
-        let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickBackBarButton(_:)))
+        let searchButton = self.actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickSearchButton(_:)))
         
         let moreButton = self.actionButton(with: Images.icon_more, title: "更多")
         moreButton.menu = createMenu()
