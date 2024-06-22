@@ -267,6 +267,5 @@
     [self.geoCoder cancelGeocode];
 }
 
-
 @end
 

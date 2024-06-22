@@ -125,7 +125,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private func updateMultiSelectPanel() {
         multiSelectNavBar.selectedCount = 0
-        var alpha = multiSelecting ? 0.0 : 1.0
+        let alpha = multiSelecting ? 0.0 : 1.0
         multiSelectNavBar.isHidden = multiSelecting
         multiSelectPanel.isHidden = multiSelecting
         multiSelectNavBar.alpha = alpha
@@ -230,6 +230,11 @@ extension HMessageListViewController {
             let vc = HSingleChatSetViewController(vm: .init(self.conversation))
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    override func showLocationViewController(_ locContent: WFCCLocationMessageContent!) {
+        let vc = HLocationViewController(locationPoint: .init(coordinate: locContent.coordinate, title: locContent.title))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

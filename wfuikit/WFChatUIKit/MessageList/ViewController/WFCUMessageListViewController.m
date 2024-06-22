@@ -2480,8 +2480,7 @@
         [self prepardToPlay:model];
     } else if([model.message.content isKindOfClass:[WFCCLocationMessageContent class]]) {
         WFCCLocationMessageContent *locContent = (WFCCLocationMessageContent *)model.message.content;
-        WFCULocationViewController *vc = [[WFCULocationViewController alloc] initWithLocationPoint:[[WFCULocationPoint alloc] initWithCoordinate:locContent.coordinate andTitle:locContent.title]];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self showLocationViewController:locContent];
     } else if ([model.message.content isKindOfClass:[WFCCFileMessageContent class]]) {
         WFCCFileMessageContent *fileContent = (WFCCFileMessageContent *)model.message.content;
         
@@ -2757,7 +2756,11 @@
     [self.navigationController pushViewController:receipt animated:YES];
 }
 
-
+- (void)showLocationViewController:(WFCCLocationMessageContent *)locContent {
+    WFCULocationViewController *vc = [[WFCULocationViewController alloc] initWithLocationPoint:[[WFCULocationPoint alloc] initWithCoordinate:locContent.coordinate andTitle:locContent.title]];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 - (void)showQuote:(WFCCQuoteInfo *)quoteInfo ofMessage:(WFCCMessage *)msg {
     if ([msg.content isKindOfClass:[WFCCTextMessageContent class]]) {
         WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msg.content;
@@ -2793,8 +2796,7 @@
         [self.navigationController pushViewController:browser animated:YES];
     } else if ([msg.content isKindOfClass:[WFCCLocationMessageContent class]]) {
         WFCCLocationMessageContent *locContent = (WFCCLocationMessageContent *)msg.content;
-        WFCULocationViewController *vc = [[WFCULocationViewController alloc] initWithLocationPoint:[[WFCULocationPoint alloc] initWithCoordinate:locContent.coordinate andTitle:locContent.title]];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self showLocationViewController:locContent];
     } else if ([msg.content isKindOfClass:[WFCCFileMessageContent class]]) {
         WFCCFileMessageContent *fileContent = (WFCCFileMessageContent *)msg.content;
         

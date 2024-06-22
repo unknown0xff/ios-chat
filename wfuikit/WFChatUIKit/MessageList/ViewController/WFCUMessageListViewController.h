@@ -12,6 +12,9 @@
 @class WFCCMessageContent;
 @class WFCCMessage;
 @class WFCCGroupInfo;
+@class WFCUMessageCellBase;
+@class WFCUMessageModel;
+@class WFCCLocationMessageContent;
 
 @interface WFCUMessageListViewController : UIViewController
 @property (nonatomic, strong)WFCCConversation *conversation;
@@ -52,4 +55,7 @@
 - (void)onMultiSelectCancel:(id)sender;
 - (void)onDeleteMultiSelectedMessage:(id)sender;
 - (void)onForwardMultiSelectedMessage:(id)sender;
+
+- (void)showLocationViewController:(WFCCLocationMessageContent *)locContent;
+
 @end
