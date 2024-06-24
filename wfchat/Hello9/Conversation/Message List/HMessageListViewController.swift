@@ -173,7 +173,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         navBar.backButton.addTarget(self, action: #selector(didClickBackButton(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
         
-        navBar.contentView.addSubview(multiSelectNavBar)
+        navBar.addSubview(multiSelectNavBar)
         multiSelectNavBar.isHidden = !multiSelecting
         multiSelectNavBar.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -269,8 +269,8 @@ class HMutliSelectNavBar: UIView {
         
         backgroundColor = Colors.white
         stack.snp.makeConstraints { make in
-            make.top.equalTo(0)
             make.left.equalTo(0)
+            make.bottom.equalTo(0)
             make.right.equalTo(0)
             make.height.equalTo(56)
         }
