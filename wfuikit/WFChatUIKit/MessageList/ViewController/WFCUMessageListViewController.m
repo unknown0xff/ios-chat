@@ -2459,7 +2459,7 @@
             browser.displaySelectionButtons = NO;
             browser.alwaysShowControls = NO;
             browser.zoomPhotosToFill = NO;
-            browser.enableGrid = YES;
+            browser.enableGrid = NO;
             browser.startOnGrid = NO;
             browser.enableSwipeToDismiss = NO;
             if([model.message.content isKindOfClass:[WFCCVideoMessageContent class]]) {

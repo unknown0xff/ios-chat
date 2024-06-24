@@ -162,10 +162,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
     _toolbar.tintColor = [UIColor whiteColor];
     _toolbar.barTintColor = nil;
-    [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
-    _toolbar.barStyle = UIBarStyleBlackTranslucent;
-    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    _toolbar.barStyle = UIBarStyleDefault;
     
     // Toolbar Items
     if (self.displayNavArrows) {
@@ -278,11 +275,12 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
             break;
         }
     }
-    if (hideToolbar) {
-        [_toolbar removeFromSuperview];
-    } else {
-        [self.view addSubview:_toolbar];
-    }
+    [_toolbar removeFromSuperview];
+//    if (hideToolbar) {
+//        [_toolbar removeFromSuperview];
+//    } else {
+//        [self.view addSubview:_toolbar];
+//    }
     
     // Update nav
 	[self updateNavigation];
@@ -1002,11 +1000,16 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	return CGPointMake(newOffset, 0);
 }
 
+- (CGFloat)safeDistanceBottom {
+    NSSet *set = [UIApplication sharedApplication].connectedScenes;
+    UIWindowScene *windowScene = [set anyObject];
+    UIWindow *window = windowScene.windows.firstObject;
+    return window.safeAreaInsets.bottom;
+}
+
 - (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation {
-    CGFloat height = 44;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
-        UIInterfaceOrientationIsLandscape(orientation)) height = 32;
-	return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
+    CGFloat height = 44 + [self safeDistanceBottom];
+	return CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height);
 }
 
 - (CGRect)frameForCaptionView:(MWCaptionView *)captionView atIndex:(NSUInteger)index {
