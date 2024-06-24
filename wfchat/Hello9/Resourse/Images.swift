@@ -102,6 +102,8 @@ enum Images {
 
     static let icon_location = UIImage(named: "icon_location")!
 
+    static let icon_location_black = UIImage(named: "icon_location_black")!
+
     static let icon_lock = UIImage(named: "icon_lock")!
 
     static let icon_login_disable = UIImage(named: "icon_login_disable")!

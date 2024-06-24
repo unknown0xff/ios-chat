@@ -505,12 +505,8 @@ static const NSTimeInterval controlsAnimationDuration = 0.4;
     
     if (!self.videoPlayer) {
         _videoPlayer = [AVPlayer playerWithPlayerItem:playerItem];
-        [_videoPlayer setAllowsAirPlayVideo:YES];
-        [_videoPlayer setUsesAirPlayVideoWhileAirPlayScreenIsActive:YES];
-        
-        if ([_videoPlayer respondsToSelector:@selector(setAllowsExternalPlayback:)]) { // iOS 6 API
-            [_videoPlayer setAllowsExternalPlayback:YES];
-        }
+        [_videoPlayer setAllowsExternalPlayback:YES];
+        [_videoPlayer setUsesExternalPlaybackWhileExternalScreenIsActive:YES];
         
         [_videoPlayerView setPlayer:_videoPlayer];
     } else {

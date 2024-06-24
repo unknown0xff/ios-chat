@@ -55,7 +55,6 @@ class HMessageLocationCell: HMessageCell<WFCCLocationMessageContent> {
         let aspect = size.width / size.height
         size.width = min(UIScreen.width * 0.618, size.width)
         size.height = size.width / aspect
-        
         size.height += 40
         return size
     }
@@ -63,7 +62,7 @@ class HMessageLocationCell: HMessageCell<WFCCLocationMessageContent> {
     override func bindData(_ content: WFCCLocationMessageContent) {
         locationView.image = content.thumbnail
         titleLabel.text = content.title
-        locationIcon.image = Images.icon_location
+        locationIcon.image = Images.icon_location_black
         bubbleView.image = nil
         dateLabel.text = ""
     }

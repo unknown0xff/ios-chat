@@ -29,6 +29,8 @@
     [imageButton addTarget:self action:@selector(itemPlugined:) forControlEvents:UIControlEventTouchUpInside];
     imageButton.userInteractionEnabled = YES;
     imageButton.backgroundColor = HEXCOLOR(0xF6F7FA);
+    imageButton.layer.cornerRadius = 16;
+    imageButton.layer.masksToBounds = YES;
     [myView addSubview:imageButton];
     
     UILabel *label = [UILabel new];
