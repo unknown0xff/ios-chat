@@ -182,7 +182,7 @@
         [_hangupButton setImage:[WFCUImage imageNamed:@"hangup_hover"] forState:UIControlStateHighlighted];
         [_hangupButton setImage:[WFCUImage imageNamed:@"hangup_hover"] forState:UIControlStateSelected];
         _hangupButton.backgroundColor = [UIColor clearColor];
-        [_hangupButton addTarget:self action:@selector(hanupButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_hangupButton addTarget:self action:@selector(hanupButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _hangupButton.hidden = YES;
         [self.view addSubview:_hangupButton];
     }
@@ -205,7 +205,7 @@
         
         
         _answerButton.backgroundColor = [UIColor clearColor];
-        [_answerButton addTarget:self action:@selector(answerButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_answerButton addTarget:self action:@selector(answerButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _answerButton.hidden = YES;
         [self.view addSubview:_answerButton];
     }
@@ -234,7 +234,7 @@
         [_switchCameraButton setImage:[WFCUImage imageNamed:@"switchcamera_hover"] forState:UIControlStateHighlighted];
         [_switchCameraButton setImage:[WFCUImage imageNamed:@"switchcamera_hover"] forState:UIControlStateSelected];
         _switchCameraButton.backgroundColor = [UIColor clearColor];
-        [_switchCameraButton addTarget:self action:@selector(switchCameraButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_switchCameraButton addTarget:self action:@selector(switchCameraButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _switchCameraButton.hidden = YES;
         [self.view addSubview:_switchCameraButton];
     }
@@ -248,7 +248,7 @@
         [_downgradeButton setImage:[WFCUImage imageNamed:@"to_audio_hover"] forState:UIControlStateHighlighted];
         [_downgradeButton setImage:[WFCUImage imageNamed:@"to_audio_hover"] forState:UIControlStateSelected];
         _downgradeButton.backgroundColor = [UIColor clearColor];
-        [_downgradeButton addTarget:self action:@selector(downgradeButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_downgradeButton addTarget:self action:@selector(downgradeButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _downgradeButton.hidden = YES;
         [self.view addSubview:_downgradeButton];
     }
@@ -288,7 +288,7 @@
         _videoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-ButtonSize/2, self.view.frame.size.height-10-ButtonSize, ButtonSize, ButtonSize)];
         [_videoButton setTitle:WFCString(@"Video") forState:UIControlStateNormal];
         _videoButton.backgroundColor = [UIColor greenColor];
-        [_videoButton addTarget:self action:@selector(videoButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_videoButton addTarget:self action:@selector(videoButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _videoButton.hidden = YES;
         [self.view addSubview:_videoButton];
     }
@@ -300,7 +300,7 @@
         _scalingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-ButtonSize/2, self.view.frame.size.height-10-ButtonSize, ButtonSize, ButtonSize)];
         [_scalingButton setTitle:WFCString(@"Scale") forState:UIControlStateNormal];
         _scalingButton.backgroundColor = [UIColor greenColor];
-        [_scalingButton addTarget:self action:@selector(scalingButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_scalingButton addTarget:self action:@selector(scalingButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _scalingButton.hidden = YES;
         [self.view addSubview:_scalingButton];
     }
