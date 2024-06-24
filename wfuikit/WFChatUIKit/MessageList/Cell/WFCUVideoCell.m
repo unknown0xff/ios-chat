@@ -9,6 +9,7 @@
 #import "WFCUVideoCell.h"
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUImage.h"
+#import "UIColor+YH.h"
 
 @interface WFCUVideoCell ()
 @property(nonatomic, strong) UIImageView *shadowMaskView;
@@ -18,14 +19,10 @@
 
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
     WFCCVideoMessageContent *imgContent = (WFCCVideoMessageContent *)msgModel.message.content;
-    
     CGSize size = imgContent.thumbnail.size;
-    
-    if (size.height > width || size.width > width) {
-        float scale = MIN(width/size.height, width/size.width);
-        size = CGSizeMake(size.width * scale, size.height * scale);
-    }
-    return size;
+    CGFloat imageWidth = MIN((size.width > size.height) ? 160 : 100, size.width);
+    CGFloat imageHeight = imageWidth / (size.width / size.height) ;
+    return CGSizeMake(imageWidth, imageHeight);
 }
 
 - (void)setModel:(WFCUMessageModel *)model {
@@ -35,7 +32,13 @@
     self.thumbnailView.frame = self.bubbleView.bounds;
     self.thumbnailView.image = imgContent.thumbnail;
     self.videoCoverView.frame = CGRectMake((self.bubbleView.bounds.size.width - 40)/2, (self.bubbleView.bounds.size.height - 40)/2, 40, 40);
-    self.videoCoverView.image = [WFCUImage imageNamed:@"video_msg_cover"];
+    self.videoCoverView.image = [WFCUImage imageNamed:@"icon_play"];
+    
+    self.dateLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.dateLabel.layer.cornerRadius = 6;
+    self.dateLabel.layer.masksToBounds = YES;
+    self.dateLabel.textColor = [UIColor colorWithHexString:@"0xF7F9FC"];
+    self.bubbleView.image = nil;
 }
 
 - (UIImageView *)thumbnailView {
@@ -43,7 +46,7 @@
         _thumbnailView = [[UIImageView alloc] init];
         _thumbnailView.layer.cornerRadius = 12;
         _thumbnailView.layer.masksToBounds = YES;
-        [self.bubbleView addSubview:_thumbnailView];
+        [self.bubbleView insertSubview:_thumbnailView atIndex:0];
     }
     return _thumbnailView;
 }

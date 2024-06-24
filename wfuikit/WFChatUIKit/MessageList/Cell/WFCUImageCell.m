@@ -9,6 +9,7 @@
 #import "WFCUImageCell.h"
 #import <WFChatClient/WFCChatClient.h>
 #import <SDWebImage/SDWebImage.h>
+#import "UIColor+YH.h"
 
 @interface WFCUImageCell ()
 @property(nonatomic, strong) UIImageView *shadowMaskView;
@@ -38,16 +39,22 @@
     WFCCImageMessageContent *imgContent = (WFCCImageMessageContent *)model.message.content;
     self.thumbnailView.frame = self.bubbleView.bounds;
     if (!imgContent.thumbnail && imgContent.thumbParameter) {
-        [self.thumbnailView sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"%@?%@", imgContent.remoteUrl, imgContent.thumbParameter] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+        [self.thumbnailView sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"%@?%@", imgContent.remoteUrl, imgContent.thumbParameter] stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]]];
     } else {
         self.thumbnailView.image = imgContent.thumbnail;
     }
+    
+    self.dateLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.dateLabel.layer.cornerRadius = 6;
+    self.dateLabel.layer.masksToBounds = YES;
+    self.dateLabel.textColor = [UIColor colorWithHexString:@"0xF7F9FC"];
+    self.bubbleView.image = nil;
 }
 
 - (UIImageView *)thumbnailView {
     if (!_thumbnailView) {
         _thumbnailView = [[UIImageView alloc] init];
-        [self.bubbleView addSubview:_thumbnailView];
+        [self.bubbleView insertSubview:_thumbnailView atIndex:0];
         _thumbnailView.layer.cornerRadius = 16;
         _thumbnailView.layer.masksToBounds = YES;
     }

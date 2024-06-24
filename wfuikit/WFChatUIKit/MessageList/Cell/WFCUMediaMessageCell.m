@@ -55,14 +55,15 @@
 }
 
 - (void)updateUploadProgress:(float)progress finish:(BOOL)finish {
-    if(finish) {
-        self.progressView.hidden = YES;
-    } else {
-        UIView *parentView = [self getProgressParentView];
-        self.progressView.hidden = NO;
-        self.progressView.progress = progress;
-        [parentView bringSubviewToFront:self.progressView];
-    }
+    self.progressView.hidden = YES;
+//    if(finish) {
+//        self.progressView.hidden = YES;
+//    } else {
+//        UIView *parentView = [self getProgressParentView];
+//        self.progressView.hidden = NO;
+//        self.progressView.progress = progress;
+//        [parentView bringSubviewToFront:self.progressView];
+//    }
 }
 
 - (void)onStartDownloading:(id)sender {
