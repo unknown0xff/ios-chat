@@ -31,6 +31,9 @@
 #endif
 >
 #if WFCU_SUPPORT_VOIP
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIVisualEffectView *effectView;
+
 @property (nonatomic, strong) UIView *bigVideoView;
 @property (nonatomic, strong) UIView *smallVideoView;
 @property (nonatomic, strong) UIButton *hangupButton;
@@ -64,6 +67,7 @@
 
 #define ButtonSize 90
 #define SmallVideoView 120
+#define PortraitViewWidth 157
 
 #if !WFCU_SUPPORT_VOIP
 @interface WFAVCallSession : NSObject
@@ -110,7 +114,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor blackColor]];
+    
+    self.backgroundImageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.effectView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    self.effectView.frame = self.view.bounds;
+    [self.view addSubview:self.backgroundImageView];
+    [self.view addSubview:self.effectView];
+    
     if(self.currentSession.state == kWFAVEngineStateIdle) {
         [self didCallEndWithReason:self.currentSession.endReason];
         return;
@@ -133,24 +144,24 @@
     
     WFCCUserInfo *user = [[WFCCIMService sharedWFCIMService] getUserInfo:self.currentSession.participantIds[0] inGroup:self.currentSession.conversation.type == Group_Type ? self.currentSession.conversation.target : nil refresh:NO];
     
+    [self.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[user.portrait stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:[WFCUImage imageNamed:@"PersonalChat"]];
+    
     self.portraitView = [[UIImageView alloc] init];
-    [self.portraitView sd_setImageWithURL:[NSURL URLWithString:[user.portrait stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[WFCUImage imageNamed:@"PersonalChat"]];
+    [self.portraitView sd_setImageWithURL:[NSURL URLWithString:[user.portrait stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:[WFCUImage imageNamed:@"PersonalChat"]];
     self.portraitView.layer.masksToBounds = YES;
-    self.portraitView.layer.cornerRadius = 10.f;
-    self.portraitView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.portraitView.layer.borderWidth = 1.0;
+    self.portraitView.layer.cornerRadius = PortraitViewWidth / 2.0;
     [self.view addSubview:self.portraitView];
     
     
     self.userNameLabel = [[UILabel alloc] init];
-    self.userNameLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleMedium size:27];
+    self.userNameLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleSemibold size:23];
     self.userNameLabel.text = user.displayName;
     self.userNameLabel.textColor = [UIColor colorWithHexString:@"0xffffff"];
     [self.view addSubview:self.userNameLabel];
     
     self.stateLabel = [[UILabel alloc] init];
-    self.stateLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleRegular size:14];
-    self.stateLabel.textColor = [UIColor colorWithHexString:@"0xB4B4B6"];
+    self.stateLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleRegular size:17];
+    self.stateLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.stateLabel];
     
     [self updateTopViewFrame];
@@ -203,15 +214,14 @@
 
 - (UIButton *)minimizeButton {
     if (!_minimizeButton) {
-        _minimizeButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 32, 30, 30)];
+        _minimizeButton = [[UIButton alloc] initWithFrame:CGRectMake(22, 60, 30, 30)];
         
         [_minimizeButton setImage:[WFCUImage imageNamed:@"minimize"] forState:UIControlStateNormal];
         [_minimizeButton setImage:[WFCUImage imageNamed:@"minimize_hover"] forState:UIControlStateHighlighted];
         [_minimizeButton setImage:[WFCUImage imageNamed:@"minimize_hover"] forState:UIControlStateSelected];
         
         _minimizeButton.backgroundColor = [UIColor clearColor];
-        [_minimizeButton addTarget:self action:@selector(minimizeButtonDidTap:) forControlEvents:UIControlEventTouchDown];
-//        _minimizeButton.hidden = YES;
+        [_minimizeButton addTarget:self action:@selector(minimizeButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_minimizeButton];
     }
     return _minimizeButton;
@@ -252,7 +262,7 @@
         [_audioButton setImage:[WFCUImage imageNamed:@"mute_hover"] forState:UIControlStateHighlighted];
         [_audioButton setImage:[WFCUImage imageNamed:@"mute_hover"] forState:UIControlStateSelected];
         _audioButton.backgroundColor = [UIColor clearColor];
-        [_audioButton addTarget:self action:@selector(audioButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_audioButton addTarget:self action:@selector(audioButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _audioButton.hidden = YES;
         [self updateAudioButton];
         [self.view addSubview:_audioButton];
@@ -266,7 +276,7 @@
         [_speakerButton setImage:[WFCUImage imageNamed:@"speaker_hover"] forState:UIControlStateHighlighted];
         [_speakerButton setImage:[WFCUImage imageNamed:@"speaker_hover"] forState:UIControlStateSelected];
         _speakerButton.backgroundColor = [UIColor clearColor];
-        [_speakerButton addTarget:self action:@selector(speakerButtonDidTap:) forControlEvents:UIControlEventTouchDown];
+        [_speakerButton addTarget:self action:@selector(speakerButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
         _speakerButton.hidden = YES;
         [self.view addSubview:_speakerButton];
     }
@@ -362,7 +372,7 @@
 }
 
 - (void)minimizeButtonDidTap:(UIButton *)button {
-    [WFCUFloatingWindow startCallFloatingWindow:self.currentSession focusUser:self.currentSession.participantIds[0] withTouchedBlock:^(WFAVCallSession *callSession, WFZConferenceInfo *conferenceInfo) {
+    [WFCUFloatingWindow startCallFloatingWindow:self.currentSession focusUser:self.currentSession.participants[0] withTouchedBlock:^(WFAVCallSession *callSession, WFZConferenceInfo *conferenceInfo) {
          [[WFAVEngineKit sharedEngineKit] presentViewController:[[WFCUVideoViewController alloc] initWithSession:callSession]];
      }];
     
@@ -522,10 +532,10 @@
 
     if (self.currentSession.isAudioOnly) {
         
-        CGFloat postionY = (containerHeight - 110) / 2.0 - 70;
-        self.portraitView.frame = CGRectMake((containerWidth-110)/2, postionY, 110, 110);;
+        CGFloat postionY = (containerHeight - PortraitViewWidth) / 2.0 - 70;
+        self.portraitView.frame = CGRectMake((containerWidth-PortraitViewWidth)/2, postionY, PortraitViewWidth, PortraitViewWidth);
         
-        postionY += 110 + 16;
+        postionY += PortraitViewWidth + 16;
         self.userNameLabel.frame = CGRectMake((containerWidth - 240)/2, postionY, 240, 27);
         self.userNameLabel.textAlignment = NSTextAlignmentCenter;
         
