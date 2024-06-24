@@ -21,6 +21,10 @@ struct HAppearance {
         navBarAppearance.shadowImage = nil
         navBarAppearance.setBackIndicatorImage(Images.icon_arrow_back_outline, transitionMaskImage: Images.icon_arrow_back_outline)
         navBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = .init(horizontal: -1000, vertical: 0)
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: Colors.themeGray5,
+            .font: UIFont.system16.bold
+        ]
         
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance

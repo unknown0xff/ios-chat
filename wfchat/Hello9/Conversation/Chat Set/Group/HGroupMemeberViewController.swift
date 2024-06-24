@@ -93,6 +93,8 @@ extension HGroupMemeberViewController: UITableViewDelegate {
             case .member(let item):
                 guard let model = item else {
                     // 邀请新成员 TODO: - xianda.yang
+                    
+                    HModalPresentNavigationController.show(root: HGroupInviteMemberViewController(), preferredStyle: .actionSheet)
                     return
                 }
                 if model.memberId == IMUserInfo.userId {

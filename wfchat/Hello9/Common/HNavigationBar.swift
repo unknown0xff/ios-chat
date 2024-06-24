@@ -46,7 +46,17 @@ class HNavigationBar: UIView {
     
     init(blurEffectStyle: UIBlurEffect.Style? = nil) {
         self.blurEffectStyle = blurEffectStyle
-        super.init(frame: .zero)
+        
+        let frame = CGRectMake(0, 0, UIScreen.width, HNavigationBar.height)
+        super.init(frame: frame)
+        
+        addSubview(visualEffectView)
+        contentView.addSubview(bar)
+        contentView.addSubview(backButton)
+        contentView.addSubview(titleLabel)
+        addSubview(contentView)
+        
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +76,7 @@ class HNavigationBar: UIView {
     private lazy var bar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.items = [self.navigationItem]
-        var appearnce = UINavigationBarAppearance()
+        var appearnce = UINavigationBar.appearance().standardAppearance.copy()
         appearnce.configureWithTransparentBackground()
         appearnce.backgroundEffect = nil
         bar.standardAppearance = appearnce
@@ -100,21 +110,8 @@ class HNavigationBar: UIView {
             visualEffectView.effect = nil
         }
     }
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard let _ = superview else { return }
-        
-        addSubview(visualEffectView)
-        
-        contentView.addSubview(bar)
-        contentView.addSubview(backButton)
-        contentView.addSubview(titleLabel)
-        addSubview(contentView)
-        
-        snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(HNavigationBar.height)
-        }
+    
+    func makeConstraints() {
         
         bar.snp.makeConstraints { make in
             make.width.left.centerY.equalToSuperview()
