@@ -80,6 +80,9 @@ enum Colors {
     static let themeGray5 = UIColor(named: "themeGray5")!
 
     ///   
+    static let themeGray6 = UIColor(named: "themeGray6")!
+
+    ///   
     static let themeGreen1 = UIColor(named: "themeGreen1")!
 
     ///   

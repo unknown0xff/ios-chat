@@ -10,13 +10,13 @@ import Foundation
 
 extension UIImage {
     
-    class func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+    class func image(withColor color: UIColor?, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContext(size)
         guard let context = UIGraphicsGetCurrentContext() else {
             return UIImage()
         }
-        context.setFillColor(color.cgColor)
+        context.setFillColor((color ?? .clear).cgColor)
         context.fill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

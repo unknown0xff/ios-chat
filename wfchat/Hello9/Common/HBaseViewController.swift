@@ -46,14 +46,15 @@ class HBaseViewController: HBasicViewController {
     override func setupBackButton() {
         if presentingViewController != nil || (navigationController != nil && navigationController!.viewControllers.count > 1) {
             if backButtonImage != nil {
-                navBar.backButton.isHidden = false
-                navBar.backButton.setImage(backButtonImage, for: .normal)
+                navBar.leftBarButtonItem = .init(image: backButtonImage, style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
             } else {
-                navBar.backButton.isHidden = true
+                navBar.leftBarButtonItem = nil
             }
         } else {
-            navBar.backButton.isHidden = true
+            navBar.leftBarButtonItem = nil
         }
+        
+        navBar.backButton.isHidden = true
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }

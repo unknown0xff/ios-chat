@@ -16,6 +16,34 @@ class HNavigationBar: UIView {
         }
     }
     
+    var leftBarButtonItem: UIBarButtonItem? {
+        set {
+            navigationItem.leftBarButtonItem = newValue
+        }
+        get {
+            navigationItem.leftBarButtonItem
+        }
+        
+    }
+
+    var rightBarButtonItem: UIBarButtonItem? {
+        set {
+            navigationItem.rightBarButtonItem = newValue
+        }
+        get {
+            navigationItem.rightBarButtonItem
+        }
+    }
+    
+    var title: String? {
+        set {
+            navigationItem.title = newValue
+        }
+        get {
+            navigationItem.title
+        }
+    }
+    
     init(blurEffectStyle: UIBlurEffect.Style? = nil) {
         self.blurEffectStyle = blurEffectStyle
         super.init(frame: .zero)
@@ -28,6 +56,21 @@ class HNavigationBar: UIView {
     private lazy var visualEffectView: UIVisualEffectView = {
         let effectView = UIVisualEffectView()
         return effectView
+    }()
+    
+    private(set) lazy var navigationItem: UINavigationItem = {
+        let item = UINavigationItem()
+        return item
+    }()
+    
+    private lazy var bar: UINavigationBar = {
+        let bar = UINavigationBar()
+        bar.items = [self.navigationItem]
+        var appearnce = UINavigationBarAppearance()
+        appearnce.configureWithTransparentBackground()
+        appearnce.backgroundEffect = nil
+        bar.standardAppearance = appearnce
+        return bar
     }()
     
     private(set) var contentView: UIView = {
@@ -63,14 +106,18 @@ class HNavigationBar: UIView {
         
         addSubview(visualEffectView)
         
+        contentView.addSubview(bar)
         contentView.addSubview(backButton)
         contentView.addSubview(titleLabel)
         addSubview(contentView)
         
-        
         snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(HNavigationBar.height)
+        }
+        
+        bar.snp.makeConstraints { make in
+            make.width.left.centerY.equalToSuperview()
         }
         
         visualEffectView.snp.makeConstraints { make in

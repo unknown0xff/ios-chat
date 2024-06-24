@@ -18,7 +18,7 @@ struct HAppearance {
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundImage = UIImage.image(withColor: Colors.white.withAlphaComponent(0.99))
-        navBarAppearance.shadowImage = UIImage.image(withColor: Colors.white)
+        navBarAppearance.shadowImage = nil
         navBarAppearance.setBackIndicatorImage(Images.icon_arrow_back_outline, transitionMaskImage: Images.icon_arrow_back_outline)
         navBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = .init(horizontal: -1000, vertical: 0)
         
