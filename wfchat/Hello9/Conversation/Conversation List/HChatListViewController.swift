@@ -131,17 +131,17 @@ class HChatListViewController: HBaseViewController {
         }
     }
     
-    private func setConversationTop(isTop: Bool, at indexPath: IndexPath) {
+    private func setConversationTop(isTop: Bool, model: HChatListCellModel) {
         Task {
-            if let _ = await viewModel.setConversationTop(isTop, at: indexPath) {
+            if let _ = await viewModel.setConversationTop(isTop, model: model) {
                 HToast.showTipAutoHidden(text: "更新失败")
             }
         }
     }
     
-    private func setConversationSilent(isSilent: Bool, at indexPath: IndexPath) {
+    private func setConversationSilent(isSilent: Bool, model: HChatListCellModel) {
         Task {
-            if let _ = await viewModel.setConversationSilent(isSilent, at: indexPath) {
+            if let _ = await viewModel.setConversationSilent(isSilent, model: model) {
                 HToast.showTipAutoHidden(text: "更新失败")
             } else {
                 updateBadgeNumber()
@@ -244,7 +244,7 @@ extension HChatListViewController: UITableViewDelegate {
         switch row {
         case .friend(_):
             let delete = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
-                self?.viewModel.removeFriendRequest(at: indexPath)
+                self?.viewModel.removeFriendRequest()
                 self?.updateBadgeNumber()
                 handle(true)
             }
@@ -255,21 +255,21 @@ extension HChatListViewController: UITableViewDelegate {
             return configure
         case .chat(let model):
             let mute = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
-                self?.setConversationSilent(isSilent: true, at: indexPath)
+                self?.setConversationSilent(isSilent: true, model: model)
                 handle(true)
             }
             mute.image = Images.icon_chat_list_mute
             mute.backgroundColor = Colors.themeYellow1
             
             let unmute = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
-                self?.setConversationSilent(isSilent: false, at: indexPath)
+                self?.setConversationSilent(isSilent: false, model: model)
                 handle(true)
             }
             unmute.image = Images.icon_chat_list_mute_disable
             unmute.backgroundColor = Colors.themeYellow1
             
             let delete = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _ , handle in
-                self?.viewModel.removeConversation(at: indexPath)
+                self?.viewModel.removeConversation(model: model)
                 self?.updateBadgeNumber()
                 handle(true)
             }
@@ -277,14 +277,14 @@ extension HChatListViewController: UITableViewDelegate {
             delete.backgroundColor = Colors.themeRed2
             
             let top = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _, handle in
-                self?.setConversationTop(isTop: true, at: indexPath)
+                self?.setConversationTop(isTop: true, model: model)
                 handle(true)
             }
             top.image = Images.icon_chat_list_top
             top.backgroundColor = Colors.themeGray4
             
             let unTop = UIContextualAction(style: .normal, title: nil) { [weak self] _ , _, handle in
-                self?.setConversationTop(isTop: false, at: indexPath)
+                self?.setConversationTop(isTop: false, model: model)
                 handle(true)
             }
             unTop.image = Images.icon_chat_list_top_disable

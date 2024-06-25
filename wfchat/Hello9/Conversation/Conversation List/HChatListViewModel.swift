@@ -10,7 +10,6 @@ class HChatListViewModel: HBasicViewModel {
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
 
-    
     enum Section: Hashable, CaseIterable {
         case conversation
         case friendRequest
@@ -40,7 +39,6 @@ class HChatListViewModel: HBasicViewModel {
         
         conversations = WFCCIMService.sharedWFCIM().getConversationInfos(conversationTypes, lines: lines)
         friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
-            .filter { $0.status == 0 }
         
         applySnapshot()
     }
@@ -52,7 +50,7 @@ class HChatListViewModel: HBasicViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
     }
     
-    func removeFriendRequest(at indexPath: IndexPath) {
+    func removeFriendRequest() {
         WFCCIMService.sharedWFCIM().clearUnreadFriendRequestStatus()
         friendRequest.forEach { request in
             WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
@@ -60,24 +58,19 @@ class HChatListViewModel: HBasicViewModel {
         reloadFriendRequest()
     }
     
-    func removeConversation(at indexPath: IndexPath) {
-        if indexPath.row >= conversations.count {
-            return
-        }
-        
-        let conv = conversations[indexPath.row].conversation
+    func removeConversation(model: HChatListCellModel) {
+        let conv = model.conversationInfo.conversation
         WFCCIMService.sharedWFCIM().clearUnreadStatus(conv)
         WFCCIMService.sharedWFCIM().remove(conv, clearMessage: true)
-        conversations.remove(at: indexPath.row)
+        conversations.removeAll { item in
+            item.conversation.target == conv?.target
+        }
         
-        applySnapshot()
+        self.snapshot.deleteItems([Row.chat(model)])
     }
     
-    func setConversationTop(_ isTop: Bool, at indexPath: IndexPath) async -> HError? {
-        if indexPath.row >= conversations.count {
-            return nil
-        }
-        let conv = conversations[indexPath.row].conversation
+    func setConversationTop(_ isTop: Bool, model: HChatListCellModel) async -> HError? {
+        let conv = model.conversationInfo.conversation
         return await withCheckedContinuation { result in
             WFCCIMService.sharedWFCIM().setConversation(conv, top: isTop ? 1 : 0) { 
                 result.resume(returning: nil)
@@ -87,11 +80,8 @@ class HChatListViewModel: HBasicViewModel {
         }
     }
     
-    func setConversationSilent(_ isSilent: Bool, at indexPath: IndexPath) async -> HError? {
-        if indexPath.row >= conversations.count {
-            return nil
-        }
-        let conv = conversations[indexPath.row].conversation
+    func setConversationSilent(_ isSilent: Bool, model: HChatListCellModel) async -> HError? {
+        let conv = model.conversationInfo.conversation
         
         return await withCheckedContinuation { result in
             WFCCIMService.sharedWFCIM().setConversation(conv, silent: isSilent) {
@@ -136,14 +126,28 @@ class HChatListViewModel: HBasicViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.friendRequest, .conversation])
         
+        var rows: [Row] = .init()
         if !friendRequest.isEmpty {
-            let friendRows = [Row.friend(friendRequest)]
-            snapshot.appendItems(friendRows, toSection: .friendRequest)
+            let timestamp = friendRequest.first!.timestamp
+            
+            var hasInsert = false
+            for item in conversations {
+                if item.isTop == 1 || hasInsert {
+                    rows.append(Row.chat(.init(conversationInfo: item)))
+                } else {
+                    if item.timestamp > timestamp {
+                        rows.append(Row.chat(.init(conversationInfo: item)))
+                    } else {
+                        rows.append(Row.friend(friendRequest))
+                        hasInsert = true
+                    }
+                }
+            }
+        } else {
+            rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
         }
         
-        let rows = conversations.map { Row.chat(.init(conversationInfo: $0)) }
         snapshot.appendItems(rows, toSection: .conversation)
-        
         self.snapshot = snapshot
     }
     
