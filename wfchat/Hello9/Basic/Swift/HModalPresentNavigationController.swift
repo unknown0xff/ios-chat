@@ -102,7 +102,7 @@ open class HModalPresentNavigationController: HNavigationController {
                          presenting: UIViewController? = UIViewController.h_top,
                          translucentColor: UIColor? = nil,
                          automaticallyDismiss: Bool = true,
-                         preferredStyle: HModalPresentNavigationController.Style = .alert,
+                         preferredStyle: HModalPresentNavigationController.Style = .actionSheet,
                          completion: (() -> Void)? = nil) -> Self {
         let nav = Self.init(rootViewController: root, translucentColor: translucentColor, automaticallyDismiss: automaticallyDismiss, preferredStyle: preferredStyle)
         presenting?.present(nav, animated: true, completion: completion)
@@ -114,7 +114,7 @@ open class HModalPresentNavigationController: HNavigationController {
                          presenting: UIViewController? = UIViewController.h_top,
                          translucentColor: UIColor? = nil ,
                          automaticallyDismiss: Bool = true,
-                         preferredStyle: HModalPresentNavigationController.Style = .alert,
+                         preferredStyle: HModalPresentNavigationController.Style = .actionSheet,
                          completion: (() -> Void)? = nil) -> Self {
         let nav = Self.init(rootView: rootView, translucentColor: translucentColor, automaticallyDismiss: automaticallyDismiss, preferredStyle: preferredStyle)
         presenting?.present(nav, animated: true, completion: completion)

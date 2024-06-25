@@ -41,7 +41,7 @@ class HSelectedFriendViewController: HBaseViewController, UITableViewDelegate, U
     
     private typealias Section = HMyFriendListViewModel.Section
     private typealias Row = HMyFriendListViewModel.Row
-    private var dataSource: HMyFriendListDataSource! = nil
+    private(set) var dataSource: HMyFriendListDataSource! = nil
     
     var onFinish: ((_ selectedIds: [String]) -> Void)?
     
@@ -51,13 +51,16 @@ class HSelectedFriendViewController: HBaseViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.maxSelectedCount = Int.max
         viewModel.forceApplySearchResult = true
         viewModel.loadData()
         addObserver()
         
         navBar.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
-        navBar.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(didClickFinishButton(_:)))
+        
+        if viewModel.enableMutiSelected {
+            navBar.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(didClickFinishButton(_:)))
+        }
+        
         navBar.rightBarButtonItem?.isEnabled = false
         navBar.title = "添加用户"
     }

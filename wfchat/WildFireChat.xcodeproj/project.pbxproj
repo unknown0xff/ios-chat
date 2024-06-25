@@ -27,6 +27,7 @@
 		205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */; };
 		205C5A6C2C251A5E000D54FE /* HBasicButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */; };
 		206309C62C2953EE00BED49A /* HSelectedFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309C52C2953EE00BED49A /* HSelectedFriendViewController.swift */; };
+		206309D82C2AB7A700BED49A /* HForwardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309D72C2AB7A700BED49A /* HForwardViewController.swift */; };
 		2065F67F2C266601006BAD27 /* HMessageLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F67E2C266601006BAD27 /* HMessageLocationCell.swift */; };
 		2065F6812C266DE6006BAD27 /* HMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6802C266DE6006BAD27 /* HMessageCell.swift */; };
 		2065F6832C267E1B006BAD27 /* HLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6822C267E1B006BAD27 /* HLocationViewController.swift */; };
@@ -337,6 +338,7 @@
 		205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicFooterTipView.swift; sourceTree = "<group>"; };
 		205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicButtonCell.swift; sourceTree = "<group>"; };
 		206309C52C2953EE00BED49A /* HSelectedFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedFriendViewController.swift; sourceTree = "<group>"; };
+		206309D72C2AB7A700BED49A /* HForwardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HForwardViewController.swift; sourceTree = "<group>"; };
 		2065F67E2C266601006BAD27 /* HMessageLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageLocationCell.swift; sourceTree = "<group>"; };
 		2065F6802C266DE6006BAD27 /* HMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageCell.swift; sourceTree = "<group>"; };
 		2065F6822C267E1B006BAD27 /* HLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLocationViewController.swift; sourceTree = "<group>"; };
@@ -1541,6 +1543,7 @@
 				2065F67D2C2665DD006BAD27 /* Cell */,
 				60F5CF912C0D55DB0013D912 /* HMessageListViewController.swift */,
 				2065F6822C267E1B006BAD27 /* HLocationViewController.swift */,
+				206309D72C2AB7A700BED49A /* HForwardViewController.swift */,
 			);
 			path = "Message List";
 			sourceTree = "<group>";
@@ -2089,6 +2092,7 @@
 				6088F4932C0F27E000130A87 /* HFriendRequestCell.swift in Sources */,
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */,
+				206309D82C2AB7A700BED49A /* HForwardViewController.swift in Sources */,
 				2FFDDC982551545300CEFDBB /* WFCFavoriteLocationCell.m in Sources */,
 				60922A7A2C075CE600B70AD8 /* HMineViewModel.swift in Sources */,
 				90FF267E222AB34B0001D8AF /* PCLoginConfirmViewController.m in Sources */,

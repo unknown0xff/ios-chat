@@ -958,19 +958,18 @@
     
     [self.selectedMessageIds removeAllObjects];
     self.multiSelecting = NO;
-    
+    if (messages.count == 0) {
+        return;
+    }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WFCString(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
     
     UIAlertAction *oneByOneAction = [UIAlertAction actionWithTitle:@"逐条转发" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        WFCUForwardViewController *controller = [[WFCUForwardViewController alloc] init];
-        controller.messages = messages;
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-        [self.navigationController presentViewController:navi animated:YES completion:nil];
-        
+        [self showForwardViewController:messages];
     }];
+    
     UIAlertAction *AllInOneAction = [UIAlertAction actionWithTitle:@"合并转发" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         WFCCCompositeMessageContent *compositeContent = [[WFCCCompositeMessageContent alloc] init];
 
@@ -998,17 +997,20 @@
         compositeContent.messages = messages;
         WFCCMessage *msg = [[WFCCMessage alloc] init];
         msg.content = compositeContent;
-        
-        WFCUForwardViewController *controller = [[WFCUForwardViewController alloc] init];
-        controller.message = msg;
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-        [self.navigationController presentViewController:navi animated:YES completion:nil];
+        [self showForwardViewController:@[msg]];
     }];
     
     [alertController addAction:cancelAction];
     [alertController addAction:oneByOneAction];
     [alertController addAction:AllInOneAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)showForwardViewController:(NSArray<WFCCMessage *>* )messages {
+    WFCUForwardViewController *controller = [[WFCUForwardViewController alloc] init];
+    controller.messages = messages;
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentViewController:navi animated:YES completion:nil];
 }
 
 - (void)scrollToBottom:(BOOL)animated {
@@ -3479,10 +3481,7 @@
 
 -(void)performForward:(UIMenuItem *)sender {
     if (self.cell4Menu) {
-        WFCUForwardViewController *controller = [[WFCUForwardViewController alloc] init];
-        controller.message = self.cell4Menu.model.message;
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-        [self.navigationController presentViewController:navi animated:YES completion:nil];
+        [self showForwardViewController:@[self.cell4Menu.model.message]];
     }
 }
 

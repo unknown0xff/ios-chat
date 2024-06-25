@@ -196,6 +196,13 @@ class HMessageListViewController: WFCUMessageListViewController {
             })
         }
     }
+    
+    override func showForwardViewController(_ messages: [WFCCMessage]!) {
+        let vc = HForwardViewController()
+        vc.viewModel.maxSelectedCount = 1
+        vc.messages = messages
+        HModalPresentNavigationController.show(root: vc)
+    }
 }
 
 extension HMessageListViewController {

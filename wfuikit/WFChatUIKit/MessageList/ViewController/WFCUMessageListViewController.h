@@ -57,5 +57,6 @@
 - (void)onForwardMultiSelectedMessage:(id)sender;
 
 - (void)showLocationViewController:(WFCCLocationMessageContent *)locContent;
+- (void)showForwardViewController:(NSArray<WFCCMessage *>* )messages;
 
 @end

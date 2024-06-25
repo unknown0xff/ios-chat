@@ -77,6 +77,7 @@ class HGroupMemeberViewController: HBasicViewController {
     
     private func showSelectedFriendsVC() {
         let vc = HSelectedFriendViewController()
+        vc.viewModel.maxSelectedCount = Int.max
         vc.viewModel.groupMembers = viewModel.groupMemberIds
         vc.onFinish = { [weak self] userIds in
             self?.inviteMembers(userIds)
