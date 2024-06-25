@@ -24,6 +24,8 @@
 		149B3111241E65D500B935D3 /* UIColor+YH.h in Headers */ = {isa = PBXBuildFile; fileRef = 149B310D241E65D500B935D3 /* UIColor+YH.h */; };
 		149B3112241E65D500B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B310E241E65D500B935D3 /* UIFont+YH.m */; };
 		205C5A6F2C259562000D54FE /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 205C5A6E2C259562000D54FE /* ZLPhotoBrowser */; };
+		206309CE2C2A6E0800BED49A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 206309CD2C2A6E0800BED49A /* SnapKit */; };
+		206309D62C2A88E100BED49A /* HVoiceRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */; };
 		2065F6882C26F91C006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6872C26F91C006BAD27 /* MBProgressHUD */; };
 		20E996C62C1A8C7900CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C52C1A8C7900CF0F71 /* SDWebImage */; };
 		20E996C82C1A8C7900CF0F71 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C72C1A8C7900CF0F71 /* SDWebImageMapKit */; };
@@ -639,6 +641,9 @@
 		149B310C241E65D500B935D3 /* UIColor+YH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YH.m"; sourceTree = "<group>"; };
 		149B310D241E65D500B935D3 /* UIColor+YH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YH.h"; sourceTree = "<group>"; };
 		149B310E241E65D500B935D3 /* UIFont+YH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YH.m"; sourceTree = "<group>"; };
+		206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVoiceRecordView.swift; sourceTree = "<group>"; };
+		206309D22C2A73E700BED49A /* WFChatUIKit-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WFChatUIKit-umbrella.h"; sourceTree = "<group>"; };
+		206309D32C2A74A600BED49A /* WFChatUIKit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = WFChatUIKit.modulemap; sourceTree = "<group>"; };
 		2B07FBDF247562D90035C4DF /* WFCUReceiptViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCUReceiptViewController.h; sourceTree = "<group>"; };
 		2B07FBE0247562D90035C4DF /* WFCUReceiptViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCUReceiptViewController.m; sourceTree = "<group>"; };
 		2B14FC8D25C23D3600684B91 /* WFCUPinyinUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCUPinyinUtility.h; sourceTree = "<group>"; };
@@ -880,8 +885,6 @@
 		2F550FAE217F5CC100F56C26 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		2F550FAF217F5CC100F56C26 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		2F550FB0217F5CC100F56C26 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		2F550FD6217F5CC100F56C26 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		2F550FD7217F5CC100F56C26 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		2F550FD9217F5CC100F56C26 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		2F550FDA217F5CC100F56C26 /* SDRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRefreshFooterView.h; sourceTree = "<group>"; };
 		2F550FDB217F5CC100F56C26 /* SDRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRefreshView.h; sourceTree = "<group>"; };
@@ -1253,6 +1256,7 @@
 				B75D81652782B800009D4A19 /* WFAVEngineKit.xcframework in Frameworks */,
 				B7E494E128F6709700FF2333 /* libyuv.xcframework in Frameworks */,
 				B709CCE928F7B9EF0036EDFA /* CoreMedia.framework in Frameworks */,
+				206309CE2C2A6E0800BED49A /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1518,8 @@
 				2F143A66217F7D4100B3E38A /* Resources */,
 				2F9E85F8222B83CE0076B82B /* QrCodeHelper.h */,
 				2F9E85FE222B9D600076B82B /* QrCodeHelper.m */,
+				206309D32C2A74A600BED49A /* WFChatUIKit.modulemap */,
+				206309D22C2A73E700BED49A /* WFChatUIKit-umbrella.h */,
 			);
 			path = WFChatUIKit;
 			sourceTree = "<group>";
@@ -1703,7 +1709,6 @@
 				2F550F8D217F5CC100F56C26 /* KZSmallVideoRecorder */,
 				2F550FA0217F5CC100F56C26 /* KxMenu */,
 				2F550FA3217F5CC100F56C26 /* AFNetworking */,
-				2F550FD5217F5CC100F56C26 /* MBProgressHUD */,
 				2F550FD8217F5CC100F56C26 /* SDRefeshView */,
 				2F550FE3217F5CC100F56C26 /* UITextViewPlaceholder */,
 				2F55101D217F5CC100F56C26 /* TYAlertController */,
@@ -1732,6 +1737,7 @@
 				2F550F1D217F5CC100F56C26 /* WFCUVoiceRecordView.m */,
 				B748123328A4BB8B003BB0C3 /* WFCUPublicMenuButton.h */,
 				B748123428A4BB8B003BB0C3 /* WFCUPublicMenuButton.m */,
+				206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */,
 			);
 			path = ChatInputBar;
 			sourceTree = "<group>";
@@ -1866,15 +1872,6 @@
 				2F550FB0217F5CC100F56C26 /* AFHTTPSessionManager.h */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		2F550FD5217F5CC100F56C26 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				2F550FD6217F5CC100F56C26 /* MBProgressHUD.m */,
-				2F550FD7217F5CC100F56C26 /* MBProgressHUD.h */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		2F550FD8217F5CC100F56C26 /* SDRefeshView */ = {
@@ -2959,6 +2956,7 @@
 				20E996C72C1A8C7900CF0F71 /* SDWebImageMapKit */,
 				205C5A6E2C259562000D54FE /* ZLPhotoBrowser */,
 				2065F6872C26F91C006BAD27 /* MBProgressHUD */,
+				206309CD2C2A6E0800BED49A /* SnapKit */,
 			);
 			productName = WFChatUIKit;
 			productReference = 2F550BDF217F4D7B00F56C26 /* WFChatUIKit.framework */;
@@ -2975,7 +2973,7 @@
 				TargetAttributes = {
 					2F550BDE217F4D7B00F56C26 = {
 						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1420;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -2992,6 +2990,7 @@
 				20E996C42C1A8C7900CF0F71 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				205C5A6D2C259562000D54FE /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 				2065F6862C26F91C006BAD27 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				206309CC2C2A6E0800BED49A /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 2F550BE0217F4D7B00F56C26 /* Products */;
 			projectDirPath = "";
@@ -3066,6 +3065,7 @@
 				B707759A28823635004034A5 /* WFCUImage.m in Sources */,
 				149B3112241E65D500B935D3 /* UIFont+YH.m in Sources */,
 				2FD550ED2442AA0B00B3EE09 /* WFCURecallCell.m in Sources */,
+				206309D62C2A88E100BED49A /* HVoiceRecordView.swift in Sources */,
 				2F5510A3217F5CC200F56C26 /* WFCUImageCell.m in Sources */,
 				2BDF57B924AD70C8003C1F08 /* DNBrowserCell.m in Sources */,
 				2F5510B5217F5CC200F56C26 /* WFCUBrowserViewController.m in Sources */,
@@ -3481,10 +3481,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/WFChatUIKit/WFChatUIKit.modulemap";
 				OTHER_LDFLAGS = "-ObjC";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wildfirechat.WFChatUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3516,10 +3519,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/WFChatUIKit/WFChatUIKit.modulemap";
 				OTHER_LDFLAGS = "-ObjC";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wildfirechat.WFChatUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3557,6 +3563,14 @@
 				minimumVersion = 4.5.3;
 			};
 		};
+		206309CC2C2A6E0800BED49A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 		2065F6862C26F91C006BAD27 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jdg/MBProgressHUD";
@@ -3580,6 +3594,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 205C5A6D2C259562000D54FE /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
+		};
+		206309CD2C2A6E0800BED49A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 206309CC2C2A6E0800BED49A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		2065F6872C26F91C006BAD27 /* MBProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
