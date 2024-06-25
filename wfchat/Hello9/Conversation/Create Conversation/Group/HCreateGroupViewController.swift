@@ -31,12 +31,6 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     
     private var searchResultDataSource: HMyFriendListDataSource! = nil
     
-    private lazy var doneButton: UIButton = {
-        let btn = UIButton.navButton("完成", titleColor: Colors.themeBlue1)
-        btn.addTarget(self, action: #selector(didClickDoneButton(_:)), for: .touchUpInside)
-        return btn
-    }()
-    
     private var isSearch: Bool = false {
         didSet {
             updateSearchBar()
@@ -72,28 +66,23 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     
     private func configureNavBar() {
         
-        navBar.titleLabel.text = "新建群组"
+        navBar.title = "新建群组"
+        navBar.rightBarButtonItem = .init(title: "完成", style: .done, target: self, action: #selector(didClickDoneButton(_:)))
+        navBar.rightBarButtonItem?.isEnabled = false
         navBarBackgroundView.isHidden = true
         
-        navBar.contentView.addSubview(doneButton)
         navBar.addSubview(searchBar)
         updateSearchBar(animated: false)
     }
     
     private func updateDoneButtonTitle(_ selectedCount: Int) {
         let doneTitle = selectedCount > 0 ? "完成(\(selectedCount))" : "完成"
-        
-        doneButton.setTitle(doneTitle, for: .normal)
-        doneButton.isEnabled = selectedCount > 0
+        navBar.rightBarButtonItem?.title = doneTitle
+        navBar.rightBarButtonItem?.isEnabled = selectedCount > 0
     }
     
     override func makeConstraints() {
         super.makeConstraints()
-        
-        doneButton.snp.makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalToSuperview()
-        }
         
         searchBar.snp.makeConstraints { make in
             make.left.equalTo(10)
@@ -188,7 +177,7 @@ extension HCreateGroupViewController {
 
 extension HCreateGroupViewController {
     
-    @objc func didClickDoneButton(_ sender: UIButton) {
+    @objc func didClickDoneButton(_ sender: UIBarButtonItem) {
         let userIds = viewModel.selectedItems.map { $0.userId }
         let vc = HCreateGroupConfirmViewController(userIds: userIds)
         HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)

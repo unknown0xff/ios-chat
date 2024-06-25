@@ -16,7 +16,8 @@ class HGroupChatSetViewModel: HBasicViewModel {
     
     private(set) var conv: WFCCConversation
     
-    private var groupMember = [WFCCGroupMember]()
+    private(set) var groupMember = [WFCCGroupMember]()
+    var groupMemberIds: [String] { groupMember.map { $0.memberId }  }
     
     private(set) var groupInfo = HGroupInfo(info: .init())
     
@@ -65,6 +66,19 @@ class HGroupChatSetViewModel: HBasicViewModel {
             return false
         }
         return groupInfo.owner == IMUserInfo.userId
+    }
+    
+    func inviteMembers(_ userIds: [String]) {
+        WFCCIMService.sharedWFCIM().addMembers(userIds, toGroup: conv.target, memberExtra: nil, notifyLines: [NSNumber(value: 0)], notify: nil) { [weak self] in
+            self?.loadData()
+            HToast.showTipAutoHidden(text: "邀请成功")
+        } error: { code in
+            if code == WFCCErrorCode.ERROR_CODE_Proto_Content_Exceed_Max_Size.rawValue {
+                HToast.showTipAutoHidden(text: "群成员数超过最大限制")
+            } else {
+                HToast.showTipAutoHidden(text: "邀请失败，网络错误")
+            }
+        }
     }
 }
 

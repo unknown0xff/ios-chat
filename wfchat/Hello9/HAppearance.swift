@@ -26,6 +26,37 @@ struct HAppearance {
             .font: UIFont.system16.bold
         ]
         
+        let normal: [NSAttributedString.Key : Any] = [
+            .foregroundColor: Colors.themeBlue1,
+            .font: UIFont.system16
+        ]
+        let disableNormal: [NSAttributedString.Key : Any] = [
+            .foregroundColor: Colors.themeBlue1.withAlphaComponent(0.5),
+            .font: UIFont.system16
+        ]
+        
+        let done: [NSAttributedString.Key : Any] = [
+            .foregroundColor: Colors.themeBlue1,
+            .font: UIFont.system16.bold
+        ]
+        let disableDone: [NSAttributedString.Key : Any] = [
+            .foregroundColor: Colors.themeBlue1.withAlphaComponent(0.5),
+            .font: UIFont.system16.bold
+        ]
+        
+        let barButtonItemAppearance = UIBarButtonItemAppearance(style: .plain)
+        barButtonItemAppearance.normal.titleTextAttributes = normal
+        barButtonItemAppearance.disabled.titleTextAttributes = disableNormal
+        barButtonItemAppearance.highlighted.titleTextAttributes = disableNormal
+        
+        let doneButtonItemAppearance = UIBarButtonItemAppearance(style: .done)
+        doneButtonItemAppearance.normal.titleTextAttributes = done
+        doneButtonItemAppearance.disabled.titleTextAttributes = disableDone
+        doneButtonItemAppearance.highlighted.titleTextAttributes = disableDone
+        
+        navBarAppearance.buttonAppearance = barButtonItemAppearance
+        navBarAppearance.doneButtonAppearance = doneButtonItemAppearance
+        
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         

@@ -65,7 +65,12 @@ class HMyFriendListCell: HBasicTableViewCell<HMyFriendListModel> {
         guard let data else { return }
         
         editIcon.isHidden = !data.enableMutiSelected
-        editIcon.image = data.isSelected ? Images.icon_selected: Images.icon_unselected
+        
+        if data.isInGroup {
+            editIcon.image = Images.icon_disable_check
+        } else {
+            editIcon.image = data.isSelected ? Images.icon_selected: Images.icon_unselected
+        }
         
         icon.sd_setImage(with: data.portrait, placeholderImage: Images.icon_logo)
         titleLabel.text = data.dispalyName

@@ -66,6 +66,8 @@ enum Images {
 
     static let icon_delete_white = UIImage(named: "icon_delete_white")!
 
+    static let icon_disable_check = UIImage(named: "icon_disable_check")!
+
     static let icon_disclosure_indicator_gray = UIImage(named: "icon_disclosure_indicator_gray")!
 
     static let icon_edit = UIImage(named: "icon_edit")!

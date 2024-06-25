@@ -63,6 +63,7 @@ class HSearchBar: UIControl, UISearchBarDelegate {
             searchBar.setCenteredPlaceHolder()
         }
         delegate?.searchBarCancelButtonClicked?(searchBar)
+        searchBar.text = ""
     }
 }
 

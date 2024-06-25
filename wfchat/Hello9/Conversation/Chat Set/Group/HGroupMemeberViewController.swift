@@ -75,6 +75,18 @@ class HGroupMemeberViewController: HBasicViewController {
         }
     }
     
+    private func showSelectedFriendsVC() {
+        let vc = HSelectedFriendViewController()
+        vc.viewModel.groupMembers = viewModel.groupMemberIds
+        vc.onFinish = { [weak self] userIds in
+            self?.inviteMembers(userIds)
+        }
+        HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)
+    }
+    
+    private func inviteMembers(_ userIds: [String]) {
+        viewModel.inviteMembers(userIds)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -92,9 +104,7 @@ extension HGroupMemeberViewController: UITableViewDelegate {
             switch row {
             case .member(let item):
                 guard let model = item else {
-                    // 邀请新成员 TODO: - xianda.yang
-                    
-                    HModalPresentNavigationController.show(root: HGroupInviteMemberViewController(), preferredStyle: .actionSheet)
+                    self.showSelectedFriendsVC()
                     return
                 }
                 if model.memberId == IMUserInfo.userId {

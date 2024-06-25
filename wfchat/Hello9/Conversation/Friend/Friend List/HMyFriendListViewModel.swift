@@ -12,6 +12,7 @@ struct HMyFriendListModel: Hashable {
     var isSelected: Bool
     var dispalyName: String
     var userId: String
+    var isInGroup: Bool = false
     
     var enableMutiSelected: Bool = false
     
@@ -34,12 +35,15 @@ class HMyFriendListViewModel: HBasicViewModel {
     var maxSelectedCount: Int = 1
     var enableMutiSelected: Bool { maxSelectedCount > 1 }
     var showSearchBar: Bool = false
+    var groupMembers = [String]()
+    var forceApplySearchResult: Bool = false
     
     var searchWord: String = "" {
         didSet {
             search()
         }
     }
+    
     @Published private(set) var searchFriends = [HMyFriendListModel]()
     private var friends = [HMyFriendListModel]()
     
@@ -49,6 +53,7 @@ class HMyFriendListViewModel: HBasicViewModel {
         friends = friendsInfo.map {
             var model = HMyFriendListModel(userInfo: $0)
             model.enableMutiSelected = self.enableMutiSelected
+            model.isInGroup = self.groupMembers.contains($0.userId)
             return model
         }
         applySnapshot()
@@ -57,20 +62,22 @@ class HMyFriendListViewModel: HBasicViewModel {
     func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.main])
-        
-        snapshot.appendItems(friends)
+        if !searchFriends.isEmpty && forceApplySearchResult {
+            snapshot.appendItems(searchFriends)
+        } else {
+            snapshot.appendItems(friends)
+        }
         
         self.snapshot = snapshot
     }
     
     func selectedItem(item: HMyFriendListModel) {
         let contain = selectedItems.contains(where: { $0.userId == item.userId })
-        if contain {
-            return
-        }
+        if contain { return }
         
         var m = item
         m.isSelected = true
+        m.enableMutiSelected = enableMutiSelected
         selectedItems.append(m)
         
         if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
@@ -84,7 +91,7 @@ class HMyFriendListViewModel: HBasicViewModel {
         
         let isSelected = item.isSelected
         if isSelected {
-            selectedItems.removeAll { $0 == item }
+            selectedItems.removeAll { $0.userId == item.userId }
         } else {
             var m = item
             m.isSelected = true
@@ -93,6 +100,10 @@ class HMyFriendListViewModel: HBasicViewModel {
         
         if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
             friends[index].isSelected.toggle()
+        }
+        
+        if let index = searchFriends.firstIndex(where: { $0.userId == item.userId }) {
+            searchFriends[index].isSelected.toggle()
         }
         
         applySnapshot()
@@ -105,9 +116,13 @@ class HMyFriendListViewModel: HBasicViewModel {
             let result = WFCCIMService.sharedWFCIM().searchFriends(searchWord) ?? .init()
             searchFriends = result.map {
                 var model = HMyFriendListModel(userInfo: $0)
-                model.enableMutiSelected = false
+                model.enableMutiSelected = forceApplySearchResult && self.enableMutiSelected
+                model.isInGroup = self.groupMembers.contains($0.userId)
                 return model
             }
+        }
+        if forceApplySearchResult {
+            applySnapshot()
         }
     }
 }
