@@ -58,6 +58,8 @@ enum Images {
 
     static let icon_chat_list_top_disable = UIImage(named: "icon_chat_list_top_disable")!
 
+    static let icon_close_blue = UIImage(named: "icon_close_blue")!
+
     static let icon_common_background = UIImage(named: "icon_common_background")!
 
     static let icon_copy = UIImage(named: "icon_copy")!

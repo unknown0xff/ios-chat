@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @class WFCCConversation;
 @class WFCCMessageContent;
 @class WFCCMessage;
@@ -15,6 +16,8 @@
 @class WFCUMessageCellBase;
 @class WFCUMessageModel;
 @class WFCCLocationMessageContent;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WFCUMessageListViewController : UIViewController
 @property (nonatomic, strong)WFCCConversation *conversation;
@@ -38,9 +41,12 @@
 @property (nonatomic, assign)BOOL presented;
 
 // 多选底部按钮视图
-@property (nonatomic, strong)UIView *multiSelectPanel;
+@property (nonatomic, strong) UIView *multiSelectPanel;
 
-@property (nonatomic, strong)UIView *backgroundView;
+@property (nonatomic, strong) UIView *backgroundView;
+@property (strong, nonatomic) UICollectionView *collectionView;
+
+@property (nonatomic, strong) NSMutableArray<WFCUMessageModel *> *modelList;
 
 - (void)updateTitle;
 
@@ -59,4 +65,8 @@
 - (void)showLocationViewController:(WFCCLocationMessageContent *)locContent;
 - (void)showForwardViewController:(NSArray<WFCCMessage *>* )messages;
 
+- (void)performMessageTop:(WFCCMessage *)message;
+- (void)reloadMessageList;
 @end
+
+NS_ASSUME_NONNULL_END

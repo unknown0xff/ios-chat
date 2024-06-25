@@ -10,6 +10,19 @@ class HNavigationBar: UIView {
     
     static let height = 100.0
     
+    var bottomView: UIView? {
+        didSet {
+            if let bottomView {
+                bottomStack.addArrangedSubview(bottomView)
+            } else {
+                bottomStack.arrangedSubviews.forEach { v in
+                    bottomStack.removeArrangedSubview(v)
+                    v.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
     var blurEffectStyle: UIBlurEffect.Style? {
         didSet {
             reloadBlurStyle()
@@ -44,6 +57,11 @@ class HNavigationBar: UIView {
         }
     }
     
+    private lazy var bottomStack: UIStackView = {
+        let stack = UIStackView()
+        return stack
+    }()
+    
     init(blurEffectStyle: UIBlurEffect.Style? = nil) {
         self.blurEffectStyle = blurEffectStyle
         
@@ -55,7 +73,7 @@ class HNavigationBar: UIView {
         contentView.addSubview(backButton)
         contentView.addSubview(titleLabel)
         addSubview(contentView)
-        
+        addSubview(bottomStack)
         makeConstraints()
     }
     
@@ -121,8 +139,13 @@ class HNavigationBar: UIView {
             make.edges.equalToSuperview()
         }
         
+        bottomStack.snp.makeConstraints { make in
+            make.left.width.bottom.equalToSuperview()
+        }
+        
         contentView.snp.makeConstraints { make in
-            make.bottom.left.right.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(bottomStack.snp.top)
             make.height.equalTo(56)
         }
         

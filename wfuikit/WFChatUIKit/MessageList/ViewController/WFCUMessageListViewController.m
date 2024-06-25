@@ -89,7 +89,7 @@
 
 @interface WFCUMessageListViewController () <UITextFieldDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, WFCUMessageCellDelegate, AVAudioPlayerDelegate, WFCUChatInputBarDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, WFCUMultiCallOngoingExpendedCellDelegate, MWPhotoBrowserDelegate>
 
-@property (nonatomic, strong)NSMutableArray<WFCUMessageModel *> *modelList;
+
 
 @property (nonatomic, strong)NSMutableArray<WFCCMessage *> *mentionedMsgs;
 
@@ -110,7 +110,6 @@
 
 @property(nonatomic, strong)WFCUChatInputBar *chatInputBar;
 @property(nonatomic, strong)VideoPlayerKit *videoPlayerViewController;
-@property (strong, nonatomic) UICollectionView *collectionView;
 
 @property (strong, nonatomic)NSArray<WFCCMessage *> *imageMsgs;
 
@@ -3256,6 +3255,7 @@
     UIMenuItem *multiSelectItem = [[UIMenuItem alloc]initWithTitle:WFCString(@"MultiSelect") action:@selector(performMultiSelect:)];
     UIMenuItem *quoteItem = [[UIMenuItem alloc]initWithTitle:WFCString(@"Quote") action:@selector(performQuote:)];
     UIMenuItem *favoriteItem = [[UIMenuItem alloc]initWithTitle:WFCString(@"Favorite") action:@selector(performFavorite:)];
+    UIMenuItem *topItem = [[UIMenuItem alloc]initWithTitle:WFCString(@"Pinned") action:@selector(performTop:)];
     
     CGRect menuPos;
     if ([baseCell isKindOfClass:[WFCUMessageCell class]]) {
@@ -3350,6 +3350,7 @@
     if (msg.messageUid > 0) {
         if ([msg.content.class getContentFlags] & 0x2) {
             [items addObject:quoteItem];
+            [items addObject:topItem];
         }
     }
     
@@ -3381,7 +3382,7 @@
 
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if(self.cell4Menu) {
-        if (action == @selector(performDelete:) || action == @selector(performCancel:) || action == @selector(performCopy:) || action == @selector(performForward:) || action == @selector(performRecall:) || action == @selector(performComplain:) || action == @selector(performMultiSelect:) || action == @selector(performQuote:) || action == @selector(performFavorite:)) {
+        if (action == @selector(performDelete:) || action == @selector(performCancel:) || action == @selector(performCopy:) || action == @selector(performForward:) || action == @selector(performRecall:) || action == @selector(performComplain:) || action == @selector(performMultiSelect:) || action == @selector(performQuote:) || action == @selector(performFavorite:) || action == @selector(performTop:)) {
             return YES; //显示自定义的菜单项
         } else {
             return NO;
@@ -3540,6 +3541,16 @@
     if (self.cell4Menu.model.message) {
         [self.chatInputBar appendQuote:self.cell4Menu.model.message];
     }
+}
+
+- (void)performTop:(UIMenuItem *)sender {
+    if (self.cell4Menu.model.message) {
+        [self performMessageTop:self.cell4Menu.model.message];
+    }
+}
+
+- (void)performMessageTop:(WFCCMessage *)message {
+    
 }
 
 - (void)performFavorite:(UIMenuItem *)sender {

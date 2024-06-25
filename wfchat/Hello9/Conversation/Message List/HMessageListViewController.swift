@@ -14,6 +14,8 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private lazy var navBar = HNavigationBar()
     
+    private var topView: HMessageTopView?
+    
     private(set) lazy var avatarButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.imageView?.contentMode = .scaleAspectFit
@@ -40,6 +42,8 @@ class HMessageListViewController: WFCUMessageListViewController {
         multiSelectPanel.isHidden = !multiSelecting
         
         registerCell()
+        
+        updateTopView()
     }
     
     private func registerCell() {
@@ -51,13 +55,13 @@ class HMessageListViewController: WFCUMessageListViewController {
         navBar.titleLabel.text = title
     }
     
-    override func setAvatar(_ avatar: String!) {
-        let url = URL(string: avatar ?? "")
+    override func setAvatar(_ avatar: String) {
+        let url = URL(string: avatar)
         avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
     }
     
     // 群头像单独设置
-    override func setTargetGroup(_ targetGroup: WFCCGroupInfo!) {
+    override func setTargetGroup(_ targetGroup: WFCCGroupInfo) {
         super.setTargetGroup(targetGroup)
         if let url = URL(string: targetGroup.portrait ?? "") {
             avatarButton.sd_setImage(with: url, for: .normal, placeholderImage: Images.icon_logo)
@@ -66,18 +70,18 @@ class HMessageListViewController: WFCUMessageListViewController {
         }
     }
     
-    override func sendMessage(_ content: WFCCMessageContent!) {
+    override func sendMessage(_ content: WFCCMessageContent) {
         super.sendMessage(content)
-        if let content, enablePlaySoundMessage(content) {
+        if enablePlaySoundMessage(content) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.playSendSound()
             }
         }
     }
     
-    override func didReceive(_ messages: [WFCCMessage]!) {
+    override func didReceive(_ messages: [WFCCMessage]) {
         super.didReceive(messages)
-        guard let messages, !messages.isEmpty else {
+        guard !messages.isEmpty else {
             return
         }
         
@@ -155,7 +159,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private lazy var multiSelectNavBar = HMutliSelectNavBar()
     private lazy var _multiSelectPanel = HMultiSelectPanel()
-    override var multiSelectPanel: UIView! {
+    override var multiSelectPanel: UIView {
         get {
             return _multiSelectPanel
         }
@@ -197,11 +201,53 @@ class HMessageListViewController: WFCUMessageListViewController {
         }
     }
     
-    override func showForwardViewController(_ messages: [WFCCMessage]!) {
+    override func showForwardViewController(_ messages: [WFCCMessage]) {
         let vc = HForwardViewController()
         vc.viewModel.maxSelectedCount = 1
         vc.messages = messages
         HModalPresentNavigationController.show(root: vc)
+    }
+    
+    override func performMessageTop(_ message: WFCCMessage) {
+        HMessageTopManager.addMessage(message)
+        updateTopView()
+    }
+    
+    func updateTopView() {
+        let topViewHeight = 68.0
+        if let messageId = HMessageTopManager.getMessageId(conversation.target), let message = WFCCIMService.sharedWFCIM().getMessage(messageId) {
+            if topView == nil {
+                topView = HMessageTopView(message: message)
+                topView?.closeButton.addTarget(self, action: #selector(didClickTopCloseButton(_:)), for: .touchUpInside)
+                topView?.addTarget(self, action: #selector(didClickTopView(_:)), for: .touchUpInside)
+                navBar.bottomView = topView
+                topView!.snp.makeConstraints { make in
+                    make.width.equalToSuperview()
+                    make.height.equalTo(topViewHeight)
+                }
+                navBar.snp.remakeConstraints { make in
+                    make.left.top.width.equalToSuperview()
+                    make.height.equalTo(HNavigationBar.height + topViewHeight)
+                }
+                
+                var inset = collectionView.contentInset
+                inset.top += topViewHeight
+                collectionView.contentInset = inset
+            } else {
+                topView?.message = message
+            }
+        } else {
+            if topView != nil {
+                navBar.bottomView = nil
+                navBar.snp.remakeConstraints { make in
+                    make.left.top.width.equalToSuperview()
+                    make.height.equalTo(HNavigationBar.height)
+                }
+                var inset = collectionView.contentInset
+                inset.top -= topViewHeight
+                collectionView.contentInset = inset
+            }
+        }
     }
 }
 
@@ -228,6 +274,33 @@ extension HMessageListViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func didClickTopView(_ sender: UIControl) {
+        if let message = topView?.message {
+           let index = modelList.indexOfObject { obj, index, stop in
+                if let item = obj as? WFCUMessageModel {
+                    if item.message.messageId == message.messageId {
+                        stop.pointee = true
+                        item.highlighted = true
+                        return true
+                    }
+                }
+                return false
+            }
+            if index != NSNotFound {
+                let indexPath = IndexPath(item: index, section: 0)
+                collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.collectionView.reloadItems(at: [indexPath])
+                }
+            }
+        }
+    }
+    
+    @objc func didClickTopCloseButton(_ sender: UIButton) {
+        HMessageTopManager.deleteMessage(topView?.message)
+        updateTopView()
+    }
+    
     @objc func didClickSetingButton(_ sender: UIButton) {
         
         if self.conversation.type == .Group_Type {
@@ -239,7 +312,7 @@ extension HMessageListViewController {
         }
     }
     
-    override func showLocationViewController(_ locContent: WFCCLocationMessageContent!) {
+    override func showLocationViewController(_ locContent: WFCCLocationMessageContent) {
         let vc = HLocationViewController(locationPoint: .init(coordinate: locContent.coordinate, title: locContent.title))
         navigationController?.pushViewController(vc, animated: true)
     }
