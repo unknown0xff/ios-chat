@@ -152,7 +152,7 @@ class HChatListViewModel: HBasicViewModel {
     }
     
     func reloadFriendRequest() {
-        friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init()).filter { $0.status == 0 }
+        friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
         applySnapshot()
     }
     

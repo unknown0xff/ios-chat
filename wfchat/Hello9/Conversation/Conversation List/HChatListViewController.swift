@@ -23,7 +23,7 @@ class HChatListViewController: HBaseViewController {
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 73, bottom: 0, right: 0)
         tableView.delegate = self
-        tableView.contentInset = UIEdgeInsets(top: HNavigationBar.height, left: 0, bottom: -HTabBar.barHeight, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: HNavigationBar.height, left: 0, bottom: HTabBar.barHeight, right: 0)
         return tableView
     }()
     
@@ -48,8 +48,6 @@ class HChatListViewController: HBaseViewController {
         btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
         return btn
     }()
-    
-    private lazy var logoView = UIImageView(image: Images.icon_logo_title)
     
     private typealias Section = HChatListViewModel.Section
     private typealias Row = HChatListViewModel.Row
@@ -100,7 +98,6 @@ class HChatListViewController: HBaseViewController {
             .store(in: &cancellables)
         
         view.insertSubview(tableView, belowSubview: navBar)
-        navBar.contentView.addSubview(logoView)
         navBar.contentView.addSubview(menuButton)
     }
     
@@ -122,13 +119,6 @@ class HChatListViewController: HBaseViewController {
     
     override func makeConstraints() {
         super.makeConstraints()
-        
-        logoView.snp.makeConstraints { make in
-            make.left.equalTo(16)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(19)
-            make.width.equalTo(104)
-        }
         
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(-16)
@@ -162,6 +152,11 @@ class HChatListViewController: HBaseViewController {
     private func updateBadgeNumber() {
         if let tab = tabBarController as? HTabViewController {
             tab.updateMessageBadgeValue(viewModel.badgeNumber)
+        }
+        if viewModel.badgeNumber > 0 {
+            navBar.title = "会话(\(viewModel.badgeNumber))"
+        } else {
+            navBar.title = "会话"
         }
     }
     
@@ -340,6 +335,7 @@ extension HChatListViewController {
             return
         }
         viewModel.refresh()
+        updateBadgeNumber()
     }
     
     @objc func onRecallMessages(_ sender: Notification) {
@@ -352,6 +348,7 @@ extension HChatListViewController {
     
     @objc func onMessageUpdated(_ sender: Notification) {
         viewModel.refresh()
+        updateBadgeNumber()
     }
 
     @objc func onSecretChatStateChanged(_ sender: Notification) {
