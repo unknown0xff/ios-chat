@@ -55,12 +55,21 @@ extension UIButton {
         return btn
     }
     
-    class func navButton(_ title: String, titleColor: UIColor = Colors.themeBlack) -> UIButton {
+    class func navButton(_ title: String, titleColor: UIColor? = nil) -> UIButton {
         let btn = UIButton(type: .system)
         btn.setTitle(title, for: .normal)
-        btn.setTitleColor(titleColor, for: .normal)
-        btn.setTitleColor(titleColor.withAlphaComponent(0.618), for: .disabled)
-        btn.titleLabel?.font = .system16
+        var normal = UINavigationBar.appearance().standardAppearance.buttonAppearance.normal.titleTextAttributes
+        if let titleColor {
+            normal[.foregroundColor] = titleColor
+        }
+        
+        var disable = UINavigationBar.appearance().standardAppearance.buttonAppearance.normal.titleTextAttributes
+        
+        if let titleColor {
+            disable[.foregroundColor] = titleColor.withAlphaComponent(0.618)
+        }
+        btn.setAttributedTitle(.init(string: title, attributes: normal), for: .normal)
+        btn.setAttributedTitle(.init(string: title, attributes: disable), for: .disabled)
         return btn
     }
     

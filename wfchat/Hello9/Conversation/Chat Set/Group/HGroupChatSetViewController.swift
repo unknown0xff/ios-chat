@@ -82,7 +82,7 @@ class HGroupChatSetViewController: HBaseViewController {
     private lazy var tabViewController = HChatMessageFilterViewController(vm: viewModel)
     
     private(set) lazy var editButton: UIButton = {
-        let btn = UIButton.navButton("编辑")
+        let btn = UIButton.navButton("编辑", titleColor: Colors.black)
         btn.addTarget(self, action: #selector(didClickEditButton(_:)), for: .touchUpInside)
         return btn
     }()

@@ -129,25 +129,11 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
     }
     
     private func configureNavBar() {
-        backButtonImage = nil
         navBarBackgroundView.isHidden = true
         navBar.backgroundColor = Colors.themeGray4Background
         
-        let cancelButton = UIButton.navButton("取消", titleColor: Colors.themeBlue1)
-        cancelButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
-        navBar.contentView.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints { make in
-            make.left.equalTo(16)
-            make.centerY.equalToSuperview()
-        }
-        
-        let doneButton = UIButton.navButton("完成", titleColor: Colors.themeBlue1)
-        doneButton.addTarget(self, action: #selector(didClickSaveButton(_:)), for: .touchUpInside)
-        navBar.contentView.addSubview(doneButton)
-        doneButton.snp.makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalToSuperview()
-        }
+        navBar.leftBarButtonItem = .init(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
+        navBar.rightBarButtonItem = .init(title: "完成", style: .done, target: self, action: #selector(didClickSaveButton(_:)))
     }
     
     private func createLayout() -> UICollectionViewLayout {
