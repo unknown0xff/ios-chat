@@ -127,8 +127,17 @@ class HPlayButton: UIView {
         }
     }
     
+    func occurredFeedback() {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        feedbackGenerator.prepare()
+        feedbackGenerator.impactOccurred()
+    }
+    
     @objc func didClickStartButton(_ sender: UIButton) {
-        mode = .pause
+        occurredFeedback()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.mode = .pause
+        }
     }
     
     @objc func didClickPlayButton(_ sender: UIButton) {
@@ -137,6 +146,9 @@ class HPlayButton: UIView {
     
     @objc func didClickPauseButton(_ sender: UIButton) {
         mode = .play
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.occurredFeedback()
+        }
     }
 }
 
