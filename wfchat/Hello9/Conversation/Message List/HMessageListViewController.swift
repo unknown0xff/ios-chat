@@ -238,11 +238,17 @@ class HMessageListViewController: WFCUMessageListViewController {
             }
         } else {
             if topView != nil {
-                navBar.bottomView = nil
-                navBar.snp.remakeConstraints { make in
-                    make.left.top.width.equalToSuperview()
-                    make.height.equalTo(HNavigationBar.height)
+                
+                UIView.animate(withDuration: 0.1, delay: 0) {
+                    self.topView?.alpha = 0
+                } completion: { _ in
+                    self.navBar.bottomView = nil
+                    self.topView = nil
+                    self.navBar.snp.updateConstraints { make in
+                        make.height.equalTo(HNavigationBar.height)
+                    }
                 }
+                
                 var inset = collectionView.contentInset
                 inset.top -= topViewHeight
                 collectionView.contentInset = inset
@@ -274,7 +280,7 @@ extension HMessageListViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func didClickTopView(_ sender: UIControl) {
+    @objc func didClickTopView(_ sender: UIControl?) {
         if let message = topView?.message {
            let index = modelList.indexOfObject { obj, index, stop in
                 if let item = obj as? WFCUMessageModel {
@@ -292,6 +298,9 @@ extension HMessageListViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     self.collectionView.reloadItems(at: [indexPath])
                 }
+            } else {
+                let indexPath = IndexPath(item: 0, section: 0)
+                collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
         }
     }

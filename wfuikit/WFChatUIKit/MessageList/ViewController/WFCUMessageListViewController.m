@@ -476,7 +476,7 @@
             self.lastUid = model.message.messageUid;
         }
     }
-    [[WFCCIMService sharedWFCIMService] getRemoteMessages:weakSelf.conversation before:self.lastUid count:10 contentTypes:nil success:^(NSArray<WFCCMessage *> *messages) {
+    [[WFCCIMService sharedWFCIMService] getRemoteMessages:weakSelf.conversation before:self.lastUid count:50 contentTypes:nil success:^(NSArray<WFCCMessage *> *messages) {
         NSMutableArray *reversedMsgs = [[NSMutableArray alloc] init];
         for (WFCCMessage *msg in messages) {
             [reversedMsgs insertObject:msg atIndex:0];
@@ -514,7 +514,7 @@
             lastIndex = [weakSelf.modelList firstObject].message.messageId;
         }
         
-        [[WFCCIMService sharedWFCIMService] getMessagesV2:weakSelf.conversation contentTypes:nil from:lastIndex count:10 withUser:self.privateChatUser  success:^(NSArray<WFCCMessage *> *messageList) {
+        [[WFCCIMService sharedWFCIMService] getMessagesV2:weakSelf.conversation contentTypes:nil from:lastIndex count:100 withUser:self.privateChatUser  success:^(NSArray<WFCCMessage *> *messageList) {
             if(messageList.count) {
                 [weakSelf appendMessages:messageList newMessage:NO highlightId:0 forceButtom:NO];
                 weakSelf.loadingMore = NO;
@@ -1733,7 +1733,7 @@
         if(count == 0) {
             firstIn = YES;
         }
-        count = 15;
+        count = 150;
         __weak typeof(self)ws = self;
         [[WFCCIMService sharedWFCIMService] getMessagesV2:self.conversation contentTypes:nil from:0 count:count withUser:self.privateChatUser success:^(NSArray<WFCCMessage *> *messages) {
             [[WFCCIMService sharedWFCIMService] getMessagesV2:ws.conversation messageStatus:@[@(Message_Status_Mentioned), @(Message_Status_AllMentioned)] from:0 count:100 withUser:ws.privateChatUser success:^(NSArray<WFCCMessage *> *messages) {
