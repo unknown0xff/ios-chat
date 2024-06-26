@@ -223,7 +223,7 @@ class HSingleChatSetViewController: HBaseViewController {
             self?.removeFriend()
         }
         
-        let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList, removeFriend])
+        let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList])
         let menu = UIMenu(title: "", children: [voice, share, autoDel, clearHistory, subMenu])
         return menu
     }
