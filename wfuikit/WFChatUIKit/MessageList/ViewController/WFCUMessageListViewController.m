@@ -212,10 +212,7 @@
     self.chatInputBar = [[WFCUChatInputBar alloc] initWithSuperView:self.backgroundView conversation:self.conversation delegate:self];
     
     __weak typeof(self)ws = self;
-    if(self.conversation.type == Single_Type) {
-        WFCCUserInfo *userInfo = [[WFCCIMService sharedWFCIMService] getUserInfo:self.conversation.target refresh:YES];
-        self.targetUser = userInfo;
-    } else if(self.conversation.type == Group_Type) {
+    if(self.conversation.type == Group_Type) {
         WFCCGroupInfo *groupInfo = [[WFCCIMService sharedWFCIMService] getGroupInfo:self.conversation.target refresh:YES];
         self.targetGroup = groupInfo;
     } else if (self.conversation.type == Channel_Type) {
@@ -1240,7 +1237,15 @@
         self.firstAppear = NO;
         [self scrollToBottom:NO];
     }
-    [self updateTitle]; 
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(self.conversation.type == Single_Type) {
+            WFCCUserInfo *userInfo = [[WFCCIMService sharedWFCIMService] getUserInfo:self.conversation.target refresh:YES];
+            self.targetUser = userInfo;
+        } else {
+            [self updateTitle];
+        }
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {

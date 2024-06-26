@@ -102,7 +102,6 @@ class HChatListViewController: HBaseViewController {
     }
     
     private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onReceiveMessages(_:)), name: .init(rawValue: kReceiveMessages), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onRecallMessages(_:)), name: .init(rawValue: kRecallMessages), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeleteMessages(_:)), name: .init(rawValue: kDeleteMessages), object: nil)
@@ -211,6 +210,10 @@ class HChatListViewController: HBaseViewController {
     
     @objc func didClickSearchButton(_ sender: UIButton) {
         // TODO search
+    }
+    
+    override func onUserInfoUpdated(_ sender: Notification) {
+        viewModel.refresh()
     }
 }
 
@@ -324,10 +327,6 @@ extension HChatListViewController {
     @objc func didClickMenuButton(_ sender: UIButton) {
         let vc = HCreateConversationViewController()
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func onUserInfoUpdated(_ sender: Notification) {
-        viewModel.refresh()
     }
     
     @objc func onReceiveMessages(_ sender: Notification) {

@@ -76,8 +76,6 @@ class HNewFriendListViewController: HBaseViewController {
             .store(in: &cancellables)
         
         view.addSubview(collectionView)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -104,8 +102,8 @@ class HNewFriendListViewController: HBaseViewController {
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    override func onUserInfoUpdated(_ sender: Notification) {
+        viewModel.loadData()
     }
 }
 
@@ -126,10 +124,6 @@ extension HNewFriendListViewController: UICollectionViewDelegate, HNewFriendCell
     func onDetail(_ request: WFCCFriendRequest, at indexPath: IndexPath) {
         let vc = HNewFriendDetailViewController(targetId: request.target, isHandleFriendRequest: true)
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func onUserInfoUpdated(_ sender: Notification) {
-        viewModel.loadData()
     }
 }
 

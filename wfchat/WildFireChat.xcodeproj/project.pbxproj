@@ -35,6 +35,10 @@
 		2065F6832C267E1B006BAD27 /* HLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6822C267E1B006BAD27 /* HLocationViewController.swift */; };
 		2065F6852C26AF35006BAD27 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */; };
 		2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6892C26F984006BAD27 /* MBProgressHUD */; };
+		2067A0872C2BA73800BA3F09 /* HFriendInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */; };
+		2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */; };
+		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
+		2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -347,6 +351,10 @@
 		2065F6802C266DE6006BAD27 /* HMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageCell.swift; sourceTree = "<group>"; };
 		2065F6822C267E1B006BAD27 /* HLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLocationViewController.swift; sourceTree = "<group>"; };
 		2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditViewController.swift; sourceTree = "<group>"; };
+		2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCommonTextFieldContentView.swift; sourceTree = "<group>"; };
+		2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditAliasCell.swift; sourceTree = "<group>"; };
+		2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -812,6 +820,23 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2067A0852C2BA6F700BA3F09 /* Friend Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */,
+				2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */,
+			);
+			path = "Friend Detail";
+			sourceTree = "<group>";
+		};
+		2067A08C2C2BCB0E00BA3F09 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1234,6 +1259,7 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				2067A08C2C2BCB0E00BA3F09 /* Combine */,
 				60A3F7C22C1BF4D000F855A2 /* Alert */,
 				60A3F7BB2C1BF32500F855A2 /* Transitions */,
 				60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */,
@@ -1357,6 +1383,7 @@
 		6088F4942C0F2F6B00130A87 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				2067A0852C2BA6F700BA3F09 /* Friend Detail */,
 				206309C92C2A503300BED49A /* Friend Select */,
 				60A3F7D62C2008A900F855A2 /* Friend List */,
 				6088F49C2C0FFA0400130A87 /* NewList */,
@@ -1498,6 +1525,7 @@
 			isa = PBXGroup;
 			children = (
 				60A3F7D42C1D2B2500F855A2 /* HCollectionViewListCell.swift */,
+				2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2034,6 +2062,7 @@
 				60A3F7D52C1D2B2500F855A2 /* HCollectionViewListCell.swift in Sources */,
 				60922A802C0767C600B70AD8 /* HMineAvatarCell.swift in Sources */,
 				60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */,
+				2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */,
 				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				60A3F7B42C1B136200F855A2 /* HGroupMemeberViewController.swift in Sources */,
 				60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */,
@@ -2060,6 +2089,7 @@
 				607F95792C129DF000648BFF /* HBaseViewController.swift in Sources */,
 				60A3F7C92C1C2ABA00F855A2 /* HCustomToastView.swift in Sources */,
 				6012465C2C05B82E00635523 /* Localizable.swift in Sources */,
+				2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */,
 				2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */,
 				205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */,
 				2FC50B7C245273A700B36F8A /* PCSessionViewController.m in Sources */,
@@ -2077,6 +2107,7 @@
 				607F95802C12CED300648BFF /* HForgetPasswordWaysViewController.swift in Sources */,
 				60A3F7D02C1C797B00F855A2 /* HGroupChatEditViewModel.swift in Sources */,
 				601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */,
+				2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */,
 				B7CB3A90289BB5CF00E9D688 /* WFCResetPasswordViewController.m in Sources */,
 				2B840F432442125B006BE3D8 /* WFCThemeTableViewCell.m in Sources */,
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
@@ -2098,6 +2129,7 @@
 				6012463E2C05764600635523 /* HNavigationController.m in Sources */,
 				6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */,
 				6088F4932C0F27E000130A87 /* HFriendRequestCell.swift in Sources */,
+				2067A0872C2BA73800BA3F09 /* HFriendInfoEditViewController.swift in Sources */,
 				60922A8A2C0822E100B70AD8 /* HProgressView.swift in Sources */,
 				60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */,
 				206309D82C2AB7A700BED49A /* HForwardViewController.swift in Sources */,

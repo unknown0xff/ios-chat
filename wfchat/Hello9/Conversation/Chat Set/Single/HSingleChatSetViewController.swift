@@ -30,8 +30,8 @@ class HSingleChatSetViewController: HBaseViewController {
         return view
     }()
     
-    private lazy var accountView = HSingleAccountView(userInfo: viewModel.userInfo)
-    private lazy var signView = HSingleInfoView(userInfo: viewModel.userInfo)
+    private lazy var accountView = HSingleAccountView()
+    private lazy var signView = HSingleInfoView()
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
@@ -87,20 +87,24 @@ class HSingleChatSetViewController: HBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.loadData()
         bindData()
     }
     
     func bindData() {
         navBarBackgroundView.image = Images.icon_nav_background_green
-        userNameLabel.text = viewModel.userInfo.name
+        userNameLabel.text = viewModel.userInfo.title
         avatar.sd_setImage(with: viewModel.userInfo.portrait, placeholderImage: Images.icon_logo)
+        signView.userInfo = viewModel.userInfo
+        accountView.userInfo = viewModel.userInfo
     }
     
     override func configureSubviews() {
         super.configureSubviews()
+        
+        navBar.rightBarButtonItem = .with(title: "编辑", titleColor: Colors.themeBlack, style: .done, target: self, action: #selector(didClickEditButton(_:)))
         
         containerView.alwaysBounceVertical = true
         
@@ -181,7 +185,7 @@ class HSingleChatSetViewController: HBaseViewController {
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
     }
     
-    func createMenu() -> UIMenu {
+    private func createMenu() -> UIMenu {
         let voice: UIAction
         if viewModel.isSilent {
             voice = UIAction(title: "取消静音", image: Images.icon_menu_voice) { [weak self] _ in
@@ -255,6 +259,9 @@ class HSingleChatSetViewController: HBaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func didClickEditButton(_ sender: UIBarButtonItem) {
+        HModalPresentNavigationController.show(root: HFriendInfoEditViewController(userInfo: viewModel.userInfo))
+    }
 }
 
 extension HSingleChatSetViewController {

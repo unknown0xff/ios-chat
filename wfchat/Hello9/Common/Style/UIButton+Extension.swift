@@ -148,3 +148,31 @@ extension UISearchBar {
     }
     
 }
+
+extension UIBarButtonItem {
+    
+    class func with(
+        title: String?,
+        titleColor: UIColor?,
+        style: UIBarButtonItem.Style,
+        target: Any?,
+        action: Selector?
+    ) -> UIBarButtonItem {
+        let btn = UIBarButtonItem(title: title, style: style, target: target, action: action)
+        
+        let doneAppearance = UINavigationBar.appearance().standardAppearance.doneButtonAppearance
+        var attri = doneAppearance.normal.titleTextAttributes
+        
+        if let titleColor {
+            attri[NSAttributedString.Key.foregroundColor] = titleColor
+            btn.setTitleTextAttributes(attri, for: .normal)
+            
+            attri[NSAttributedString.Key.foregroundColor] = titleColor.withAlphaComponent(0.618)
+            btn.setTitleTextAttributes(attri, for: .disabled)
+            btn.setTitleTextAttributes(attri, for: .highlighted)
+        }
+        
+        return btn
+    }
+    
+}

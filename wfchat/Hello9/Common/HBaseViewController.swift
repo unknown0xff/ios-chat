@@ -24,6 +24,8 @@ class HBaseViewController: HBasicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(_onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
+        
         view.addSubview(backgroundView)
         view.addSubview(navBarBackgroundView)
         view.addSubview(navBar)
@@ -37,6 +39,13 @@ class HBaseViewController: HBasicViewController {
         
         configureSubviews()
         makeConstraints()
+    }
+    
+    func configureDefaultStyle() {
+        navBarBackgroundView.isHidden = true
+        view.bringSubviewToFront(navBar)
+        backgroundView.image = nil
+        backgroundView.backgroundColor = Colors.themeGray6
     }
     
     func configureSubviews() { }
@@ -55,6 +64,11 @@ class HBaseViewController: HBasicViewController {
         }
         
         navBar.backButton.isHidden = true
+    }
+    
+    func onUserInfoUpdated(_ sender: Notification) { }
+    @objc private func _onUserInfoUpdated(_ sender: Notification) {
+        onUserInfoUpdated(sender)
     }
     
     override func prefersNavigationBarHidden() -> Bool { true }

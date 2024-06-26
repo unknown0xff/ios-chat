@@ -26,17 +26,19 @@ class HSingleAccountView: UIControl {
     
     private lazy var qrCodeView: UIImageView = .init(image: Images.icon_qr_code)
     
-    let userInfo: HUserInfoModel
+    var userInfo: HUserInfoModel {
+        didSet {
+            loadData()
+        }
+    }
     
-    init(frame: CGRect = .zero, userInfo: HUserInfoModel) {
+    init(frame: CGRect = .zero, userInfo: HUserInfoModel = .init(info: nil)) {
         self.userInfo = userInfo
         super.init(frame: frame)
         
         addSubview(titleLabel)
         addSubview(userNameLabel)
         addSubview(qrCodeView)
-        
-        userNameLabel.text = "@\(userInfo.name)"
         
         titleLabel.snp.makeConstraints { make in
             make.left.top.equalTo(16)
@@ -69,6 +71,9 @@ class HSingleAccountView: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func loadData() {
+        userNameLabel.text = "@\(userInfo.name)"
+    }
 }
 
 class HSingleInfoView: UIView {
@@ -89,17 +94,17 @@ class HSingleInfoView: UIView {
         return label
     }()
     
-    let userInfo: HUserInfoModel
+    var userInfo: HUserInfoModel {
+        didSet {
+            reloaData()
+        }
+    }
     
-    init(frame: CGRect = .zero, userInfo: HUserInfoModel) {
+    init(frame: CGRect = .zero, userInfo: HUserInfoModel = .init(info: nil)) {
         self.userInfo = userInfo
-        
         super.init(frame: frame)
-        
         addSubview(titleLabel)
         addSubview(signLabel)
-        
-        signLabel.text = "\(userInfo.social)"
         
         titleLabel.snp.makeConstraints { make in
             make.left.top.equalTo(16)
@@ -116,6 +121,10 @@ class HSingleInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func reloaData() {
+        signLabel.text = "\(userInfo.social)"
     }
     
 }

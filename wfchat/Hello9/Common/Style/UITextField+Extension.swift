@@ -12,13 +12,14 @@ extension UITextField {
     static var `default`: UITextField {
         let field = UITextField()
         field.textColor = Colors.black
-        field.font = .system16.medium
+        field.font = .system16
+        field.clearButtonMode = .whileEditing
         return field
     }
     
     static var placeHolderAttributes: [NSAttributedString.Key : Any] {
         return [
-            .font: UIFont.system14,
+            .font: UIFont.system16,
             .foregroundColor: Colors.themeButtonDisable
         ]
     }

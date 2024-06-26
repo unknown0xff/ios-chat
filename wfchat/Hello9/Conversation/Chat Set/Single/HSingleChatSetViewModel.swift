@@ -16,14 +16,15 @@ class HSingleChatSetViewModel: HBasicViewModel {
     
     let conv: WFCCConversation
     
-    let userInfo: HUserInfoModel
+    private(set) var userInfo: HUserInfoModel = .init(info: nil)
     
     init(_ conv: WFCCConversation) {
         self.conv = conv
-        
+    }
+    
+    func loadData() {
         let info = WFCCIMService.sharedWFCIM().getUserInfo(conv.target, refresh: true) ?? .init()
         self.userInfo = .init(info: info)
-
         applySnapshot()
     }
     
