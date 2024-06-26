@@ -50,19 +50,21 @@ class HCircleProgressView: UIView {
     }
     
     private func setupLayers() {
-        let circularPath = UIBezierPath(arcCenter: center, radius: bounds.width / 2, startAngle: -.pi / 2, endAngle: 1.5 * .pi, clockwise: true)
+        let lineWidth = 5.0
+        
+        let circularPath = UIBezierPath(arcCenter: center, radius: (bounds.width - lineWidth) / 2, startAngle: -.pi / 2, endAngle: 1.5 * .pi, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.strokeColor = trackColor.cgColor
-        trackLayer.lineWidth = 5
+        trackLayer.lineWidth = lineWidth
         trackLayer.lineCap = .round
         trackLayer.strokeEnd = 1.0
         
         progressLayer.path = circularPath.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.strokeColor = progressColor.cgColor
-        progressLayer.lineWidth = 5
+        progressLayer.lineWidth = lineWidth
         progressLayer.lineCap = .round
         progressLayer.strokeEnd = CGFloat(progress)
     }
