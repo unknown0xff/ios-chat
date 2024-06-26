@@ -317,10 +317,12 @@
     self.textInputView.returnKeyType = UIReturnKeySend;
     self.textInputView.delegate = self;
 }
+
 - (void)onTapInputView:(id)sender {
     NSLog(@"on tap input view");
     self.inputBarStatus = ChatInputBarKeyboardStatus;
 }
+
 - (HVoiceRecordView *)hRecordView {
     if (!_hRecordView) {
         _hRecordView = [[HVoiceRecordView alloc] initWithFrame: CGRectZero conv:self.conversation];
@@ -566,7 +568,7 @@
 }
 
 - (void)resetInputBarStatue {
-    if (self.inputBarStatus != ChatInputBarRecordStatus && self.inputBarStatus != ChatInputBarMuteStatus
+    if (self.inputBarStatus != ChatInputBarMuteStatus
 #ifdef WFC_PTT
         && self.inputBarStatus != ChatInputBarPttStatus
 #endif
