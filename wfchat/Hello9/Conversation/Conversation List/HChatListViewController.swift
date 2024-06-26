@@ -120,9 +120,9 @@ class HChatListViewController: HBaseViewController {
         super.makeConstraints()
         
         menuButton.snp.makeConstraints { make in
-            make.right.equalTo(-16)
+            make.right.equalTo(-8)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(24)
+            make.width.height.equalTo(40)
         }
         
         tableView.snp.makeConstraints { make in
