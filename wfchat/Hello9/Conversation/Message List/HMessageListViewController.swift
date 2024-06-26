@@ -306,8 +306,15 @@ extension HMessageListViewController {
     }
     
     @objc func didClickTopCloseButton(_ sender: UIButton) {
-        HMessageTopManager.deleteMessage(topView?.message)
-        updateTopView()
+        let alert = UIAlertController(title: nil, message: "您确定要接触此消息的置顶吗？", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        let done = UIAlertAction(title: "解除置顶", style: .destructive) { [weak self] _ in
+            HMessageTopManager.deleteMessage(self?.topView?.message)
+            self?.updateTopView()
+        }
+        alert.addAction(done)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
     
     @objc func didClickSetingButton(_ sender: UIButton) {
