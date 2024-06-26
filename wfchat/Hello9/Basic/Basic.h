@@ -14,5 +14,6 @@
 #import "UIViewController+Extention.h"
 #import "HUIConfigure.h"
 #import "NSData+Extention.h"
+#import "HTextView.h"
 
 #endif /* Basic_h */

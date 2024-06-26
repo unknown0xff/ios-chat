@@ -39,6 +39,7 @@
 		2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */; };
 		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
 		2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */; };
+		2067A0932C2C44D600BA3F09 /* HTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0922C2C44D600BA3F09 /* HTextView.m */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -355,6 +356,8 @@
 		2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCommonTextFieldContentView.swift; sourceTree = "<group>"; };
 		2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditAliasCell.swift; sourceTree = "<group>"; };
 		2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
+		2067A0912C2C44D600BA3F09 /* HTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTextView.h; sourceTree = "<group>"; };
+		2067A0922C2C44D600BA3F09 /* HTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTextView.m; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -1191,6 +1194,8 @@
 		6012463F2C05764E00635523 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				2067A0912C2C44D600BA3F09 /* HTextView.h */,
+				2067A0922C2C44D600BA3F09 /* HTextView.m */,
 				601246482C0579CE00635523 /* Extention */,
 				601246432C0578F100635523 /* HBasicViewController.h */,
 				601246422C0578F100635523 /* HBasicViewController.m */,
@@ -2113,6 +2118,7 @@
 				2FFDDC9C255158FA00CEFDBB /* WFCFavoriteSoundCell.m in Sources */,
 				60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */,
 				607F95992C187E9300648BFF /* HNewFriendListTitleCell.swift in Sources */,
+				2067A0932C2C44D600BA3F09 /* HTextView.m in Sources */,
 				60A3F7CE2C1C62A800F855A2 /* HGroupChatEditListCell.swift in Sources */,
 				60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */,
 				60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */,

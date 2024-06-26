@@ -83,12 +83,13 @@ class HMineInfoSocialCell: HBasicCollectionViewCell<String> {
 
 class HMineInfoDescCell: HBasicCollectionViewCell<String> {
     
-    private(set) lazy var textView: UITextView = {
-        let tv = UITextView()
+    private(set) lazy var textView: HTextView = {
+        let tv = HTextView()
         tv.textColor = Colors.themeBlack
         tv.font = .system16
         tv.showsHorizontalScrollIndicator = false
         tv.showsVerticalScrollIndicator = false
+        tv.placeholder = "个人简介"
         return tv
     }()
     
