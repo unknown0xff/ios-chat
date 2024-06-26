@@ -36,6 +36,8 @@
 #endif
 #import "WFCUImage.h"
 #import "UITextView+Placeholder.h"
+#import <WFChatUIKit/WFChatUIKit-Swift.h>
+#import "UIView+Toast.h"
 
 #define CHAT_INPUT_BAR_PADDING 8
 #define CHAT_INPUT_BAR_ICON_SIZE (CHAT_INPUT_BAR_HEIGHT - CHAT_INPUT_BAR_PADDING - CHAT_INPUT_BAR_PADDING)
@@ -60,7 +62,7 @@
 //@implementation TextInfo
 //
 //@end
-@interface WFCUChatInputBar () <UITextViewDelegate, WFCUFaceBoardDelegate, UIImagePickerControllerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate, WFCUPluginBoardViewDelegate, UIImagePickerControllerDelegate, LocationViewControllerDelegate, UIActionSheetDelegate, UIDocumentPickerDelegate, WFCUPublicMenuButtonDelegate>
+@interface WFCUChatInputBar () <UITextViewDelegate, WFCUFaceBoardDelegate, UIImagePickerControllerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate, WFCUPluginBoardViewDelegate, UIImagePickerControllerDelegate, LocationViewControllerDelegate, UIActionSheetDelegate, UIDocumentPickerDelegate, WFCUPublicMenuButtonDelegate, HVoiceRecordViewDelegate>
 
 @property (nonatomic, assign)BOOL textInput;
 @property (nonatomic, assign)BOOL voiceInput;
@@ -95,6 +97,7 @@
 @property(nonatomic, weak)id<WFCUChatInputBarDelegate> delegate;
 
 @property (nonatomic, strong)WFCUVoiceRecordView *recordView;
+@property (nonatomic, strong)HVoiceRecordView *hRecordView;
 
 @property(nonatomic) AVAudioRecorder *recorder;
 @property(nonatomic) NSTimer *recordingTimer;
@@ -172,7 +175,7 @@
         [self.publicSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.publicSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:self.publicSwitchBtn];
-     
+        
         self.publicContainer = [[UIView alloc] initWithFrame:CGRectMake(CHAT_INPUT_BAR_PADDING + CHAT_INPUT_BAR_ICON_SIZE + CHAT_INPUT_BAR_PADDING/2+1, 0, parentRect.size.width - (CHAT_INPUT_BAR_PADDING + CHAT_INPUT_BAR_ICON_SIZE + CHAT_INPUT_BAR_PADDING/2+1), parentRect.size.height)];
         self.inputContainer = [[UIView alloc] initWithFrame:CGRectMake(CHAT_INPUT_BAR_PADDING + CHAT_INPUT_BAR_ICON_SIZE + CHAT_INPUT_BAR_PADDING/2+1, 0, parentRect.size.width - (CHAT_INPUT_BAR_PADDING + CHAT_INPUT_BAR_ICON_SIZE + CHAT_INPUT_BAR_PADDING/2+1), parentRect.size.height)];
         [self addSubview:self.publicContainer];
@@ -193,7 +196,7 @@
     if (view == nil) {
         for (WFCUPublicMenuButton *menuButton in self.menuButtons) {
             CGPoint tempPoint = [menuButton convertPoint:point fromView:self];
-
+            
             view = [menuButton hitTest:tempPoint withEvent:event];
             if (view ) {
                 return view;
@@ -243,11 +246,11 @@
     
 #ifdef WFC_PTT
     if([self isPttEnabled]) {
-    self.pttSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(voiceAndPttOffset + CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
-    [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_ptt"] forState:UIControlStateNormal];
-    [self.pttSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.pttSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
-    [self.inputContainer addSubview:self.pttSwitchBtn];
+        self.pttSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(voiceAndPttOffset + CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
+        [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_ptt"] forState:UIControlStateNormal];
+        [self.pttSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.pttSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
+        [self.inputContainer addSubview:self.pttSwitchBtn];
         voiceAndPttOffset += CHAT_INPUT_BAR_ICON_SIZE;
     }
 #endif
@@ -263,7 +266,7 @@
     [self.emojSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.emojSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.emojSwitchBtn];
-
+    
     self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 94), 40)];
     self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 52), 40)];
     self.textInputBackgroundView.layer.cornerRadius = 10;
@@ -289,9 +292,9 @@
     self.inputCoverView = [[UIView alloc] initWithFrame:self.textInputView.bounds];
     self.inputCoverView.backgroundColor = [UIColor clearColor];
     [self.textInputView addSubview:self.inputCoverView];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInputView:)];
-        tap.numberOfTapsRequired = 1;
-        [self.inputCoverView addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInputView:)];
+    tap.numberOfTapsRequired = 1;
+    [self.inputCoverView addGestureRecognizer:tap];
     
     self.voiceInputBtn = [[UIButton alloc] initWithFrame:self.textInputView.frame];
     [self.voiceInputBtn setTitle:WFCString(@"HoldToTalk") forState:UIControlStateNormal];
@@ -309,7 +312,7 @@
     [self.voiceInputBtn addTarget:self action:@selector(onTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.voiceInputBtn addTarget:self action:@selector(onTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
     [self.voiceInputBtn addTarget:self action:@selector(onTouchUpOutside:) forControlEvents:UIControlEventTouchCancel];
-
+    
     self.voiceInputBtn.hidden = YES;
     self.textInputView.returnKeyType = UIReturnKeySend;
     self.textInputView.delegate = self;
@@ -317,6 +320,13 @@
 - (void)onTapInputView:(id)sender {
     NSLog(@"on tap input view");
     self.inputBarStatus = ChatInputBarKeyboardStatus;
+}
+- (HVoiceRecordView *)hRecordView {
+    if (!_hRecordView) {
+        _hRecordView = [[HVoiceRecordView alloc] initWithFrame: CGRectZero conv:self.conversation];
+        _hRecordView.delegate = self;
+    }
+    return _hRecordView;
 }
 
 - (void)onTouchDown:(id)sender {
@@ -353,9 +363,9 @@
         }
     } else
 #endif
-    if (self.recorder.recording) {
-        return;
-    }
+        if (self.recorder.recording) {
+            return;
+        }
     
     __weak typeof(self)ws = self;
     [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
@@ -432,7 +442,6 @@
                     return;
                 }
                 
-                
                 self.recordCanceled = NO;
                 self.seconds = 0;
                 self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
@@ -442,7 +451,7 @@
                                                                        selector:@selector(updateMeter:)
                                                                        userInfo:nil
                                                                         repeats:YES];
-                }
+            }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[[UIAlertView alloc] initWithTitle:@"警告" message:@"无法录音,请到设置-隐私-麦克风,允许程序访问" delegate:nil cancelButtonTitle:WFCString(@"Ok") otherButtonTitles:nil, nil] show];
@@ -459,11 +468,11 @@
         [self stopRecord];
     } else
 #endif
-    if (self.recorder.recording) {
-        NSLog(@"cancel record...");
-        self.recordCanceled = YES;
-        [self stopRecord];
-    }
+        if (self.recorder.recording) {
+            NSLog(@"cancel record...");
+            self.recordCanceled = YES;
+            [self stopRecord];
+        }
 }
 
 - (void)onTouchDragExit:(id)sender {
@@ -527,11 +536,11 @@
         [self stopRecord];
     } else
 #endif
-    if (self.recorder.recording) {
-        NSLog(@"stop record...");
-        self.recordCanceled = NO;
-        [self stopRecord];
-    }
+        if (self.recorder.recording) {
+            NSLog(@"stop record...");
+            self.recordCanceled = NO;
+            [self stopRecord];
+        }
 }
 
 -(void)stopRecord {
@@ -540,17 +549,17 @@
         [[WFPttClient sharedClient] releaseTalking:self.conversation];
     } else {
 #endif
-    [self.recorder stop];
-    [self.recordingTimer invalidate];
-    self.recordingTimer = nil;
-    [self.updateMeterTimer invalidate];
-    self.updateMeterTimer = nil;
-    
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    BOOL r = [audioSession setActive:NO error:nil];
-    if (!r) {
-        NSLog(@"deactivate audio session fail");
-    }
+        [self.recorder stop];
+        [self.recordingTimer invalidate];
+        self.recordingTimer = nil;
+        [self.updateMeterTimer invalidate];
+        self.updateMeterTimer = nil;
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        BOOL r = [audioSession setActive:NO error:nil];
+        if (!r) {
+            NSLog(@"deactivate audio session fail");
+        }
 #ifdef WFC_PTT
     }
 #endif
@@ -580,31 +589,31 @@
         }
     } else
 #endif
-    if (sender == self.voiceSwitchBtn) {
-        if (self.inputBarStatus == ChatInputBarRecordStatus) {
-            self.inputBarStatus = ChatInputBarKeyboardStatus;
-        } else {
-            self.inputBarStatus = ChatInputBarRecordStatus;
+        if (sender == self.voiceSwitchBtn) {
+            if (self.inputBarStatus == ChatInputBarRecordStatus) {
+                self.inputBarStatus = ChatInputBarKeyboardStatus;
+            } else {
+                self.inputBarStatus = ChatInputBarRecordStatus;
+            }
+        } else if(sender == self.emojSwitchBtn) {
+            if (self.emojInput && self.inputBarStatus != ChatInputBarDefaultStatus) {
+                self.inputBarStatus = ChatInputBarKeyboardStatus;
+            } else {
+                self.inputBarStatus = ChatInputBarEmojiStatus;
+            }
+        } else if (sender == self.pluginSwitchBtn) {
+            if (self.pluginInput && self.inputBarStatus != ChatInputBarDefaultStatus) {
+                self.inputBarStatus = ChatInputBarKeyboardStatus;
+            } else {
+                self.inputBarStatus = ChatInputBarPluginStatus;
+            }
+        } else if (sender == self.publicSwitchBtn) {
+            if (self.inputBarStatus == ChatInputBarPublicStatus) {
+                self.inputBarStatus = ChatInputBarDefaultStatus;
+            } else {
+                self.inputBarStatus = ChatInputBarPublicStatus;
+            }
         }
-    } else if(sender == self.emojSwitchBtn) {
-        if (self.emojInput && self.inputBarStatus != ChatInputBarDefaultStatus) {
-            self.inputBarStatus = ChatInputBarKeyboardStatus;
-        } else {
-            self.inputBarStatus = ChatInputBarEmojiStatus;
-        }
-    } else if (sender == self.pluginSwitchBtn) {
-        if (self.pluginInput && self.inputBarStatus != ChatInputBarDefaultStatus) {
-            self.inputBarStatus = ChatInputBarKeyboardStatus;
-        } else {
-            self.inputBarStatus = ChatInputBarPluginStatus;
-        }
-    } else if (sender == self.publicSwitchBtn) {
-        if (self.inputBarStatus == ChatInputBarPublicStatus) {
-            self.inputBarStatus = ChatInputBarDefaultStatus;
-        } else {
-            self.inputBarStatus = ChatInputBarPublicStatus;
-        }
-    }
 }
 
 - (void)setInputBarStatus:(ChatInputBarStatus)inputBarStatus {
@@ -702,13 +711,49 @@
 
 - (void)setVoiceInput:(BOOL)voiceInput {
     _voiceInput = voiceInput;
+    
+    if (_voiceInput) {
+        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+            if (granted) {
+                [self.textInputView setHidden:NO];
+                self.quoteContainerView.hidden = NO;
+                [self.voiceInputBtn setHidden:YES];
+                self.textInputView.inputView = self.hRecordView;
+                if (!self.textInputView.isFirstResponder) {
+                    [self.textInputView becomeFirstResponder];
+                }
+                [self.textInputView reloadInputViews];
+                if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
+                    [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
+                }
+            } else {
+                self.textInputView.inputView = nil;
+                [self.textInputView reloadInputViews];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"无法录音,请到设置-隐私-麦克风,允许程序访问" preferredStyle: UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler: NULL];
+                UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler: NULL];
+                [alert addAction:cancel];
+                [alert addAction:done];
+                [[[UIApplication sharedApplication] delegate].window.rootViewController presentViewController:alert animated:YES completion:NULL];
+            }
+        }];
+    } else {
+        [self.textInputView setHidden:NO];
+        self.quoteContainerView.hidden = NO;
+        [self.voiceInputBtn setHidden:YES];
+        [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
+    }
+    
+    return;
+    
     if (voiceInput) {
         [self.textInputView setHidden:YES];
         [self.voiceInputBtn setHidden:NO];
         if (self.textInputView.isFirstResponder) {
             [self.textInputView resignFirstResponder];
         }
-
+        
 #ifdef WFC_PTT
         if(self.inputBarStatus == ChatInputBarPttStatus) {
             [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_keyboard"] forState:UIControlStateNormal];
@@ -717,8 +762,8 @@
             [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_ptt"] forState:UIControlStateNormal];
 #endif
             [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_keyboard"] forState:UIControlStateNormal];
-        
-        
+            
+            
 #ifdef WFC_PTT
         }
         if(self.inputBarStatus == ChatInputBarPttStatus) {
@@ -909,8 +954,8 @@
         }
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:dataDict
-                                                                options:kNilOptions
-                                                                  error:nil];
+                                                       options:kNilOptions
+                                                         error:nil];
         return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     } else {
         return self.textInputView.text;
@@ -1052,14 +1097,14 @@
     
     if (showKeyboard && (self.inputBarStatus == ChatInputBarDefaultStatus || self.inputBarStatus == ChatInputBarRecordStatus
 #ifdef WFC_PTT
-        || self.inputBarStatus == ChatInputBarPttStatus
+                         || self.inputBarStatus == ChatInputBarPttStatus
 #endif
                          )) {
         self.inputBarStatus = ChatInputBarKeyboardStatus;
     }
     
     if (self.quoteInfo.messageUid) {
-                
+        
         CGFloat maxWidth = UIScreen.mainScreen.bounds.size.width;
         CGFloat left = 67;
         CGFloat textMaxWidth = maxWidth - left - 40;
@@ -1179,6 +1224,15 @@
 }
 
 #pragma mark - AVAudioRecorderDelegate
+- (void)didClickRecordSendButton:(NSURL *)url duration:(NSTimeInterval)duration {
+    if (duration < 1) {
+        UIView *view = UIApplication.sharedApplication.delegate.window.rootViewController.view;
+        [view makeToast:@"录音时间太短了" duration:1.5 position:CSToastPositionCenter];
+        return;
+    }
+    [self.delegate recordDidEnd:[url path] duration:duration error:nil];
+}
+
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
     NSLog(@"record finish:%d", flag);
     if (!flag) {
@@ -1344,13 +1398,13 @@
         
     }
     
-  NSString *oldStr = textView.text;
-  NSString *newStr = [oldStr stringByReplacingCharactersInRange:range withString:text];
-  CGFloat textAreaWidth = textView.frame.size.width - 2 * textView.textContainer.lineFragmentPadding;
-  CGSize size = [WFCUUtilities getTextDrawingSize:newStr font:[UIFont systemFontOfSize:16] constrainedSize:CGSizeMake(textAreaWidth, 1000)];
-  
+    NSString *oldStr = textView.text;
+    NSString *newStr = [oldStr stringByReplacingCharactersInRange:range withString:text];
+    CGFloat textAreaWidth = textView.frame.size.width - 2 * textView.textContainer.lineFragmentPadding;
+    CGSize size = [WFCUUtilities getTextDrawingSize:newStr font:[UIFont systemFontOfSize:16] constrainedSize:CGSizeMake(textAreaWidth, 1000)];
+    
     [self changeTextViewHeight:size.height needUpdateText:needUpdateText updateRange:range];
-  
+    
     return YES;
 }
 - (void)changeTextViewHeight:(CGFloat)height needUpdateText:(BOOL)needUpdateText updateRange:(NSRange)range {
@@ -1484,7 +1538,7 @@
 #pragma mark - PluginBoardViewDelegate
 - (void)onItemClicked:(NSUInteger)itemTag {
     UINavigationController *navi = [self.delegate requireNavi];
-  
+    
     __weak typeof(self)weakself = self;
     self.inputBarStatus = ChatInputBarDefaultStatus;
     if (itemTag == 1) {
@@ -1507,7 +1561,7 @@
             [models enumerateObjectsUsingBlock:^(ZLResultModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [photos addObject:obj.asset];
             }];
-
+            
             [weakself recursiveHandle:photos isFullImage:isOriginal];
         };
         [ps showPhotoLibraryWithSender:[self.delegate requireNavi]];
@@ -1575,24 +1629,24 @@
 #endif
     } else if(itemTag == 5) {
         NSArray*documentTypes =@[
-                @"public.content",
-                @"public.data",
-                @"com.microsoft.powerpoint.ppt",
-                @"com.microsoft.word.doc",
-                @"com.microsoft.excel.xls",
-                @"com.microsoft.powerpoint.pptx",
-                @"com.microsoft.word.docx",
-                @"com.microsoft.excel.xlsx",
-                @"public.avi",
-                @"public.3gpp",
-                @"public.mpeg-4",
-                @"com.compuserve.gif",
-                @"public.jpeg",
-                @"public.png",
-                @"public.plain-text",
-                @"com.adobe.pdf"
-                ];
-
+            @"public.content",
+            @"public.data",
+            @"com.microsoft.powerpoint.ppt",
+            @"com.microsoft.word.doc",
+            @"com.microsoft.excel.xls",
+            @"com.microsoft.powerpoint.pptx",
+            @"com.microsoft.word.docx",
+            @"com.microsoft.excel.xlsx",
+            @"public.avi",
+            @"public.3gpp",
+            @"public.mpeg-4",
+            @"com.compuserve.gif",
+            @"public.jpeg",
+            @"public.png",
+            @"public.plain-text",
+            @"com.adobe.pdf"
+        ];
+        
         UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeOpen];
         picker.delegate = self;
         
@@ -1623,7 +1677,7 @@
                 
                 
                 WFCUShareMessageView *shareView = [WFCUShareMessageView createViewFromNib];
-                    
+                
                 shareView.conversation = ws.conversation;
                 shareView.message = message;
                 shareView.forwardDone = ^(BOOL success) {
@@ -1633,9 +1687,9 @@
                         [ws makeToast:WFCString(@"SendFailure") duration:1 position:CSToastPositionCenter];
                     }
                 };
-            
+                
                 TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:shareView preferredStyle:TYAlertControllerStyleAlert];
-
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[ws.delegate requireNavi] presentViewController:alertController animated:YES completion:nil];
                 });
@@ -1721,34 +1775,34 @@
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
     [controller dismissViewControllerAnimated:NO completion:nil];
     __block NSMutableArray *arr = [NSMutableArray array];
-
+    
     [MBProgressHUD showHUDAddedTo:self.parentView animated:YES];
     [MBProgressHUD HUDForView:self.parentView].mode = MBProgressHUDModeDeterminate;
     [MBProgressHUD HUDForView:self.parentView].label.text = WFCString(@"Processing");
     
     for (NSURL *url in urls) {
-       //获取授权
-       BOOL fileUrlAuthozied = [url startAccessingSecurityScopedResource];
-       if(fileUrlAuthozied){
-           //通过文件协调工具来得到新的文件地址，以此得到文件保护功能
-           NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
-           NSError *error;
-           
-           [fileCoordinator coordinateReadingItemAtURL:url options:0 error:&error byAccessor:^(NSURL *newURL) {
-               if (!error) {
-                   NSData *fileData = [NSData dataWithContentsOfURL:newURL];
-                   NSString *cacheDir = [[WFCUConfigManager globalManager] cachePathOf:self.conversation mediaType:Media_Type_FILE];
-                   NSString *desFileName = [cacheDir stringByAppendingPathComponent:[newURL lastPathComponent]];
-                   [fileData writeToFile:desFileName atomically:YES];
-                   [arr addObject:desFileName];
-               }
-           }];
-           
-           [url stopAccessingSecurityScopedResource];
-
-       }else{
-           NSLog(@"授权失败");
-       }
+        //获取授权
+        BOOL fileUrlAuthozied = [url startAccessingSecurityScopedResource];
+        if(fileUrlAuthozied){
+            //通过文件协调工具来得到新的文件地址，以此得到文件保护功能
+            NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
+            NSError *error;
+            
+            [fileCoordinator coordinateReadingItemAtURL:url options:0 error:&error byAccessor:^(NSURL *newURL) {
+                if (!error) {
+                    NSData *fileData = [NSData dataWithContentsOfURL:newURL];
+                    NSString *cacheDir = [[WFCUConfigManager globalManager] cachePathOf:self.conversation mediaType:Media_Type_FILE];
+                    NSString *desFileName = [cacheDir stringByAppendingPathComponent:[newURL lastPathComponent]];
+                    [fileData writeToFile:desFileName atomically:YES];
+                    [arr addObject:desFileName];
+                }
+            }];
+            
+            [url stopAccessingSecurityScopedResource];
+            
+        }else{
+            NSLog(@"授权失败");
+        }
     }
     [MBProgressHUD hideHUDForView:self.parentView animated:YES];
     [self.delegate didSelectFiles:arr];
@@ -1785,9 +1839,9 @@
         
         BOOL isExists = [manager fileExistsAtPath:CompressionVideoPaht];
         if (!isExists) {
-             [manager createDirectoryAtPath:CompressionVideoPaht withIntermediateDirectories:YES attributes:nil error:nil];
-         }
-//        
+            [manager createDirectoryAtPath:CompressionVideoPaht withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        //
         NSString *resultPath = [CompressionVideoPaht stringByAppendingPathComponent:[NSString stringWithFormat:@"outputJFVideo-%@.mov", [formater stringFromDate:[NSDate date]]]];
         
         NSLog(@"resultPath = %@",resultPath);
@@ -1805,26 +1859,26 @@
         __weak typeof(self)ws = self;
         [exportSession exportAsynchronouslyWithCompletionHandler:^(void)
          {
-             if (exportSession.status == AVAssetExportSessionStatusCompleted) {
-                 NSData *data = [NSData dataWithContentsOfFile:resultPath];
-                 float memorySize = (float)data.length / 1024 / 1024;
-                 NSLog(@"视频压缩后大小 %f", memorySize);
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [hud hideAnimated:YES];
-                     [picker dismissViewControllerAnimated:YES completion:nil];
-                     [ws.delegate videoDidCapture:resultPath thumbnail:thumbnail duration:10];
-                 });
-             } else {
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [hud hideAnimated:YES];
-                     [picker dismissViewControllerAnimated:YES completion:nil];
-                 });
-                 NSLog(@"压缩失败");
-             }
-             
-         }];
+            if (exportSession.status == AVAssetExportSessionStatusCompleted) {
+                NSData *data = [NSData dataWithContentsOfFile:resultPath];
+                float memorySize = (float)data.length / 1024 / 1024;
+                NSLog(@"视频压缩后大小 %f", memorySize);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:YES];
+                    [picker dismissViewControllerAnimated:YES completion:nil];
+                    [ws.delegate videoDidCapture:resultPath thumbnail:thumbnail duration:10];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:YES];
+                    [picker dismissViewControllerAnimated:YES completion:nil];
+                });
+                NSLog(@"压缩失败");
+            }
+            
+        }];
         
-
+        
     } else if ([mediaType isEqualToString:@"public.image"]) {
         [picker dismissViewControllerAnimated:YES completion:nil];
         UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -1902,7 +1956,7 @@
                                                                                                                    16,
                                                                                                                    NULL)) range:NSMakeRange(0, 1)];
     
-
+    
     [self.textInputView.textStorage
      insertAttributedString:attStr  atIndex:range.location];
     range.location += 1;
@@ -1933,7 +1987,7 @@
                 if (AVAssetExportSessionStatusCompleted == exporter.status) {   // 导出完成
                     NSURL *URL = exporter.outputURL;
                     AVAsset *avAsset = [AVAsset assetWithURL:URL];
-                     if (completion) {
+                    if (completion) {
                         completion(avAsset);
                     }
                 } else {
@@ -1960,34 +2014,34 @@
     CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:NULL error:&err];
     UIImage *thumbnail = [[UIImage alloc] initWithCGImage:oneRef];
     thumbnail = [WFCCUtilities generateThumbnail:thumbnail withWidth:120 withHeight:120];
-
+    
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:url options:nil];
     NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-
+    
     NSString *CompressionVideoPaht = [WFCCUtilities getDocumentPathWithComponent:@"/VIDEO"];
     AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:@"AVAssetExportPresetMediumQuality"];
-
+    
     NSDateFormatter *formater = [[NSDateFormatter alloc] init];// 用时间, 给文件重新命名, 防止视频存储覆盖,
-
+    
     [formater setDateFormat:@"yyyy-MM-dd_HH-mm-ss"];
-
+    
     NSFileManager *manager = [NSFileManager defaultManager];
-
+    
     BOOL isExists = [manager fileExistsAtPath:CompressionVideoPaht];
     if (!isExists) {
-         [manager createDirectoryAtPath:CompressionVideoPaht withIntermediateDirectories:YES attributes:nil error:nil];
-     }
-//
+        [manager createDirectoryAtPath:CompressionVideoPaht withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    //
     NSString *resultPath = [CompressionVideoPaht stringByAppendingPathComponent:[NSString stringWithFormat:@"outputJFVideo-%@.mov", [formater stringFromDate:[NSDate date]]]];
-
+    
     NSLog(@"resultPath = %@",resultPath);
-
+    
     exportSession.outputURL = [NSURL fileURLWithPath:resultPath];
-
+    
     exportSession.outputFileType = AVFileTypeMPEG4;
-
+    
     exportSession.shouldOptimizeForNetworkUse = YES;
-
+    
     CMTime time2 = [asset1 duration];
     int seconds = ceil(time2.value/time2.timescale);
     
@@ -2001,24 +2055,24 @@
     __weak typeof(self)ws = self;
     [exportSession exportAsynchronouslyWithCompletionHandler:^(void)
      {
-         if (exportSession.status == AVAssetExportSessionStatusCompleted) {
-             NSData *data = [NSData dataWithContentsOfFile:resultPath];
-             float memorySize = (float)data.length / 1024 / 1024;
-             NSLog(@"视频压缩后大小 %f", memorySize);
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [MBProgressHUD hideHUDForView:self.parentView animated:YES];
-                 [ws.delegate videoDidCapture:resultPath thumbnail:thumbnail duration:seconds];
-             });
-             [ws recursiveHandle:photos isFullImage:isFullImage];
-         } else {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [MBProgressHUD hideHUDForView:self.parentView animated:YES];
-                 [self.parentView makeToast:@"视频处理失败" duration:1 position:CSToastPositionCenter];
-             });
-             NSLog(@"压缩失败");
-         }
-
-     }];
+        if (exportSession.status == AVAssetExportSessionStatusCompleted) {
+            NSData *data = [NSData dataWithContentsOfFile:resultPath];
+            float memorySize = (float)data.length / 1024 / 1024;
+            NSLog(@"视频压缩后大小 %f", memorySize);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.parentView animated:YES];
+                [ws.delegate videoDidCapture:resultPath thumbnail:thumbnail duration:seconds];
+            });
+            [ws recursiveHandle:photos isFullImage:isFullImage];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.parentView animated:YES];
+                [self.parentView makeToast:@"视频处理失败" duration:1 position:CSToastPositionCenter];
+            });
+            NSLog(@"压缩失败");
+        }
+        
+    }];
 }
 - (void)recursiveHandle:(NSMutableArray<PHAsset *> *)photos isFullImage:(BOOL)isFullImage {
     if (photos.count == 0) {
@@ -2037,7 +2091,7 @@
             
             PHImageManager *manager = [PHImageManager defaultManager];
             [manager requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-
+                
                 if ([asset isKindOfClass:[AVComposition class]]) {
                     [weakself convertAvcompositionToAvasset:(AVComposition *)asset completion:^(AVAsset *asset) {
                         AVURLAsset *urlAsset = (AVURLAsset *)asset;
@@ -2061,28 +2115,28 @@
              options:imageRequestOption
              
              resultHandler:^(NSData *_Nullable imageData, NSString *_Nullable dataUTI,
-                                                                   UIImageOrientation orientation, NSDictionary *_Nullable info) {
-                   BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
-                   if (downloadFinined) {
-                       if ([weakself isGifWithImageData:imageData] && [weakself.delegate respondsToSelector:@selector(gifDidCapture:)]) {
-                           [weakself.delegate gifDidCapture:imageData];
-                       } else if ([weakself.delegate respondsToSelector:@selector(imageDidCapture:fullImage:)]) {
-                           [weakself.delegate imageDidCapture:[UIImage imageWithData:imageData] fullImage:isFullImage];
-                       }
-                       
-                       [weakself recursiveHandle:photos isFullImage:isFullImage];
-                   }
-
-                   if ([info objectForKey:PHImageErrorKey]) {
-                       [weakself.parentView makeToast:@"下载图片失败"];
-                       [weakself recursiveHandle:photos isFullImage:isFullImage];
-                   }
-                                                       
+                             UIImageOrientation orientation, NSDictionary *_Nullable info) {
+                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
+                if (downloadFinined) {
+                    if ([weakself isGifWithImageData:imageData] && [weakself.delegate respondsToSelector:@selector(gifDidCapture:)]) {
+                        [weakself.delegate gifDidCapture:imageData];
+                    } else if ([weakself.delegate respondsToSelector:@selector(imageDidCapture:fullImage:)]) {
+                        [weakself.delegate imageDidCapture:[UIImage imageWithData:imageData] fullImage:isFullImage];
+                    }
+                    
+                    [weakself recursiveHandle:photos isFullImage:isFullImage];
+                }
+                
+                if ([info objectForKey:PHImageErrorKey]) {
+                    [weakself.parentView makeToast:@"下载图片失败"];
+                    [weakself recursiveHandle:photos isFullImage:isFullImage];
+                }
+                
             }];
         }
         
     }
-        
+    
 }
 
 - (BOOL)isGifWithImageData: (NSData *)data {

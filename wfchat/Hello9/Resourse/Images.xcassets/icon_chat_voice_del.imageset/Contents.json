@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "聊天-图片@2x.png",
+      "filename" : "Group_40568@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "聊天-图片@3x.png",
+      "filename" : "Group_40568@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -18,8 +18,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

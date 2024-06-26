@@ -27,6 +27,7 @@
 		206309CE2C2A6E0800BED49A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 206309CD2C2A6E0800BED49A /* SnapKit */; };
 		206309D62C2A88E100BED49A /* HVoiceRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */; };
 		2065F6882C26F91C006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6872C26F91C006BAD27 /* MBProgressHUD */; };
+		2067A0902C2BEE4400BA3F09 /* HCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08F2C2BEE4400BA3F09 /* HCircleProgressView.swift */; };
 		20E996C62C1A8C7900CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C52C1A8C7900CF0F71 /* SDWebImage */; };
 		20E996C82C1A8C7900CF0F71 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C72C1A8C7900CF0F71 /* SDWebImageMapKit */; };
 		2B07FBE1247562D90035C4DF /* WFCUReceiptViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B07FBDF247562D90035C4DF /* WFCUReceiptViewController.h */; };
@@ -644,6 +645,7 @@
 		206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVoiceRecordView.swift; sourceTree = "<group>"; };
 		206309D22C2A73E700BED49A /* WFChatUIKit-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WFChatUIKit-umbrella.h"; sourceTree = "<group>"; };
 		206309D32C2A74A600BED49A /* WFChatUIKit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = WFChatUIKit.modulemap; sourceTree = "<group>"; };
+		2067A08F2C2BEE4400BA3F09 /* HCircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCircleProgressView.swift; sourceTree = "<group>"; };
 		2B07FBDF247562D90035C4DF /* WFCUReceiptViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCUReceiptViewController.h; sourceTree = "<group>"; };
 		2B07FBE0247562D90035C4DF /* WFCUReceiptViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCUReceiptViewController.m; sourceTree = "<group>"; };
 		2B14FC8D25C23D3600684B91 /* WFCUPinyinUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCUPinyinUtility.h; sourceTree = "<group>"; };
@@ -1738,6 +1740,7 @@
 				B748123328A4BB8B003BB0C3 /* WFCUPublicMenuButton.h */,
 				B748123428A4BB8B003BB0C3 /* WFCUPublicMenuButton.m */,
 				206309CA2C2A6D2F00BED49A /* HVoiceRecordView.swift */,
+				2067A08F2C2BEE4400BA3F09 /* HCircleProgressView.swift */,
 			);
 			path = ChatInputBar;
 			sourceTree = "<group>";
@@ -3195,6 +3198,7 @@
 				2F56F6B52529EE0F00B829C4 /* WFCUCompositeMessageViewController.m in Sources */,
 				B701630A290E346C00DCD651 /* DACircularProgressView.m in Sources */,
 				2F5510FA217F5CC200F56C26 /* CCHMapClusterControllerDebugPolygon.m in Sources */,
+				2067A0902C2BEE4400BA3F09 /* HCircleProgressView.swift in Sources */,
 				2F63891C254E3FE30084EEA6 /* WFCUFavoriteItem.m in Sources */,
 				2F551094217F5CC200F56C26 /* WFCUCallSummaryCell.m in Sources */,
 				B733DFF028D404AD0094AD74 /* WFZConferenceHistoryListViewController.m in Sources */,
@@ -3475,7 +3479,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WFChatUIKit/Predefine.h";
 				INFOPLIST_FILE = WFChatUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3513,7 +3517,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WFChatUIKit/Predefine.h";
 				INFOPLIST_FILE = WFChatUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
