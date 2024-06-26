@@ -438,6 +438,9 @@ class HPlayButton: UIView {
             let sec = Int(Int(time) % 60)
             timeLabel.text = String(format: "%02d:%02d", min, sec)
             seconds = time
+            if seconds >= maxRecordDuration {
+                playButton.mode = .play
+            }
         } else {
             timeLabel.text = "00:00"
         }
@@ -462,6 +465,10 @@ class HPlayButton: UIView {
         }
         delegate?.didClickRecordSendButton?(url, duration: seconds)
         removeRecord()
+    }
+    
+    var maxRecordDuration: TimeInterval {
+        return 10 * 60
     }
     
     var recentFileUrl: URL? {
