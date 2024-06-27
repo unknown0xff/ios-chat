@@ -17,7 +17,7 @@ struct HUserInfoModel: Hashable {
     var portrait: URL? = nil
     var social: String = ""
     var title: String {
-        return friendAlias.isEmpty ? name: friendAlias
+        return friendAlias.isEmpty ? displayName : friendAlias
     }
     
     var mobile: String = ""

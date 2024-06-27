@@ -72,7 +72,7 @@ class HSingleAccountView: UIControl {
     }
     
     func loadData() {
-        userNameLabel.text = "@\(userInfo.displayName)"
+        userNameLabel.text = "@\(userInfo.name)"
     }
 }
 
@@ -124,7 +124,8 @@ class HSingleInfoView: UIView {
     }
     
     func reloaData() {
-        signLabel.text = "\(userInfo.social)"
+        let signText = userInfo.social.isEmpty ? userInfo.social : "空空如也"
+        signLabel.text = signText
     }
     
 }

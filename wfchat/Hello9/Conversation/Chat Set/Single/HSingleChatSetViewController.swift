@@ -91,6 +91,7 @@ class HSingleChatSetViewController: HBaseViewController {
         super.viewWillAppear(animated)
         viewModel.loadData()
         bindData()
+        accountView.addTarget(self, action: #selector(didClickQRButton(_:)), for: .touchUpInside)
     }
     
     func bindData() {
@@ -235,6 +236,11 @@ class HSingleChatSetViewController: HBaseViewController {
         btn.configuration?.background.backgroundColor = Colors.white
         btn.configuration?.background.cornerRadius = 10
         return btn
+    }
+    
+    @objc func didClickQRButton(_ sender: UIBarButtonItem) {
+        let qrVC = HQRCodeViewController(target: viewModel.userInfo.userId, type: .user)
+        navigationController?.pushViewController(qrVC, animated: true)
     }
     
     func didClickClearHistroyMenu() {
