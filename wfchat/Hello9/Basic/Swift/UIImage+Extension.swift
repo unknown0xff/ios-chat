@@ -36,4 +36,19 @@ extension UIImage {
         
         return image!
     }
+    
+    static func generateQRCode(from string: String, size: CGSize) -> UIImage? {
+        let data = string.data(using: .utf8)
+        
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        filter.setValue(data, forKey: "inputMessage")
+        filter.setValue("H", forKey: "inputCorrectionLevel") // 设置纠错级别
+        guard let qrCodeImage = filter.outputImage else { return nil }
+        
+        let scaleX = size.width / qrCodeImage.extent.size.width
+        let scaleY = size.height / qrCodeImage.extent.size.height
+        let transformedImage = qrCodeImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+        
+        return UIImage(ciImage: transformedImage)
+    }
 }

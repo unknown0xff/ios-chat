@@ -30,6 +30,8 @@ enum Images {
 
     static let icon_background_green = UIImage(named: "icon_background_green")!
 
+    static let icon_background_green_full = UIImage(named: "icon_background_green_full")!
+
     static let icon_background_linear = UIImage(named: "icon_background_linear")!
 
     static let icon_bell = UIImage(named: "icon_bell")!

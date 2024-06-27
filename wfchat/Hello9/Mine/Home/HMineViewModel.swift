@@ -27,7 +27,7 @@ class HMineViewModel: HBasicViewModel {
     
     @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
     
-    private var avatarModel = HUserInfoModel.current
+    private(set) var avatarModel = HUserInfoModel.current
     
     enum Section: Int, CaseIterable {
         case header

@@ -81,15 +81,7 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     }
     
     private func configureNavBar() {
-        backButtonImage = nil
-        
-        let qrButton = UIButton.with(image: Images.icon_qr_code)
-        navBar.contentView.addSubview(qrButton)
-        qrButton.snp.makeConstraints { make in
-            make.left.equalTo(16)
-            make.width.height.equalTo(24)
-            make.centerY.equalToSuperview()
-        }
+        navBar.leftBarButtonItem = .init(image: Images.icon_qr_code, style: .plain, target: self, action: #selector(didClickQRButton(_:)))
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -119,12 +111,18 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
         }
     }
     
+    @objc func didClickQRButton(_ sender: UIBarButtonItem) {
+        let qrVC = HQRCodeViewController(target: viewModel.avatarModel.userId, type: .user)
+        navigationController?.pushViewController(qrVC, animated: true)
+    }
+    
     override func onCurrentUserInfoChange(_ userInfo: WFCCUserInfo) {
         viewModel.onUserInfoUpdated()
     }
 }
 
 extension HMineViewController: PHPickerViewControllerDelegate {
+
     func showImagePicker() {
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
