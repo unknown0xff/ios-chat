@@ -6,10 +6,11 @@
 //  Copyright © 2024 hello9. All rights reserved.
 //
 
-class HChatListViewModel: HBasicViewModel {
+class HChatListViewModel: HBaseViewModel {
     
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
-
+    @Published private(set) var dataSource: (snapshot: Snapshot, animated: Bool)
+    = (Snapshot(), false)
+    
     enum Section: Hashable, CaseIterable {
         case conversation
         case friendRequest
@@ -55,7 +56,8 @@ class HChatListViewModel: HBasicViewModel {
         friendRequest.forEach { request in
             WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
         }
-        reloadFriendRequest()
+        friendRequest = []
+        applySnapshot(animated: true)
     }
     
     func removeConversation(model: HChatListCellModel) {
@@ -65,8 +67,10 @@ class HChatListViewModel: HBasicViewModel {
         conversations.removeAll { item in
             item.conversation.target == conv?.target
         }
-        
-        self.snapshot.deleteItems([Row.chat(model)])
+        var dataSource = self.dataSource
+        dataSource.snapshot.deleteItems([Row.chat(model)])
+        dataSource.animated = true
+        self.dataSource = dataSource
     }
     
     func setConversationTop(_ isTop: Bool, model: HChatListCellModel) async -> HError? {
@@ -122,7 +126,7 @@ class HChatListViewModel: HBasicViewModel {
         return number
     }
     
-    private func applySnapshot() {
+    private func applySnapshot(animated: Bool = false) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.friendRequest, .conversation])
         
@@ -139,6 +143,7 @@ class HChatListViewModel: HBasicViewModel {
                         rows.append(Row.chat(.init(conversationInfo: item)))
                     } else {
                         rows.append(Row.friend(friendRequest))
+                        rows.append(Row.chat(.init(conversationInfo: item)))
                         hasInsert = true
                     }
                 }
@@ -148,7 +153,7 @@ class HChatListViewModel: HBasicViewModel {
         }
         
         snapshot.appendItems(rows, toSection: .conversation)
-        self.snapshot = snapshot
+        self.dataSource = (snapshot, animated)
     }
     
     deinit {

@@ -21,3 +21,11 @@ protocol HBasicViewModel {
     var snapshot: Snapshot { get }
 }
 
+protocol HBaseViewModel {
+    associatedtype Section: Hashable = HBasicSection
+    associatedtype Row: Hashable
+    
+    associatedtype Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
+    
+    var dataSource: (snapshot: Snapshot, animated: Bool) { get }
+}

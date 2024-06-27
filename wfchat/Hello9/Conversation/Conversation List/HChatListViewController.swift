@@ -89,11 +89,11 @@ class HChatListViewController: HBaseViewController {
             }
         })
         
-        viewModel.$snapshot
+        viewModel.$dataSource
             .receive(on: RunLoop.main)
             .dropFirst()
             .sink { [weak self] snapshot in
-                self?.applyDataSource(snapshot)
+                self?.dataSource.apply(snapshot.snapshot, animatingDifferences: snapshot.animated)
             }
             .store(in: &cancellables)
         
