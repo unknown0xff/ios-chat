@@ -370,7 +370,7 @@ class HPlayButton: UIView {
     
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        if let superview = superview {
+        if let _ = superview {
             loadRecordIfNeed()
         } else {
             playButton.mode = .play
@@ -440,8 +440,6 @@ class HPlayButton: UIView {
         } catch {
             print("Failed to delete file:", error)
         }
-        
-        playButton.mode = .start
     }
     
     @objc func updateTime() {
@@ -468,6 +466,7 @@ class HPlayButton: UIView {
     }
     
     @objc func didClickRemoveButton(_ sender: UIButton) {
+        playButton.mode = .start
         removeRecord()
     }
     
@@ -475,6 +474,7 @@ class HPlayButton: UIView {
         guard let url = recentFileUrl else {
             return
         }
+        playButton.mode = .start
         delegate?.didClickRecordSendButton?(url, duration: seconds)
         removeRecord()
     }

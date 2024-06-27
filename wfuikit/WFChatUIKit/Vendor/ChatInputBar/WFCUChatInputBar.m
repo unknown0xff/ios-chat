@@ -721,13 +721,15 @@
                 self.quoteContainerView.hidden = NO;
                 [self.voiceInputBtn setHidden:YES];
                 self.textInputView.inputView = self.hRecordView;
-                if (!self.textInputView.isFirstResponder) {
-                    [self.textInputView becomeFirstResponder];
-                }
-                [self.textInputView reloadInputViews];
-                if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
-                    [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!self.textInputView.isFirstResponder) {
+                        [self.textInputView becomeFirstResponder];
+                    }
+                    [self.textInputView reloadInputViews];
+                    if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
+                        [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
+                    }
+                });
             } else {
                 self.textInputView.inputView = nil;
                 [self.textInputView reloadInputViews];
@@ -745,52 +747,6 @@
         self.quoteContainerView.hidden = NO;
         [self.voiceInputBtn setHidden:YES];
         [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
-    }
-    
-    return;
-    
-    if (voiceInput) {
-        [self.textInputView setHidden:YES];
-        [self.voiceInputBtn setHidden:NO];
-        if (self.textInputView.isFirstResponder) {
-            [self.textInputView resignFirstResponder];
-        }
-        
-#ifdef WFC_PTT
-        if(self.inputBarStatus == ChatInputBarPttStatus) {
-            [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_keyboard"] forState:UIControlStateNormal];
-            [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
-        } else {
-            [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_ptt"] forState:UIControlStateNormal];
-#endif
-            [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_keyboard"] forState:UIControlStateNormal];
-            
-            
-#ifdef WFC_PTT
-        }
-        if(self.inputBarStatus == ChatInputBarPttStatus) {
-            [self.voiceInputBtn setTitle:WFCString(@"PushToTalk") forState:UIControlStateNormal];
-        } else {
-            [self.voiceInputBtn setTitle:WFCString(@"HoldToTalk") forState:UIControlStateNormal];
-        }
-#endif
-        CGFloat diff = 0;
-        if (self.textInputView.frame.size.height != CHAT_INPUT_BAR_ICON_SIZE) {
-            diff = self.textInputView.frame.size.height - CHAT_INPUT_BAR_ICON_SIZE;
-        }
-        if (self.quoteContainerView && !self.quoteContainerView.hidden) {
-            self.quoteContainerView.hidden = YES;
-            diff += self.quoteContainerView.frame.size.height + CHAT_INPUT_QUOTE_PADDING;
-        }
-        [self extendUp:-diff];
-    } else {
-        [self.textInputView setHidden:NO];
-        self.quoteContainerView.hidden = NO;
-        [self.voiceInputBtn setHidden:YES];
-        [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
-#ifdef WFC_PTT
-        [self.pttSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_ptt"] forState:UIControlStateNormal];
-#endif
     }
 }
 #ifdef WFC_PTT
