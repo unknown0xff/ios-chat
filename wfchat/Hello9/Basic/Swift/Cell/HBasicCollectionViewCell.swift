@@ -38,7 +38,7 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
     override func updateConfiguration(using state: UICellConfigurationState) {
         var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
         if state.isSelected || state.isHighlighted {
-            if let selectedBackgroundColor, selectedBackgroundColor != .clear {
+            if let selectedBackgroundColor {
                 backgroundConfiguration.backgroundColor = selectedBackgroundColor
             }
         } else {
