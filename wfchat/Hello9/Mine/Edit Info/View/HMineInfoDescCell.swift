@@ -38,5 +38,11 @@ class HMineInfoDescCell: HBasicCollectionViewCell<String> {
     
     override func bindData(_ data: String?) {
         textView.text = data
+        
+        if let newHeight = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude)).height as CGFloat? {
+            textView.snp.updateConstraints { make in
+                make.height.equalTo(Int(newHeight))
+            }
+        }
     }
 }

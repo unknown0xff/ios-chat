@@ -72,7 +72,7 @@ class HSingleAccountView: UIControl {
     }
     
     func loadData() {
-        userNameLabel.text = "@\(userInfo.name)"
+        userNameLabel.text = "@\(userInfo.displayName)"
     }
 }
 

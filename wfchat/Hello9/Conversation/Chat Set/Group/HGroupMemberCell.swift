@@ -77,7 +77,7 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
         let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(data.memberId, inGroup: data.groupId, refresh: false) ?? .init()
         let userInfoModel = HUserInfoModel(info: userInfo)
         
-        nameLabel.text = userInfoModel.name
+        nameLabel.text = userInfoModel.displayName
         avatar.sd_setImage(with: userInfoModel.portrait, placeholderImage: Images.icon_logo)
         
         if data.type == .Member_Type_Owner {

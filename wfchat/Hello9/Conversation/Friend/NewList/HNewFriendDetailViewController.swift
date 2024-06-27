@@ -306,7 +306,7 @@ class HNewFriendDetailViewController: HBaseViewController {
     private func addFriend() {
         let hud = HToast.showLoading("发送中...")
         let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false) ?? .init()
-        let reason = "我是\(userInfo.name ?? "")"
+        let reason = "我是\(userInfo.displayName ?? "")"
         
         let extra = ["receiveUserId": targetId]
         let data = try? JSONEncoder().encode(extra)
