@@ -68,8 +68,20 @@ class HBaseViewController: HBasicViewController {
     
     func onUserInfoUpdated(_ sender: Notification) { }
     @objc private func _onUserInfoUpdated(_ sender: Notification) {
+        
+        if let infoList = sender.userInfo?["userInfoList"] as? [WFCCUserInfo] {
+            let current = infoList.first { userInfo in
+                userInfo.userId == WFCCNetworkService.sharedInstance().userId
+            }
+            if let current {
+                onCurrentUserInfoChange(current)
+            }
+        }
+        
         onUserInfoUpdated(sender)
     }
+    
+    func onCurrentUserInfoChange(_ userInfo: WFCCUserInfo) { }
     
     override func prefersNavigationBarHidden() -> Bool { true }
 }

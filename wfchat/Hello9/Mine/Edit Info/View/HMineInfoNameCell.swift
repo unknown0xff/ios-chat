@@ -8,12 +8,14 @@
 
 import Foundation
 
+class HTextField: UITextField {
+    var indexPath: IndexPath?
+}
+
 class HMineInfoNameCell: HBasicCollectionViewCell<String> {
     
-    private lazy var textField: UITextField = {
-        let tf = UITextField.default
-        tf.textColor = Colors.themeBlack
-        tf.font = .system16
+    private(set) lazy var textField: HTextField = {
+        let tf = HTextField.default
         return tf
     }()
     
@@ -33,86 +35,8 @@ class HMineInfoNameCell: HBasicCollectionViewCell<String> {
     
     override func bindData(_ data: String?) {
         textField.placeholder = indexPath.item == 0 ? "名字" : "姓氏"
+        textField.indexPath = indexPath
         textField.text = data
     }
 }
 
-class HMineInfoSocialCell: HBasicCollectionViewCell<String> {
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system16
-        label.textColor = Colors.themeButtonDisable
-        return label
-    }()
-    
-    private lazy var subTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system16.medium
-        label.textColor = Colors.themeBlack
-        return label
-    }()
-    
-    override func configureSubviews() {
-        super.configureSubviews()
-        selectedBackgroundColor = .white
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subTitleLabel)
-    }
-    
-    override func makeConstraints() {
-        super.makeConstraints()
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.top.equalTo(16)
-            make.height.equalTo(26)
-            make.bottom.equalTo(-16)
-        }
-        
-        subTitleLabel.snp.makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalToSuperview()
-        }
-    }
-    
-    override func bindData(_ data: String?) {
-        titleLabel.text = indexPath.item == 0 ? "号码" : "邮箱"
-        subTitleLabel.text = data
-    }
-}
-
-class HMineInfoDescCell: HBasicCollectionViewCell<String> {
-    
-    private(set) lazy var textView: HTextView = {
-        let tv = HTextView()
-        tv.textColor = Colors.themeBlack
-        tv.font = .system16
-        tv.showsHorizontalScrollIndicator = false
-        tv.showsVerticalScrollIndicator = false
-        tv.placeholder = "个人简介"
-        return tv
-    }()
-    
-    private lazy var textField: UITextField = {
-        let tf = UITextField.default
-        return tf
-    }()
-    
-    override func configureSubviews() {
-        super.configureSubviews()
-        selectedBackgroundColor = .white
-        contentView.addSubview(textView)
-    }
-    
-    override func makeConstraints() {
-        super.makeConstraints()
-        textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
-            make.height.equalTo(26)
-        }
-    }
-    
-    override func bindData(_ data: String?) {
-        textView.text = data
-    }
-}

@@ -42,7 +42,6 @@ class HMineViewModel: HBasicViewModel {
     }
     
     init() {
-        
         NotificationCenter.default.addObserver(forName: .init(kUserInfoUpdated), object: self, queue: .main) { [weak self] _ in
             self?.onUserInfoUpdated()
         }
@@ -93,12 +92,12 @@ class HMineViewModel: HBasicViewModel {
     
     func modifyAvatar(_ portrait: String) {
         let hud = HToast.showLoading("头像上传中...")
-        WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: WFCCMediaType.Media_Type_PORTRAIT.rawValue) : portrait ]) {
+        WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: ModifyMyInfoType.portrait.rawValue) : portrait ]) {
             hud?.hide(animated: true)
             HToast.showTipAutoHidden(text: "修改成功")
         } error: { _ in
             hud?.hide(animated: true)
-            HToast.showTipAutoHidden(text: "头像上传失败, 服务器错误")
+            HToast.showTipAutoHidden(text: "头像上传失败")
         }
     }
     

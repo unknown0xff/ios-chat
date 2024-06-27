@@ -34,7 +34,7 @@ class HMineAvatarCell: HBasicCollectionViewCell<HUserInfoModel> {
         view.layer.borderWidth = 2
         view.layer.borderColor = Colors.white.cgColor
         view.layer.cornerRadius = kAvatarHeight / 2.0
-        view.contentMode = .center
+        view.contentMode = .scaleAspectFit
         return view
     }()
     

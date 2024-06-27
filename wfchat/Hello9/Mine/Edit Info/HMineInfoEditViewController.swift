@@ -15,7 +15,6 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = Colors.themeGray4Background
         collectionView.delegate = self
         collectionView.keyboardDismissMode = .onDrag
         return collectionView
@@ -45,13 +44,20 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
+    private var cancellables = Set<AnyCancellable>()
     
+    private var currentInputUserInfo = HUserInfoModel(info: .init()) {
+        didSet {
+            didUpdateUserInfo()
+        }
+    }
     private var userInfo = HUserInfoModel(info: .init())
     
     override func didInitialize() {
         super.didInitialize()
         
         userInfo = HUserInfoModel(info: WFCCIMService.sharedWFCIM().getUserInfo(IMUserInfo.userId, refresh: false))
+        currentInputUserInfo = userInfo
     }
     
     override func viewDidLoad() {
@@ -86,21 +92,27 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
         let socialCellRegistration = UICollectionView.CellRegistration<HMineInfoSocialCell, String>.build()
         let logoutCellRegistration = UICollectionView.CellRegistration<HBasicButtonCell, String>.build()
         
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { [weak self]
             (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let section = Section(rawValue: indexPath.section) else {
+            guard let section = Section(rawValue: indexPath.section), let self else {
                 return nil
             }
             
             switch section {
             case .name:
-                return collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: item.value)
+                let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: item.value)
+                cell.textField.delegate = self
+                cell.textField.addTarget(self, action: #selector(didTextFieldValueChange(_:)), for: .editingChanged)
+                return cell
             case .desc:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: descCellRegistration, for: indexPath, item: item.value)
                 cell.textView.delegate = self
                 return cell
             case .social:
-                return collectionView.dequeueConfiguredReusableCell(using: socialCellRegistration, for: indexPath, item: item.value)
+                let cell = collectionView.dequeueConfiguredReusableCell(using: socialCellRegistration, for: indexPath, item: item.value)
+                cell.textField.delegate = self
+                cell.textField.addTarget(self, action: #selector(didTextFieldValueChange(_:)), for: .editingChanged)
+                return cell
             case .logout:
                 return collectionView.dequeueConfiguredReusableCell(using: logoutCellRegistration, for: indexPath, item: item.value)
             }
@@ -129,11 +141,10 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
     }
     
     private func configureNavBar() {
-        navBarBackgroundView.isHidden = true
-        navBar.backgroundColor = Colors.themeGray4Background
-        
+        configureDefaultStyle()
         navBar.leftBarButtonItem = .init(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
         navBar.rightBarButtonItem = .init(title: "完成", style: .done, target: self, action: #selector(didClickSaveButton(_:)))
+        navBar.rightBarButtonItem?.isEnabled = false
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -143,7 +154,7 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
             }
             
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            config.backgroundColor = Colors.themeGray4Background
+            config.backgroundColor = .clear
             config.itemSeparatorHandler = { (indexPath, sectionSeparatorConfiguration) in
                 var configuration = sectionSeparatorConfiguration
                 configuration.bottomSeparatorInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -180,8 +191,21 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
     }
     
     @objc func didClickSaveButton(_ sender: UIButton) {
-        // TODO
-        HToast.showTipAutoHidden(text: "开发中...")
+        let hud = HToast.showLoading("保存中...")
+        WFCCIMService.sharedWFCIM().modifyMyInfo(
+            [NSNumber(value: ModifyMyInfoType.displayName.rawValue) :  currentInputUserInfo.displayName,
+             NSNumber(value: ModifyMyInfoType.mobile.rawValue) :  currentInputUserInfo.mobile,
+             NSNumber(value: ModifyMyInfoType.email.rawValue) :  currentInputUserInfo.email,
+             NSNumber(value: ModifyMyInfoType.social.rawValue) :  currentInputUserInfo.social,]
+        ) { [weak self] in
+            hud?.hide(animated: true)
+            self?.dismiss(animated: true, completion: {
+                HToast.showTipAutoHidden(text: "保存成功")
+            })
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "保存失败")
+        }
     }
     
     func apply() {
@@ -189,8 +213,7 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
         snapshot.appendSections([.name, .desc, .social, .logout])
         
         snapshot.appendItems(
-            [.init(value: userInfo.firstName),
-             .init(value: userInfo.lastName)], toSection: .name)
+            [.init(value: userInfo.displayName)], toSection: .name)
         snapshot.appendItems([.init(value: userInfo.social)], toSection: .desc)
         snapshot.appendItems(
             [.init(value: userInfo.mobile),
@@ -211,6 +234,15 @@ class HMineInfoEditViewController: HBaseViewController, UICollectionViewDelegate
         alert.addAction(cancel)
         present(alert, animated: true)
     }
+    
+    func didUpdateUserInfo() {
+        let same =
+                userInfo.displayName == currentInputUserInfo.displayName &&
+                userInfo.email == currentInputUserInfo.email &&
+                userInfo.social == currentInputUserInfo.social &&
+                userInfo.mobile == currentInputUserInfo.mobile
+        navBar.rightBarButtonItem?.isEnabled = !same
+    }
 }
 
 extension HMineInfoEditViewController {
@@ -223,15 +255,49 @@ extension HMineInfoEditViewController {
     }
     
 }
-extension HMineInfoEditViewController: UITextViewDelegate {
+extension HMineInfoEditViewController: UITextViewDelegate, UITextFieldDelegate {
+    
+    @objc func didTextFieldValueChange(_ textField: HTextField) {
+        guard let indexPath = textField.indexPath, let section = Section(rawValue: indexPath.section) else {
+            return
+        }
+        let text = textField.text ?? ""
+        switch section {
+        case .name:
+            currentInputUserInfo.displayName = text
+        case .social:
+            if indexPath.item == 0 {
+                currentInputUserInfo.mobile = text
+            } else {
+                currentInputUserInfo.email = text
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let tf = textField as? HTextField, let indexPath = tf.indexPath else {
+            return
+        }
+        DispatchQueue.main.async {
+            self.scroll(to: indexPath)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         DispatchQueue.main.async {
-            self.updateLayoutIfNeed(textView.text)
+            self.updateDescLayoutIfNeed(textView.text)
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        currentInputUserInfo.social = textView.text ?? ""
         if let newHeight = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude)).height as CGFloat? {
             if abs(newHeight - textView.frame.height) < 10 {
                 return
@@ -239,11 +305,11 @@ extension HMineInfoEditViewController: UITextViewDelegate {
             textView.snp.updateConstraints { make in
                 make.height.equalTo(Int(newHeight))
             }
-            updateLayoutIfNeed(textView.text)
+            updateDescLayoutIfNeed(textView.text)
         }
     }
     
-    func updateLayoutIfNeed(_ text: String) {
+    func updateDescLayoutIfNeed(_ text: String) {
         let indexPath = IndexPath(item: 0, section: Section.desc.rawValue)
         if var item = dataSource.itemIdentifier(for: indexPath) {
             item.value = text
@@ -251,13 +317,19 @@ extension HMineInfoEditViewController: UITextViewDelegate {
             snpashot.deleteItems([item])
             snpashot.appendItems([item], toSection: .desc)
             dataSource.apply(snpashot)
-            
-            if let cell = collectionView.cellForItem(at: indexPath) {
-                let cellY = cell.frame.maxY - (collectionView.frame.height - keyboardHeight)
-                var current = collectionView.contentOffset
-                current.y = cellY
-                collectionView.setContentOffset(current, animated: true)
+            scroll(to: indexPath)
+        }
+    }
+    
+    func scroll(to indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            if cell.frame.maxY <= collectionView.frame.height - keyboardHeight {
+                return
             }
+            let cellY = cell.frame.maxY - (collectionView.frame.height - keyboardHeight)
+            var current = collectionView.contentOffset
+            current.y = cellY
+            collectionView.setContentOffset(current, animated: true)
         }
     }
 }

@@ -37,6 +37,8 @@
 		2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6892C26F984006BAD27 /* MBProgressHUD */; };
 		2066314A2C2CF6C10009CBCA /* HBasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631492C2CF6C10009CBCA /* HBasicCollectionViewCell.swift */; };
 		2066314C2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314B2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift */; };
+		2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */; };
+		206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */; };
 		2067A0872C2BA73800BA3F09 /* HFriendInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */; };
 		2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */; };
 		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
@@ -356,6 +358,8 @@
 		2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		206631492C2CF6C10009CBCA /* HBasicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicCollectionViewCell.swift; sourceTree = "<group>"; };
 		2066314B2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicCollectionReusableView.swift; sourceTree = "<group>"; };
+		2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoSocialCell.swift; sourceTree = "<group>"; };
+		2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoDescCell.swift; sourceTree = "<group>"; };
 		2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditViewController.swift; sourceTree = "<group>"; };
 		2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCommonTextFieldContentView.swift; sourceTree = "<group>"; };
 		2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditAliasCell.swift; sourceTree = "<group>"; };
@@ -806,6 +810,8 @@
 			children = (
 				205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */,
 				205C5A672C242453000D54FE /* HMineInfoNameCell.swift */,
+				2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */,
+				2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2009,6 +2015,7 @@
 				60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */,
 				607F95902C13292300648BFF /* HResetPasswordViewModel.swift in Sources */,
 				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
+				2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */,
 				207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */,
 				2F638928254E7D8A0084EEA6 /* WFCFavoriteBaseCell.m in Sources */,
 				6012467E2C0747F000635523 /* HLoginInputModel.swift in Sources */,
@@ -2054,6 +2061,7 @@
 				2F4B0EAA245BFCE7000A41C6 /* DeviceTableViewController.m in Sources */,
 				607F95892C12ECF300648BFF /* HVerifyCodeViewController.swift in Sources */,
 				2F94FAB224551D82007713CD /* DeviceViewController.m in Sources */,
+				206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */,
 				607F958E2C12FCBD00648BFF /* HResetPasswordViewController.swift in Sources */,
 				607F95972C146B5200648BFF /* HUnreadView.swift in Sources */,
 				601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */,

@@ -31,7 +31,7 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
     func makeConstraints() { }
         
     var selectedBackgroundColor: UIColor?
-    var unselectedBackgroundColor: UIColor = .white
+    var unselectedBackgroundColor: UIColor?
     
     func bindData(_ data: T?) { }
     
@@ -40,11 +40,11 @@ class HBasicCollectionViewCell<T>: UICollectionViewListCell {
         if state.isSelected || state.isHighlighted {
             if let selectedBackgroundColor, selectedBackgroundColor != .clear {
                 backgroundConfiguration.backgroundColor = selectedBackgroundColor
-            } else {
-                backgroundConfiguration.backgroundColor = unselectedBackgroundColor
             }
         } else {
-            backgroundConfiguration.backgroundColor = unselectedBackgroundColor
+            if let unselectedBackgroundColor {
+                backgroundConfiguration.backgroundColor = unselectedBackgroundColor
+            }
         }
         self.backgroundConfiguration = backgroundConfiguration
     }

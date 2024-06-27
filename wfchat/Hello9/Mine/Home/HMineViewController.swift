@@ -118,6 +118,10 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
             return section
         }
     }
+    
+    override func onCurrentUserInfoChange(_ userInfo: WFCCUserInfo) {
+        viewModel.onUserInfoUpdated()
+    }
 }
 
 extension HMineViewController: PHPickerViewControllerDelegate {

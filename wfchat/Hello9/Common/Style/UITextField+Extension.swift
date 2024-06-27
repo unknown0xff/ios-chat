@@ -9,9 +9,9 @@
 
 extension UITextField {
     
-    static var `default`: UITextField {
-        let field = UITextField()
-        field.textColor = Colors.black
+    static var `default`: Self {
+        let field = Self()
+        field.textColor = Colors.themeBlack
         field.font = .system16
         field.clearButtonMode = .whileEditing
         return field
