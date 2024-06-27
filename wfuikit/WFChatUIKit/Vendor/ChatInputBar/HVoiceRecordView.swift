@@ -74,6 +74,8 @@ class HPlayButton: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        progressView.setImage(WFCUImage.imageNamed("icon_chat_voice_play_pause"), for: .normal)
+        
         addSubview(startButton)
         addSubview(pauseButton)
         addSubview(playButton)
@@ -225,6 +227,8 @@ class HPlayButton: UIView {
         addSubview(delButton)
         addSubview(sendButton)
         addSubview(playButton)
+        
+        playButton.progressView.addTarget(self, action: #selector(didClickProgressView(_:)), for: .touchUpInside)
     }
     
     private func makeConstraints() {
@@ -290,6 +294,27 @@ class HPlayButton: UIView {
             delButton.isHidden = false
             sendButton.isHidden = false
             playRecord()
+        }
+    }
+    
+    @objc func didClickProgressView(_ sender: HCircleProgressView) {
+        guard let player else {
+            return
+        }
+        if player.isPlaying {
+            player.stop()
+            sender.setImage(WFCUImage.imageNamed("icon_chat_voice_play"), for: .normal)
+            if playerTimer?.isValid ?? false {
+                playerTimer?.invalidate()
+            }
+            playerTimer = nil
+        } else {
+            player.play()
+            sender.setImage(WFCUImage.imageNamed("icon_chat_voice_play_pause"), for: .normal)
+            if playerTimer?.isValid ?? false {
+                playerTimer?.invalidate()
+            }
+            playerTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayProgress), userInfo: nil, repeats: true)
         }
     }
     

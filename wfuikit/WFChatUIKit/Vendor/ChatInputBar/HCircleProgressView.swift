@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCircleProgressView: UIView {
+class HCircleProgressView: UIButton {
     
     private var progressLayer = CAShapeLayer()
     private var trackLayer = CAShapeLayer()
