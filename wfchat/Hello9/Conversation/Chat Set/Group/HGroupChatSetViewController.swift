@@ -278,6 +278,11 @@ class HGroupChatSetViewController: HBaseViewController {
         HModalPresentNavigationController.show(root: HGroupChatEditViewController(conv: viewModel.conv), preferredStyle: .actionSheet)
     }
     
+    override func onGroupInfoUpdated(_ sender: Notification) {
+        viewModel.loadData()
+        bindData()
+    }
+    
     private func actionButton(with image: UIImage, title: String, selector: Selector? = nil) -> UIButton {
         let btn = UIButton.imageButton(with: image, title: title, font: .system13, titleColor: Colors.themeBusiness, placement: .top, padding: 6)
         if let selector {

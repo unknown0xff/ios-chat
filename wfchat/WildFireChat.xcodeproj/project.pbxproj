@@ -40,6 +40,7 @@
 		2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */; };
 		206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */; };
 		206631532C2D2EEC0009CBCA /* HQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631522C2D2EEC0009CBCA /* HQRCodeViewController.swift */; };
+		206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 206631552C2D4A140009CBCA /* ZLPhotoBrowser */; };
 		2067A0872C2BA73800BA3F09 /* HFriendInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */; };
 		2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */; };
 		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
@@ -699,6 +700,7 @@
 				60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */,
 				60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */,
 				905177502243CD9A0020A2AC /* libz.tbd in Frameworks */,
+				206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */,
 				B75D81872782E0C5009D4A19 /* WFChatClient.framework in Frameworks */,
 				B75D816C2782CEB7009D4A19 /* WFAVEngineKit.xcframework in Frameworks */,
 				9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */,
@@ -1802,6 +1804,7 @@
 				6088F4A62C1030B800130A87 /* Algorithms */,
 				60A3F7A12C1A88A400F855A2 /* SDWebImage */,
 				60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */,
+				206631552C2D4A140009CBCA /* ZLPhotoBrowser */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -1913,6 +1916,7 @@
 				601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2738,6 +2742,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.3;
+			};
+		};
 		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2777,6 +2789,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
+		};
+		206631552C2D4A140009CBCA /* ZLPhotoBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
+			productName = ZLPhotoBrowser;
 		};
 		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

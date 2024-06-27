@@ -25,6 +25,7 @@ class HBaseViewController: HBasicViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(_onUserInfoUpdated(_:)), name: .init(kUserInfoUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(_onGroupInfoUpdated(_:)), name: .init(kGroupInfoUpdated), object: nil)
         
         view.addSubview(backgroundView)
         view.addSubview(navBarBackgroundView)
@@ -67,6 +68,11 @@ class HBaseViewController: HBasicViewController {
     }
     
     func onUserInfoUpdated(_ sender: Notification) { }
+    func onGroupInfoUpdated(_ sender: Notification) { }
+    func onCurrentUserInfoChange(_ userInfo: WFCCUserInfo) { }
+    
+    override func prefersNavigationBarHidden() -> Bool { true }
+    
     @objc private func _onUserInfoUpdated(_ sender: Notification) {
         
         if let infoList = sender.userInfo?["userInfoList"] as? [WFCCUserInfo] {
@@ -81,8 +87,9 @@ class HBaseViewController: HBasicViewController {
         onUserInfoUpdated(sender)
     }
     
-    func onCurrentUserInfoChange(_ userInfo: WFCCUserInfo) { }
+    @objc private func _onGroupInfoUpdated(_ sender: Notification) { 
+        onGroupInfoUpdated(sender)
+    }
     
-    override func prefersNavigationBarHidden() -> Bool { true }
 }
 

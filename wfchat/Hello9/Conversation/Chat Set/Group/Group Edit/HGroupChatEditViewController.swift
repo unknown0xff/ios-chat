@@ -5,10 +5,13 @@
 //  Created by Ada on 6/14/24.
 //  Copyright © 2024 Hello9. All rights reserved.
 //
-
+//  群编辑页面
+//
 
 import UIKit
 import Combine
+import PhotosUI
+import ZLPhotoBrowser
 
 class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegate {
     
@@ -117,7 +120,56 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
         
         return layout
     }
+    
+    override func onGroupInfoUpdated(_ sender: Notification) {
+        viewModel.loadData()
+    }
 }
 
+extension HGroupChatEditViewController {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.asyncDeselectItem(at: indexPath)
+        
+        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        switch item {
+        case .header(_):
+            showImagePicker()
+        case .info(_):
+            break
+        }
+    }
+}
 
+extension HGroupChatEditViewController: PHPickerViewControllerDelegate {
+
+    func showImagePicker() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = .images
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true) {
+            guard !results.isEmpty else { return }
+            let itemProvider = results.first!.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    DispatchQueue.main.async {
+                        if let selectedImage = image as? UIImage {
+                            self.viewModel.uploadAvatar(selectedImage)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 

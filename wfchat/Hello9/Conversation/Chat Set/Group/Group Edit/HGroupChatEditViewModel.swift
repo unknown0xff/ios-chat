@@ -34,10 +34,16 @@ class HGroupChatEditViewModel: HBasicViewModel {
         case header(_ imageUrl: String)
         case info(_ model: HGroupChatEditModel)
     }
+    
     private(set) var conv: WFCCConversation
     private var groupInfo = HGroupInfo(info: .init())
+    
     init(conv: WFCCConversation) {
         self.conv = conv
+        loadData()
+    }
+    
+    func loadData() {
         let info = WFCCIMService.sharedWFCIM().getGroupInfo(conv.target, refresh: false) ?? .init()
         self.groupInfo = .init(info: info)
         applySnapshot()
@@ -46,8 +52,6 @@ class HGroupChatEditViewModel: HBasicViewModel {
     func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections([.header, .info, .section, .section1])
-        
-        
         
         let info = [
             HGroupChatEditModel(icon: Images.icon_logo, value: groupInfo.displayName, title: "群名称", category: .name),
@@ -73,4 +77,33 @@ class HGroupChatEditViewModel: HBasicViewModel {
         self.snapshot = snapshot
     }
     
+    func uploadAvatar(_ image: UIImage) {
+        guard let thumbImage = WFCUUtilities.thumbnail(with: image, maxSize: .init(width: 600, height: 600)), let data = thumbImage.jpegData(compressionQuality: 1) else {
+            return
+        }
+        
+        let hud = HToast.showLoading("头像上传中...")
+        WFCCIMService.sharedWFCIM().uploadMedia(nil, mediaData: data, mediaType: .Media_Type_PORTRAIT) { [weak self] portrait in
+            hud?.hide(animated: true)
+            if let portrait {
+                self?.modifyAvatar(portrait)
+            } else {
+                HToast.showTipAutoHidden(text: "头像上传失败")
+            }
+        } progress: { _ , _  in } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "头像上传失败")
+        }
+    }
+    
+    func modifyAvatar(_ portrait: String) {
+        let hud = HToast.showLoading("头像上传中...")
+        WFCCIMService.sharedWFCIM().modifyGroupInfo(groupInfo.target, type: .group_Portrait, newValue: portrait, notifyLines: [.init(value: 0)], notify: nil) {
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "修改成功")
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "头像上传失败")
+        }
+    }
 }
