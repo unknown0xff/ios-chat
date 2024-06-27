@@ -86,7 +86,7 @@ class HCreateGroupConfirmViewModel: HBasicViewModel {
     
     private func invite(_ portrait: String?, success: @escaping ((String)->Void)) {
         let hud = HToast.showLoading("邀请中...")
-        var memberIds = members.map { $0.userId }
+        var memberIds = members.map { $0.userInfo.userId }
         let currentUserId = WFCCNetworkService.sharedInstance().userId ?? ""
         if !memberIds.contains(currentUserId) {
             memberIds.insert(currentUserId, at: 0)

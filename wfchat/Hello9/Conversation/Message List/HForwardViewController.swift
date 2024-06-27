@@ -18,7 +18,7 @@ class HForwardViewController: HSelectedFriendViewController {
         if let messages, !messages.isEmpty {
             let conv = WFCCConversation()
             conv.type = .Single_Type
-            conv.target = user.userId
+            conv.target = user.userInfo.userId
             conv.line = 0
             for msg in messages {
                 WFCCIMService.sharedWFCIM().send(conv, content: msg.content) { _, _ in } error: { _ in }

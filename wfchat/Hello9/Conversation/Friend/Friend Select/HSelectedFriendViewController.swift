@@ -129,7 +129,7 @@ extension HSelectedFriendViewController {
     @objc func didClickFinishButton(_ sender: UIButton) {
         dismiss(animated: true) {
             if let onFinish = self.onFinish {
-                onFinish(self.viewModel.selectedItems.map { $0.userId })
+                onFinish(self.viewModel.selectedItems.map { $0.userInfo.userId })
             }
         }
     }

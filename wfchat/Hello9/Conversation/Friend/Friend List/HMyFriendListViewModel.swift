@@ -8,19 +8,15 @@
 
 struct HMyFriendListModel: Hashable {
     
-    var portrait: URL?
     var isSelected: Bool
-    var dispalyName: String
-    var userId: String
     var isInGroup: Bool = false
-    
     var enableMutiSelected: Bool = false
+    
+    var userInfo: HUserInfoModel
     
     init(userInfo: WFCCUserInfo, isSelected: Bool = false) {
         self.isSelected = isSelected
-        self.portrait = .init(string: userInfo.portrait ?? "")
-        self.dispalyName = userInfo.displayName ?? ""
-        self.userId = userInfo.userId ?? ""
+        self.userInfo = .init(info: userInfo)
     }
 }
 
@@ -72,7 +68,7 @@ class HMyFriendListViewModel: HBasicViewModel {
     }
     
     func selectedItem(item: HMyFriendListModel) {
-        let contain = selectedItems.contains(where: { $0.userId == item.userId })
+        let contain = selectedItems.contains(where: { $0.userInfo.userId == item.userInfo.userId })
         if contain { return }
         
         var m = item
@@ -80,7 +76,7 @@ class HMyFriendListViewModel: HBasicViewModel {
         m.enableMutiSelected = enableMutiSelected
         selectedItems.append(m)
         
-        if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
+        if let index = friends.firstIndex(where: { $0.userInfo.userId == item.userInfo.userId }) {
             friends[index].isSelected = true
         }
         
@@ -91,18 +87,18 @@ class HMyFriendListViewModel: HBasicViewModel {
         
         let isSelected = item.isSelected
         if isSelected {
-            selectedItems.removeAll { $0.userId == item.userId }
+            selectedItems.removeAll { $0.userInfo.userId == item.userInfo.userId }
         } else {
             var m = item
             m.isSelected = true
             selectedItems.append(m)
         }
         
-        if let index = friends.firstIndex(where: { $0.userId == item.userId }) {
+        if let index = friends.firstIndex(where: { $0.userInfo.userId == item.userInfo.userId }) {
             friends[index].isSelected.toggle()
         }
         
-        if let index = searchFriends.firstIndex(where: { $0.userId == item.userId }) {
+        if let index = searchFriends.firstIndex(where: { $0.userInfo.userId == item.userInfo.userId }) {
             searchFriends[index].isSelected.toggle()
         }
         

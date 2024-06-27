@@ -108,6 +108,6 @@ class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel
         guard let data else {
             return
         }
-        avatar.sd_setImage(with: data.portrait, placeholderImage: Images.icon_logo)
+        avatar.sd_setImage(with: data.userInfo.portrait, placeholderImage: Images.icon_logo)
     }
 }

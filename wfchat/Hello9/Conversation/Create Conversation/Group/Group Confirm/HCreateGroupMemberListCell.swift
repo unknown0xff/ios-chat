@@ -69,8 +69,8 @@ class HCreateGroupMemberListCell: HBasicCollectionViewCell<HMyFriendListModel> {
         editIcon.image = nil
         
         
-        icon.sd_setImage(with: data.portrait, placeholderImage: Images.icon_logo)
-        titleLabel.text = data.dispalyName
+        icon.sd_setImage(with: data.userInfo.portrait, placeholderImage: Images.icon_logo)
+        titleLabel.text = data.userInfo.title
     }
 }
 

@@ -68,7 +68,6 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
             avatar.image = Images.icon_add
             nameLabel.text = "邀请新成员"
             typeLabel.text = ""
-            
             avatar.contentMode = .center
             return
         }
@@ -77,7 +76,7 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
         let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(data.memberId, inGroup: data.groupId, refresh: false) ?? .init()
         let userInfoModel = HUserInfoModel(info: userInfo)
         
-        nameLabel.text = userInfoModel.displayName
+        nameLabel.text = userInfoModel.title
         avatar.sd_setImage(with: userInfoModel.portrait, placeholderImage: Images.icon_logo)
         
         if data.type == .Member_Type_Owner {

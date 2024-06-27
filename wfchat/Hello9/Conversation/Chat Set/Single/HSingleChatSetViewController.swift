@@ -220,10 +220,6 @@ class HSingleChatSetViewController: HBaseViewController {
             }
         }
         
-        let removeFriend = UIAction(title: "删除好友", image: Images.icon_menu_clear, attributes: .destructive) { [weak self] _ in
-            self?.removeFriend()
-        }
-        
         let subMenu = UIMenu(title: "", options: .displayInline, children: [blackList])
         let menu = UIMenu(title: "", children: [voice, share, autoDel, clearHistory, subMenu])
         return menu

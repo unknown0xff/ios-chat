@@ -151,6 +151,11 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
             collectionView.setContentOffset(current, animated: true)
         }
     }
+    
+    func goToMemeberEditViewController() {
+        let vc = HGroupEditMemberViewController(conv: viewModel.conv)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HGroupChatEditViewController: UITextFieldDelegate {
@@ -160,7 +165,7 @@ extension HGroupChatEditViewController: UITextFieldDelegate {
     }
     
     @objc func didTextFieldValueChange(_ textField: HTextField) {
-        guard let indexPath = textField.indexPath, let section = Section(rawValue: indexPath.section) else {
+        guard let indexPath = textField.indexPath else {
             return
         }
         let text = textField.text ?? ""
@@ -210,7 +215,10 @@ extension HGroupChatEditViewController: UITextFieldDelegate {
         switch item {
         case .header(_):
             showImagePicker()
-        case .info(_):
+        case .info(let model):
+            if model.category == .member {
+                goToMemeberEditViewController()
+            }
             break
         }
     }

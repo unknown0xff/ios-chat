@@ -78,7 +78,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
     }
     
     private func goToCreateSingleConv() {
-        let userIds = viewModel.selectedItems.map { $0.userId }
+        let userIds = viewModel.selectedItems.map { $0.userInfo.userId }
         let conversation = WFCCConversation(type: .Single_Type, target: userIds.first!, line: 0)!
         let mvc = HMessageListViewController()
         mvc.conversation = conversation
