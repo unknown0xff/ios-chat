@@ -72,6 +72,6 @@ class HMineAvatarCell: HBasicCollectionViewCell<HUserInfoModel> {
     override func bindData(_ data: HUserInfoModel?) {
         userNameLabel.text = data?.displayName
         userIdLabel.text = "Hello ID：\(data?.name ?? "")"
-        avatar.sd_setImage(with: data?.portrait, placeholderImage: Images.icon_logo, context: nil)
+        avatar.sd_setImage(with: data?.portrait, placeholderImage: avatar.image ?? Images.icon_logo)
     }
 }

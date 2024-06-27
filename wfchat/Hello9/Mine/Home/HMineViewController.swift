@@ -53,10 +53,7 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     
     private func configureDataSource() {
         
-        let avatarCell = UICollectionView.CellRegistration<HMineAvatarCell, HUserInfoModel> { (cell, indexPath, model) in
-            cell.indexPath = indexPath
-            cell.cellData = model
-        }
+        let avatarCell = UICollectionView.CellRegistration<HMineAvatarCell, HUserInfoModel>.build()
         
         let listCell = UICollectionView.CellRegistration<HMineListCell, HMineListCellModel> { (cell, indexPath, model) in
             cell.indexPath = indexPath

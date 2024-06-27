@@ -77,7 +77,7 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
         let userInfoModel = HUserInfoModel(info: userInfo)
         
         nameLabel.text = userInfoModel.title
-        avatar.sd_setImage(with: userInfoModel.portrait, placeholderImage: Images.icon_logo)
+        avatar.sd_setImage(with: userInfoModel.portrait, placeholderImage: Images.icon_logo, options: [.queryDiskDataSync])
         
         if data.type == .Member_Type_Owner {
             typeLabel.text = "创建者"

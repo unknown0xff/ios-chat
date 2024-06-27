@@ -42,9 +42,6 @@ class HMineViewModel: HBasicViewModel {
     }
     
     init() {
-        NotificationCenter.default.addObserver(forName: .init(kUserInfoUpdated), object: self, queue: .main) { [weak self] _ in
-            self?.onUserInfoUpdated()
-        }
         applySnapshot()
     }
     

@@ -23,12 +23,7 @@ class HGroupChatSetViewModel: HBasicViewModel {
     
     init(_ conv: WFCCConversation) {
         self.conv = conv
-        
         loadData()
-        
-        NotificationCenter.default.addObserver(forName: .init(kGroupMemberUpdated), object: nil, queue: nil) { [weak self] noti in
-            self?.loadData()
-        }
     }
     
     func loadData() {
