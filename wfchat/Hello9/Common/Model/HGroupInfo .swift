@@ -16,7 +16,12 @@ struct HGroupInfo: Hashable {
     var memberCount: UInt
     var portrait: URL?
     var owner: String
-    var groupExtra: String
+    var groupExtra: [String: String]
+    
+    var extra: String {
+        let data = (try? JSONEncoder().encode(groupExtra)) ?? .init()
+        return String(data: data, encoding: .utf8) ?? ""
+    }
     
     init(info: WFCCGroupInfo) {
         target = info.target ?? ""
@@ -30,12 +35,17 @@ struct HGroupInfo: Hashable {
         memberCount = info.memberCount
         owner = info.owner ?? ""
         
-        groupExtra = info.extra ?? ""
+        let extra = info.extra ?? ""
+        groupExtra = (try? JSONDecoder().decode([String:String].self, from: extra.data(using: .utf8) ?? .init())) ?? .init()
     }
     
     var desc: String {
-        let dic = (try? JSONDecoder().decode([String:String].self, from: groupExtra.data(using: .utf8) ?? .init())) ?? .init()
-        return dic["desc", default: "暂无"]
+        get {
+            return groupExtra["desc", default: ""]
+        }
+        set {
+            groupExtra["desc"] = newValue
+        }
     }
 }
 

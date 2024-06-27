@@ -35,12 +35,23 @@ class HGroupChatEditViewModel: HBasicViewModel {
         case info(_ model: HGroupChatEditModel)
     }
     
+    @Published var groupInfoChanged: Bool = false
+    
     private(set) var conv: WFCCConversation
     private var groupInfo = HGroupInfo(info: .init())
+    
+    var newGroupInfo = HGroupInfo(info: .init()) {
+        didSet {
+            let same = newGroupInfo.displayName == groupInfo.displayName &&
+                    newGroupInfo.desc == groupInfo.desc
+            groupInfoChanged = !same
+        }
+    }
     
     init(conv: WFCCConversation) {
         self.conv = conv
         loadData()
+        newGroupInfo = groupInfo
     }
     
     func loadData() {
@@ -78,7 +89,7 @@ class HGroupChatEditViewModel: HBasicViewModel {
     }
     
     func uploadAvatar(_ image: UIImage) {
-        guard let thumbImage = WFCUUtilities.thumbnail(with: image, maxSize: .init(width: 600, height: 600)), let data = thumbImage.jpegData(compressionQuality: 1) else {
+        guard let thumbImage = WFCUUtilities.thumbnail(with: image, maxSize: .init(width: 600, height: 600)), let data = thumbImage.jpegData(compressionQuality: 0.8) else {
             return
         }
         
@@ -104,6 +115,25 @@ class HGroupChatEditViewModel: HBasicViewModel {
         } error: { _ in
             hud?.hide(animated: true)
             HToast.showTipAutoHidden(text: "头像上传失败")
+        }
+    }
+    
+    func modifyGroupInfo() {
+        let hud = HToast.showLoading("保存中...")
+        let name = newGroupInfo.displayName
+        let extra = newGroupInfo.extra
+        let target = groupInfo.target
+        WFCCIMService.sharedWFCIM().modifyGroupInfo(target, type: .group_Name, newValue: name, notifyLines: [.init(value: 0)], notify: nil) {
+            WFCCIMService.sharedWFCIM().modifyGroupInfo(target, type: .group_Extra, newValue: extra, notifyLines: [.init(value: 0)], notify: nil) {
+                hud?.hide(animated: true)
+                HToast.showTipAutoHidden(text: "修改成功")
+            } error: { _ in
+                hud?.hide(animated: true)
+                HToast.showTipAutoHidden(text: "修改失败")
+            }
+        } error: { _ in
+            hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "修改失败")
         }
     }
 }

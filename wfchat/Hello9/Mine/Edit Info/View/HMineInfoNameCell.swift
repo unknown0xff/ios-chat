@@ -8,10 +8,6 @@
 
 import Foundation
 
-class HTextField: UITextField {
-    var indexPath: IndexPath?
-}
-
 class HMineInfoNameCell: HBasicCollectionViewCell<String> {
     
     private(set) lazy var textField: HTextField = {

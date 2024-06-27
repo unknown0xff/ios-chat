@@ -41,6 +41,8 @@
 		206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */; };
 		206631532C2D2EEC0009CBCA /* HQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631522C2D2EEC0009CBCA /* HQRCodeViewController.swift */; };
 		206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 206631552C2D4A140009CBCA /* ZLPhotoBrowser */; };
+		206631582C2D52B90009CBCA /* HTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631572C2D52B90009CBCA /* HTextField.swift */; };
+		2066315A2C2D53060009CBCA /* HGroupChatEditInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631592C2D53060009CBCA /* HGroupChatEditInputCell.swift */; };
 		2067A0872C2BA73800BA3F09 /* HFriendInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */; };
 		2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */; };
 		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
@@ -363,6 +365,8 @@
 		2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoSocialCell.swift; sourceTree = "<group>"; };
 		2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoDescCell.swift; sourceTree = "<group>"; };
 		206631522C2D2EEC0009CBCA /* HQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQRCodeViewController.swift; sourceTree = "<group>"; };
+		206631572C2D52B90009CBCA /* HTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextField.swift; sourceTree = "<group>"; };
+		206631592C2D53060009CBCA /* HGroupChatEditInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupChatEditInputCell.swift; sourceTree = "<group>"; };
 		2067A0862C2BA73800BA3F09 /* HFriendInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditViewController.swift; sourceTree = "<group>"; };
 		2067A0882C2BADE200BA3F09 /* HCommonTextFieldContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCommonTextFieldContentView.swift; sourceTree = "<group>"; };
 		2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFriendInfoEditAliasCell.swift; sourceTree = "<group>"; };
@@ -1317,6 +1321,7 @@
 				207037762C1FED1E000DEC5E /* UIView+Extension.swift */,
 				205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */,
 				2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */,
+				206631572C2D52B90009CBCA /* HTextField.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1555,6 +1560,7 @@
 				60A3F7CD2C1C62A800F855A2 /* HGroupChatEditListCell.swift */,
 				60A3F7CF2C1C797B00F855A2 /* HGroupChatEditViewModel.swift */,
 				60A3F7D12C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift */,
+				206631592C2D53060009CBCA /* HGroupChatEditInputCell.swift */,
 			);
 			path = "Group Edit";
 			sourceTree = "<group>";
@@ -2077,6 +2083,7 @@
 				2F4B0EAA245BFCE7000A41C6 /* DeviceTableViewController.m in Sources */,
 				607F95892C12ECF300648BFF /* HVerifyCodeViewController.swift in Sources */,
 				2F94FAB224551D82007713CD /* DeviceViewController.m in Sources */,
+				2066315A2C2D53060009CBCA /* HGroupChatEditInputCell.swift in Sources */,
 				206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */,
 				607F958E2C12FCBD00648BFF /* HResetPasswordViewController.swift in Sources */,
 				607F95972C146B5200648BFF /* HUnreadView.swift in Sources */,
@@ -2104,6 +2111,7 @@
 				6088F4962C0F2FE300130A87 /* HFriendAddViewController.swift in Sources */,
 				B78DD43828167D1E009589F7 /* WFCCallKitManager.m in Sources */,
 				2E1D20D91FAF127100F4405D /* DiscoverViewController.m in Sources */,
+				206631582C2D52B90009CBCA /* HTextField.swift in Sources */,
 				60A3F7D52C1D2B2500F855A2 /* HCollectionViewListCell.swift in Sources */,
 				60922A802C0767C600B70AD8 /* HMineAvatarCell.swift in Sources */,
 				60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */,
