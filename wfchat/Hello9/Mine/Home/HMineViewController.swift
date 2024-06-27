@@ -150,7 +150,8 @@ extension HMineViewController: PHPickerViewControllerDelegate {
 
 extension HMineViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        collectionView.asyncDeselectItem(at: indexPath)
+        
         guard let section = Section(rawValue: indexPath.section) else {
             return
         }

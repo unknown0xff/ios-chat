@@ -102,4 +102,10 @@ extension UICollectionView {
     func register<T: UICollectionViewCell>(_ cell: T.Type) {
         register(cell, forCellWithReuseIdentifier: cell.reuseIdentifier)
     }
+    
+    func asyncDeselectItem(at indexPath: IndexPath, animated: Bool = true) {
+        DispatchQueue.main.async {
+            self.deselectItem(at: indexPath, animated: animated)
+        }
+    }
 }
