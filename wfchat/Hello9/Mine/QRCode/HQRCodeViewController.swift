@@ -18,9 +18,9 @@ class HQRCodeViewController: HBaseViewController {
     let type: QRType
     var qrString: String {
         if type == .group {
-            return "hello9://group/\(target)"
+            return HAppScheme.group(target).rawValue
         } else {
-            return "hello9://user/\(target)"
+            return HAppScheme.user(target).rawValue
         }
     }
     

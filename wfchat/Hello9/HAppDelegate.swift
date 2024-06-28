@@ -70,6 +70,7 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        HRouter.openPage(url)
         return true
     }
     
@@ -101,5 +102,16 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
         }
         
         completionHandler()
+    }
+}
+
+extension UIApplication {
+    
+    @discardableResult
+    static func open(url: URL?) -> Bool {
+        guard let url else {
+            return false
+        }
+        return shared.delegate?.application?(shared, open: url, options: [:]) ?? false
     }
 }

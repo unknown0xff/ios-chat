@@ -59,6 +59,8 @@ class HCreateConversationViewController: HMyFriendListViewController {
         
         tableView.tableHeaderView = headerView
         navBar.titleLabel.text = "发起会话"
+        
+        navBar.rightBarButtonItem = .init(image: Images.icon_scan, style: .done, target: self, action: #selector(didClickScanBarButton(_:)))
     }
     
     @objc override func didClickSearchButton(_ sender: UIButton) {
@@ -71,6 +73,10 @@ class HCreateConversationViewController: HMyFriendListViewController {
     
     @objc func didClickNormalGroupButton(_ sender: UIButton) {
         goToCreateGroup(isSecrect: false)
+    }
+    
+    @objc func didClickScanBarButton(_ sender: UIBarButtonItem) {
+        navigationController?.pushViewController(HScanViewController(), animated: true)
     }
     
     @objc func didClickAddFriendButton(_ sender: UIButton) {

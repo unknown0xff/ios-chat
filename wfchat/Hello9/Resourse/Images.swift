@@ -22,6 +22,8 @@ enum Images {
 
     static let icon_back01 = UIImage(named: "icon_back01")!
 
+    static let icon_back_white = UIImage(named: "icon_back_white")!
+
     static let icon_background = UIImage(named: "icon_background")!
 
     static let icon_background_gray = UIImage(named: "icon_background_gray")!
@@ -184,11 +186,17 @@ enum Images {
 
     static let icon_phone_black = UIImage(named: "icon_phone_black")!
 
+    static let icon_photo_plus = UIImage(named: "icon_photo_plus")!
+
     static let icon_qr_code = UIImage(named: "icon_qr_code")!
 
     static let icon_recent = UIImage(named: "icon_recent")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
+
+    static let icon_scan = UIImage(named: "icon_scan")!
+
+    static let icon_scan_bar = UIImage(named: "icon_scan_bar")!
 
     static let icon_search = UIImage(named: "icon_search")!
 

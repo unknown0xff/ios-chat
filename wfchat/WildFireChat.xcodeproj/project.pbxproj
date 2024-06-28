@@ -51,6 +51,10 @@
 		2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */; };
 		2067A0932C2C44D600BA3F09 /* HTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0922C2C44D600BA3F09 /* HTextView.m */; };
 		206FD0542C2E5DD000461F5C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 206FD0532C2E5DD000461F5C /* Kingfisher */; };
+		206FD0592C2E85DD00461F5C /* HScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD0582C2E85DD00461F5C /* HScanViewController.swift */; };
+		206FD05E2C2E91C900461F5C /* HAppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD05D2C2E91C900461F5C /* HAppScheme.swift */; };
+		206FD0612C2E943E00461F5C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 206FD0602C2E943E00461F5C /* Alamofire */; };
+		206FD0632C2E997A00461F5C /* HRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD0622C2E997A00461F5C /* HRouter.swift */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -378,6 +382,9 @@
 		2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		2067A0912C2C44D600BA3F09 /* HTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTextView.h; sourceTree = "<group>"; };
 		2067A0922C2C44D600BA3F09 /* HTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTextView.m; sourceTree = "<group>"; };
+		206FD0582C2E85DD00461F5C /* HScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScanViewController.swift; sourceTree = "<group>"; };
+		206FD05D2C2E91C900461F5C /* HAppScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAppScheme.swift; sourceTree = "<group>"; };
+		206FD0622C2E997A00461F5C /* HRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRouter.swift; sourceTree = "<group>"; };
 		207037762C1FED1E000DEC5E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
@@ -716,6 +723,7 @@
 				9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */,
 				9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */,
 				601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */,
+				206FD0612C2E943E00461F5C /* Alamofire in Frameworks */,
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
@@ -903,6 +911,23 @@
 				2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		206FD0552C2E82D800461F5C /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				206FD0582C2E85DD00461F5C /* HScanViewController.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		206FD05C2C2E91BE00461F5C /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				206FD0622C2E997A00461F5C /* HRouter.swift */,
+				206FD05D2C2E91C900461F5C /* HAppScheme.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
@@ -1450,6 +1475,7 @@
 		6088F4942C0F2F6B00130A87 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				206FD0552C2E82D800461F5C /* Scan */,
 				2067A0852C2BA6F700BA3F09 /* Friend Detail */,
 				206309C92C2A503300BED49A /* Friend Select */,
 				60A3F7D62C2008A900F855A2 /* Friend List */,
@@ -1505,6 +1531,7 @@
 				60F5CF8B2C0AF3CB0013D912 /* Model */,
 				607F95762C12995200648BFF /* HNavigationBar.swift */,
 				607F95962C146B5200648BFF /* HUnreadView.swift */,
+				206FD05C2C2E91BE00461F5C /* Router */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1836,6 +1863,7 @@
 				60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */,
 				206631552C2D4A140009CBCA /* ZLPhotoBrowser */,
 				206FD0532C2E5DD000461F5C /* Kingfisher */,
+				206FD0602C2E943E00461F5C /* Alamofire */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -1949,6 +1977,7 @@
 				60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2063,6 +2092,7 @@
 				607F95902C13292300648BFF /* HResetPasswordViewModel.swift in Sources */,
 				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
 				2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */,
+				206FD05E2C2E91C900461F5C /* HAppScheme.swift in Sources */,
 				207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */,
 				206631532C2D2EEC0009CBCA /* HQRCodeViewController.swift in Sources */,
 				2F638928254E7D8A0084EEA6 /* WFCFavoriteBaseCell.m in Sources */,
@@ -2074,6 +2104,7 @@
 				6012464E2C058C6D00635523 /* HTabBarItemView.swift in Sources */,
 				601246612C05F80000635523 /* HLoginViewModel.swift in Sources */,
 				B7CB3A93289BD66C00E9D688 /* WFCChangePasswordViewController.m in Sources */,
+				206FD0632C2E997A00461F5C /* HRouter.swift in Sources */,
 				2F50BE84237970780049CD39 /* WFCDiagnoseViewController.m in Sources */,
 				60F5CF842C0AB0E20013D912 /* HCreateGroupViewController.swift in Sources */,
 				206631612C2D77640009CBCA /* HGroupEditMemberViewModel.swift in Sources */,
@@ -2161,6 +2192,7 @@
 				206309DC2C2AC7A700BED49A /* HMessageTopView.swift in Sources */,
 				607F958B2C12F22200648BFF /* HCountDownButton.swift in Sources */,
 				204B7DFB2C21164300459C7A /* HCreateGroupConfirmHeadCell.swift in Sources */,
+				206FD0592C2E85DD00461F5C /* HScanViewController.swift in Sources */,
 				60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */,
 				60922A902C0831CC00B70AD8 /* HUIConfigure.m in Sources */,
 				2F638922254E5A7E0084EEA6 /* WFCFavoriteTableViewController.m in Sources */,
@@ -2792,6 +2824,14 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2841,6 +2881,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		206FD0602C2E943E00461F5C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

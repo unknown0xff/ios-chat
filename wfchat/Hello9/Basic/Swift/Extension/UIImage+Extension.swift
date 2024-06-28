@@ -51,4 +51,22 @@ extension UIImage {
         
         return UIImage(ciImage: transformedImage)
     }
+    
+    func detectQRCode() -> [String] {
+        guard let ciImage = CIImage(image: self) else { return [] }
+        
+        let context = CIContext()
+        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+        guard let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options) else { return [] }
+        
+        let features = qrDetector.features(in: ciImage)
+        
+        var qrCodeStrings = [String]()
+        for feature in features as! [CIQRCodeFeature] {
+            if let messageString = feature.messageString {
+                qrCodeStrings.append(messageString)
+            }
+        }
+        return qrCodeStrings
+    }
 }
