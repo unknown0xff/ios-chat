@@ -8,14 +8,14 @@
 
 class HChatSearchViewController: WFCUConversationSearchTableViewController, HNavigationBarTransitionDelegate {
     
-    override func go(to conv: WFCCConversation!, messgeId messageId: Int) {
+    override func go(to conv: WFCCConversation, messgeId messageId: Int) {
         let vc = HMessageListViewController()
         
         vc.conversation = conv
         vc.highlightMessageId = messageId
         vc.highlightText = keyword
         vc.multiSelecting = messageSelecting
-        vc.selectedMessageIds = selectedMessageIds
+        vc.selectedMessageIds = selectedMessageIds ?? .init()
         navigationController?.pushViewController(vc, animated: true)
     }
     
