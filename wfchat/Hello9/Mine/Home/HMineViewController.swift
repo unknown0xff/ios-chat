@@ -131,15 +131,15 @@ extension HMineViewController: PHPickerViewControllerDelegate {
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        
-        guard !results.isEmpty else { return }
-        let itemProvider = results.first!.itemProvider
-        if itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                DispatchQueue.main.async {
-                    if let selectedImage = image as? UIImage {
-                        self.viewModel.uploadAvatar(selectedImage)
+        picker.dismiss(animated: true) {
+            guard !results.isEmpty else { return }
+            let itemProvider = results.first!.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    DispatchQueue.main.async {
+                        if let selectedImage = image as? UIImage {
+                            self.viewModel.uploadAvatar(selectedImage)
+                        }
                     }
                 }
             }
