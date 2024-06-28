@@ -6,8 +6,6 @@
 //  Copyright © 2024 Hello9. All rights reserved.
 //
 
-import PhotosUI
-
 class HScanViewController: HBaseViewController {
     
     private var hasInitSession: Bool = false
@@ -64,7 +62,11 @@ class HScanViewController: HBaseViewController {
     }
     
     @objc func didClickAlbumBarButton(_ sender: UIBarButtonItem) {
-        showImagePicker()
+        HTakePhotoManager.showPhotoPicker(onlyPhoto: true, enableEdit: false) { [weak self] images in
+            if !images.isEmpty {
+                self?.detectQRCode(image: images.first!)
+            }
+        }
     }
 }
 
@@ -75,37 +77,6 @@ extension HScanViewController: AVCaptureMetadataOutputObjectsDelegate {
                 return
             }
             finishScan(metadataObject.stringValue ?? "")
-        }
-    }
-}
-
-extension HScanViewController: PHPickerViewControllerDelegate {
-
-    func showImagePicker() {
-        var config = PHPickerConfiguration()
-        config.selectionLimit = 1
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true) {
-            guard !results.isEmpty else { return }
-            let itemProvider = results.first!.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                    DispatchQueue.main.async {
-                        if let selectedImage = image as? UIImage {
-                            self.detectQRCode(image: selectedImage)
-                        } else {
-                            HToast.showTipAutoHidden(text: "二维码识别失败")
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -6,9 +6,6 @@
 //  Copyright © 2024 Hello9. All rights reserved.
 //
 
-
-import PhotosUI
-
 import UIKit
 import Combine
 
@@ -118,30 +115,12 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
     }
 }
 
-extension HMineViewController: PHPickerViewControllerDelegate {
+extension HMineViewController {
 
     func showImagePicker() {
-        var config = PHPickerConfiguration()
-        config.selectionLimit = 1
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true) {
-            guard !results.isEmpty else { return }
-            let itemProvider = results.first!.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                    DispatchQueue.main.async {
-                        if let selectedImage = image as? UIImage {
-                            self.viewModel.uploadAvatar(selectedImage)
-                        }
-                    }
-                }
+        HTakePhotoManager.showPhotoPicker() { [weak self] images in
+            if !images.isEmpty {
+                self?.viewModel.uploadAvatar(images.first!)
             }
         }
     }

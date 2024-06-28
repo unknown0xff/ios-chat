@@ -8,9 +8,8 @@
 
 import UIKit
 import Combine
-import PhotosUI
 
-class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDelegate, HCreateGroupInputCellDelegate, PHPickerViewControllerDelegate {
+class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDelegate, HCreateGroupInputCellDelegate {
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -149,13 +148,11 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
     }
     
     func showImagePicker() {
-        var config = PHPickerConfiguration()
-        config.selectionLimit = 1
-        config.filter = .images
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-        present(picker, animated: true)
+        HTakePhotoManager.showPhotoPicker() { [weak self] images in
+            if !images.isEmpty {
+                self?.viewModel.uploadImage(images.first!)
+            }
+        }
     }
     
     func createConversation(_ groupId: String) {
@@ -179,22 +176,6 @@ extension HCreateGroupConfirmViewController {
         collectionView.deselectItem(at: indexPath, animated: false)
         if let section = Section(rawValue: indexPath.section), section == .avatar {
             showImagePicker()
-        }
-    }
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true) {
-            guard !results.isEmpty else { return }
-            let itemProvider = results.first!.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                    DispatchQueue.main.async {
-                        if let selectedImage = image as? UIImage {
-                            self.viewModel.uploadImage(selectedImage)
-                        }
-                    }
-                }
-            }
         }
     }
 }
