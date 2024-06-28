@@ -345,10 +345,14 @@ private extension UIViewController {
     
     var isChildController: Bool? {
         get {
-            objc_getAssociatedObject(self, &kIsChildController) as? Bool
+            withUnsafePointer(to: &kIsChildController) { 
+                return objc_getAssociatedObject(self, $0) as? Bool
+            }
         }
         set {
-            objc_setAssociatedObject(self, &kIsChildController, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            withUnsafePointer(to: &kIsChildController) {
+                objc_setAssociatedObject(self, $0, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            }
         }
     }
 }
