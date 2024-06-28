@@ -23,11 +23,13 @@ struct HMineListCellModel: Hashable {
     let tag: Tag
 }
 
-class HMineViewModel: HBasicViewModel {
+class HMineViewModel: HBaseViewModel {
     
-    @Published private(set) var snapshot = NSDiffableDataSourceSnapshot<Section, Row>.init()
+    @Published private(set) var dataSource: (snapshot: NSDiffableDataSourceSnapshot<Section, Row>, animated: Bool)
+     = (Snapshot(), false)
     
     private(set) var avatarModel = HUserInfoModel.current
+    private var newImage: UIImage?
     
     enum Section: Int, CaseIterable {
         case header
@@ -45,7 +47,7 @@ class HMineViewModel: HBasicViewModel {
         applySnapshot()
     }
     
-    func applySnapshot() {
+    func applySnapshot(animated: Bool = false) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
         snapshot.appendSections(Section.allCases)
         
@@ -65,10 +67,11 @@ class HMineViewModel: HBasicViewModel {
             .list(.init(title: "数据和储存", image: Images.icon_securty_green, tag: .data))
         ], toSection: .other)
         
-        self.snapshot = snapshot
+        dataSource = (snapshot, animated)
     }
     
     func uploadAvatar(_ image: UIImage) {
+        newImage = nil
         guard let thumbImage = WFCUUtilities.thumbnail(with: image, maxSize: .init(width: 600, height: 600)), let data = thumbImage.jpegData(compressionQuality: 1) else {
             return
         }
@@ -77,7 +80,14 @@ class HMineViewModel: HBasicViewModel {
         WFCCIMService.sharedWFCIM().uploadMedia(nil, mediaData: data, mediaType: .Media_Type_PORTRAIT) { [weak self] portrait in
             hud?.hide(animated: true)
             if let portrait {
-                self?.modifyAvatar(portrait)
+                WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: ModifyMyInfoType.portrait.rawValue) : portrait ]) {
+                    hud?.hide(animated: true)
+                    self?.newImage = thumbImage
+                    HToast.showTipAutoHidden(text: "修改成功")
+                } error: { _ in
+                    hud?.hide(animated: true)
+                    HToast.showTipAutoHidden(text: "头像上传失败")
+                }
             } else {
                 HToast.showTipAutoHidden(text: "头像上传失败")
             }
@@ -87,19 +97,9 @@ class HMineViewModel: HBasicViewModel {
         }
     }
     
-    func modifyAvatar(_ portrait: String) {
-        let hud = HToast.showLoading("头像上传中...")
-        WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: ModifyMyInfoType.portrait.rawValue) : portrait ]) {
-            hud?.hide(animated: true)
-            HToast.showTipAutoHidden(text: "修改成功")
-        } error: { _ in
-            hud?.hide(animated: true)
-            HToast.showTipAutoHidden(text: "头像上传失败")
-        }
-    }
-    
     func onUserInfoUpdated() {
         avatarModel = HUserInfoModel.current
-        applySnapshot()
+        avatarModel.image = newImage
+        applySnapshot(animated: true)
     }
 }

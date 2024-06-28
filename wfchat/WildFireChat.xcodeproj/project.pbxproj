@@ -50,6 +50,7 @@
 		2067A08B2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08A2C2BB0DA00BA3F09 /* HFriendInfoEditAliasCell.swift */; };
 		2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */; };
 		2067A0932C2C44D600BA3F09 /* HTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0922C2C44D600BA3F09 /* HTextView.m */; };
+		206FD0542C2E5DD000461F5C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 206FD0532C2E5DD000461F5C /* Kingfisher */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
@@ -704,6 +705,7 @@
 				B75D816A2782CEB5009D4A19 /* WebRTC.xcframework in Frameworks */,
 				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
 				905177522243CDA60020A2AC /* libc++.tbd in Frameworks */,
+				206FD0542C2E5DD000461F5C /* Kingfisher in Frameworks */,
 				2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */,
 				60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */,
 				60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */,
@@ -1833,6 +1835,7 @@
 				60A3F7A12C1A88A400F855A2 /* SDWebImage */,
 				60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */,
 				206631552C2D4A140009CBCA /* ZLPhotoBrowser */,
+				206FD0532C2E5DD000461F5C /* Kingfisher */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -1945,6 +1948,7 @@
 				6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
+				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2780,6 +2784,14 @@
 				minimumVersion = 4.5.3;
 			};
 		};
+		206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2824,6 +2836,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
+		};
+		206FD0532C2E5DD000461F5C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

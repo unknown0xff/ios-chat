@@ -34,9 +34,9 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
         configureNavBar()
         configureDataSource()
         
-        viewModel.$snapshot.receive(on: RunLoop.main)
-            .sink { [weak self] snapshot in
-                self?.dataSource.apply(snapshot, animatingDifferences: false)
+        viewModel.$dataSource.receive(on: RunLoop.main)
+            .sink { [weak self] dataSource in
+                self?.dataSource.apply(dataSource.snapshot, animatingDifferences: dataSource.animated)
             }
             .store(in: &cancellables)
         view.addSubview(collectionView)

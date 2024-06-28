@@ -8,7 +8,7 @@
 
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 class HMineAvatarCell: HBasicCollectionViewCell<HUserInfoModel> {
     private let kAvatarHeight = 102.0
@@ -72,6 +72,10 @@ class HMineAvatarCell: HBasicCollectionViewCell<HUserInfoModel> {
     override func bindData(_ data: HUserInfoModel?) {
         userNameLabel.text = data?.displayName
         userIdLabel.text = "Hello ID：\(data?.name ?? "")"
-        avatar.sd_setImage(with: data?.portrait, placeholderImage: avatar.image ?? Images.icon_logo)
+        if let image = data?.image  {
+            avatar.image = image
+        } else {
+            avatar.kf.setImage(with: data?.portrait, placeholder: Images.icon_logo)
+        }
     }
 }
