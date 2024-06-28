@@ -18,6 +18,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .init(top: 0, left: 73, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: 0, left: 0, bottom: HUIConfigure.safeBottomMargin, right: 0)
         return tableView
     }()
     
@@ -33,7 +34,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     
     private typealias Section = HMyFriendListViewModel.Section
     private typealias Row = HMyFriendListViewModel.Row
-    private var dataSource: HMyFriendListDataSource! = nil
+    private(set) var dataSource: HMyFriendListDataSource! = nil
     
     var cancellables = Set<AnyCancellable>()
     var viewModel = HMyFriendListViewModel()
@@ -50,8 +51,6 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         tableView.register([HMyFriendListCell.self])
         
         dataSource = .init(tableView: tableView, cellProvider: cellProvider())
-        
-        indexBar.titles = ["#", "A", "B", "C"]
         
         if viewModel.showSearchBar {
             view.addSubview(searchButton)
@@ -74,6 +73,22 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
             .sink { [weak self] _ in
                 self?.updateSubviewConstraints()
             }.store(in: &cancellables)
+        
+        viewModel.$indexTitles
+            .receive(on: RunLoop.main)
+            .sink { [weak self] indexs in
+                self?.indexBar.titles = indexs
+            }
+            .store(in: &cancellables)
+        
+        indexBar.$currentTouchIndex.dropFirst().receive(on: RunLoop.main)
+            .sink { [weak self] index in
+                self?.scrollToIndexIfNeed(index)
+            }.store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: .init(kFriendListUpdated), object: nil, queue: .main) { [weak self] noti in
+            self?.viewModel.loadData()
+        }
     }
     
     func updateSubviewConstraints() {
@@ -90,6 +105,13 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     
     func cellProvider() ->  HMyFriendListDataSource.CellProvider {
         return HMyFriendListCell.CellProvider(of: Section.self)
+    }
+    
+    func scrollToIndexIfNeed(_ titleIndex: Int) {
+        if let index = viewModel.firstFriendIndexOfTitleIndex(titleIndex) {
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     override func makeConstraints() {
@@ -127,9 +149,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         }
     }
     
-    @objc func didClickSearchButton(_ sender: UIButton) {
-        
-    }
+    @objc func didClickSearchButton(_ sender: UIButton) { }
 }
 
 extension HMyFriendListViewController {
@@ -144,6 +164,5 @@ extension HMyFriendListViewController {
         if let item = dataSource.itemIdentifier(for: indexPath) {
             viewModel.toggleItemSelected(item: item)
         }
-        
     }
 }

@@ -26,6 +26,7 @@ class HSelectedFriendViewController: HBaseViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .init(top: 0, left: 73, bottom: 0, right: 0)
+        tableView.contentInset = .init(top: 0, left: 0, bottom: HUIConfigure.safeBottomMargin, right: 0)
         return tableView
     }()
     

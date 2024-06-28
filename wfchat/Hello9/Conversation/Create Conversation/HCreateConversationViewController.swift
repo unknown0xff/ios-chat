@@ -77,9 +77,9 @@ class HCreateConversationViewController: HMyFriendListViewController {
         navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
     }
     
-    private func goToCreateSingleConv() {
-        let userIds = viewModel.selectedItems.map { $0.userInfo.userId }
-        let conversation = WFCCConversation(type: .Single_Type, target: userIds.first!, line: 0)!
+    private func goToCreateSingleConv(item: HMyFriendListModel) {
+        let userId = item.userInfo.userId
+        let conversation = WFCCConversation(type: .Single_Type, target: userId, line: 0)!
         let mvc = HMessageListViewController()
         mvc.conversation = conversation
         mvc.hidesBottomBarWhenPushed = true
@@ -109,7 +109,9 @@ class HCreateConversationViewController: HMyFriendListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        super.tableView(tableView, didSelectRowAt: indexPath)
-        goToCreateSingleConv()
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let item = dataSource.itemIdentifier(for: indexPath) {
+            goToCreateSingleConv(item: item)
+        }
     }
 }

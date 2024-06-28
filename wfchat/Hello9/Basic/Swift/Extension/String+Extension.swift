@@ -55,4 +55,14 @@ extension String {
     var urlDecode: String {
         removingPercentEncoding ?? ""
     }
+    
+    var pinyinInitials: String {
+        let mutableString = NSMutableString(string: self) as CFMutableString
+        CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
+        CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
+        let pinyin = mutableString as String
+        let initials = pinyin.components(separatedBy: " ").compactMap { $0.first?.uppercased() }.joined(separator: " ")
+        return initials
+    }
+
 }

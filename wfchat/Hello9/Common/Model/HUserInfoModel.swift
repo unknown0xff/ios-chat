@@ -26,6 +26,16 @@ struct HUserInfoModel: Hashable {
     var firstName: String = ""
     var lastName: String = ""
     
+    var searchIndex: String {
+        if let first = title.pinyinInitials.first {
+            if first.isNumber {
+                return "#"
+            }
+            return String(first)
+        }
+        return "#"
+    }
+    
     init(info: WFCCUserInfo?) {
         guard let info else {
             return

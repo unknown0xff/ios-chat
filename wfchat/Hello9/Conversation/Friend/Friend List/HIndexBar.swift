@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class HIndexBar : UIView {
     
@@ -19,16 +20,15 @@ class HIndexBar : UIView {
         }
     }
     
-    private(set) var currentTouchIndex: Int = 0 {
-        didSet {
-            
-        }
-    }
+    @Published private(set) var currentTouchIndex: Int = 0
     
     var titles: [String] = [] {
         didSet {
+            stackView.arrangedSubviews.forEach { view in
+                view.removeFromSuperview()
+            }
             titles.enumerated().forEach { title in
-                let item = HIndexBarItem.init(index: title.0, title: title.1)
+                let item = HIndexBarItem(index: title.0, title: title.1)
                 item.setHighlighted(title.0 == currentIndex)
                 currentSelectView = item
                 stackView.addArrangedSubview(item)

@@ -41,6 +41,8 @@ class HMyFriendListViewModel: HBasicViewModel {
     }
     
     @Published private(set) var searchFriends = [HMyFriendListModel]()
+    @Published private(set) var indexTitles = [String]()
+    
     private var friends = [HMyFriendListModel]()
     
     func loadData() {
@@ -52,7 +54,35 @@ class HMyFriendListViewModel: HBasicViewModel {
             model.isInGroup = self.groupMembers.contains($0.userId)
             return model
         }
+        
+        func compare(_ i1: String, _ i2: String) -> Bool {
+            if i1 == "#" && i2 == "#" {
+                return true
+            }
+            if i1 == "#" && i2 != "#" {
+                return false
+            }
+            if i1 != "#" && i2 == "#" {
+                return true
+            }
+            return i1 < i2
+        }
+        friends.sort {
+            let i1 = $0.userInfo.searchIndex
+            let i2 = $1.userInfo.searchIndex
+            return compare(i1, i2)
+        }
+        indexTitles = Set(friends.map { $0.userInfo.searchIndex }).map { $0 }
+            .sorted(by: compare)
         applySnapshot()
+    }
+    
+    func firstFriendIndexOfTitleIndex(_ titleIndex: Int) -> Int? {
+        if titleIndex >= indexTitles.count {
+            return nil
+        }
+        let index = friends.firstIndex { $0.userInfo.searchIndex == indexTitles[titleIndex] }
+        return index
     }
     
     func applySnapshot() {
@@ -79,7 +109,6 @@ class HMyFriendListViewModel: HBasicViewModel {
         if let index = friends.firstIndex(where: { $0.userInfo.userId == item.userInfo.userId }) {
             friends[index].isSelected = true
         }
-        
         applySnapshot()
     }
     
