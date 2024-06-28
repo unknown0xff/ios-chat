@@ -430,14 +430,14 @@
 
 - (UIActivityIndicatorView *)headerActivityView {
     if (!_headerActivityView) {
-        _headerActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _headerActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     }
     return _headerActivityView;
 }
 
 - (UIActivityIndicatorView *)footerActivityView {
     if (!_footerActivityView) {
-        _footerActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _footerActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     }
     return _footerActivityView;
 }
@@ -445,7 +445,7 @@
 - (void)setLoadingNew:(BOOL)loadingNew {
     _loadingNew = loadingNew;
     if (loadingNew) {
-        [self.footerActivityView startAnimating];
+        [self.footerActivityView stopAnimating];
     } else {
         [self.footerActivityView stopAnimating];
     }
@@ -536,8 +536,8 @@
         }
         
         dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
-            NSArray *messageList = [[WFCCIMService sharedWFCIMService] getMessages:self.conversation contentTypes:nil from:lastIndex count:-10 withUser:self.privateChatUser];
-            if (!messageList.count || messageList.count < 10) {
+            NSArray *messageList = [[WFCCIMService sharedWFCIMService] getMessages:self.conversation contentTypes:nil from:lastIndex count:-20 withUser:self.privateChatUser];
+            if (!messageList.count || messageList.count < 20) {
                 self.hasNewMessage = NO;
             }
             NSMutableArray *mutableMessages = [messageList mutableCopy];
@@ -549,7 +549,7 @@
                 [mutableMessages insertObject:msg atIndex:j];
                 [mutableMessages removeObjectAtIndex:j+1];
             }
-            [NSThread sleepForTimeInterval:0.5];
+            [NSThread sleepForTimeInterval:0.2];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf appendMessages:mutableMessages newMessage:YES highlightId:0 forceButtom:NO];
                 weakSelf.loadingNew = NO;
@@ -2028,8 +2028,8 @@
     [self.collectionView reloadData];
     
     if (newMessage || self.modelList.count == messages.count) {
-        if(self.isAtButtom) {
-            forceButtom = true;
+        if(self.isAtButtom && !self.loadingNew) {
+            forceButtom = YES;
         }
     } else {
         CGFloat offset = 0;
