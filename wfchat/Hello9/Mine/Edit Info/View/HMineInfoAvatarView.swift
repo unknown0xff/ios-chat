@@ -5,6 +5,7 @@
 //  Created by Ada on 2024/6/20.
 //  Copyright © 2024 Hello9. All rights reserved.
 //
+import Kingfisher
 
 class HMineInfoAvatarView: HBasicCollectionReusableView<String> {
     
@@ -14,6 +15,7 @@ class HMineInfoAvatarView: HBasicCollectionReusableView<String> {
         view.layer.borderWidth = 2
         view.layer.borderColor = Colors.white.cgColor
         view.layer.cornerRadius = 51
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -32,6 +34,6 @@ class HMineInfoAvatarView: HBasicCollectionReusableView<String> {
     }
     
     override func bindData(_ data: String?) {
-        avatarView.sd_setImage(with: .init(string: data ?? ""), placeholderImage: Images.icon_logo)
+        avatarView.kf.setImage(with: URL(string: data ?? ""), placeholder: Images.icon_logo)
     }
 }
