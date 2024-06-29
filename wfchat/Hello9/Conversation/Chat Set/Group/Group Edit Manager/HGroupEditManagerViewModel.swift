@@ -23,7 +23,7 @@ class HGroupEditManagerViewModel: HBaseViewModel {
     private(set) var groupInfo = HGroupInfo(info: .init())
     
     var memberIds: [String] {
-        allMembers.map { $0.memberId ?? "" }
+        allMembers.map { $0.memberId ?? "" }.filter { $0 != IMUserInfo.userId }
     }
     
     init(_ conv: WFCCConversation) {
