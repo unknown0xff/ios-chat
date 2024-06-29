@@ -64,7 +64,7 @@ class HGroupEditMangerViewController: HBaseViewController, UITableViewDelegate {
         
         navBar.leftBarButtonItem = .init(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
         navBar.rightBarButtonItem = .init(title: "编辑", style: .plain, target: self, action: #selector(didClickEditBarButton(_:)))
-        navBar.title = "群组成员"
+        navBar.title = "管理员"
         
         configureDefaultStyle()
         
