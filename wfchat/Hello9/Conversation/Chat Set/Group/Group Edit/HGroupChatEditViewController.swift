@@ -154,6 +154,11 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
         let vc = HGroupEditMemberViewController(conv: viewModel.conv)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func goToManagerEditViewController() {
+        let vc = HGroupEditMangerViewController(conv: viewModel.conv)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HGroupChatEditViewController: UITextFieldDelegate {
@@ -216,6 +221,8 @@ extension HGroupChatEditViewController: UITextFieldDelegate {
         case .info(let model):
             if model.category == .member {
                 goToMemeberEditViewController()
+            } else if model.category == .manager {
+                goToManagerEditViewController()
             }
             break
         }

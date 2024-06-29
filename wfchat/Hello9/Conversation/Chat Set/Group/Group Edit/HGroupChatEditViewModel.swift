@@ -77,7 +77,7 @@ class HGroupChatEditViewModel: HBasicViewModel {
         let section1 = [
             HGroupChatEditModel(icon: Images.icon_people, value: "\(groupInfo.memberCount)", title: "成员", category: .member),
             HGroupChatEditModel(icon: Images.icon_key_gray, value: "13/13", title: "权限", category: .auth),
-            HGroupChatEditModel(icon: Images.icon_owner, value: "1", title: "管理员", category: .manager),
+            HGroupChatEditModel(icon: Images.icon_owner, value: "", title: "管理员", category: .manager),
 //            HGroupChatEditModel(icon: Images.icon_forbind, value: "1", title: "被封禁用户", category: .unableUser),
 //            HGroupChatEditModel(icon: Images.icon_recent, value: "", title: "近期操作", category: .recently)
         ]

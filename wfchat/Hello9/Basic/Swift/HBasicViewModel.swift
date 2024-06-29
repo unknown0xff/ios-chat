@@ -29,3 +29,12 @@ protocol HBaseViewModel {
     
     var dataSource: (snapshot: Snapshot, animated: Bool) { get }
 }
+
+extension UITableViewDiffableDataSource {
+    
+    func apply(
+        _ dataSource: (snapshot: NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>, animated: Bool),
+        completion: (() -> Void)? = nil) {
+        apply(dataSource.snapshot, animatingDifferences: dataSource.animated, completion: completion)
+    }
+}

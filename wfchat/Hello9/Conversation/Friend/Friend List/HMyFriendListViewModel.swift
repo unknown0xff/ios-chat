@@ -45,8 +45,18 @@ class HMyFriendListViewModel: HBasicViewModel {
     
     private var friends = [HMyFriendListModel]()
     
+    private let userIds: [String]
+    init(userIds: [String] = []) {
+        self.userIds = userIds
+    }
+    
     func loadData() {
-        let ids = WFCCIMService.sharedWFCIM().getMyFriendList(false) ?? []
+        let ids: [String]
+        if !userIds.isEmpty {
+            ids = userIds
+        } else {
+            ids = WFCCIMService.sharedWFCIM().getMyFriendList(false) ?? []
+        }
         let friendsInfo = WFCCIMService.sharedWFCIM().getUserInfos(ids, inGroup: nil) ?? .init()
         friends = friendsInfo.map {
             var model = HMyFriendListModel(userInfo: $0)
