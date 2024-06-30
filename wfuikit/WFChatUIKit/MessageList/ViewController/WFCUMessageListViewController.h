@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendMessage:(WFCCMessageContent *)content;
 - (void)didReceiveMessages:(NSArray<WFCCMessage *> *)messages;
 - (void)setTargetGroup:(WFCCGroupInfo *)targetGroup;
-
+- (void)didTapMessagePortrait:(WFCUMessageCellBase *)cell withModel:(WFCUMessageModel *)model;
 - (void)didTapSelectView:(BOOL)isSelected;
 - (void)onMultiSelectCancel:(id)sender;
 - (void)onDeleteMultiSelectedMessage:(id)sender;

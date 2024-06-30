@@ -100,6 +100,13 @@ class HMessageListViewController: WFCUMessageListViewController {
         playSendSound()
     }
     
+    override func didTapMessagePortrait(_ cell: WFCUMessageCellBase, with model: WFCUMessageModel) {
+        if let userId = model.message?.fromUser {
+            let vc = HNewFriendDetailViewController(targetId: userId)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     @objc func prefersNavigationBarHidden() -> Bool { return true }
     
     private func enablePlaySoundMessage(_ content: WFCCMessageContent) -> Bool {
