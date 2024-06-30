@@ -2368,6 +2368,11 @@
     }
 }
 
+- (BOOL)isTipMessage: (WFCUMessageModel *)model {
+    return 
+    [model.message.content isKindOfClass:WFCCNotificationMessageContent.class]
+    ;
+}
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -2381,7 +2386,11 @@
     if (self.modelList.count > next) {
         WFCUMessageModel *nextModel = self.modelList[next];
         if ([nextModel.message.fromUser isEqualToString:model.message.fromUser]) {
-            model.showBubbleTail = NO;
+            if ([self isTipMessage:nextModel]) {
+                model.showBubbleTail = YES;
+            } else {
+                model.showBubbleTail = NO;
+            }
         } else {
             model.showBubbleTail = YES;
         }
