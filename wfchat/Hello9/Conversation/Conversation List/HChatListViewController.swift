@@ -209,7 +209,7 @@ class HChatListViewController: HBaseViewController {
     }
     
     @objc func didClickSearchButton(_ sender: UIButton) {
-        // TODO search
+        navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
     }
     
     override func onUserInfoUpdated(_ sender: Notification) {
