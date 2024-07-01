@@ -83,7 +83,7 @@ class IMService: NSObject {
     private func configureWFAVEngine() {
         //音视频高级版不需要stun/turn服务，请注释掉下面这行。单人版和多人版需要turn服务，请自己部署然后修改配置文件。
         wfavEngineKit.addIceServer(configure.ice.address, userName: configure.ice.userName, password: configure.ice.password)
-        wfavEngineKit.setVideoProfile(.profile360P, swapWidthHeight: true)
+        wfavEngineKit.setVideoProfile(.profile720P, swapWidthHeight: true)
         wfavEngineKit.delegate = self
         
         // 设置音视频参与者数量。多人音视频默认视频4路，音频9路，如果改成更多可能会导致问题；
