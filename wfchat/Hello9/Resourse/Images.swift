@@ -8,6 +8,8 @@ enum Images {
 
     static let icon_add = UIImage(named: "icon_add")!
 
+    static let icon_add_blue = UIImage(named: "icon_add_blue")!
+
     static let icon_add_friend = UIImage(named: "icon_add_friend")!
 
     static let icon_add_group = UIImage(named: "icon_add_group")!
@@ -114,6 +116,8 @@ enum Images {
 
     static let icon_link = UIImage(named: "icon_link")!
 
+    static let icon_link_blue = UIImage(named: "icon_link_blue")!
+
     static let icon_link_yellow = UIImage(named: "icon_link_yellow")!
 
     static let icon_location = UIImage(named: "icon_location")!
@@ -213,6 +217,8 @@ enum Images {
     static let icon_share_blue = UIImage(named: "icon_share_blue")!
 
     static let icon_success_green = UIImage(named: "icon_success_green")!
+
+    static let icon_switch_off = UIImage(named: "icon_switch_off")!
 
     static let icon_tab_line = UIImage(named: "icon_tab_line")!
 

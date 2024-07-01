@@ -26,7 +26,7 @@ class HGroupEditMemberViewController: HBaseViewController, UITableViewDelegate {
     private typealias Row = HGroupEditMemberViewModel.Row
     
     private var dataSource: HGroupEditMemberDataSource! = nil
-    
+    private var tableViewEditing: Bool = false
     private var cancellables = Set<AnyCancellable>()
     var viewModel: HGroupEditMemberViewModel
     
@@ -41,20 +41,31 @@ class HGroupEditMemberViewController: HBaseViewController, UITableViewDelegate {
     
     override func configureSubviews() {
         super.configureSubviews()
-        tableView.register([HGroupMemberCell.self])
+        tableView.register([
+            HGroupMemberCell.self,
+            HSwitchCell.self,
+            UITableViewCell.self
+        ])
+        
         dataSource = .init(tableView: tableView, cellProvider: { tableView, indexPath, item in
             switch item {
             case .member(let model):
-                let cell = HGroupMemberCell.build(on: tableView, cellData: model, for: indexPath)
+                return HGroupMemberCell.build(on: tableView, cellData: model, for: indexPath)
+            case .isSaveOn(let isOn):
+                return HSwitchCell.build(on: tableView, cellData: .init(title: "限制保存内容", isOn: isOn), for: indexPath)
+            case .inviteAdd:
+                let cell = tableView.cell(of: UITableViewCell.self, for: indexPath)
+                cell.configure(title: "邀请新成员", image: Images.icon_add_blue)
+                return cell
+            case .inviteLink:
+                let cell = tableView.cell(of: UITableViewCell.self, for: indexPath)
+                cell.configure(title: "使用链接邀请", image: Images.icon_link_blue)
                 return cell
             }
         })
         
         dataSource.onDelete = { [weak self] item, indexPath in
-            switch item {
-            case .member(let model):
-                self?.viewModel.deleteMemeber(model)
-            }
+            self?.viewModel.deleteMemeber(item)
         }
         
         navBar.leftBarButtonItem = .init(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
@@ -80,6 +91,16 @@ class HGroupEditMemberViewController: HBaseViewController, UITableViewDelegate {
             make.width.left.right.bottom.equalToSuperview()
         }
     }
+    
+    private func showSelectedFriendsVC() {
+        let vc = HSelectedFriendViewController()
+        vc.viewModel.maxSelectedCount = Int.max
+        vc.viewModel.groupMembers = viewModel.groupMemberIds
+        vc.onFinish = { [weak self] userIds in
+            self?.viewModel.inviteMembers(userIds)
+        }
+        HModalPresentNavigationController.show(root: vc, preferredStyle: .actionSheet)
+    }
 }
 
 extension HGroupEditMemberViewController {
@@ -88,10 +109,45 @@ extension HGroupEditMemberViewController {
         67
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let row = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        switch row {
+        case .inviteAdd:
+            showSelectedFriendsVC()
+        case .inviteLink:
+            break
+        case .member(let model):
+            let detail = HNewFriendDetailViewController(targetId: model.memberId)
+            navigationController?.pushViewController(detail, animated: true)
+        case .isSaveOn(_):
+            break
+        }
+    }
+    
     @objc func didClickEditBarButton(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
         
         navBar.rightBarButtonItem = .init(title: tableView.isEditing ? "完成" : "编辑", style: .plain, target: self, action: #selector(didClickEditBarButton(_:)))
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing {
+            return .delete
+        }
+        return .none
+    }
 }
 
+fileprivate extension UITableViewCell {
+    
+    func configure(title: String, image: UIImage) {
+        var configure = defaultContentConfiguration()
+        configure.image = image
+        configure.attributedText = .init(string: title, attributes: [.foregroundColor: Colors.themeBlue1, .font: UIFont.system16])
+        contentConfiguration = configure
+    }
+    
+}
