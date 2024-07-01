@@ -192,11 +192,15 @@ enum Images {
 
     static let icon_photo_plus = UIImage(named: "icon_photo_plus")!
 
+    static let icon_popo_yellow = UIImage(named: "icon_popo_yellow")!
+
     static let icon_qr_code = UIImage(named: "icon_qr_code")!
 
     static let icon_recent = UIImage(named: "icon_recent")!
 
     static let icon_refresh = UIImage(named: "icon_refresh")!
+
+    static let icon_resource = UIImage(named: "icon_resource")!
 
     static let icon_scan = UIImage(named: "icon_scan")!
 
@@ -215,6 +219,8 @@ enum Images {
     static let icon_send_blue = UIImage(named: "icon_send_blue")!
 
     static let icon_share_blue = UIImage(named: "icon_share_blue")!
+
+    static let icon_star_yellow = UIImage(named: "icon_star_yellow")!
 
     static let icon_success_green = UIImage(named: "icon_success_green")!
 
