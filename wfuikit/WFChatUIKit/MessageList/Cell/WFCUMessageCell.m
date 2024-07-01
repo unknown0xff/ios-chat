@@ -122,6 +122,7 @@
             id attributes = @{ NSFontAttributeName: [UIFont boldSystemFontOfSize:14] };
             
             CGSize size = [WFCUUtilities getTextDrawingSize:[WFCUMessageCell quoteMessageDigest:msgModel] attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
+            size.height = MIN(size.height, 52);
             
             CGSize nameSize = [WFCUUtilities getTextDrawingSize:txtContent.quoteInfo.userDisplayName attributes:attributes constrainedSize:CGSizeMake(bubbleMaxWidth - 20 - 32, 8000)];
             
@@ -391,7 +392,7 @@
             if (!self.quoteLabel) {
                 self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectZero];
                 self.quoteLabel.font = [UIFont systemFontOfSize:14];
-                self.quoteLabel.numberOfLines = 0;
+                self.quoteLabel.numberOfLines = 2;
                 self.quoteLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 self.quoteLabel.userInteractionEnabled = YES;
                 self.quoteLabel.textColor = [UIColor colorWithHexString:@"0x121611"];

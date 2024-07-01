@@ -1079,7 +1079,7 @@
         self.quoteLabel.font = [UIFont systemFontOfSize:16];
         self.quoteLabel.textColor = [UIColor blackColor];
         self.quoteLabel.text = self.quoteInfo.messageDigest;
-        self.quoteLabel.numberOfLines = 0;
+        self.quoteLabel.numberOfLines = 2;
         self.quoteLabel.bounds = CGRectMake(0, 0, textMaxWidth, 0);
         [self.quoteLabel sizeToFit];
         self.quoteLabel.frame = CGRectMake(left, CGRectGetMaxY(self.quoteNameLabel.frame), self.quoteLabel.bounds.size.width, self.quoteLabel.bounds.size.height);
@@ -1087,10 +1087,11 @@
         self.quoteDeleteBtn = [[UIButton alloc] init];
         [self.quoteDeleteBtn setImage:[WFCUImage imageNamed:@"icon_quote_close"] forState:UIControlStateNormal];
         [self.quoteDeleteBtn addTarget:self action:@selector(onQuoteDelBtn:) forControlEvents:UIControlEventTouchUpInside];
-        self.quoteDeleteBtn.frame = CGRectMake(maxWidth - 32, CGRectGetMaxY(self.quoteLabel.frame) / 2 - 8, 16, 16);
         
         self.quoteContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maxWidth, CGRectGetMaxY(self.quoteLabel.frame) + 2)];
         self.quoteContainerView.backgroundColor = [UIColor whiteColor];
+        
+        self.quoteDeleteBtn.frame = CGRectMake(maxWidth - 32, CGRectGetMidY(self.quoteContainerView.frame) - 8, 16, 16);
         
         UIImageView *icon = [[UIImageView alloc] initWithImage:[WFCUImage imageNamed:@"icon_share_blue"]];
         icon.frame = CGRectMake(16, CGRectGetMidY(self.quoteContainerView.frame) + 2 - 13, 26, 26);
