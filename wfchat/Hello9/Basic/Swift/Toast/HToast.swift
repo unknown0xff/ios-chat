@@ -14,10 +14,24 @@ enum HToast {
     @discardableResult
     static func showTipAutoHidden(
         text: String,
-        icon: UIImage = Images.icon_logo,
+        afterDelay: TimeInterval = 1.618,
         animated: Bool = true
     ) -> MBProgressHUD?  {
-        return showTip(text: text, icon: icon, afterDelay: 2, animated: animated)
+        guard let view = UIViewController.h_top?.view else {
+            return nil
+        }
+        
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        hud.mode = .text
+        hud.label.text = text
+        hud.label.font = .system14
+        hud.label.textColor = Colors.white
+        hud.bezelView.style = .solidColor
+        hud.bezelView.color = Colors.themeBlack
+        hud.offset = CGPoint(x: 0, y: 1)
+        hud.show(animated: animated)
+        hud.hide(animated: animated, afterDelay: afterDelay)
+        return hud
     }
     
     @discardableResult
