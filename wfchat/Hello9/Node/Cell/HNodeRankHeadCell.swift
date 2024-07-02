@@ -33,7 +33,7 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
             return label
         }()
         
-        init(title: String, offset: CGFloat = 0) {
+        init(title: String, offset: CGFloat = 0, valueMaxWidth: Int = .max) {
             super.init(frame: .zero)
             addSubview(titleLabel)
             addSubview(valueLabel)
@@ -44,6 +44,7 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
                 make.left.top.equalTo(0)
                 make.height.equalTo(38)
                 make.right.equalTo(0)
+                make.width.lessThanOrEqualTo(valueMaxWidth)
                 make.width.greaterThanOrEqualTo(titleLabel)
             }
             
@@ -51,7 +52,7 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
                 make.left.equalTo(valueLabel).offset(offset)
                 make.top.equalTo(valueLabel.snp.bottom).offset(4)
                 make.height.equalTo(20)
-                make.width.lessThanOrEqualTo(UIScreen.width / 2.0)
+                make.width.lessThanOrEqualTo(100)
                 make.bottom.equalTo(0)
             }
         }
@@ -61,10 +62,12 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
         }
     }
     
-    private lazy var rankItem = ItemView(title: "", offset: 4)
-    private lazy var storedItem = ItemView(title: "存储数据量")
-    private lazy var forwardItem = ItemView(title: "转发次数")
-    private lazy var forwardTotalItem = ItemView(title: "转发数据量", offset: 4)
+    private lazy var rankItem = ItemView(title: "", offset: 4, valueMaxWidth: 160)
+    private lazy var storedItem = ItemView(title: "存储数据量", valueMaxWidth: 160)
+    private lazy var forwardItem = ItemView(title: "转发次数", valueMaxWidth: 65)
+    private lazy var forwardTotalItem = ItemView(title: "转发数据量", offset: 4, valueMaxWidth: 65)
+    
+    private lazy var pipeView = HNodeRankCycleView()
     
     override func configureSubviews() {
         super.configureSubviews()
@@ -72,10 +75,13 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
         backgroundColor = .clear
         isUserInteractionEnabled = false
         separatorView.isHidden = true
+        pipeView.layer.cornerRadius = 100
+        pipeView.layer.masksToBounds = true
         contentView.addSubview(rankItem)
         contentView.addSubview(storedItem)
         contentView.addSubview(forwardItem)
         contentView.addSubview(forwardTotalItem)
+        contentView.addSubview(pipeView)
     }
     
     override func makeConstraints() {
@@ -97,7 +103,14 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
         
         forwardTotalItem.snp.makeConstraints { make in
             make.top.equalTo(forwardItem)
-            make.left.equalTo(forwardItem.snp.right).offset(40)
+            make.left.equalTo(forwardItem.snp.right).offset(16)
+        }
+        
+        pipeView.snp.makeConstraints { make in
+            make.top.equalTo(15)
+            make.right.equalTo(0)
+            make.width.height.equalTo(HNodeRankCycleView.width)
+            make.centerY.equalToSuperview()
         }
     }
     
@@ -113,6 +126,11 @@ class HNodeRankHeadCell: HBasicTableViewCell<HNodeRankHeadModel> {
         
         forwardItem.valueLabel.text = "\(data.forwardCount)"
         forwardTotalItem.valueLabel.text = "\(data.forwardTotal)"
+        
+        let p1 = CGFloat(Int.random(in: 10...50)) / 100.0
+        let p2 = CGFloat(Int.random(in: 10...50)) / 100.0
+        let p3 = 1.0 - p1 - p2
+        pipeView.progress = (p1, p2, p3)
     }
 }
 

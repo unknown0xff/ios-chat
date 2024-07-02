@@ -46,6 +46,13 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         navBar.isHidden = true
         configureDefaultStyle()
         backgroundView.image = Images.icon_node_background
+        tableView.insertSubview(backgroundView, at: 0)
+        
+        backgroundView.snp.makeConstraints { make in
+            make.top.left.width.equalToSuperview()
+            make.height.equalTo(UIScreen.height * 2)
+        }
+        
         tableView.addSubview(lottieAnimationView)
         lottieAnimationView.contentMode = .scaleToFill
         lottieAnimationView.animation = .nodeShakeAnimation

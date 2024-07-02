@@ -182,6 +182,8 @@ enum Images {
 
     static let icon_node_head = UIImage(named: "icon_node_head")!
 
+    static let icon_node_rank_score_bg = UIImage(named: "icon_node_rank_score_bg")!
+
     static let icon_node_shake = UIImage(named: "icon_node_shake")!
 
     static let icon_node_subtitle_bg = UIImage(named: "icon_node_subtitle_bg")!
