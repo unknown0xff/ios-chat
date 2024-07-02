@@ -246,6 +246,8 @@ enum Images {
 
     static let icon_top_gray = UIImage(named: "icon_top_gray")!
 
+    static let icon_uncollected = UIImage(named: "icon_uncollected")!
+
     static let icon_unread_background = UIImage(named: "icon_unread_background")!
 
     static let icon_unselected = UIImage(named: "icon_unselected")!

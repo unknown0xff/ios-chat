@@ -48,7 +48,6 @@ class HNodeSpecialNumberListContentView: UIView {
     
     private lazy var collectionIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Images.icon_search
         return imageView
     }()
     
@@ -177,7 +176,7 @@ class HNodeSpecialNumberListContentView: UIView {
     
     func bindData(_ data: HNodeSpecialNumberListModel) {
         idLabel.text = data.id
-        collectionIcon.isHidden = !data.isCollected
+        collectionIcon.image = data.isCollected ? Images.icon_collected : Images.icon_uncollected
         
         scoreValueLabel.text = data.score
         competitorValueLabel.text = "\(data.competitor)人(前\(data.competitorRank)%)"
