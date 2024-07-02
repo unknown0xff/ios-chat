@@ -70,7 +70,9 @@
 		2075ACB92C328CB400F764CA /* HNodeRankHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075ACB82C328CB400F764CA /* HNodeRankHeadCell.swift */; };
 		2075ACBB2C32951F00F764CA /* HNodeRankListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075ACBA2C32951F00F764CA /* HNodeRankListItemCell.swift */; };
 		2075ACBD2C329C6D00F764CA /* HNodeSourceSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075ACBC2C329C6D00F764CA /* HNodeSourceSetCell.swift */; };
+		2075ACBF2C32E31F00F764CA /* HNodeRankCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075ACBE2C32E31F00F764CA /* HNodeRankCycleView.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
+		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
 		2B4C027D252F4A570043FA41 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0272252F4A570043FA41 /* AFURLSessionManager.m */; };
@@ -414,6 +416,8 @@
 		2075ACB82C328CB400F764CA /* HNodeRankHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeRankHeadCell.swift; sourceTree = "<group>"; };
 		2075ACBA2C32951F00F764CA /* HNodeRankListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeRankListItemCell.swift; sourceTree = "<group>"; };
 		2075ACBC2C329C6D00F764CA /* HNodeSourceSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeSourceSetCell.swift; sourceTree = "<group>"; };
+		2075ACBE2C32E31F00F764CA /* HNodeRankCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeRankCycleView.swift; sourceTree = "<group>"; };
+		20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeHeadShakeCell.swift; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2B4C026D252F4A570043FA41 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -996,6 +1000,8 @@
 				2075ACB82C328CB400F764CA /* HNodeRankHeadCell.swift */,
 				2075ACBA2C32951F00F764CA /* HNodeRankListItemCell.swift */,
 				2075ACBC2C329C6D00F764CA /* HNodeSourceSetCell.swift */,
+				2075ACBE2C32E31F00F764CA /* HNodeRankCycleView.swift */,
+				20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2166,6 +2172,7 @@
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
 				60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */,
 				607F95902C13292300648BFF /* HResetPasswordViewModel.swift in Sources */,
+				20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */,
 				2075ACBB2C32951F00F764CA /* HNodeRankListItemCell.swift in Sources */,
 				601246332C0480CA00635523 /* HAppDelegate.swift in Sources */,
 				2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */,
@@ -2190,6 +2197,7 @@
 				2B840F402442111F006BE3D8 /* WFCThemeTableViewController.m in Sources */,
 				60A3F7D22C1C7A5C00F855A2 /* HGroupChatEditHeadCell.swift in Sources */,
 				205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */,
+				2075ACBF2C32E31F00F764CA /* HNodeRankCycleView.swift in Sources */,
 				607F95822C12D67E00648BFF /* HLoginFooterView.swift in Sources */,
 				6088F4912C0EFFB600130A87 /* NSData+Extention.m in Sources */,
 				2FF07F5F21F82E7200A78A62 /* WFCSecurityTableViewController.m in Sources */,

@@ -14,6 +14,7 @@ class HNodeHomeViewModel: HBaseViewModel {
      = (Snapshot(), false)
     
     enum Row: Hashable {
+        case headerShake
         case specialHeader
         case specialNumber(_ model: HNodeSpecialNumberListModel)
         case specialFooter
@@ -40,6 +41,7 @@ class HNodeHomeViewModel: HBaseViewModel {
         snapshot.appendSections([.specialNumber, .rankHead, .rankList, .sourceSet])
         
         snapshot.appendItems([
+            .headerShake,
             .specialHeader,
             .specialNumber(.init()),
             .specialNumber(.init()),

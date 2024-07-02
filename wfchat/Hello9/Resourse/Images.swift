@@ -74,6 +74,8 @@ enum Images {
 
     static let icon_close_blue = UIImage(named: "icon_close_blue")!
 
+    static let icon_collected = UIImage(named: "icon_collected")!
+
     static let icon_common_background = UIImage(named: "icon_common_background")!
 
     static let icon_copy = UIImage(named: "icon_copy")!
@@ -175,6 +177,8 @@ enum Images {
     static let icon_mute_gray = UIImage(named: "icon_mute_gray")!
 
     static let icon_nav_background_green = UIImage(named: "icon_nav_background_green")!
+
+    static let icon_node_yaoyiyao = UIImage(named: "icon_node_yaoyiyao")!
 
     static let icon_owner = UIImage(named: "icon_owner")!
 

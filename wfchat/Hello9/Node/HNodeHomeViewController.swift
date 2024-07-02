@@ -42,6 +42,7 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         configureDefaultStyle()
         
         tableView.register([
+            HNodeHeadShakeCell.self,
             HNodeSpecialNumberListCell.self,
             HNodeSpecialNumberFooterCell.self,
             HNodeSpecialNumberHeaderCell.self,
@@ -52,6 +53,8 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         
         dataSource = .init(tableView: tableView, cellProvider: { tableView, indexPath, row in
             switch row {
+            case .headerShake:
+                return HNodeHeadShakeCell.build(on: tableView, cellData: (), for: indexPath)
             case .specialHeader:
                 return HNodeSpecialNumberHeaderCell.build(on: tableView, cellData: (), for: indexPath)
             case .specialNumber(let model):
@@ -85,6 +88,11 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         }
     }
     
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            HToast.showTipAutoHidden(text: "你摇一摇了")
+        }
+    }
 }
 
 extension HNodeHomeViewController {
@@ -94,6 +102,8 @@ extension HNodeHomeViewController {
         }
         
         switch row {
+        case .headerShake:
+            return UIScreen.width / (375.0 / 465.0)
         case .specialHeader:
             return 60
         case .specialNumber(_):
