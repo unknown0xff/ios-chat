@@ -26,6 +26,7 @@ class HNodeHomeViewModel: HBaseViewModel {
     }
     
     enum Section: Int {
+        case headerShake
         case specialNumber
         case rankHead
         case rankList
@@ -38,10 +39,11 @@ class HNodeHomeViewModel: HBaseViewModel {
     
     func applySnapshot(animated: Bool = false) {
         var snapshot = Snapshot()
-        snapshot.appendSections([.specialNumber, .rankHead, .rankList, .sourceSet])
+        snapshot.appendSections([.headerShake, .specialNumber, .rankHead, .rankList, .sourceSet])
+        
+        snapshot.appendItems([.headerShake], toSection: .headerShake)
         
         snapshot.appendItems([
-            .headerShake,
             .specialHeader,
             .specialNumber(.init()),
             .specialNumber(.init()),

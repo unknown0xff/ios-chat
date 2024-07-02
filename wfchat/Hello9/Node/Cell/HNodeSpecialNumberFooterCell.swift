@@ -9,8 +9,7 @@
 class HNodeSpecialNumberHeaderCell: HBasicTableViewCell<Void> {
     
     private lazy var image: UIImageView = {
-        let imageView = UIImageView(image: Images.icon_top)
-        
+        let imageView = UIImageView(image: Images.icon_node_head)
         return imageView
     }()
     

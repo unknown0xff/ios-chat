@@ -9,6 +9,7 @@
 
 import UIKit
 import Combine
+import Lottie
 
 class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
     
@@ -17,9 +18,13 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         tableView.applyDefaultConfigure()
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = .clear
         tableView.contentInset = .init(top: 0, left: 0, bottom: HTabBar.barHeight, right: 0)
+        tableView.sectionHeaderHeight = 0
         return tableView
     }()
+    
+    private lazy var lottieAnimationView = LottieAnimationView()
     
     private typealias Section = HNodeHomeViewModel.Section
     private typealias Row = HNodeHomeViewModel.Row
@@ -40,6 +45,10 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
         
         navBar.isHidden = true
         configureDefaultStyle()
+        backgroundView.image = Images.icon_node_background
+        tableView.addSubview(lottieAnimationView)
+        lottieAnimationView.contentMode = .scaleToFill
+        lottieAnimationView.animation = .nodeShakeAnimation
         
         tableView.register([
             HNodeHeadShakeCell.self,
@@ -51,10 +60,15 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
             HNodeSourceSetCell.self
         ])
         
-        dataSource = .init(tableView: tableView, cellProvider: { tableView, indexPath, row in
+        dataSource = .init(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, row in
+            guard let self else {
+                return nil
+            }
             switch row {
             case .headerShake:
-                return HNodeHeadShakeCell.build(on: tableView, cellData: (), for: indexPath)
+                let cell = HNodeHeadShakeCell.build(on: tableView, cellData: (), for: indexPath)
+                cell.shakeButton.addTarget(self, action: #selector(HNodeHomeViewController.didClickShakeButton(_:)), for: .touchUpInside)
+                return cell
             case .specialHeader:
                 return HNodeSpecialNumberHeaderCell.build(on: tableView, cellData: (), for: indexPath)
             case .specialNumber(let model):
@@ -83,14 +97,25 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
     override func makeConstraints() {
         super.makeConstraints()
         
+        lottieAnimationView.snp.makeConstraints { make in
+            make.top.equalTo(200)
+            make.left.equalTo(0)
+            make.width.equalTo(UIScreen.width)
+            make.height.equalTo(UIScreen.width / 2)
+        }
+        
         tableView.snp.makeConstraints { make in
             make.top.width.left.right.bottom.equalToSuperview()
         }
     }
     
+    private func play() {
+        lottieAnimationView.play(fromProgress: 0, toProgress: 1, loopMode: .playOnce)
+    }
+    
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            HToast.showTipAutoHidden(text: "你摇一摇了")
+            play()
         }
     }
 }
@@ -115,6 +140,29 @@ extension HNodeHomeViewController {
         case .rankListItem(_), .sourceSet:
             return 55
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let section = dataSource.sectionIdentifier(for: section) else {
+            return 0
+        }
+        if case .headerShake = section {
+            return 0
+        }
+        
+        if case .specialNumber  = section {
+            return 30
+        }
+        
+        if case .rankList  = section {
+            return 12
+        }
+        
+        return 0
+    }
+    
+    @objc func didClickShakeButton(_ sender: UIButton) {
+        play()
     }
 }
 

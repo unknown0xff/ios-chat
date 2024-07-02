@@ -73,6 +73,11 @@
 		2075ACBF2C32E31F00F764CA /* HNodeRankCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075ACBE2C32E31F00F764CA /* HNodeRankCycleView.swift */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
+		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
+		20F02F632C33F50800554857 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F622C33F50800554857 /* Lottie.swift */; };
+		20F02F852C3400F500554857 /* node_shake.json in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F812C3400ED00554857 /* node_shake.json */; };
+		20F02F862C3400F500554857 /* node_shake_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7A2C33FF9A00554857 /* node_shake_0.png */; };
+		20F02F872C3400F500554857 /* node_shake_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7B2C33FF9A00554857 /* node_shake_1.png */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
 		2B4C027D252F4A570043FA41 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0272252F4A570043FA41 /* AFURLSessionManager.m */; };
@@ -418,6 +423,10 @@
 		2075ACBC2C329C6D00F764CA /* HNodeSourceSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeSourceSetCell.swift; sourceTree = "<group>"; };
 		2075ACBE2C32E31F00F764CA /* HNodeRankCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeRankCycleView.swift; sourceTree = "<group>"; };
 		20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeHeadShakeCell.swift; sourceTree = "<group>"; };
+		20F02F622C33F50800554857 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
+		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
+		20F02F7B2C33FF9A00554857 /* node_shake_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_1.png; sourceTree = "<group>"; };
+		20F02F812C3400ED00554857 /* node_shake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = node_shake.json; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2B4C026D252F4A570043FA41 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -757,6 +766,7 @@
 				601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */,
 				206FD0612C2E943E00461F5C /* Alamofire in Frameworks */,
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
+				20F02F612C33F4EE00554857 /* Lottie in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
 				2F1B0DD021E19AF400139CB1 /* NotificationCenter.framework in Frameworks */,
@@ -1004,6 +1014,16 @@
 				20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		20F02F7E2C33FF9A00554857 /* node_shake */ = {
+			isa = PBXGroup;
+			children = (
+				20F02F812C3400ED00554857 /* node_shake.json */,
+				20F02F7A2C33FF9A00554857 /* node_shake_0.png */,
+				20F02F7B2C33FF9A00554857 /* node_shake_1.png */,
+			);
+			path = node_shake;
 			sourceTree = "<group>";
 		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
@@ -1406,6 +1426,7 @@
 		601246552C059B3D00635523 /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				20F02F7E2C33FF9A00554857 /* node_shake */,
 				20499A422C22A52E0005B1D9 /* sh */,
 				601246532C059A6300635523 /* Colors.swift */,
 				601246592C05AFB200635523 /* Images.swift */,
@@ -1413,6 +1434,7 @@
 				601246512C05993200635523 /* Colors.xcassets */,
 				601246572C05AF4100635523 /* Images.xcassets */,
 				20499A3F2C2298700005B1D9 /* Localizable.xcstrings */,
+				20F02F622C33F50800554857 /* Lottie.swift */,
 			);
 			path = Resourse;
 			sourceTree = "<group>";
@@ -1944,6 +1966,7 @@
 				206631552C2D4A140009CBCA /* ZLPhotoBrowser */,
 				206FD0532C2E5DD000461F5C /* Kingfisher */,
 				206FD0602C2E943E00461F5C /* Alamofire */,
+				20F02F602C33F4EE00554857 /* Lottie */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -2058,6 +2081,7 @@
 				206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2090,6 +2114,9 @@
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
 				90C1D911208C12A900E923F4 /* foreman.mp4 in Resources */,
 				2F8F8E682723072600151B75 /* ptt_begin.m4a in Resources */,
+				20F02F852C3400F500554857 /* node_shake.json in Resources */,
+				20F02F862C3400F500554857 /* node_shake_0.png in Resources */,
+				20F02F872C3400F500554857 /* node_shake_1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2171,6 +2198,7 @@
 				60F5CF922C0D55DB0013D912 /* HMessageListViewController.swift in Sources */,
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
 				60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */,
+				20F02F632C33F50800554857 /* Lottie.swift in Sources */,
 				607F95902C13292300648BFF /* HResetPasswordViewModel.swift in Sources */,
 				20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */,
 				2075ACBB2C32951F00F764CA /* HNodeRankListItemCell.swift in Sources */,
@@ -2928,6 +2956,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -2987,6 +3023,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		20F02F602C33F4EE00554857 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		6012463A2C056AAD00635523 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
