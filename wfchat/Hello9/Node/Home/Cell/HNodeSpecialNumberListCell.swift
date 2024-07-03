@@ -223,6 +223,15 @@ class HNodeSpecialNumberListCell: HBasicTableViewCell<HNodeSpecialNumberListMode
         contentView.addSubview(numberView)
     }
     
+    override func updateConfiguration(using state: UICellConfigurationState) {
+        super.updateConfiguration(using: state)
+        if state.isSelected || state.isHighlighted {
+            numberView.backgroundColor = Colors.themeGray6
+        } else {
+            numberView.backgroundColor = Colors.white
+        }
+    }
+    
     override func makeConstraints() {
         super.makeConstraints()
         numberView.snp.makeConstraints { make in
