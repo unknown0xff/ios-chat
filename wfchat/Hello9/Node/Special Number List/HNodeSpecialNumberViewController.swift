@@ -102,7 +102,22 @@ class HNodeSpecialNumberListViewController: HBaseViewController, UITableViewDele
     
 }
 
-extension HNodeSpecialNumberListViewController {
+extension HNodeSpecialNumberListViewController: HNodeSpecialNumberListCellDelegate {
+    
+    func onCollected(_ isCollected: Bool, at indexPath: IndexPath) {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        var newItem = item
+        newItem.isCollected = isCollected
+        var snap = dataSource.snapshot()
+        snap.insertItems([newItem], afterItem: item)
+        snap.deleteItems([item])
+        dataSource.apply(snap, animatingDifferences: false)
+        HToast.showTipAutoHidden(text: isCollected ? "已收藏" : "取消收藏")
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

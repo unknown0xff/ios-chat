@@ -8,7 +8,28 @@
 
 import UIKit
 
+protocol HHashable: Hashable {
+    var identifier: UUID { get set }
+}
+
+extension HHashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    func copy() -> Self {
+        var newItem = self
+        newItem.identifier = UUID()
+        return newItem
+    }
+}
+
 struct HNodeSpecialNumberListModel: Hashable {
+    
     var id: String = String(Int.random(in: 11111111...99999999))
     var ownerNumber: Int = 8
     var isCollected: Bool = Bool.random()
@@ -18,7 +39,6 @@ struct HNodeSpecialNumberListModel: Hashable {
     var competitor: String = String(Int.random(in: 11111111...99999999))
     var competitorRank: Int = Int.random(in: 1...99)
     var showCompetitor: Bool = Bool.random()
-    
 }
 
 class HNodeSpecialNumberListContentView: UIView {
@@ -49,8 +69,8 @@ class HNodeSpecialNumberListContentView: UIView {
         return label
     }()
     
-    private lazy var collectionIcon: UIImageView = {
-        let imageView = UIImageView()
+    private(set) lazy var collectionIcon: UIButton = {
+        let imageView = UIButton(type: .system)
         return imageView
     }()
     
@@ -133,9 +153,9 @@ class HNodeSpecialNumberListContentView: UIView {
         }
         
         collectionIcon.snp.makeConstraints { make in
-            make.right.equalTo(-14)
-            make.width.equalTo(14)
-            make.height.equalTo(13)
+            make.right.equalTo(0)
+            make.width.equalTo(16 * 3)
+            make.height.equalTo(16)
             make.centerY.equalTo(numberLabel)
         }
         
@@ -181,7 +201,9 @@ class HNodeSpecialNumberListContentView: UIView {
         idLabel.text = data.id
         
         collectionIcon.isHidden = !data.showCollected
-        collectionIcon.image = data.isCollected ? Images.icon_collected : Images.icon_uncollected
+        
+        let image = data.isCollected ? Images.icon_collected : Images.icon_uncollected
+        collectionIcon.setImage(image, for: .normal)
         
         scoreValueLabel.text = data.score
         competitorValueLabel.text = "\(data.competitor)人(前\(data.competitorRank)%)"
@@ -210,6 +232,11 @@ class HNodeSpecialNumberListContentView: UIView {
     }
 }
 
+
+protocol HNodeSpecialNumberListCellDelegate {
+    func onCollected(_ isCollected: Bool, at indexPath: IndexPath)
+}
+
 class HNodeSpecialNumberListCell: HBasicTableViewCell<HNodeSpecialNumberListModel> {
     
     private lazy var numberView: HNodeSpecialNumberListContentView = {
@@ -221,6 +248,8 @@ class HNodeSpecialNumberListCell: HBasicTableViewCell<HNodeSpecialNumberListMode
         super.configureSubviews()
         selectionStyle = .none
         contentView.addSubview(numberView)
+        
+        numberView.collectionIcon.addTarget(self, action: #selector(didClickCollectionButton(_:)), for: .touchUpInside)
     }
     
     override func updateConfiguration(using state: UICellConfigurationState) {
@@ -244,6 +273,12 @@ class HNodeSpecialNumberListCell: HBasicTableViewCell<HNodeSpecialNumberListMode
             return
         }
         numberView.bindData(data)
+    }
+    
+    @objc func didClickCollectionButton(_ sender: UIButton) {
+        if let cellData, let delegate = tableView?.delegate as? HNodeSpecialNumberListCellDelegate {
+            delegate.onCollected(!cellData.isCollected, at: indexPath)
+        }
     }
 }
 
