@@ -136,6 +136,8 @@ enum Images {
 
     static let icon_logo42 = UIImage(named: "icon_logo42")!
 
+    static let icon_logo_goast = UIImage(named: "icon_logo_goast")!
+
     static let icon_logo_title = UIImage(named: "icon_logo_title")!
 
     static let icon_member_group = UIImage(named: "icon_member_group")!

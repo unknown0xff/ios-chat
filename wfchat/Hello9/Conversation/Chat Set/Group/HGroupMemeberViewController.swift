@@ -108,9 +108,6 @@ extension HGroupMemeberViewController: UITableViewDelegate {
                     self.showSelectedFriendsVC()
                     return
                 }
-                if model.memberId == IMUserInfo.userId {
-                    return
-                }
                 let vc = HNewFriendDetailViewController(targetId: model.memberId)
                 navigationController?.pushViewController(vc, animated: true)
             }
