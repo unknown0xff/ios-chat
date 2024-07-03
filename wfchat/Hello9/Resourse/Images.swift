@@ -52,6 +52,8 @@ enum Images {
 
     static let icon_camera_blue_outline = UIImage(named: "icon_camera_blue_outline")!
 
+    static let icon_chat_bg = UIImage(named: "icon_chat_bg")!
+
     static let icon_chat_green = UIImage(named: "icon_chat_green")!
 
     static let icon_chat_list_delete = UIImage(named: "icon_chat_list_delete")!

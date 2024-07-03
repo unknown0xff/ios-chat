@@ -16,6 +16,8 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private var topView: HMessageTopView?
     
+    private lazy var chatBackgroundView = UIImageView(image: Images.icon_chat_bg)
+    
     private(set) lazy var avatarButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.imageView?.contentMode = .scaleAspectFit
@@ -28,11 +30,15 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(navBar)
         view.backgroundColor = Colors.white
         
         configureNavbar()
+        
+        backgroundView.insertSubview(chatBackgroundView, at: 0)
+        chatBackgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         backgroundView.addSubview(multiSelectPanel)
         multiSelectPanel.snp.makeConstraints { make in
@@ -174,7 +180,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     }
     
     private func configureNavbar() {
-        navBar.blurEffectStyle = .light
+        navBar.blurEffectStyle = .prominent
         navBar.contentView.addSubview(avatarButton)
         avatarButton.snp.makeConstraints { make in
             make.width.height.equalTo(36)

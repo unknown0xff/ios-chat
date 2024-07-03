@@ -1054,7 +1054,7 @@
     [self.backgroundView addSubview:self.collectionView];
     
     self.backgroundView.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
-    self.collectionView.backgroundColor = [WFCUConfigManager globalManager].backgroudColor;
+    self.collectionView.backgroundColor = [UIColor clearColor];// [WFCUConfigManager globalManager].backgroudColor;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.alwaysBounceVertical = YES;
