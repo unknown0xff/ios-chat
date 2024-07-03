@@ -105,7 +105,7 @@ class HSingleChatSetViewController: HBaseViewController {
     override func configureSubviews() {
         super.configureSubviews()
         
-        navBar.rightBarButtonItem = .with(title: "编辑", titleColor: Colors.themeBlack, style: .done, target: self, action: #selector(didClickEditButton(_:)))
+        navBar.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(didClickEditButton(_:)))
         
         containerView.alwaysBounceVertical = true
         

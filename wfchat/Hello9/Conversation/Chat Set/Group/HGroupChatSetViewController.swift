@@ -81,12 +81,6 @@ class HGroupChatSetViewController: HBaseViewController {
     
     private lazy var tabViewController = HChatMessageFilterViewController(vm: viewModel)
     
-    private(set) lazy var editButton: UIButton = {
-        let btn = UIButton.navButton("编辑", titleColor: Colors.black)
-        btn.addTarget(self, action: #selector(didClickEditButton(_:)), for: .touchUpInside)
-        return btn
-    }()
-    
     private typealias Section = HGroupChatSetViewModel.Section
     private typealias Row = HGroupChatSetViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
@@ -117,17 +111,19 @@ class HGroupChatSetViewController: HBaseViewController {
         backgroundView.image = Images.icon_background_gray1
         containerView.subScrollViews = tabViewController.subScrollerViews
         
-        editButton.isHidden = !viewModel.isGroupOwner
+        let editItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(didClickEditButton(_:)))
+        navBar.rightBarButtonItem = viewModel.isGroupOwner ? editItem : nil
         silentButton.isSelected = viewModel.isSilent
     }
     
     override func configureSubviews() {
         super.configureSubviews()
         
-        view.sendSubviewToBack(navBarBackgroundView)
+        configureDefaultStyle()
+        
         containerView.alwaysBounceVertical = true
         
-        navBar.contentView.addSubview(editButton)
+        
         
         headerView.addArrangedSubview(avatar)
         headerView.setCustomSpacing(16, after: avatar)
@@ -156,13 +152,6 @@ class HGroupChatSetViewController: HBaseViewController {
             make.left.right.width.equalToSuperview()
             make.height.equalToSuperview().offset(-HNavigationBar.height)
             make.top.equalTo(navBar.snp.bottom)
-        }
-        
-        editButton.snp.makeConstraints { make in
-            make.right.equalTo(0)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(26)
-            make.width.equalTo(65)
         }
         
         headerView.snp.makeConstraints { make in
@@ -274,7 +263,7 @@ class HGroupChatSetViewController: HBaseViewController {
         }
     }
     
-    @objc func didClickEditButton(_ sender: UIButton) {
+    @objc func didClickEditButton(_ sender: UIBarButtonItem) {
         HModalPresentNavigationController.show(root: HGroupChatEditViewController(conv: viewModel.conv), preferredStyle: .actionSheet)
     }
     

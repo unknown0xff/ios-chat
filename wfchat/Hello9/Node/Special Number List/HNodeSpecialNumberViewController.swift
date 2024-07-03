@@ -15,6 +15,7 @@ class HNodeSpecialNumberViewController: HMenuTabViewController {
         let nav = HNavigationBar()
         nav.title = "已选靓号"
         nav.backButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
+        nav.rightBarButtonItem = UIBarButtonItem(image: Images.icon_search, style: .plain, target: self, action: #selector(didClickSearchButton(_:)))
         return nav
     }()
     
@@ -34,6 +35,10 @@ class HNodeSpecialNumberViewController: HMenuTabViewController {
     
     @objc override func prefersNavigationBarHidden() -> Bool {
         true
+    }
+    
+    @objc func didClickSearchButton(_ sender: UIBarButtonItem) {
+        
     }
 }
 
