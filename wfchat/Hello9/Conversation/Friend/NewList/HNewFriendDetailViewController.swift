@@ -333,6 +333,9 @@ class HNewFriendDetailViewController: HBaseViewController {
             guard let self else { return }
             HToast.showTipAutoHidden(text: "添加成功")
             self.actionButton.setTitle("发信息", for: .normal)
+            DispatchQueue.main.async { [weak self] in
+                self?.beginChat()
+            }
         } error: { code in
             hud?.hide(animated: true)
             if code == 19 {
