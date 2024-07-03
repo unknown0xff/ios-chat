@@ -92,7 +92,7 @@
         if (self.timeLabel == nil) {
             self.timeLabel = [[UILabel alloc] init];
             _timeLabel.font = [UIFont pingFangSCWithWeight:FontWeightStyleRegular size:12];
-            _timeLabel.textColor = [UIColor colorWithHexString:@"0x808793"];
+            _timeLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:111.0/255.0];
             
             [self.contentView addSubview:self.timeLabel];
         }

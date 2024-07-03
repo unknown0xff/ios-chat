@@ -25,7 +25,7 @@ class HChatListViewModel: HBaseViewModel {
     }
     
     init() {
-        addObservers()
+        loadData()
     }
     
     func refresh() {
@@ -44,11 +44,8 @@ class HChatListViewModel: HBaseViewModel {
         applySnapshot()
     }
     
-    private func addObservers() {
-        
+    private func loadData() {
         WFCCIMService.sharedWFCIM().loadFriendRequestFromRemote()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
     }
     
     func removeFriendRequest() {
@@ -56,8 +53,10 @@ class HChatListViewModel: HBaseViewModel {
         friendRequest.forEach { request in
             WFCCIMService.sharedWFCIM().deleteFriendRequest(request.target, direction: request.direction)
         }
-        friendRequest = []
-        applySnapshot(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.friendRequest = []
+            self.applySnapshot(animated: true)
+        }
     }
     
     func removeConversation(model: HChatListCellModel) {
@@ -132,19 +131,22 @@ class HChatListViewModel: HBaseViewModel {
         
         var rows: [Row] = .init()
         if !friendRequest.isEmpty {
-            let timestamp = friendRequest.first!.timestamp
-            
-            var hasInsert = false
-            for item in conversations {
-                if item.isTop == 1 || hasInsert {
-                    rows.append(Row.chat(.init(conversationInfo: item)))
-                } else {
-                    if item.timestamp > timestamp {
+            if conversations.isEmpty {
+                rows.append(Row.friend(friendRequest))
+            } else {
+                let timestamp = friendRequest.first!.timestamp
+                var hasInsert = false
+                for item in conversations {
+                    if item.isTop == 1 || hasInsert {
                         rows.append(Row.chat(.init(conversationInfo: item)))
                     } else {
-                        rows.append(Row.friend(friendRequest))
-                        rows.append(Row.chat(.init(conversationInfo: item)))
-                        hasInsert = true
+                        if item.timestamp > timestamp {
+                            rows.append(Row.chat(.init(conversationInfo: item)))
+                        } else {
+                            rows.append(Row.friend(friendRequest))
+                            rows.append(Row.chat(.init(conversationInfo: item)))
+                            hasInsert = true
+                        }
                     }
                 }
             }
@@ -156,23 +158,9 @@ class HChatListViewModel: HBaseViewModel {
         self.dataSource = (snapshot, animated)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     func reloadFriendRequest() {
         friendRequest = (WFCCIMService.sharedWFCIM().getIncommingFriendRequest() ?? .init())
         applySnapshot()
     }
     
 }
-
-// MARK: - observers
-
-extension HChatListViewModel {
-    
-    @objc func onFriendRequestUpdated(_ sender: Notification) {
-        reloadFriendRequest()
-    }
-}
-

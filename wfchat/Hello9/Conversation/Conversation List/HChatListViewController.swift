@@ -110,6 +110,7 @@ class HChatListViewController: HBaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onMessageUpdated(_:)), name: .init(rawValue: kMessageUpdated), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onSecretChatStateChanged(_:)), name: .init(rawValue: kSecretChatStateUpdated), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onSecretMessageBurned(_:)), name: .init(rawValue: kSecretMessageBurned), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
     }
     
     private func applyDataSource(_ snapshot: HChatListViewModel.Snapshot) {
@@ -362,6 +363,11 @@ extension HChatListViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.viewModel.refresh()
         }
+    }
+    
+    @objc func onFriendRequestUpdated(_ sender: Notification) {
+        viewModel.reloadFriendRequest()
+        updateBadgeNumber()
     }
     
     @objc func onSendingMessageStatusUpdated(_ sender: Notification) {

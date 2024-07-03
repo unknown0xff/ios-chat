@@ -9,7 +9,7 @@
 #import "WFCUInformationCell.h"
 #import <WFChatClient/WFCChatClient.h>
 #import "WFCUUtilities.h"
-
+#import "UIColor+YH.h"
 
 #define TEXT_TOP_PADDING 6
 #define TEXT_BUTTOM_PADDING 6
@@ -101,7 +101,7 @@
         _infoLabel.numberOfLines = 0;
         _infoLabel.font = [UIFont systemFontOfSize:14];
         
-        _infoLabel.textColor = [UIColor whiteColor];
+        _infoLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:175.0/255.0];
         _infoLabel.numberOfLines = 0;
         _infoLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _infoLabel.textAlignment = NSTextAlignmentCenter;
@@ -109,7 +109,6 @@
         _infoLabel.layer.masksToBounds = YES;
         _infoLabel.layer.cornerRadius = 5.f;
         _infoLabel.textAlignment = NSTextAlignmentCenter;
-        _infoLabel.backgroundColor = [UIColor colorWithRed:201/255.f green:201/255.f blue:201/255.f alpha:1.f];
         
         [self.contentView addSubview:_infoLabel];
     }
