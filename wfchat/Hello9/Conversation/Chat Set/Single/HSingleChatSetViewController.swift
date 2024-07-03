@@ -55,9 +55,9 @@ class HSingleChatSetViewController: HBaseViewController {
         return btn
     }()
     private lazy var actions: UIStackView = {
-        let secretButton = actionButton(with: Images.icon_lock, title: "密聊", selector: #selector(didClickBackBarButton(_:)))
+        let secretButton = actionButton(with: Images.icon_lock, title: "密聊", selector: #selector(didClickChatButton(_:)))
         
-        let msgButton = actionButton(with: Images.icon_message, title: "发送消息", selector: #selector(didClickBackBarButton(_:)))
+        let msgButton = actionButton(with: Images.icon_message, title: "发送消息", selector: #selector(didClickChatButton(_:)))
         
         let searchButton = actionButton(with: Images.icon_search, title: "搜索", selector: #selector(didClickSearchButton(_:)))
         let s = UIStackView(arrangedSubviews: [secretButton, msgButton, searchButton, moreButton])
@@ -92,6 +92,11 @@ class HSingleChatSetViewController: HBaseViewController {
         viewModel.loadData()
         bindData()
         accountView.addTarget(self, action: #selector(didClickQRButton(_:)), for: .touchUpInside)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        removeOldIfNeed()
     }
     
     func bindData() {
@@ -182,6 +187,29 @@ class HSingleChatSetViewController: HBaseViewController {
         }
     }
     
+    private func removeOldIfNeed() {
+        if let childControllers = navigationController?.children {
+            var child = [UIViewController]()
+            childControllers.forEach { item in
+                if let vc = item as? HSingleChatSetViewController, vc != self {
+                } else if let vc = item as? HMessageListViewController {
+                    let contain = child.contains { msg in
+                        if let msgVC = msg as? HMessageListViewController {
+                           return msgVC.conversation.target == vc.conversation.target
+                        }
+                        return false
+                    }
+                    if !contain {
+                        child.append(vc)
+                    }
+                } else {
+                    child.append(item)
+                }
+            }
+            navigationController?.setViewControllers(child, animated: false)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         containerView.maxContentOffset = CGRectGetMaxY(headerView.frame) + 10
@@ -264,6 +292,13 @@ class HSingleChatSetViewController: HBaseViewController {
     
     @objc func didClickEditButton(_ sender: UIBarButtonItem) {
         HModalPresentNavigationController.show(root: HFriendInfoEditViewController(userInfo: viewModel.userInfo))
+    }
+    
+    @objc func didClickChatButton(_ sender: UIButton) {
+        let mvc = HMessageListViewController()
+        mvc.conversation = viewModel.conv
+        mvc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(mvc, animated: true)
     }
 }
 

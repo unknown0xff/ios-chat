@@ -29,6 +29,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hidesBottomBarWhenPushed = true
         view.addSubview(navBar)
         view.backgroundColor = Colors.white
         
@@ -107,7 +108,16 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func didTapMessagePortrait(_ cell: WFCUMessageCellBase, with model: WFCUMessageModel) {
         if let userId = model.message?.fromUser {
-            didClickSetingButton()
+            let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(userId, refresh: false)
+            let user = HUserInfoModel(info: userInfo)
+            if user.isFriend {
+                let conversation = WFCCConversation(type: .Single_Type, target: userId, line: 0)!
+                let vc = HSingleChatSetViewController(vm: .init(conversation))
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = HNewFriendDetailViewController(targetId: userId)
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

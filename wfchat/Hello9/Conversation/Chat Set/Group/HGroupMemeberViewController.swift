@@ -108,8 +108,17 @@ extension HGroupMemeberViewController: UITableViewDelegate {
                     self.showSelectedFriendsVC()
                     return
                 }
-                let vc = HNewFriendDetailViewController(targetId: model.memberId)
-                navigationController?.pushViewController(vc, animated: true)
+                
+                let userInfo = WFCCIMService.sharedWFCIM().getUserInfo(model.memberId, refresh: false)
+                let user = HUserInfoModel(info: userInfo)
+                if user.isFriend {
+                    let conversation = WFCCConversation(type: .Single_Type, target: model.memberId, line: 0)!
+                    let vc = HSingleChatSetViewController(vm: .init(conversation))
+                    navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let vc = HNewFriendDetailViewController(targetId: model.memberId)
+                    navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }
     }
