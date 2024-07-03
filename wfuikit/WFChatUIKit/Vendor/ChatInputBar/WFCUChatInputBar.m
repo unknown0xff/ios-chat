@@ -121,11 +121,14 @@
 @property(nonatomic, strong)NSTimer *saveDraftTimer;
 
 @property(nonatomic, strong)NSMutableArray<WFCUPublicMenuButton *> *menuButtons;
+
+@property(nonatomic, strong) UIVisualEffectView *bgEffectView;
+
 @end
 
 @implementation WFCUChatInputBar
 - (instancetype)initWithSuperView:(UIView *)parentView conversation:(WFCCConversation *)conversation delegate:(id<WFCUChatInputBarDelegate>)delegate {
-    self = [super initWithFrame:CGRectMake(0, parentView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT, parentView.bounds.size.width, CHAT_INPUT_BAR_HEIGHT)];
+    self = [super initWithFrame:CGRectMake(0, parentView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT - [WFCUUtilities wf_safeDistanceBottom], parentView.bounds.size.width, CHAT_INPUT_BAR_HEIGHT)];
     if (self) {
         [parentView addSubview:self];
         self.delegate = delegate;
@@ -157,8 +160,8 @@
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
-    self.backgroundColor = [UIColor whiteColor];
-    
+    self.backgroundColor = [UIColor clearColor];
+    self.clipsToBounds = NO;
     
     NSArray<WFCCChannelMenu *> *menus = nil;
     if (self.conversation.type == Channel_Type) {
@@ -168,6 +171,8 @@
     
     CGRect parentRect = self.bounds;
     
+    self.bgEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent]];
+    [self addSubview: self.bgEffectView];
     
     if (menus.count) {
         self.publicSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
@@ -189,6 +194,14 @@
         [self addSubview:self.inputContainer];
         [self setupInputContainer:NO];
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect frame = self.bounds;
+    frame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+    self.bgEffectView.frame = frame;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
@@ -978,7 +991,7 @@
     NSDictionary *userInfo = [notification userInfo];
     NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [value CGRectValue];
-    int height = keyboardRect.size.height - [WFCUUtilities wf_safeDistanceBottom];
+    int height = keyboardRect.size.height;// - [WFCUUtilities wf_safeDistanceBottom];
     
     CGFloat duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect frame = CGRectMake(0, self.superview.bounds.size.height - self.bounds.size.height - height, self.superview.bounds.size.width, self.bounds.size.height);
@@ -994,7 +1007,7 @@
     NSDictionary *userInfo = [notification userInfo];
     
     CGFloat duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect frame = CGRectMake(0, self.superview.bounds.size.height - self.bounds.size.height, self.superview.bounds.size.width, self.bounds.size.height);
+    CGRect frame = CGRectMake(0, self.superview.bounds.size.height - self.bounds.size.height - [WFCUUtilities wf_safeDistanceBottom], self.superview.bounds.size.width, self.bounds.size.height);
     [self.delegate willChangeFrame:frame withDuration:duration keyboardShowing:NO];
     self.backupFrame = frame;
     [UIView animateWithDuration:duration animations:^{

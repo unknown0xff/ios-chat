@@ -906,7 +906,7 @@
         if (!self.backgroundView) {
             return nil;
         }
-        _multiSelectPanel = [[UIView alloc] initWithFrame:CGRectMake(0, self.backgroundView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT, self.backgroundView.bounds.size.width, CHAT_INPUT_BAR_HEIGHT)];
+        _multiSelectPanel = [[UIView alloc] initWithFrame:CGRectMake(0, self.backgroundView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT - [WFCUUtilities wf_safeDistanceBottom], self.backgroundView.bounds.size.width, CHAT_INPUT_BAR_HEIGHT)];
         _multiSelectPanel.backgroundColor = [UIColor colorWithHexString:@"0xf7f7f7"];
         UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _multiSelectPanel.bounds.size.width/2, _multiSelectPanel.bounds.size.height)];
         [deleteBtn setTitle:WFCString(@"Delete") forState:UIControlStateNormal];
@@ -1040,11 +1040,11 @@
     
     CGFloat navHeight = 100;
     CGRect frame = self.view.bounds;
-    frame.size.height -= [WFCUUtilities wf_safeDistanceBottom];//[WFCUUtilities wf_navigationFullHeight]);
+//    frame.size.height -= [WFCUUtilities wf_safeDistanceBottom];//[WFCUUtilities wf_navigationFullHeight]);
     self.backgroundView = [[UIView alloc] initWithFrame:frame];
     [self.view addSubview:self.backgroundView];
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height - CHAT_INPUT_BAR_HEIGHT) collectionViewLayout:_customFlowLayout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.bounds.size.width, self.backgroundView.bounds.size.height) collectionViewLayout:_customFlowLayout];
     self.collectionView.contentInset = UIEdgeInsetsMake(navHeight, 0, 8, 0);
     if (@available(iOS 11.0, *)) {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

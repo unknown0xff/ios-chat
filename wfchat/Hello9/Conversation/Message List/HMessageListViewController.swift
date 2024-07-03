@@ -15,7 +15,6 @@ class HMessageListViewController: WFCUMessageListViewController {
     private lazy var navBar = HNavigationBar()
     
     private var topView: HMessageTopView?
-    
     private lazy var chatBackgroundView = UIImageView(image: Images.icon_chat_bg)
     
     private(set) lazy var avatarButton: UIButton = {
@@ -43,7 +42,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         backgroundView.addSubview(multiSelectPanel)
         multiSelectPanel.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
-            make.height.equalTo(56)
+            make.height.equalTo(56 + HUIConfigure.safeBottomMargin + 4)
         }
         multiSelectPanel.isHidden = !multiSelecting
         
