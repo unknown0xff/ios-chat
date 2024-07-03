@@ -100,12 +100,11 @@ class HSingleChatSetViewController: HBaseViewController {
         avatar.sd_setImage(with: viewModel.userInfo.portrait, placeholderImage: Images.icon_logo)
         signView.userInfo = viewModel.userInfo
         accountView.userInfo = viewModel.userInfo
+        navBar.rightBarButtonItem = viewModel.userInfo.isSelf ? nil : UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(didClickEditButton(_:)))
     }
     
     override func configureSubviews() {
         super.configureSubviews()
-        
-        navBar.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(didClickEditButton(_:)))
         
         containerView.alwaysBounceVertical = true
         

@@ -60,7 +60,12 @@ class HGroupChatSetViewModel: HBasicViewModel {
         if conv.type != .Group_Type {
             return false
         }
-        return groupInfo.owner == IMUserInfo.userId
+        let currentUser = IMUserInfo.userId
+        if groupInfo.owner == currentUser {
+            return true
+        }
+        let memeber = WFCCIMService.sharedWFCIM().getGroupMember(groupInfo.target, memberId: currentUser)
+        return memeber?.type == .Member_Type_Manager
     }
     
     func inviteMembers(_ userIds: [String]) {

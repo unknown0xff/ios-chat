@@ -166,7 +166,7 @@ class HNewFriendDetailViewController: HBaseViewController {
             signLabel.text = userInfo.social.isEmpty ? "昨天是一段历史，明天是一个谜团，今天是天赐的礼物" : userInfo.social
             titleLabel.text = "个人简介"
             
-            if userInfo.isFriend {
+            if userInfo.isFriend || userInfo.isSelf {
                 actionButton.setTitle("发信息", for: .normal)
             } else {
                 if isHandleFriendRequest {
@@ -282,7 +282,7 @@ class HNewFriendDetailViewController: HBaseViewController {
         if isGroup {
             // TODO: xianda.yang
         } else {
-            if userInfo.isFriend {
+            if userInfo.isFriend || userInfo.isSelf {
                 beginChat()
             } else {
                 if isHandleFriendRequest {

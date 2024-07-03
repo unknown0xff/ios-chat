@@ -59,4 +59,8 @@ struct HUserInfoModel: Hashable {
     var isFriend: Bool {
         return WFCCIMService.sharedWFCIM().isMyFriend(userId)
     }
+    
+    var isSelf: Bool {
+        return userId == HUserInfoModel.current.userId
+    }
 }

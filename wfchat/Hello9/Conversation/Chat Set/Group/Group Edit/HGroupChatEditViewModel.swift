@@ -128,7 +128,9 @@ class HGroupChatEditViewModel: HBasicViewModel {
         WFCCIMService.sharedWFCIM().modifyGroupInfo(target, type: .group_Name, newValue: name, notifyLines: [.init(value: 0)], notify: nil) {
             WFCCIMService.sharedWFCIM().modifyGroupInfo(target, type: .group_Extra, newValue: extra, notifyLines: [.init(value: 0)], notify: nil) {
                 hud?.hide(animated: true)
-                HToast.showTipAutoHidden(text: "修改成功")
+                UIViewController.h_top?.dismiss(animated: true, completion: {
+                    HToast.showTipAutoHidden(text: "修改成功")
+                })
             } error: { _ in
                 hud?.hide(animated: true)
                 HToast.showTipAutoHidden(text: "修改失败")
