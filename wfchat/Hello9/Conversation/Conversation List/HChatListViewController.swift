@@ -71,7 +71,7 @@ class HChatListViewController: HBaseViewController {
         super.configureSubviews()
         
         navBarBackgroundView.image = nil
-        navBar.blurEffectStyle = .prominent
+        navBar.blurEffectStyle = .systemMaterialLight
         tableView.tableHeaderView = searchBar
         tableView.backgroundColor = Colors.white
         tableView.register([HChatListCell.self, HFriendRequestCell.self])

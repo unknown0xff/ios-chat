@@ -15,7 +15,7 @@ class HTabBar: UITabBar {
     static let barHeight = barContentHeight + HUIConfigure.safeBottomMargin
     
     private lazy var effectView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: .prominent)
+        let effect = UIBlurEffect(style: .systemMaterialLight)
         let effectView = UIVisualEffectView(effect: effect)
         return effectView
     }()
