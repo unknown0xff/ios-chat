@@ -43,12 +43,14 @@ class HTakePhotoManager {
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         let camara = UIAlertAction(title: "打开 相机", style: .default) {  _ in
             let camera = ZLCustomCamera()
+            ZLPhotoConfiguration.default().cameraConfiguration.allowRecordVideo = false
             camera.takeDoneBlock = { image, videoUrl in
                 if let image {
                     completion([image])
                 } else {
                     completion([])
                 }
+                ZLPhotoConfiguration.resetConfiguration()
             }
             UIViewController.h_top?.showDetailViewController(camera, sender: nil)
         }
