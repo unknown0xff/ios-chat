@@ -107,8 +107,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func didTapMessagePortrait(_ cell: WFCUMessageCellBase, with model: WFCUMessageModel) {
         if let userId = model.message?.fromUser {
-            let vc = HNewFriendDetailViewController(targetId: userId)
-            navigationController?.pushViewController(vc, animated: true)
+            didClickSetingButton()
         }
     }
     
@@ -329,7 +328,7 @@ extension HMessageListViewController {
         present(alert, animated: true)
     }
     
-    @objc func didClickSetingButton(_ sender: UIButton) {
+    @objc func didClickSetingButton(_ sender: UIButton? = nil) {
         
         if self.conversation.type == .Group_Type {
             let vc = HGroupChatSetViewController(vm: .init(self.conversation))
