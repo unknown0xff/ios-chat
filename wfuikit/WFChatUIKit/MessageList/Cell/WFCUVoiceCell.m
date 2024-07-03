@@ -87,14 +87,14 @@
     NSInteger sec = soundContent.duration - min * 60;
     self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimationTimer) name:kVoiceMessageStartPlaying object:@(model.message.messageId)];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimationTimer) name:kVoiceMessageStartPlaying object:@(model.message.messageId)];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimationTimer) name:kVoiceMessagePlayStoped object:nil];
-    if (model.voicePlaying) {
-        [self startAnimationTimer];
-    } else {
-        [self stopAnimationTimer];
-    }
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimationTimer) name:kVoiceMessagePlayStoped object:nil];
+//    if (model.voicePlaying) {
+//        [self startAnimationTimer];
+//    } else {
+//        [self stopAnimationTimer];
+//    }
 }
 
 - (UIButton *)playButton {
