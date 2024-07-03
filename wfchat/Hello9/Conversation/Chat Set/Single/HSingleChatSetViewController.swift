@@ -106,6 +106,8 @@ class HSingleChatSetViewController: HBaseViewController {
     override func configureSubviews() {
         super.configureSubviews()
         
+        configureDefaultStyle()
+        
         containerView.alwaysBounceVertical = true
         
         headerView.addArrangedSubview(avatar)
