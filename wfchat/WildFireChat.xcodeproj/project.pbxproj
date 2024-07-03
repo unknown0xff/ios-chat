@@ -75,9 +75,9 @@
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
 		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
 		20F02F632C33F50800554857 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F622C33F50800554857 /* Lottie.swift */; };
-		20F02F852C3400F500554857 /* node_shake.json in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F812C3400ED00554857 /* node_shake.json */; };
 		20F02F862C3400F500554857 /* node_shake_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7A2C33FF9A00554857 /* node_shake_0.png */; };
 		20F02F872C3400F500554857 /* node_shake_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7B2C33FF9A00554857 /* node_shake_1.png */; };
+		20F02F892C34D75500554857 /* node_shake.json in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F882C34D75500554857 /* node_shake.json */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
 		2B4C027D252F4A570043FA41 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0272252F4A570043FA41 /* AFURLSessionManager.m */; };
@@ -426,7 +426,7 @@
 		20F02F622C33F50800554857 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
 		20F02F7B2C33FF9A00554857 /* node_shake_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_1.png; sourceTree = "<group>"; };
-		20F02F812C3400ED00554857 /* node_shake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = node_shake.json; sourceTree = "<group>"; };
+		20F02F882C34D75500554857 /* node_shake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = node_shake.json; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2B4C026D252F4A570043FA41 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -1019,7 +1019,7 @@
 		20F02F7E2C33FF9A00554857 /* node_shake */ = {
 			isa = PBXGroup;
 			children = (
-				20F02F812C3400ED00554857 /* node_shake.json */,
+				20F02F882C34D75500554857 /* node_shake.json */,
 				20F02F7A2C33FF9A00554857 /* node_shake_0.png */,
 				20F02F7B2C33FF9A00554857 /* node_shake_1.png */,
 			);
@@ -2107,6 +2107,7 @@
 				2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */,
 				601246582C05AF4100635523 /* Images.xcassets in Resources */,
 				20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */,
+				20F02F892C34D75500554857 /* node_shake.json in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,
 				20499A442C22B20B0005B1D9 /* message_alert.wav in Resources */,
@@ -2114,7 +2115,6 @@
 				2F623A5022DCBD3E00CB3C65 /* Album.xcassets in Resources */,
 				90C1D911208C12A900E923F4 /* foreman.mp4 in Resources */,
 				2F8F8E682723072600151B75 /* ptt_begin.m4a in Resources */,
-				20F02F852C3400F500554857 /* node_shake.json in Resources */,
 				20F02F862C3400F500554857 /* node_shake_0.png in Resources */,
 				20F02F872C3400F500554857 /* node_shake_1.png in Resources */,
 			);
