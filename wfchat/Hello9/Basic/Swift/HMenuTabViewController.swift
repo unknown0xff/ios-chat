@@ -28,8 +28,12 @@ open class HMenuTabViewController: HBasicViewController, UIScrollViewDelegate {
     }
     
     open private(set) lazy var animationLineView: UIImageView = {
-        let v = UIImageView(image: Images.icon_tab_line)
+        let v = UIImageView()
+        v.backgroundColor = Colors.themeBlue1
         v.frame = CGRect(x: 24, y: animationLineViewTop, width: 25, height: 4)
+        v.layer.maskedCorners = [.leftTop, .rightTop]
+        v.layer.cornerRadius = 3
+        v.layer.masksToBounds = true
         return v
     }()
     
@@ -70,7 +74,7 @@ open class HMenuTabViewController: HBasicViewController, UIScrollViewDelegate {
     open var normalColor: UIColor = Colors.themeGray2
     
     open var selectedFont: UIFont = .system14.bold
-    open var selectedColor: UIColor = Colors.themeBlack
+    open var selectedColor: UIColor = Colors.themeBlue1
     
     open var defaultSelectedIndex: Int = 0
     

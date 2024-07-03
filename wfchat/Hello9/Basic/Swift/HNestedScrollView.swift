@@ -8,7 +8,7 @@
 
 
 open class HNestedScrollView: UIScrollView {
-    public var allowMutiPanGesture: Bool = false
+    public var allowMutiPanGesture: Bool = true
 }
 
 extension HNestedScrollView: UIGestureRecognizerDelegate {

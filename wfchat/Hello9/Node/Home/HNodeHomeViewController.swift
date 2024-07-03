@@ -79,14 +79,15 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
             case .specialHeader:
                 return HNodeSpecialNumberHeaderCell.build(on: tableView, cellData: (), for: indexPath)
             case .specialNumber(let model):
-                return HNodeSpecialNumberListCell.build(on: tableView, cellData: model, for: indexPath)
+                let cell = HNodeSpecialNumberListCell.build(on: tableView, cellData: model, for: indexPath)
+                cell.backgroundColor = UIColor(rgb: 0xeffaff)
+                return cell
             case .specialFooter:
                 return HNodeSpecialNumberFooterCell.build(on: tableView, cellData: (), for: indexPath)
             case .rankHead:
                 return HNodeRankHeadCell.build(on: tableView, cellData: .init(), for: indexPath)
             case .rankListItem(let model):
                 return HNodeRankListItemCell.build(on: tableView, cellData: model, for: indexPath)
-                
             case .sourceSet:
                 return HNodeSourceSetCell.build(on: tableView, cellData: (), for: indexPath)
             }
@@ -128,6 +129,19 @@ class HNodeHomeViewController: HBaseViewController, UITableViewDelegate {
 }
 
 extension HNodeHomeViewController {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let row = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        if case .specialFooter = row {
+            navigationController?.pushViewController(HNodeSpecialNumberViewController(), animated: true)
+            return
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let row = dataSource.itemIdentifier(for: indexPath) else {
             return UITableView.automaticDimension

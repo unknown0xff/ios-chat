@@ -78,6 +78,8 @@
 		20F02F862C3400F500554857 /* node_shake_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7A2C33FF9A00554857 /* node_shake_0.png */; };
 		20F02F872C3400F500554857 /* node_shake_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7B2C33FF9A00554857 /* node_shake_1.png */; };
 		20F02F892C34D75500554857 /* node_shake.json in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F882C34D75500554857 /* node_shake.json */; };
+		20F02F8D2C34E50B00554857 /* HNodeSpecialNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F8C2C34E50B00554857 /* HNodeSpecialNumberViewController.swift */; };
+		20F02F8F2C34E5C200554857 /* HNodeSpecialNumberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F8E2C34E5C200554857 /* HNodeSpecialNumberListViewModel.swift */; };
 		2B4C027B252F4A570043FA41 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C026F252F4A570043FA41 /* AFURLResponseSerialization.m */; };
 		2B4C027C252F4A570043FA41 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0270252F4A570043FA41 /* AFHTTPSessionManager.m */; };
 		2B4C027D252F4A570043FA41 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4C0272252F4A570043FA41 /* AFURLSessionManager.m */; };
@@ -427,6 +429,8 @@
 		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
 		20F02F7B2C33FF9A00554857 /* node_shake_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_1.png; sourceTree = "<group>"; };
 		20F02F882C34D75500554857 /* node_shake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = node_shake.json; sourceTree = "<group>"; };
+		20F02F8C2C34E50B00554857 /* HNodeSpecialNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeSpecialNumberViewController.swift; sourceTree = "<group>"; };
+		20F02F8E2C34E5C200554857 /* HNodeSpecialNumberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeSpecialNumberListViewModel.swift; sourceTree = "<group>"; };
 		2B4C026B252F4A570043FA41 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		2B4C026C252F4A570043FA41 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2B4C026D252F4A570043FA41 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -995,9 +999,8 @@
 		2075ACAC2C32747F00F764CA /* Node */ = {
 			isa = PBXGroup;
 			children = (
-				2075ACAD2C32749600F764CA /* HNodeHomeViewController.swift */,
-				2075ACAF2C32773C00F764CA /* HNodeHomeViewModel.swift */,
-				2075ACB32C32824700F764CA /* Cell */,
+				20F02F8B2C34E3A600554857 /* Special Number List */,
+				20F02F8A2C34E39600554857 /* Home */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -1024,6 +1027,25 @@
 				20F02F7B2C33FF9A00554857 /* node_shake_1.png */,
 			);
 			path = node_shake;
+			sourceTree = "<group>";
+		};
+		20F02F8A2C34E39600554857 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2075ACAD2C32749600F764CA /* HNodeHomeViewController.swift */,
+				2075ACAF2C32773C00F764CA /* HNodeHomeViewModel.swift */,
+				2075ACB32C32824700F764CA /* Cell */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		20F02F8B2C34E3A600554857 /* Special Number List */ = {
+			isa = PBXGroup;
+			children = (
+				20F02F8C2C34E50B00554857 /* HNodeSpecialNumberViewController.swift */,
+				20F02F8E2C34E5C200554857 /* HNodeSpecialNumberListViewModel.swift */,
+			);
+			path = "Special Number List";
 			sourceTree = "<group>";
 		};
 		2B4C0269252F4A570043FA41 /* Vendor */ = {
@@ -2292,6 +2314,7 @@
 				206631582C2D52B90009CBCA /* HTextField.swift in Sources */,
 				60A3F7D52C1D2B2500F855A2 /* HCollectionViewListCell.swift in Sources */,
 				60922A802C0767C600B70AD8 /* HMineAvatarCell.swift in Sources */,
+				20F02F8D2C34E50B00554857 /* HNodeSpecialNumberViewController.swift in Sources */,
 				60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */,
 				2075ACB52C32826000F764CA /* HNodeSpecialNumberFooterCell.swift in Sources */,
 				2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */,
@@ -2326,6 +2349,7 @@
 				2067A0892C2BADE200BA3F09 /* HCommonTextFieldContentView.swift in Sources */,
 				2F7268F921F7136600E05F9C /* WFCPrivacyViewController.m in Sources */,
 				205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */,
+				20F02F8F2C34E5C200554857 /* HNodeSpecialNumberListViewModel.swift in Sources */,
 				2FC50B7C245273A700B36F8A /* PCSessionViewController.m in Sources */,
 				607F95752C114EF100648BFF /* IMServiceBridge.m in Sources */,
 				205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */,

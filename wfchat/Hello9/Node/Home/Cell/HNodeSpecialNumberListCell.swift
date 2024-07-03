@@ -12,10 +12,13 @@ struct HNodeSpecialNumberListModel: Hashable {
     var id: String = String(Int.random(in: 11111111...99999999))
     var ownerNumber: Int = 8
     var isCollected: Bool = Bool.random()
-    var isZhuanshu: Bool = Bool.random()
+    var showCollected: Bool = Bool.random()
+    var isExclusive: Bool = Bool.random()
     var score: String = String(Int.random(in: 11111111...99999999))
     var competitor: String = String(Int.random(in: 11111111...99999999))
     var competitorRank: Int = Int.random(in: 1...99)
+    var showCompetitor: Bool = Bool.random()
+    
 }
 
 class HNodeSpecialNumberListContentView: UIView {
@@ -176,26 +179,32 @@ class HNodeSpecialNumberListContentView: UIView {
     
     func bindData(_ data: HNodeSpecialNumberListModel) {
         idLabel.text = data.id
+        
+        collectionIcon.isHidden = !data.showCollected
         collectionIcon.image = data.isCollected ? Images.icon_collected : Images.icon_uncollected
         
         scoreValueLabel.text = data.score
         competitorValueLabel.text = "\(data.competitor)人(前\(data.competitorRank)%)"
         
-        if data.isZhuanshu {
+        if data.isExclusive {
             numberLabel.text = "专属"
+        } else {
+            numberLabel.text = "\(data.ownerNumber)位"
+        }
+        
+        if data.showCompetitor {
+            scoreTitleLabel.snp.updateConstraints { make in
+                make.bottom.equalTo(-48)
+            }
+            competitorTitleLabel.isHidden = false
+            competitorValueLabel.isHidden = false
+        } else {
             scoreTitleLabel.snp.updateConstraints { make in
                 make.bottom.equalTo(-16)
             }
             
             competitorTitleLabel.isHidden = true
             competitorValueLabel.isHidden = true
-        } else {
-            numberLabel.text = "\(data.ownerNumber)位"
-            scoreTitleLabel.snp.updateConstraints { make in
-                make.bottom.equalTo(-48)
-            }
-            competitorTitleLabel.isHidden = false
-            competitorValueLabel.isHidden = false
         }
         
     }
@@ -211,14 +220,13 @@ class HNodeSpecialNumberListCell: HBasicTableViewCell<HNodeSpecialNumberListMode
     override func configureSubviews() {
         super.configureSubviews()
         selectionStyle = .none
-        backgroundColor = UIColor(rgb: 0xeffaff)
         contentView.addSubview(numberView)
     }
     
     override func makeConstraints() {
         super.makeConstraints()
         numberView.snp.makeConstraints { make in
-            make.edges.equalTo(UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
+            make.edges.equalTo(UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16))
         }
     }
     
