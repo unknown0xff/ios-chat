@@ -45,7 +45,7 @@
 @end
 
 #define EMOJ_TAB_HEIGHT 47
-#define EMOJ_FACE_VIEW_HEIGHT 190
+#define EMOJ_FACE_VIEW_HEIGHT 235
 
 #define EMOJ_AREA_HEIGHT (EMOJ_TAB_HEIGHT + EMOJ_FACE_VIEW_HEIGHT)
 @implementation WFCUFaceBoard{
@@ -270,8 +270,8 @@
             CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 4.0);
             return CGSizeMake(width, width);
         } else {
-            CGFloat width = 27 + 8;
-            CGFloat height = 27 + 6;
+            CGFloat width = 50;
+            CGFloat height = 50;
             return CGSizeMake(width, height);
         }
     } else {
@@ -314,8 +314,8 @@
             UIButton *faceButton = [UIButton buttonWithType:UIButtonTypeCustom];
             faceButton.tag = indexPath.item;
             [faceButton addTarget:self action:@selector(faceButton:) forControlEvents:UIControlEventTouchUpInside];
-            faceButton.frame = CGRectMake( 0, 0, 26, 26);
-            faceButton.titleLabel.font = [UIFont systemFontOfSize:20];
+            faceButton.frame = cell.bounds;
+            faceButton.titleLabel.font = [UIFont systemFontOfSize: 35];
             [faceButton setTitle:self.faceEmojiArray[indexPath.item] forState:UIControlStateNormal];
             [cell addSubview:faceButton];
         }
