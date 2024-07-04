@@ -58,6 +58,6 @@ class HCreateGroupConfirmHeadCell: HBasicCollectionViewCell<UIImage> {
     
     override func bindData(_ data: UIImage?) {
         avatar.image = data ?? Images.icon_camera
-        avatar.contentMode = (data != nil) ? .scaleAspectFit : .center
+        avatar.contentMode = (data != nil) ? .scaleAspectFill : .center
     }
 }

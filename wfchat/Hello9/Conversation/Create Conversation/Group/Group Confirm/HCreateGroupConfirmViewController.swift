@@ -46,6 +46,7 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
         
         configureNavBar()
         configureDataSource()
+        configureDefaultStyle()
         
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
