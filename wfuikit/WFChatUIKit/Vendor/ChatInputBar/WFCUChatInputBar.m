@@ -1260,6 +1260,8 @@
     range.length = 1;
     
     self.textInputView.selectedRange = range;
+    
+    [self updateSendBtnIfNeed];
 }
 
 - (void)didTouchBackEmoj {
@@ -1516,6 +1518,23 @@
         } else {
             // Fallback on earlier versions
         }
+    }
+   
+    [self updateSendBtnIfNeed];
+}
+
+- (void)updateSendBtnIfNeed {
+    NSString *text = self.textInputView.text;
+    if (text == nil) {
+        text = @"";
+    }
+    
+    if (text.length == 0) {
+        [self.voiceSwitchBtn setHidden:NO];
+        [self.sendBtn setHidden:YES];
+    } else {
+        [self.voiceSwitchBtn setHidden:YES];
+        [self.sendBtn setHidden:NO];
     }
 }
 
