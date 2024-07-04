@@ -101,7 +101,7 @@ class HCreateGroupConfirmViewController: HBaseViewController, UICollectionViewDe
 
     private func configureNavBar() {
         navBar.leftBarButtonItem = .init(title: "取消", style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
-        navBar.rightBarButtonItem = .init(title: "邀请", style: .done, target: self, action: #selector(didClickInviteButton(_:)))
+        navBar.rightBarButtonItem = .init(title: "创建", style: .done, target: self, action: #selector(didClickInviteButton(_:)))
     }
     
     private func createLayout() -> UICollectionViewLayout {

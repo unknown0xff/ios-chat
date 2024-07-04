@@ -76,7 +76,7 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     }
     
     private func updateDoneButtonTitle(_ selectedCount: Int) {
-        let doneTitle = selectedCount > 0 ? "完成(\(selectedCount))" : "完成"
+        let doneTitle = selectedCount > 0 ? "下一步(\(selectedCount))" : "下一步"
         navBar.rightBarButtonItem?.title = doneTitle
         navBar.rightBarButtonItem?.isEnabled = selectedCount > 0
     }
