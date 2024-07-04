@@ -434,8 +434,8 @@ class HPlayButton: UIView {
             
             let recorder = try AVAudioRecorder(url: fileUrl, settings: [
                 AVFormatIDKey: kAudioFormatLinearPCM,
-                AVSampleRateKey: 16000.0,
-                AVNumberOfChannelsKey: 2
+                AVSampleRateKey: 8000.0,
+                AVNumberOfChannelsKey: 2,
             ])
             recorder.delegate = self
             recorder.isMeteringEnabled = true

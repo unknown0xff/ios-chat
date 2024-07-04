@@ -87,14 +87,14 @@
     NSInteger sec = soundContent.duration - min * 60;
     self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimationTimer) name:kVoiceMessageStartPlaying object:@(model.message.messageId)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimationTimer) name:kVoiceMessageStartPlaying object:@(model.message.messageId)];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimationTimer) name:kVoiceMessagePlayStoped object:nil];
-//    if (model.voicePlaying) {
-//        [self startAnimationTimer];
-//    } else {
-//        [self stopAnimationTimer];
-//    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimationTimer) name:kVoiceMessagePlayStoped object:nil];
+    if (model.voicePlaying) {
+        [self startAnimationTimer];
+    } else {
+        [self stopAnimationTimer];
+    }
 }
 
 - (UIButton *)playButton {
@@ -144,9 +144,11 @@
     NSString *_playingImg;
     
     if (MessageDirection_Send == self.model.message.direction) {
-        _playingImg = [NSString stringWithFormat:@"sent_voice_%d", (self.animationIndex++ % 3) + 1];
+        _playingImg = @"sent_voice_1";
+//        _playingImg = [NSString stringWithFormat:@"sent_voice_%d", (self.animationIndex++ % 3) + 1];
     } else {
-        _playingImg = [NSString stringWithFormat:@"received_voice_%d", (self.animationIndex++ % 3) + 1];
+        _playingImg = @"received_voice_1";
+//        _playingImg = [NSString stringWithFormat:@"received_voice_%d", (self.animationIndex++ % 3) + 1];
     }
 
     [self.voiceBtn setImage:[WFCUImage imageNamed:_playingImg]];
