@@ -346,7 +346,7 @@
     dateSize.height = 19;
     dateSize.width += 12;
     CGFloat l = bubbleViewFrame.size.width - dateSize.width - Bubble_Padding_Another_Side;
-    CGFloat t = bubbleViewFrame.size.height - Client_Bubble_Bottom_Padding - dateSize.height - 5;
+    CGFloat t = bubbleViewFrame.size.height - Client_Bubble_Bottom_Padding - dateSize.height ;
     self.dateLabel.frame = CGRectMake(l, t, dateSize.width, dateSize.height);
     
     if (model.selecting) {
