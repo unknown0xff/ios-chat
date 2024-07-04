@@ -133,11 +133,9 @@
     }
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    
-    NSDate *current = [[NSDate alloc] init];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm"];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    formatter.timeStyle = NSDateFormatterShortStyle;
     NSString *hourTimeStr =  [formatter stringFromDate:date];
     return hourTimeStr;
 }

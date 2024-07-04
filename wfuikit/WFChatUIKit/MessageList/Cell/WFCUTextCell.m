@@ -32,7 +32,10 @@
     }
     
     WFCCTextMessageContent *txtContent = (WFCCTextMessageContent *)msgModel.message.content;
-    NSString *contentTxt = [NSString stringWithFormat:@"%@  20:20", txtContent.text];
+    
+    NSString *time = [WFCUUtilities formatTimeOnlyHourLabel:msgModel.message.serverTime];
+    
+    NSString *contentTxt = [NSString stringWithFormat:@"%@ %@", txtContent.text, time];
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc]init];
     para.lineHeightMultiple = 1.14;
     id attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName: para};
