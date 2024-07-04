@@ -43,7 +43,7 @@ class HGroupChatEditViewController: HBaseViewController, UICollectionViewDelegat
         
         configureNavBar()
         configureDataSource()
-        
+        configureDefaultStyle()
         viewModel.$snapshot.receive(on: RunLoop.main)
             .sink { [weak self] snapshot in
                 self?.dataSource.apply(snapshot, animatingDifferences: false)
