@@ -25,6 +25,7 @@
 
 - (void)didSelectedSticker:(NSString *)stickerPath;
 - (void)didEmojSettingBtn;
+- (void)didScroller;
 @end
 
 

@@ -174,7 +174,11 @@
     CGRect parentRect = self.bounds;
     
     self.bgEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent]];
+    
     [self addSubview: self.bgEffectView];
+    CGRect effectFrame = parentRect;
+    effectFrame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+    self.bgEffectView.frame = effectFrame;
     
     if (menus.count) {
         self.publicSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_PADDING, CHAT_INPUT_BAR_ICON_SIZE, CHAT_INPUT_BAR_ICON_SIZE)];
@@ -196,10 +200,6 @@
         [self addSubview:self.inputContainer];
         [self setupInputContainer:NO];
     }
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
     
     CGRect frame = self.bounds;
     frame.size.height += [WFCUUtilities wf_safeDistanceBottom];
@@ -1011,6 +1011,9 @@
     [UIView animateWithDuration:duration animations:^{
         self.frame = frame;
         self.inputContainer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        CGRect effectFrame = self.inputContainer.frame;
+        effectFrame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+        self.bgEffectView.frame = effectFrame;
     }];
 }
 
@@ -1024,6 +1027,9 @@
     [UIView animateWithDuration:duration animations:^{
         self.frame = frame;
         self.inputContainer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        CGRect effectFrame = self.inputContainer.frame;
+        effectFrame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+        self.bgEffectView.frame = effectFrame;
     }];
     
     if(self.inputBarStatus == ChatInputBarKeyboardStatus || self.inputBarStatus == ChatInputBarPluginStatus || self.inputBarStatus == ChatInputBarEmojiStatus) {
@@ -1113,7 +1119,8 @@
         [self.quoteDeleteBtn addTarget:self action:@selector(onQuoteDelBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         self.quoteContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maxWidth, CGRectGetMaxY(self.quoteLabel.frame) + 2)];
-        self.quoteContainerView.backgroundColor = [UIColor whiteColor];
+        self.quoteContainerView.backgroundColor = [UIColor clearColor];
+        self.quoteContainerView.alpha = 0.0;
         
         self.quoteDeleteBtn.frame = CGRectMake(maxWidth - 32, CGRectGetMidY(self.quoteContainerView.frame) - 8, 16, 16);
         
@@ -1135,14 +1142,23 @@
         if (updateFrame) {
             [self extendUp:(self.quoteContainerView.frame.size.height)];
         }
+        [UIView animateWithDuration:0.25 animations:^{
+            self.quoteContainerView.alpha = 1.0;
+        }];
     } else {
         CGFloat quoteHeight = self.quoteContainerView.frame.size.height;
-        [self.quoteLabel removeFromSuperview];
-        self.quoteLabel = nil;
-        [self.quoteDeleteBtn removeFromSuperview];
-        self.quoteDeleteBtn = nil;
-        [self.quoteContainerView removeFromSuperview];
-        self.quoteContainerView = nil;
+        [UIView animateWithDuration:0.25 animations:^{
+            self.quoteLabel.alpha = 0.0f;
+            self.quoteDeleteBtn.alpha = 0.0f;
+            self.quoteContainerView.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [self.quoteLabel removeFromSuperview];
+            self.quoteLabel = nil;
+            [self.quoteDeleteBtn removeFromSuperview];
+            self.quoteDeleteBtn = nil;
+            [self.quoteContainerView removeFromSuperview];
+            self.quoteContainerView = nil;
+        }];
         if (updateFrame) {
             [self extendUp: -quoteHeight];
         }
@@ -1180,7 +1196,7 @@
     
     CGRect tvFrame = self.textInputView.frame;
     CGRect tvBgFrame = self.textInputBackgroundView.frame;
-    if (self.quoteContainerView) {
+    if (self.quoteInfo) {
         tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 10;
         tvBgFrame.origin.y = tvFrame.origin.y;
     } else {
@@ -1190,6 +1206,10 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.frame = baseFrame;
         self.inputContainer.frame = CGRectMake(0, 0, baseFrame.size.width, baseFrame.size.height);
+        CGRect effectFrame = self.inputContainer.frame;
+        effectFrame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+        self.bgEffectView.frame = effectFrame;
+        
         self.textInputView.frame = tvFrame;
         self.textInputBackgroundView.frame = tvBgFrame;
         self.voiceSwitchBtn.frame = voiceFrame;
@@ -1415,7 +1435,7 @@
     
     CGFloat diff = 0;
     CGFloat quoteHeight = 0;
-    if (self.quoteContainerView) {
+    if (self.quoteInfo) {
         quoteHeight = self.quoteContainerView.frame.size.height;
     }
     if (height <= 32.f) {
@@ -1434,7 +1454,7 @@
         diff = (81.f - baseFrame.size.height + quoteHeight);
         baseFrame.size.height = 81.f;
     }
-    if (self.quoteContainerView) {
+    if (self.quoteInfo) {
         baseFrame.size.height += quoteHeight;
         tvFrame.origin.y = quoteHeight + 10;
         tvBgFrame.origin.y = quoteHeight + 10;
@@ -1461,6 +1481,10 @@
         ws.inputCoverView.frame = ws.textInputView.bounds;
         self.frame = baseFrame;
         self.inputContainer.frame = CGRectMake(0, 0, baseFrame.size.width, baseFrame.size.height);
+        CGRect effectFrame = self.inputContainer.frame;
+        effectFrame.size.height += [WFCUUtilities wf_safeDistanceBottom];
+        self.bgEffectView.frame = effectFrame;
+        
         self.voiceSwitchBtn.frame = voiceFrame;
         self.sendBtn.frame = voiceFrame;
         self.emojSwitchBtn.frame = emojFrame;

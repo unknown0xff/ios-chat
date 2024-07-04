@@ -247,6 +247,12 @@
 
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(didScroller)]) {
+        [self.delegate didScroller];
+    }
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView == self.collectionView) {
         if (self.selectedTableRow == 0) {
