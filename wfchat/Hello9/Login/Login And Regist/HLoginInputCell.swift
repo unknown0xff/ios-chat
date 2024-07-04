@@ -129,7 +129,11 @@ class HLoginInputCell: HBasicTableViewCell<HLoginInputModel> {
         }
         
         if data.isNewUser {
-            textField.isEnabled = false
+            if data.id == .password {
+                textField.isEnabled = true
+            } else {
+                textField.isEnabled = false
+            }
         } else {
             textField.isEnabled = true
         }
