@@ -171,7 +171,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         let unreadCount = data.conversationInfo.unreadCount
         let unread = unreadCount?.unread ?? 0
         let isSilent = data.conversationInfo.isSilent
-        let lastMessage = data.conversationInfo.lastMessage
+        var lastMessage = data.conversationInfo.lastMessage
         
         if unread == 0 {
             unreadLabel.isHidden = true
@@ -255,27 +255,42 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         lastTimeLabel.isHidden = false
         lastTimeLabel.text = WFCUUtilities.formatTimeLabel(data.conversationInfo.timestamp)
         
+       
+        
+        
         if let lastMessage {
             lastMessageIcon.isHidden = false
+            
+            var prefix = ""
+            if conversation.type == .Group_Type {
+                if let lastMessageFromUser = WFCCIMService.sharedWFCIM().getUserInfo(lastMessage.fromUser ?? "", inGroup: conversation.target, refresh: false) {
+                    let userInfo = HUserInfoModel(info: lastMessageFromUser)
+                    prefix = userInfo.title
+                }
+            }
+            var messageContent = ""
             if let _ = lastMessage.content as? WFCCSoundMessageContent {
                 lastMessageIcon.image = Images.icon_voice
-                lastMessageLabel.text = "一条语音留言"
+                messageContent = "一条语音留言"
             } else if let _ = lastMessage.content as? WFCCVideoMessageContent {
                 lastMessageIcon.image = Images.icon_video
-                lastMessageLabel.text = "视频留言"
+                messageContent = "视频留言"
             } else if let location = lastMessage.content as? WFCCLocationMessageContent {
                 lastMessageIcon.image = Images.icon_location
-                lastMessageLabel.text = location.title ?? ""
+                messageContent = location.title ?? ""
             } else if let _ = lastMessage.content as? WFCCImageMessageContent {
                 lastMessageIcon.image = Images.icon_link
-                lastMessageLabel.text = "图片"
+                messageContent = "图片"
             } else if let file = lastMessage.content as? WFCCFileMessageContent {
                 lastMessageIcon.image = Images.icon_link
-                lastMessageLabel.text = file.name
+                messageContent = file.name
             } else {
                 lastMessageIcon.isHidden = true
-                lastMessageLabel.text = lastMessage.digest() ?? ""
+                messageContent = lastMessage.digest() ?? ""
             }
+            
+            messageContent = prefix.isEmpty ? messageContent : "\(prefix): \(messageContent)"
+            lastMessageLabel.text = messageContent
         } else {
             lastMessageIcon.isHidden = true
             lastMessageLabel.text = ""

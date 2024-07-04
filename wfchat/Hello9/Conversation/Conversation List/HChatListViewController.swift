@@ -44,7 +44,7 @@ class HChatListViewController: HBaseViewController {
     
     private lazy var menuButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setImage(Images.icon_menu, for: .normal)
+        btn.setImage(Images.icon_add, for: .normal)
         btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
         return btn
     }()
