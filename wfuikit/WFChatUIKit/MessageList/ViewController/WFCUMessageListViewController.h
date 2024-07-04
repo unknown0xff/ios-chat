@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)NSString *privateChatUser;
 
 @property (nonatomic, assign)BOOL multiSelecting;
-@property (nonatomic, strong)NSMutableArray *selectedMessageIds;
+@property (nonatomic, strong, nullable)NSMutableArray *selectedMessageIds;
 
 //静默加入聊天室，不发送欢迎语和告别语
 @property (nonatomic, assign)BOOL silentJoinChatroom;
