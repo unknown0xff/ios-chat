@@ -10,6 +10,7 @@
 		149B3107241D292C00B935D3 /* UIColor+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3105241D292C00B935D3 /* UIColor+YH.m */; };
 		149B310A241E300C00B935D3 /* UIFont+YH.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B3109241E300C00B935D3 /* UIFont+YH.m */; };
 		149B311E242247E900B935D3 /* UIImage+ERCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B311D242247E900B935D3 /* UIImage+ERCategory.m */; };
+		201D33DA2C36D68300F0959D /* HCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D33D92C36D68300F0959D /* HCollectionViewFlowLayout.swift */; };
 		20499A3E2C227E910005B1D9 /* HChatSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */; };
 		20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 20499A3F2C2298700005B1D9 /* Localizable.xcstrings */; };
 		20499A442C22B20B0005B1D9 /* message_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 20499A432C22B20B0005B1D9 /* message_alert.wav */; };
@@ -363,6 +364,7 @@
 		149B3109241E300C00B935D3 /* UIFont+YH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YH.m"; sourceTree = "<group>"; };
 		149B311C242247E900B935D3 /* UIImage+ERCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ERCategory.h"; sourceTree = "<group>"; };
 		149B311D242247E900B935D3 /* UIImage+ERCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ERCategory.m"; sourceTree = "<group>"; };
+		201D33D92C36D68300F0959D /* HCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		20499A2E2C2261820005B1D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		20499A302C2261860005B1D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		20499A3D2C227E910005B1D9 /* HChatSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatSearchViewController.swift; sourceTree = "<group>"; };
@@ -1475,6 +1477,7 @@
 		601246662C05F94200635523 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				201D33D92C36D68300F0959D /* HCollectionViewFlowLayout.swift */,
 				206FD0512C2E4D8600461F5C /* Extension */,
 				2067A08C2C2BCB0E00BA3F09 /* Combine */,
 				60A3F7C22C1BF4D000F855A2 /* Alert */,
@@ -2300,6 +2303,7 @@
 				206309C62C2953EE00BED49A /* HSelectedFriendViewController.swift in Sources */,
 				206FD06A2C2ED86100461F5C /* HTakePhotoManager.swift in Sources */,
 				6088F49E2C0FFA3400130A87 /* HNewFriendListViewController.swift in Sources */,
+				201D33DA2C36D68300F0959D /* HCollectionViewFlowLayout.swift in Sources */,
 				204B7E012C21222100459C7A /* HCreateGroupMemberListCell.swift in Sources */,
 				2066315D2C2D6AB20009CBCA /* HGroupEditMemberViewController.swift in Sources */,
 				2066314C2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift in Sources */,

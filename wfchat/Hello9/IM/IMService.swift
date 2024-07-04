@@ -145,12 +145,12 @@ extension IMService: ConnectionStatusDelegate {
         switch status {
         case .rejected, .tokenIncorrect, .secretKeyMismatch, .kickedoff:
             if status == .kickedoff {
-                // TODO:  xianda.yang 发起通知,跳登陆页面等
+                // TODO:  Ada 发起通知,跳登陆页面等
             }
             wfcService.disconnect(true, clearSession: false)
             logout()
         case .logout:
-            // TODO:  xianda.yang 发起通知,跳登陆页面等
+            // TODO:  Ada 发起通知,跳登陆页面等
             logout()
             OrgService.shared().clearAuthInfos()
             firstConnect = false

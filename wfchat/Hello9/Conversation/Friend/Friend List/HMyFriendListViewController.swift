@@ -92,11 +92,35 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     }
     
     func updateSubviewConstraints() {
+        DispatchQueue.main.async {
+            self._updateSubviewConstraints()
+        }
+    }
+    private func _updateSubviewConstraints() {
         if viewModel.enableMutiSelected {
-            let offset = viewModel.selectedItems.isEmpty ? -68 : 0
-            UIView.animate(withDuration: 0.2) {
+            
+            var top: CGFloat
+            if viewModel.showSearchBar {
+                top = HNavigationBar.height + 10 + 40 + 16
+            } else {
+                top = HNavigationBar.height
+            }
+            
+            let height: CGFloat
+            if viewModel.selectedItems.isEmpty {
+                top += 0
+                height = 0
+            } else {
+                height = min(max(selectedView.contentHeight, 46), 118)
+                top += (height + 10)
+            }
+            self.selectedView.snp.updateConstraints { make in
+                make.height.equalTo(height)
+            }
+            
+            UIView.animate(withDuration: 0.25)  {
                 self.tableView.snp.updateConstraints { make in
-                    make.top.equalTo(self.selectedView.snp.bottom).offset(offset)
+                    make.top.equalTo(top)
                 }
                 self.tableView.layoutIfNeeded()
             }
@@ -126,20 +150,26 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
             }
             selectedView.snp.makeConstraints { make in
                 make.left.right.width.equalToSuperview()
-                make.height.equalTo(68)
-                make.top.equalTo(searchButton.snp.bottom).offset(20)
+                make.height.equalTo(0)
+                make.top.equalTo(searchButton.snp.bottom).offset(16)
             }
         } else {
             selectedView.snp.makeConstraints { make in
                 make.left.right.width.equalToSuperview()
-                make.height.equalTo(68)
-                make.top.equalTo(navBar.snp.bottom).offset(10)
+                make.height.equalTo(0)
+                make.top.equalTo(navBar.snp.bottom).offset(0)
             }
         }
         
-        let offset = viewModel.selectedItems.isEmpty ? -68 : 0
+        let top: CGFloat
+        if viewModel.showSearchBar {
+            top = HNavigationBar.height + 10 + 40 + 16
+        } else {
+            top = HNavigationBar.height
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(selectedView.snp.bottom).offset(offset)
+            make.top.equalTo(top)
             make.width.left.right.bottom.equalToSuperview()
         }
         
