@@ -71,6 +71,8 @@
 
 @property (nonatomic, strong)UIButton *publicSwitchBtn;
 @property (nonatomic, strong)UIButton *voiceSwitchBtn;
+@property (nonatomic, strong)UIButton *sendBtn;
+
 #ifdef WFC_PTT
 @property (nonatomic, strong)UIButton *pttSwitchBtn;
 #endif
@@ -255,6 +257,15 @@
     [self.voiceSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.voiceSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.voiceSwitchBtn];
+    
+    self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - 16 - 26, 15, 26, 26)];
+    [self.sendBtn setImage:[WFCUImage imageNamed:@"icon_send"] forState:UIControlStateNormal];
+    [self.sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.sendBtn addTarget:self action:@selector(sendAndCleanTextView) forControlEvents:UIControlEventTouchUpInside];
+    [self.sendBtn setHidden:YES];
+    [self.inputContainer addSubview:self.sendBtn];
+    
+    
     voiceAndPttOffset = voiceBtnPaddingLeft + CHAT_INPUT_BAR_ICON_SIZE;
     
 #ifdef WFC_PTT
@@ -327,7 +338,7 @@
     [self.voiceInputBtn addTarget:self action:@selector(onTouchUpOutside:) forControlEvents:UIControlEventTouchCancel];
     
     self.voiceInputBtn.hidden = YES;
-    self.textInputView.returnKeyType = UIReturnKeySend;
+    self.textInputView.returnKeyType = UIReturnKeyDefault;
     self.textInputView.delegate = self;
 }
 
@@ -1182,6 +1193,7 @@
         self.textInputView.frame = tvFrame;
         self.textInputBackgroundView.frame = tvBgFrame;
         self.voiceSwitchBtn.frame = voiceFrame;
+        self.sendBtn.frame = voiceFrame;
         self.emojSwitchBtn.frame = emojFrame;
         self.pluginSwitchBtn.frame = extendFrame;
 #ifdef WFC_PTT
@@ -1270,6 +1282,9 @@
     [self updateQuoteView:NO showKeyboard:YES];
     [self.mentionInfos removeAllObjects];
     [self changeTextViewHeight:32 needUpdateText:NO updateRange:NSMakeRange(0, 0)];
+    
+    [self.voiceSwitchBtn setHidden:NO];
+    [self.sendBtn setHidden:YES];
 }
 
 
@@ -1281,10 +1296,10 @@
 
 #pragma mark - UITextViewDelegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
-        [self sendAndCleanTextView];
-        return NO;
-    }
+//    if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
+//        [self sendAndCleanTextView];
+//        return NO;
+//    }
     
     BOOL needUpdateText = NO;
     if(self.conversation.type == Group_Type) {
@@ -1376,7 +1391,13 @@
     CGSize size = [WFCUUtilities getTextDrawingSize:newStr font:[UIFont systemFontOfSize:16] constrainedSize:CGSizeMake(textAreaWidth, 1000)];
     
     [self changeTextViewHeight:size.height needUpdateText:needUpdateText updateRange:range];
-    
+    if (newStr.length == 0) {
+        [self.voiceSwitchBtn setHidden:NO];
+        [self.sendBtn setHidden:YES];
+    } else {
+        [self.voiceSwitchBtn setHidden:YES];
+        [self.sendBtn setHidden:NO];
+    }
     return YES;
 }
 - (void)changeTextViewHeight:(CGFloat)height needUpdateText:(BOOL)needUpdateText updateRange:(NSRange)range {
@@ -1439,6 +1460,7 @@
         self.frame = baseFrame;
         self.inputContainer.frame = CGRectMake(0, 0, baseFrame.size.width, baseFrame.size.height);
         self.voiceSwitchBtn.frame = voiceFrame;
+        self.sendBtn.frame = voiceFrame;
         self.emojSwitchBtn.frame = emojFrame;
         self.pluginSwitchBtn.frame = extendFrame;
 #ifdef WFC_PTT
