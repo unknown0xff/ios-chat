@@ -99,6 +99,7 @@
 
 - (void)loadGifs {
     self.gifs = [NSMutableArray array];
+    self.tie = [NSMutableArray array];
     NSString *stickerPath = [[WFCUFaceBoard getStickerCachePath] stringByAppendingPathComponent:[WFCUFaceBoard getStickerBundleName]];
     
     NSError * err = nil;
@@ -127,7 +128,11 @@
                             NSString *stickerabsfile = [stickerSubPath stringByAppendingPathComponent:p];
                             if ([defaultManager fileExistsAtPath:stickerabsfile isDirectory:&isDir]) {
                                 if (!isDir) {
-                                    [self.gifs addObject:stickerabsfile];
+                                    if ([stickerabsfile hasSuffix:@".gif"]) {
+                                        [self.gifs addObject:stickerabsfile];
+                                    } else {
+                                        [self.tie addObject:stickerabsfile];
+                                    }
                                 }
                             }
                         }
@@ -148,7 +153,7 @@
 
 - (id)init {
     width = [UIScreen mainScreen].bounds.size.width;
-    self = [super initWithFrame:CGRectMake(0, 0, width, EMOJ_AREA_HEIGHT + [WFCUUtilities wf_safeDistanceBottom])];
+    self = [super initWithFrame:CGRectMake(0, 0, width, EMOJ_TAB_HEIGHT + width - 32 + [WFCUUtilities wf_safeDistanceBottom])];
     self.tie = [NSMutableArray array];
     [self loadGifs];
     [self loadEmoji];
@@ -203,7 +208,7 @@
         layout.minimumLineSpacing = 0;
         layout.minimumInteritemSpacing = 0;
         CGRect frame = self.bounds;
-        frame.size.height = EMOJ_FACE_VIEW_HEIGHT;
+        frame.size.height = width - 32;
         _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -273,7 +278,7 @@
             CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 3.0);
             return CGSizeMake(width, width);
         } else if (self.selectedTableRow == 1) {
-            CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 4.0);
+            CGFloat width = floorf((UIScreen.mainScreen.bounds.size.width - 32) / 3.0);
             return CGSizeMake(width, width);
         } else {
             CGFloat width = 50;
@@ -299,10 +304,10 @@
     }
     
     if (collectionView == self.collectionView) {
-        if (self.selectedTableRow == 0) {
+        if (self.selectedTableRow == 0 || self.selectedTableRow == 1) {
             CGFloat width = floorf((collectionView.frame.size.width - 32) / 3.0);
             UIImageView *imageView;
-            NSString *path = self.gifs[indexPath.item];
+            NSString *path = self.selectedTableRow == 0 ? self.gifs[indexPath.item] : self.tie[indexPath.item];
             if ([[path pathExtension] isEqualToString:@"gif"]) {
                 imageView = [[YLImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
                 imageView.image = [YLGIFImage imageWithContentsOfFile:path];
@@ -310,13 +315,17 @@
                 imageView = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, width, width)];
                 imageView.image = [UIImage imageWithContentsOfFile:path];
             }
-            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapSticker:)]];
+            
+            if (self.selectedTableRow == 0) {
+                [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGif:)]];
+            } else {
+                [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapSticker:)]];
+            }
+            
             imageView.userInteractionEnabled = YES;
             imageView.tag = indexPath.item;
             [cell addSubview:imageView];
-        } else if (self.selectedTableRow == 1) {
-            // TODO:
-        } else {
+        }  else {
             UIButton *faceButton = [UIButton buttonWithType:UIButtonTypeCustom];
             faceButton.tag = indexPath.item;
             [faceButton addTarget:self action:@selector(faceButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -326,7 +335,6 @@
             [cell addSubview:faceButton];
         }
     } else {
-        
         UILabel *label = [[UILabel alloc]init];
         label.textAlignment = NSTextAlignmentCenter;
         
@@ -362,10 +370,19 @@
     return cell;
 }
 
-- (void)onTapSticker:(UITapGestureRecognizer *)sender {
+- (void)onTapGif:(UITapGestureRecognizer *)sender {
     UIView *view = sender.view;
     long tag = view.tag;
     NSString *selectSticker = self.gifs[tag];
+    if ([self.delegate respondsToSelector:@selector(didSelectedSticker:)]) {
+        [self.delegate didSelectedSticker:selectSticker];
+    }
+}
+
+- (void)onTapSticker:(UITapGestureRecognizer *)sender {
+    UIView *view = sender.view;
+    long tag = view.tag;
+    NSString *selectSticker = self.tie[tag];
     if ([self.delegate respondsToSelector:@selector(didSelectedSticker:)]) {
         [self.delegate didSelectedSticker:selectSticker];
     }
