@@ -76,6 +76,8 @@ enum Images {
 
     static let icon_close_blue = UIImage(named: "icon_close_blue")!
 
+    static let icon_close_white = UIImage(named: "icon_close_white")!
+
     static let icon_collected = UIImage(named: "icon_collected")!
 
     static let icon_common_background = UIImage(named: "icon_common_background")!

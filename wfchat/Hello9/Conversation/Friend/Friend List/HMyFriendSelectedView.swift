@@ -178,10 +178,19 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
             return .init(width: 120, height: 26)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? HMyFriendSelectedViewTextFieldCell {
             cell.textField.becomeFirstResponder()
+            return
+        }
+        
+        if let item = dataSource.itemIdentifier(for: indexPath),
+           case .friend(let model) = item {
+            if model.showDeleteStyle {
+                shouldDeleteLastItem = false
+                vm.toggleItemSelected(item: model)
+            }
         }
     }
     
@@ -261,12 +270,15 @@ class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel
             return
         }
         nameLabel.text = data.userInfo.title
-        avatar.sd_setImage(with: data.userInfo.portrait, placeholderImage: Images.icon_logo)
         
         if data.showDeleteStyle {
             contentView.backgroundColor = Colors.themeBlue1
+            nameLabel.textColor = Colors.white
+            avatar.image = Images.icon_close_white
         } else {
             contentView.backgroundColor = Colors.themeGray6
+            nameLabel.textColor = Colors.themeBlack
+            avatar.sd_setImage(with: data.userInfo.portrait, placeholderImage: Images.icon_logo)
         }
     }
 }
