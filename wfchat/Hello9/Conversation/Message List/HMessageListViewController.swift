@@ -137,7 +137,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         }
         
         if player == nil {
-            if let url = Bundle.main.url(forResource: "message_alert", withExtension: "wav") {
+            if let url = Bundle.main.url(forResource: "message_alert", withExtension: "mp3") {
                 player = try? AVAudioPlayer(contentsOf: url)
             }
         }
