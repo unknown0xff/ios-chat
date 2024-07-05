@@ -175,7 +175,7 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
             if vm.selectedItems.isEmpty {
                 return .init(width: 300, height: 26)
             }
-            return .init(width: 120, height: 26)
+            return .init(width: 124, height: 26)
         }
     }
     
