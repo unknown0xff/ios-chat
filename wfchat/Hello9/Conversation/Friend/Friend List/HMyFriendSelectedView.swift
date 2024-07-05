@@ -18,7 +18,12 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         return collectionView
     }()
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int, HMyFriendListModel>! = nil
+    private enum Row: Hashable {
+        case friend(_ model: HMyFriendListModel)
+        case input
+    }
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Int, Row>! = nil
     private var cancellables = Set<AnyCancellable>()
     
     var contentHeight: CGFloat {
@@ -50,20 +55,34 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     private func apply(_ data: [HMyFriendListModel]) {
-        
-        let sorted = data.sorted { $0.userInfo.title.count < $1.userInfo.title.count}
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Int, HMyFriendListModel>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Row>()
         snapshot.appendSections([0])
-        snapshot.appendItems(sorted)
+        
+        let friendRows = data.map { Row.friend($0)}
+        snapshot.appendItems(friendRows)
+        
+        snapshot.appendItems([.input])
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func configureDataSource() {
         let listCell = createCellRegistration()
-        dataSource = UICollectionViewDiffableDataSource<Int, HMyFriendListModel>(collectionView: collectionView) {
+        let inputCell = createInputCellRegistration()
+        dataSource = UICollectionViewDiffableDataSource<Int, Row>(collectionView: collectionView) {
             (collectionView, indexPath, row) -> UICollectionViewCell? in
-            return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: row)
+            switch row {
+            case .friend(let model):
+                return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: model)
+            case .input:
+                return collectionView.dequeueConfiguredReusableCell(using: inputCell, for: indexPath, item: ())
+            }
+        }
+    }
+    
+    func createInputCellRegistration() -> UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, Void> {
+        return UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, Void> { (cell, indexPath, item) in
+            cell.indexPath = indexPath
+            cell.cellData = item
         }
     }
     
@@ -79,20 +98,24 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         guard let item = dataSource.itemIdentifier(for: indexPath) else {
             return .zero
         }
-        
-        let title = item.userInfo.title
-        let label = UILabel()
-        label.font = .system14.medium
-        label.textColor = Colors.themeBlack
-        label.text = title
-        label.sizeToFit()
-        var titleSize = label.bounds.size
-        titleSize.width = min(200, titleSize.width + 1)
-        
-        let width = titleSize.width + 20 + 4 + 12 + 12
-        let height = 26.0
-        
-        return .init(width: width, height: height)
+        switch item {
+        case .friend(let model):
+            let title = model.userInfo.title
+            let label = UILabel()
+            label.font = .system14.medium
+            label.textColor = Colors.themeBlack
+            label.text = title
+            label.sizeToFit()
+            var titleSize = label.bounds.size
+            titleSize.width = min(200, titleSize.width + 1)
+            
+            let width = titleSize.width + 20 + 4 + 12 + 12
+            let height = 26.0
+            
+            return .init(width: width, height: height)
+        case .input:
+            return .init(width: 130, height: 26)
+        }
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -113,6 +136,25 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
     }
 }
 
+class HMyFriendSelectedViewTextFieldCell: HBasicCollectionViewCell<Void> {
+    
+    private lazy var textField: HTextField = {
+        let tf = HTextField.default
+        tf.placeholder = "你想邀请哪些人"
+        return tf
+    }()
+    
+    override func configureSubviews() {
+        super.configureSubviews()
+        contentView.addSubview(textField)
+        
+        textField.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+        }
+    }
+    
+    
+}
 
 class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel> {
     

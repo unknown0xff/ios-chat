@@ -42,7 +42,6 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     override func didInitialize() {
         super.didInitialize()
         viewModel.maxSelectedCount = 8
-        viewModel.showSearchBar = true
     }
     
     override func viewDidLoad() {
