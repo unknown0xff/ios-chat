@@ -112,8 +112,8 @@ class HTabBarItemView: UIControl {
     
     private func makeConstraints() {
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(24)
-            make.height.equalTo(22)
+            make.width.equalTo(28)
+            make.height.equalTo(28)
             make.top.equalTo(8)
             make.centerX.equalToSuperview()
         }

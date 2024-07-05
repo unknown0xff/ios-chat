@@ -285,17 +285,17 @@
     [self.pluginSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.pluginSwitchBtn];
     
-    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.voiceSwitchBtn.frame) - 6 - 48, 8, 48, 48)];
+    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.voiceSwitchBtn.frame) - 4 - 48, 8, 48, 48)];
     [self.emojSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_emoj"] forState:UIControlStateNormal];
     [self.emojSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.emojSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.emojSwitchBtn];
     
-    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5, 12, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5 + 96), 40)];
+    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8, 14, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 96), 40)];
     self.textInputView.placeholder = @"输入消息";
     self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5, 12, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5 + 48), 40)];
     self.textInputBackgroundView.layer.cornerRadius = 10;
-    self.textInputBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
+    self.textInputBackgroundView.backgroundColor = [UIColor whiteColor];
     [self.inputContainer insertSubview:self.textInputBackgroundView belowSubview:self.pluginSwitchBtn];
     
     self.textInputView.delegate = self;
@@ -1198,11 +1198,11 @@
     CGRect tvFrame = self.textInputView.frame;
     CGRect tvBgFrame = self.textInputBackgroundView.frame;
     if (self.quoteInfo) {
-        tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 12;
-        tvBgFrame.origin.y = tvFrame.origin.y;
+        tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 14;
+        tvBgFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 12;
     } else {
-        tvFrame.origin.y = 12;
-        tvBgFrame.origin.y = tvFrame.origin.y;
+        tvFrame.origin.y = 14;
+        tvBgFrame.origin.y = 12;
     }
     [UIView animateWithDuration:0.5 animations:^{
         self.frame = baseFrame;
@@ -1462,10 +1462,10 @@
     }
     if (self.quoteInfo) {
         baseFrame.size.height += quoteHeight;
-        tvFrame.origin.y = quoteHeight + 12;
+        tvFrame.origin.y = quoteHeight + 14;
         tvBgFrame.origin.y = quoteHeight + 12;
     } else {
-        tvFrame.origin.y = 12;
+        tvFrame.origin.y = 14;
         tvBgFrame.origin.y = 12;
     }
     
