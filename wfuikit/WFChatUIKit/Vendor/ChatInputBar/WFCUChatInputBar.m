@@ -1276,7 +1276,11 @@
         cursorPosition = self.textInputView.textStorage.length;
     [self.textInputView.textStorage
      insertAttributedString:attStr  atIndex:cursorPosition];
-    
+    if (attStr.length > 0) {
+        self.textInputView.placeholder = @"";
+    } else {
+        self.textInputView.placeholder = @"输入消息";
+    }
     NSRange range;
     range.location = self.textInputView.selectedRange.location + emojString.length;
     range.length = 1;
@@ -1546,6 +1550,11 @@
         }
     }
    
+    if (textView.text && textView.text.length > 0) {
+        self.textInputView.placeholder = @"";
+    } else {
+        self.textInputView.placeholder = @"输入消息";
+    }
     [self updateSendBtnIfNeed];
 }
 
