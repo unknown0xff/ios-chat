@@ -334,7 +334,7 @@
         CGFloat contentTop = (model.showNameLabel ? Name_Label_Height + Client_Bubble_Top_Padding : Client_Bubble_Top_Padding) + quote.height;
         self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, contentTop, size.width, size.height);
         CGFloat portraitViewTop = self.bubbleView.frame.origin.y + (self.bubbleView.frame.size.height - Portrait_Size);
-        self.portraitView.frame = CGRectMake(Bubble_Margin_Left + (model.selecting ? [self selectedLeftMargin] : 0), portraitViewTop, Portrait_Size, Portrait_Size);
+        self.portraitView.frame = CGRectMake(Bubble_Margin_Left - 4 + (model.selecting ? [self selectedLeftMargin] : 0), portraitViewTop, Portrait_Size, Portrait_Size);
         
         self.receiptView.hidden = YES;
     }

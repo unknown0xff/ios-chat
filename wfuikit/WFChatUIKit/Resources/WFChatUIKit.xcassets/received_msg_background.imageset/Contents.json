@@ -5,17 +5,17 @@
       "scale" : "1x"
     },
     {
-      "filename" : "4@2x.png",
+      "filename" : "1@2x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 29,
-          "left" : 41,
-          "right" : 33,
-          "top" : 30
+          "bottom" : 42,
+          "left" : 63,
+          "right" : 84,
+          "top" : 41
         },
         "center" : {
-          "height" : 25,
+          "height" : 1,
           "mode" : "tile",
           "width" : 1
         },
@@ -24,17 +24,17 @@
       "scale" : "2x"
     },
     {
-      "filename" : "4@3x.png",
+      "filename" : "1@3x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 42,
-          "left" : 59,
-          "right" : 50,
-          "top" : 43
+          "bottom" : 63,
+          "left" : 105,
+          "right" : 121,
+          "top" : 62
         },
         "center" : {
-          "height" : 41,
+          "height" : 1,
           "mode" : "tile",
           "width" : 1
         },

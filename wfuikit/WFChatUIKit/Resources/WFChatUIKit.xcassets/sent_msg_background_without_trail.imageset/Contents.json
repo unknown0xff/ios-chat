@@ -5,38 +5,38 @@
       "scale" : "1x"
     },
     {
-      "filename" : "1-1@2x.png",
+      "filename" : "Rectangle 10054@2x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 40,
-          "left" : 34,
-          "right" : 30,
-          "top" : 39
+          "bottom" : 42,
+          "left" : 74,
+          "right" : 80,
+          "top" : 41
         },
         "center" : {
-          "height" : 5,
+          "height" : 1,
           "mode" : "tile",
-          "width" : 19
+          "width" : 1
         },
         "mode" : "9-part"
       },
       "scale" : "2x"
     },
     {
-      "filename" : "1-1@3x.png",
+      "filename" : "Rectangle 10054@3x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 37,
-          "left" : 46,
-          "right" : 125,
-          "top" : 45
+          "bottom" : 63,
+          "left" : 107,
+          "right" : 121,
+          "top" : 62
         },
         "center" : {
-          "height" : 44,
+          "height" : 1,
           "mode" : "tile",
-          "width" : 58
+          "width" : 1
         },
         "mode" : "9-part"
       },

@@ -5,17 +5,17 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Rectangle 10055@2x.png",
+      "filename" : "Rectangle 10054@2x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 29,
-          "left" : 33,
-          "right" : 41,
-          "top" : 30
+          "bottom" : 42,
+          "left" : 64,
+          "right" : 78,
+          "top" : 41
         },
         "center" : {
-          "height" : 25,
+          "height" : 1,
           "mode" : "tile",
           "width" : 1
         },
@@ -24,17 +24,17 @@
       "scale" : "2x"
     },
     {
-      "filename" : "Rectangle 10055@3x.png",
+      "filename" : "Rectangle 10054@3x.png",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 42,
-          "left" : 50,
-          "right" : 59,
-          "top" : 43
+          "bottom" : 63,
+          "left" : 96,
+          "right" : 122,
+          "top" : 62
         },
         "center" : {
-          "height" : 41,
+          "height" : 1,
           "mode" : "tile",
           "width" : 1
         },
