@@ -10,6 +10,8 @@ import Combine
 
 class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
     
+    static let maxHeight = 118.0
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HCollectionViewFlowLayout())
         collectionView.backgroundColor = Colors.white
@@ -30,7 +32,10 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         collectionView.contentSize.height + collectionView.contentInset.top + collectionView.contentInset.bottom
     }
     
+    let vm: HMyFriendListViewModel
+    
     init(vm: HMyFriendListViewModel) {
+        self.vm = vm
         super.init(frame: .zero)
         
         configureSubviews()
@@ -38,6 +43,7 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         vm.$selectedItems.receive(on: RunLoop.main)
             .sink { [weak self] items in
                 self?.apply(items)
+                self?.vm.searchWord = ""
             }.store(in: &cancellables)
     }
     
@@ -54,33 +60,84 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    private func apply(_ data: [HMyFriendListModel]) {
+    func clearInput() {
+        var snapshot = dataSource.snapshot()
+        if let input = snapshot.itemIdentifiers.last {
+            snapshot.reloadItems([input])
+            dataSource.apply(snapshot, animatingDifferences: true)
+            vm.searchWord = ""
+        }
+    }
+    
+    var shouldDeleteLastItem: Bool = false
+    func onDeleteBackwardPress(_ text: String) {
+        if vm.selectedItems.isEmpty  || !text.isEmpty {
+            shouldDeleteLastItem = false
+            apply(vm.selectedItems, animated: false)
+            return
+        }
+        if shouldDeleteLastItem {
+            shouldDeleteLastItem = false
+            if let last = vm.selectedItems.last {
+                vm.toggleItemSelected(item: last)
+            }
+        } else {
+            shouldDeleteLastItem = true
+            apply(vm.selectedItems, animated: false)
+        }
+    }
+    
+    private func apply(_ data: [HMyFriendListModel], animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Row>()
         snapshot.appendSections([0])
         
-        let friendRows = data.map { Row.friend($0)}
+        var friendRows = [Row]()
+        for (idx, item) in data.enumerated() {
+            var m = item
+            if idx == data.count - 1 {
+                m.showDeleteStyle = shouldDeleteLastItem
+            } else {
+                m.showDeleteStyle = false
+            }
+            friendRows.append(Row.friend(m))
+        }
+        
         snapshot.appendItems(friendRows)
         
         snapshot.appendItems([.input])
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: animated)
+        
+        DispatchQueue.main.async {
+            if self.contentHeight > Self.maxHeight {
+                var offset = self.collectionView.contentOffset
+                offset.y = self.contentHeight - Self.maxHeight - self.collectionView.contentInset.top
+                self.collectionView.setContentOffset(offset, animated: true)
+            }
+        }
     }
     
     private func configureDataSource() {
         let listCell = createCellRegistration()
         let inputCell = createInputCellRegistration()
-        dataSource = UICollectionViewDiffableDataSource<Int, Row>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Int, Row>(collectionView: collectionView) { [weak self]
             (collectionView, indexPath, row) -> UICollectionViewCell? in
+            guard let self else { return nil }
             switch row {
             case .friend(let model):
                 return collectionView.dequeueConfiguredReusableCell(using: listCell, for: indexPath, item: model)
             case .input:
-                return collectionView.dequeueConfiguredReusableCell(using: inputCell, for: indexPath, item: ())
+                let cell = collectionView.dequeueConfiguredReusableCell(using: inputCell, for: indexPath, item: "")
+                cell.textField.addTarget(self, action: #selector(HMyFriendSelectedView.didTextFieldValueChange(_:)), for: .editingChanged)
+                cell.textField.onClickDeleteBackward = { [weak self] textField in
+                    self?.onDeleteBackwardPress(textField.text ?? "")
+                }
+                return cell
             }
         }
     }
     
-    func createInputCellRegistration() -> UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, Void> {
-        return UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, Void> { (cell, indexPath, item) in
+    func createInputCellRegistration() -> UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, String> {
+        return UICollectionView.CellRegistration<HMyFriendSelectedViewTextFieldCell, String> { (cell, indexPath, item) in
             cell.indexPath = indexPath
             cell.cellData = item
         }
@@ -98,6 +155,7 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
         guard let item = dataSource.itemIdentifier(for: indexPath) else {
             return .zero
         }
+    
         switch item {
         case .friend(let model):
             let title = model.userInfo.title
@@ -114,46 +172,50 @@ class HMyFriendSelectedView: UIView, UICollectionViewDelegateFlowLayout {
             
             return .init(width: width, height: height)
         case .input:
-            return .init(width: 130, height: 26)
+            if vm.selectedItems.isEmpty {
+                return .init(width: 300, height: 26)
+            }
+            return .init(width: 120, height: 26)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? HMyFriendSelectedViewTextFieldCell {
+            cell.textField.becomeFirstResponder()
         }
     }
     
-    private func createLayout() -> UICollectionViewLayout {
+    @objc func didTextFieldValueChange(_ sender: HTextField) {
+        vm.searchWord = sender.text ?? ""
         
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(200), heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(10)
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
-        section.orthogonalScrollingBehavior = .none
-        
-        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 14, bottom: 16, trailing: 14)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-       
-        return layout
+        shouldDeleteLastItem = false
+        apply(vm.selectedItems, animated: false)
     }
 }
 
-class HMyFriendSelectedViewTextFieldCell: HBasicCollectionViewCell<Void> {
+class HMyFriendSelectedViewTextFieldCell: HBasicCollectionViewCell<String> {
     
-    private lazy var textField: HTextField = {
+    private(set) lazy var textField: HTextField = {
         let tf = HTextField.default
         tf.placeholder = "你想邀请哪些人"
+        tf.clearButtonMode = .never
         return tf
     }()
     
     override func configureSubviews() {
         super.configureSubviews()
-        contentView.addSubview(textField)
         
+        selectedBackgroundColor = .clear
+        unselectedBackgroundColor = .clear
+        contentView.addSubview(textField)
         textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 1, bottom: 4, right: 0))
         }
     }
     
-    
+    override func bindData(_ data: String?) {
+        textField.text = ""
+    }
 }
 
 class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel> {
@@ -200,5 +262,11 @@ class HMyFriendSelectedViewItemCell: HBasicCollectionViewCell<HMyFriendListModel
         }
         nameLabel.text = data.userInfo.title
         avatar.sd_setImage(with: data.userInfo.portrait, placeholderImage: Images.icon_logo)
+        
+        if data.showDeleteStyle {
+            contentView.backgroundColor = Colors.themeBlue1
+        } else {
+            contentView.backgroundColor = Colors.themeGray6
+        }
     }
 }

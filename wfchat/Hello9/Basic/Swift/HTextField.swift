@@ -7,5 +7,15 @@
 //
 
 class HTextField: UITextField {
+    
+    var onClickDeleteBackward: ((_ textField: HTextField)->Void)?
+    
     var indexPath: IndexPath?
+    
+    override func deleteBackward() {
+        super.deleteBackward()
+        if let onClickDeleteBackward {
+            onClickDeleteBackward(self)
+        }
+    }
 }

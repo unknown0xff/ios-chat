@@ -9,13 +9,7 @@
 import UIKit
 import Combine
 
-class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelegate {
-    
-    private lazy var searchBar: UISearchBar = {
-        let bar = UISearchBar.defaultBar
-        bar.delegate = self
-        return bar
-    }()
+class HCreateGroupViewController: HMyFriendListViewController {
     
     private lazy var searchResultView: UITableView = {
         let tableView = UITableView(with: .plain)
@@ -30,18 +24,13 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     }()
     
     private var searchResultDataSource: HMyFriendListDataSource! = nil
-    
-    private var isSearch: Bool = false {
-        didSet {
-            updateSearchBar()
-        }
-    }
-    
+
     private(set) var output = PassthroughSubject<[String], Never>()
     
     override func didInitialize() {
         super.didInitialize()
         viewModel.maxSelectedCount = 8
+        viewModel.showSelectedView = true
     }
     
     override func viewDidLoad() {
@@ -69,9 +58,6 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
         navBar.rightBarButtonItem = .init(title: "完成", style: .done, target: self, action: #selector(didClickDoneButton(_:)))
         navBar.rightBarButtonItem?.isEnabled = false
         navBarBackgroundView.isHidden = true
-        
-        navBar.addSubview(searchBar)
-        updateSearchBar(animated: false)
     }
     
     private func updateDoneButtonTitle(_ selectedCount: Int) {
@@ -83,15 +69,8 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     override func makeConstraints() {
         super.makeConstraints()
         
-        searchBar.snp.makeConstraints { make in
-            make.left.equalTo(10)
-            make.right.equalTo(-10)
-            make.height.equalTo(44)
-            make.bottom.equalTo(-5)
-        }
-        
         searchResultView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom).offset(10)
+            make.top.equalTo(tableView)
             make.left.bottom.right.equalToSuperview()
         }
     }
@@ -115,34 +94,11 @@ class HCreateGroupViewController: HMyFriendListViewController, UISearchBarDelega
     }
     
     func applySearchResult(_ result: [HMyFriendListModel]) {
-        
+        searchResultView.isHidden = result.isEmpty
         var snapsot = NSDiffableDataSourceSnapshot<HBasicSection, HMyFriendListViewModel.Row>()
         snapsot.appendSections([.main])
         snapsot.appendItems(result)
         searchResultDataSource.apply(snapsot, animatingDifferences: false)
-    }
-    
-    func updateSearchBar(animated: Bool = true) {
-        let isHidden = !isSearch
-        searchResultView.isHidden = isHidden
-        searchBar.setShowsCancelButton(!isHidden, animated: animated)
-        if animated {
-            UIView.animate(withDuration: 0.2) {
-                self.searchBar.isHidden = isHidden
-            }
-        } else {
-            searchBar.isHidden = isHidden
-        }
-        
-        if !isHidden {
-            searchBar.becomeFirstResponder()
-        } else {
-            searchBar.resignFirstResponder()
-        }
-    }
-    
-    @objc override func didClickSearchButton(_ sender: UIButton) {
-        isSearch = true
     }
 }
 
@@ -153,25 +109,15 @@ extension HCreateGroupViewController {
         if tableView != searchResultView {
             return super.tableView(tableView, didSelectRowAt: indexPath)
         } else {
+            tableView.deselectRow(at: indexPath, animated: true)
             if let item = searchResultDataSource.itemIdentifier(for: indexPath) {
                 viewModel.selectedItem(item: item)
             }
-            isSearch = false
+            searchResultView.isHidden = true
+            selectedView.clearInput()
         }
     }
     
-}
-//MARK: - UISearchBarDelegate
-
-extension HCreateGroupViewController {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchWord = searchText
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearch = false
-    }
 }
 
 extension HCreateGroupViewController {

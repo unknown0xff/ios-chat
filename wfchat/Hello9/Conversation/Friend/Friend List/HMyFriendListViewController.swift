@@ -30,7 +30,7 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     }()
     
     private lazy var indexBar = HIndexBar()
-    private lazy var selectedView = HMyFriendSelectedView(vm: viewModel)
+    private(set) lazy var selectedView = HMyFriendSelectedView(vm: viewModel)
     
     private typealias Section = HMyFriendListViewModel.Section
     private typealias Row = HMyFriendListViewModel.Row
@@ -51,10 +51,6 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         tableView.register([HMyFriendListCell.self])
         
         dataSource = .init(tableView: tableView, cellProvider: cellProvider())
-        
-        if viewModel.showSearchBar {
-            view.addSubview(searchButton)
-        }
         view.addSubview(selectedView)
         view.addSubview(tableView)
         view.addSubview(indexBar)
@@ -98,23 +94,15 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
     }
     private func _updateSubviewConstraints() {
         if viewModel.enableMutiSelected {
-            
-            var top: CGFloat
-            if viewModel.showSearchBar {
-                top = HNavigationBar.height + 10 + 40 + 16
-            } else {
-                top = HNavigationBar.height
-            }
-            
             let height: CGFloat
             if viewModel.selectedItems.isEmpty {
-                top += 0
-                height = 0
+                height = selectedViewDefaultHeight
             } else {
-                height = min(max(selectedView.contentHeight, 46), 118)
-                top += (height + 10)
+                height = min(max(selectedView.contentHeight, selectedViewDefaultHeight), 118)
             }
-            self.selectedView.snp.updateConstraints { make in
+            let top = HNavigationBar.height + height + 10
+            
+            selectedView.snp.updateConstraints { make in
                 make.height.equalTo(height)
             }
             
@@ -138,32 +126,20 @@ class HMyFriendListViewController: HBaseViewController, UITableViewDelegate {
         }
     }
     
+    private let selectedViewDefaultHeight = 46.0
+    
     override func makeConstraints() {
         super.makeConstraints()
         
-        if viewModel.showSearchBar {
-            searchButton.snp.makeConstraints { make in
-                make.left.equalTo(16)
-                make.right.equalTo(-16)
-                make.height.equalTo(40)
-                make.top.equalTo(navBar.snp.bottom).offset(10)
-            }
-            selectedView.snp.makeConstraints { make in
-                make.left.right.width.equalToSuperview()
-                make.height.equalTo(0)
-                make.top.equalTo(searchButton.snp.bottom).offset(16)
-            }
-        } else {
-            selectedView.snp.makeConstraints { make in
-                make.left.right.width.equalToSuperview()
-                make.height.equalTo(0)
-                make.top.equalTo(navBar.snp.bottom).offset(0)
-            }
+        selectedView.snp.makeConstraints { make in
+            make.left.right.width.equalToSuperview()
+            make.height.equalTo(selectedViewDefaultHeight)
+            make.top.equalTo(navBar.snp.bottom).offset(0)
         }
         
         let top: CGFloat
-        if viewModel.showSearchBar {
-            top = HNavigationBar.height + 10 + 40 + 16
+        if viewModel.showSelectedView {
+            top = HNavigationBar.height + selectedViewDefaultHeight + 10
         } else {
             top = HNavigationBar.height
         }

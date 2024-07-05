@@ -14,6 +14,8 @@ struct HMyFriendListModel: Hashable {
     
     var userInfo: HUserInfoModel
     
+    var showDeleteStyle: Bool = false
+    
     init(userInfo: WFCCUserInfo, isSelected: Bool = false) {
         self.isSelected = isSelected
         self.userInfo = .init(info: userInfo)
@@ -30,7 +32,7 @@ class HMyFriendListViewModel: HBasicViewModel {
     
     var maxSelectedCount: Int = 1
     var enableMutiSelected: Bool { maxSelectedCount > 1 }
-    var showSearchBar: Bool = false
+    var showSelectedView: Bool = false
     var groupMembers = [String]()
     var forceApplySearchResult: Bool = false
     
