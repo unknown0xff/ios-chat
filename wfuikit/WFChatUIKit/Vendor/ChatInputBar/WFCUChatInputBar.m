@@ -252,13 +252,13 @@
     CGFloat voiceBtnPaddingLeft = hasPublic ? CHAT_INPUT_BAR_PADDING/2 : CHAT_INPUT_BAR_PADDING;
     
     CGFloat voiceAndPttOffset;
-    self.voiceSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - 16 - 26, 15, 26, 26)];
+    self.voiceSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - 48, 8, 48, 48)];
     [self.voiceSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_voice"] forState:UIControlStateNormal];
     [self.voiceSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.voiceSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.voiceSwitchBtn];
     
-    self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(parentRect.size.width - 16 - 26, 15, 26, 26)];
+    self.sendBtn = [[UIButton alloc] initWithFrame:self.voiceSwitchBtn.frame];
     [self.sendBtn setImage:[WFCUImage imageNamed:@"icon_send"] forState:UIControlStateNormal];
     [self.sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.sendBtn addTarget:self action:@selector(sendAndCleanTextView) forControlEvents:UIControlEventTouchUpInside];
@@ -279,22 +279,21 @@
     }
 #endif
     
-    self.pluginSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(16, 15, 26, 26)];
+    self.pluginSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 48, 48)];
     [self.pluginSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_plugin"] forState:UIControlStateNormal];
     [self.pluginSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.pluginSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.pluginSwitchBtn];
     
-    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.voiceSwitchBtn.frame) - 18 - 26, 15, 26, 26)];
+    self.emojSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.voiceSwitchBtn.frame) - 6 - 48, 8, 48, 48)];
     [self.emojSwitchBtn setImage:[WFCUImage imageNamed:@"chat_input_bar_emoj"] forState:UIControlStateNormal];
     [self.emojSwitchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.emojSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.emojSwitchBtn];
     
-    
-    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 94), 40)];
+    self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5, 12, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5 + 96), 40)];
     self.textInputView.placeholder = @"输入消息";
-    self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 52), 40)];
+    self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5, 12, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 5 + 48), 40)];
     self.textInputBackgroundView.layer.cornerRadius = 10;
     self.textInputBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
     [self.inputContainer insertSubview:self.textInputBackgroundView belowSubview:self.pluginSwitchBtn];
@@ -1199,10 +1198,10 @@
     CGRect tvFrame = self.textInputView.frame;
     CGRect tvBgFrame = self.textInputBackgroundView.frame;
     if (self.quoteInfo) {
-        tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 10;
+        tvFrame.origin.y = CGRectGetMaxY(self.quoteContainerView.frame) + 12;
         tvBgFrame.origin.y = tvFrame.origin.y;
     } else {
-        tvFrame.origin.y = 10;
+        tvFrame.origin.y = 12;
         tvBgFrame.origin.y = tvFrame.origin.y;
     }
     [UIView animateWithDuration:0.5 animations:^{
@@ -1313,6 +1312,7 @@
     
     [self.voiceSwitchBtn setHidden:NO];
     [self.sendBtn setHidden:YES];
+    self.textInputView.placeholder = @"输入消息";
 }
 
 
@@ -1447,8 +1447,8 @@
     if (height <= 32.f) {
         tvFrame.size.height = 40.f;
         tvBgFrame.size.height = 40.f;
-        diff = (58.f - baseFrame.size.height + quoteHeight);
-        baseFrame.size.height = 58.f;
+        diff = (CHAT_INPUT_BAR_HEIGHT - baseFrame.size.height + quoteHeight);
+        baseFrame.size.height = CHAT_INPUT_BAR_HEIGHT;
     } else if (height > 32.f && height < 50.f) {
         tvFrame.size.height = 50.f;
         tvBgFrame.size.height = 50.f;
@@ -1462,11 +1462,11 @@
     }
     if (self.quoteInfo) {
         baseFrame.size.height += quoteHeight;
-        tvFrame.origin.y = quoteHeight + 10;
-        tvBgFrame.origin.y = quoteHeight + 10;
+        tvFrame.origin.y = quoteHeight + 12;
+        tvBgFrame.origin.y = quoteHeight + 12;
     } else {
-        tvFrame.origin.y = 10;
-        tvBgFrame.origin.y = 10;
+        tvFrame.origin.y = 12;
+        tvBgFrame.origin.y = 12;
     }
     
     baseFrame.origin.y -= diff;
