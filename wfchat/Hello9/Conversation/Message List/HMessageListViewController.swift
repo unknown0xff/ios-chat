@@ -195,7 +195,7 @@ class HMessageListViewController: WFCUMessageListViewController {
             make.right.equalTo(-16)
             make.centerY.equalToSuperview()
         }
-        navBar.backButton.addTarget(self, action: #selector(didClickBackButton(_:)), for: .touchUpInside)
+        navBar.leftBarButtonItem = .init(image: Images.icon_arrow_back_outline, style: .plain, target: self, action: #selector(didClickBackButton(_:)))
         avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
         
         navBar.addSubview(multiSelectNavBar)

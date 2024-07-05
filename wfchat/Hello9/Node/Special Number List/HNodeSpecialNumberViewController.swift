@@ -14,7 +14,7 @@ class HNodeSpecialNumberViewController: HMenuTabViewController {
     private(set) lazy var navBar: HNavigationBar = {
         let nav = HNavigationBar()
         nav.title = "已选靓号"
-        nav.backButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
+        nav.leftBarButtonItem = UIBarButtonItem(image: Images.icon_arrow_back_outline, style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
         nav.rightBarButtonItem = UIBarButtonItem(image: Images.icon_search, style: .plain, target: self, action: #selector(didClickSearchButton(_:)))
         return nav
     }()

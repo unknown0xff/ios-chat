@@ -70,7 +70,6 @@ class HNavigationBar: UIView {
         
         addSubview(visualEffectView)
         contentView.addSubview(bar)
-        contentView.addSubview(backButton)
         contentView.addSubview(titleLabel)
         addSubview(contentView)
         addSubview(bottomStack)
@@ -104,12 +103,6 @@ class HNavigationBar: UIView {
     private(set) var contentView: UIView = {
         let view = UIView()
         return view
-    }()
-    
-    private(set) lazy var backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(Images.icon_arrow_back_outline, for: .normal)
-        return button
     }()
     
     private(set) lazy var titleLabel: UILabel = {
@@ -153,12 +146,6 @@ class HNavigationBar: UIView {
             make.center.equalToSuperview()
             make.height.equalTo(26)
             make.width.lessThanOrEqualTo(200)
-        }
-        
-        backButton.snp.makeConstraints { make in
-            make.left.equalTo(22)
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(24)
         }
     }
     

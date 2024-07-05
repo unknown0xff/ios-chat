@@ -14,7 +14,6 @@ class HBaseViewController: HBasicViewController {
     
     private(set) lazy var navBar: HNavigationBar = {
         let nav = HNavigationBar()
-        nav.backButton.addTarget(self, action: #selector(didClickBackBarButton(_:)), for: .touchUpInside)
         return nav
     }()
     
@@ -63,8 +62,6 @@ class HBaseViewController: HBasicViewController {
         } else {
             navBar.leftBarButtonItem = nil
         }
-        
-        navBar.backButton.isHidden = true
     }
     
     func onUserInfoUpdated(_ sender: Notification) { }
