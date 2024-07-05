@@ -291,10 +291,12 @@
     [self.emojSwitchBtn addTarget:self action:@selector(onSwitchBtn:) forControlEvents:UIControlEventTouchDown];
     [self.inputContainer addSubview:self.emojSwitchBtn];
     
+    
     self.textInputView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 94), 40)];
+    self.textInputView.placeholder = @"输入消息";
     self.textInputBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.pluginSwitchBtn.frame) + 10, 10, self.inputContainer.bounds.size.width - (CGRectGetMaxX(self.pluginSwitchBtn.frame) + 8 + 52), 40)];
     self.textInputBackgroundView.layer.cornerRadius = 10;
-    self.textInputBackgroundView.backgroundColor = [UIColor colorWithHexString:@"0xF6F7FA"];
+    self.textInputBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
     [self.inputContainer insertSubview:self.textInputBackgroundView belowSubview:self.pluginSwitchBtn];
     
     self.textInputView.delegate = self;

@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "个人聊天-记录页-蓝色@2x.png",
+      "filename" : "Group_42270@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "个人聊天-记录页-蓝色@3x.png",
+      "filename" : "Group_42270@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -18,8 +18,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

@@ -20,7 +20,7 @@
     soundMsg.duration = duration;
     encode_amr([wavPath UTF8String], [amrPath UTF8String]);
     
-    soundMsg.localPath = amrPath;
+    soundMsg.localPath = wavPath; //amrPath;
     
     return soundMsg;
 }
