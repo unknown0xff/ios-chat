@@ -206,7 +206,7 @@ class HMyFriendSelectedViewTextFieldCell: HBasicCollectionViewCell<String> {
     
     private(set) lazy var textField: HTextField = {
         let tf = HTextField.default
-        tf.placeholder = "你想邀请哪些人"
+        tf.placeholder = "您想邀请哪些人?"
         tf.clearButtonMode = .never
         return tf
     }()
