@@ -27,7 +27,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
         btn.addTarget(self, action: #selector(didClickSearchButton(_:)), for: .touchUpInside)
         
         let addButton = self.actionButton(with: Images.icon_add_friend, title: "添加好友", selector: #selector(didClickAddFriendButton(_:)))
-        let secertButton = self.actionButton(with: Images.icon_key_yellow, title: "创建密聊群", selector: #selector(didClickSecretGroupButton(_:)))
+        let secertButton = self.actionButton(with: Images.icon_ghoast, title: "创建密聊群", selector: #selector(didClickSecretGroupButton(_:)))
         let groupButton = self.actionButton(with: Images.icon_add_group, title: "创建普通群组", selector: #selector(didClickNormalGroupButton(_:)))
         
         let s = UIStackView(arrangedSubviews: [addButton, secertButton, groupButton])

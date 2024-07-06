@@ -10,7 +10,7 @@ class HLoginHeaderView: UIView {
     
     private lazy var logoView: UIImageView = {
         let view = UIImageView()
-        view.image = Images.icon_logo42
+        view.image = Images.icon_ghoast_black
         return view
     }()
     
@@ -55,8 +55,8 @@ class HLoginHeaderView: UIView {
         logoView.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(0)
-            make.width.equalTo(28)
-            make.height.equalTo(28)
+            make.width.equalTo(38)
+            make.height.equalTo(42)
         }
         
         titleLabel.snp.makeConstraints { make in

@@ -25,7 +25,7 @@ class HCustomToastView: UIControl {
     var onCancelled: (() -> Void)?
     
     private(set) lazy var icon: UIImageView = {
-        let view = UIImageView(image: Images.icon_logo42)
+        let view = UIImageView(image: Images.icon_ghoast)
         view.layer.cornerRadius = 14
         view.layer.masksToBounds = true
         view.backgroundColor = Colors.white

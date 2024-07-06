@@ -100,6 +100,10 @@ enum Images {
 
     static let icon_forbind = UIImage(named: "icon_forbind")!
 
+    static let icon_ghoast = UIImage(named: "icon_ghoast")!
+
+    static let icon_ghoast_black = UIImage(named: "icon_ghoast_black")!
+
     static let icon_group = UIImage(named: "icon_group")!
 
     static let icon_key_blue = UIImage(named: "icon_key_blue")!
@@ -133,8 +137,6 @@ enum Images {
     static let icon_login_enable = UIImage(named: "icon_login_enable")!
 
     static let icon_logo = UIImage(named: "icon_logo")!
-
-    static let icon_logo42 = UIImage(named: "icon_logo42")!
 
     static let icon_logo_title = UIImage(named: "icon_logo_title")!
 
