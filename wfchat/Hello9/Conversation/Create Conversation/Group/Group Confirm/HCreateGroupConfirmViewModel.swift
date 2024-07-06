@@ -41,10 +41,18 @@ class HCreateGroupConfirmViewModel: HBasicViewModel {
             model.enableMutiSelected = false
             return model
         }
+        if members.count >= 3 {
+            groupName = "\(HUserInfoModel.current.title), \(members[0].userInfo.title),\(members[1].userInfo.title)以及\(members.count - 2)名成员"
+        } else if members.count == 2 {
+            groupName = "\(HUserInfoModel.current.title),\(members[0].userInfo.title),\(members[1].userInfo.title)"
+        } else if members.count == 1 {
+            groupName = "\(HUserInfoModel.current.title),\(members[0].userInfo.title)"
+        } else {
+            groupName = HUserInfoModel.current.title
+        }
     }
     
     func loadData() {
-        
         applySnapshot()
     }
     
@@ -53,7 +61,12 @@ class HCreateGroupConfirmViewModel: HBasicViewModel {
         snapshot.appendSections(Section.allCases)
         
         snapshot.appendItems([Row.avatar(.init(image: avatar))], toSection: .avatar)
-        snapshot.appendItems([.groupInfo(groupName, tag: 0), .groupInfo(groupInfo, tag: 1)], toSection: .groupInfo)
+        
+        snapshot.appendItems([
+            .groupInfo(groupName, tag: 0),
+            .groupInfo(groupInfo, tag: 1)
+        ], toSection: .groupInfo)
+        
         snapshot.appendItems([Row.member(.init(userInfo: .init()))], toSection: .groupMember)
         snapshot.appendItems(members.map { Row.member($0) }, toSection: .groupMember)
         
