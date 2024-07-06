@@ -58,7 +58,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     override func updateTitle() {
         super.updateTitle()
-        navBar.titleLabel.text = title
+        navBar.title = title
     }
     
     override func setAvatar(_ avatar: String) {
@@ -80,7 +80,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         super.sendMessage(content)
         if enablePlaySoundMessage(content) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.playSendSound()
+                self.playAlertSound(true)
             }
         }
     }
@@ -103,7 +103,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         if UIViewController.h_top != self {
             return
         }
-        playSendSound()
+        playAlertSound(false)
     }
     
     override func didTapMessagePortrait(_ cell: WFCUMessageCellBase, with model: WFCUMessageModel) {
@@ -130,16 +130,15 @@ class HMessageListViewController: WFCUMessageListViewController {
         content is WFCCLocationMessageContent
     }
     
-    private func playSendSound() {
+    private func playAlertSound(_ isSend: Bool) {
         guard let info = WFCCIMService.sharedWFCIM().getConversationInfo(conversation),
             !info.isSilent else  {
             return
         }
-        
-        if player == nil {
-            if let url = Bundle.main.url(forResource: "message_alert", withExtension: "mp3") {
-                player = try? AVAudioPlayer(contentsOf: url)
-            }
+        player = nil
+        let resource = isSend ? "message_alert.mp3" : "message_receive_alert.wav"
+        if let url = Bundle.main.url(forResource: resource, withExtension: nil) {
+            player = try? AVAudioPlayer(contentsOf: url)
         }
         try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
         try? AVAudioSession.sharedInstance().setActive(true)
@@ -195,7 +194,7 @@ class HMessageListViewController: WFCUMessageListViewController {
             make.right.equalTo(-16)
             make.centerY.equalToSuperview()
         }
-        navBar.leftBarButtonItem = .init(image: Images.icon_arrow_back_outline, style: .plain, target: self, action: #selector(didClickBackButton(_:)))
+        navBar.leftBarButtonItem = .withDefaultBack(target: self, action: #selector(didClickBackButton(_:)))
         avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
         
         navBar.addSubview(multiSelectNavBar)

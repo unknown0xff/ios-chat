@@ -26,6 +26,7 @@
 		2052D3872C2FBF4F0052E32C /* HGroupEditManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D3862C2FBF4F0052E32C /* HGroupEditManagerViewModel.swift */; };
 		2052D3892C3023E50052E32C /* HGroupEditAddManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D3882C3023E50052E32C /* HGroupEditAddManagerCell.swift */; };
 		2052D38B2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */; };
+		2057E06C2C38FBE00013DCB0 /* message_receive_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */; };
 		205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */; };
 		205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */; };
 		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
@@ -380,6 +381,7 @@
 		2052D3862C2FBF4F0052E32C /* HGroupEditManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditManagerViewModel.swift; sourceTree = "<group>"; };
 		2052D3882C3023E50052E32C /* HGroupEditAddManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditAddManagerCell.swift; sourceTree = "<group>"; };
 		2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditManagerSelectedViewController.swift; sourceTree = "<group>"; };
+		2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message_receive_alert.wav; sourceTree = "<group>"; };
 		205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoEditViewController.swift; sourceTree = "<group>"; };
 		205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoAvatarView.swift; sourceTree = "<group>"; };
 		205C5A672C242453000D54FE /* HMineInfoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoNameCell.swift; sourceTree = "<group>"; };
@@ -1798,6 +1800,7 @@
 		903EBC942136313B00312C16 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */,
 				20499A432C22B20B0005B1D9 /* message_alert.mp3 */,
 				204B7E062C218BA500459C7A /* default_call.wav */,
 				2F8F8E662723072600151B75 /* ptt_begin.m4a */,
@@ -2123,6 +2126,7 @@
 				2E1D20021FAF0AE600F4405D /* Main.storyboard in Resources */,
 				601246582C05AF4100635523 /* Images.xcassets in Resources */,
 				20499A402C2298700005B1D9 /* Localizable.xcstrings in Resources */,
+				2057E06C2C38FBE00013DCB0 /* message_receive_alert.wav in Resources */,
 				20F02F892C34D75500554857 /* node_shake.json in Resources */,
 				601246522C05993200635523 /* Colors.xcassets in Resources */,
 				2F8F8E692723072600151B75 /* ptt_end.m4a in Resources */,

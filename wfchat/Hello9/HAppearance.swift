@@ -14,16 +14,16 @@ struct HAppearance {
         
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().barStyle = .default
-        UINavigationBar.appearance().backIndicatorImage = Images.icon_arrow_back_outline
+        UINavigationBar.appearance().backIndicatorImage = Images.icon_back
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundImage = UIImage.image(withColor: Colors.white.withAlphaComponent(0.99))
         navBarAppearance.shadowImage = nil
-        navBarAppearance.setBackIndicatorImage(Images.icon_arrow_back_outline, transitionMaskImage: Images.icon_arrow_back_outline)
+        navBarAppearance.setBackIndicatorImage(Images.icon_back, transitionMaskImage: Images.icon_back)
         navBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = .init(horizontal: -1000, vertical: 0)
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: Colors.themeGray5,
-            .font: UIFont.system16.bold
+            .font: UIFont.system18.bold
         ]
         
         let normal: [NSAttributedString.Key : Any] = [

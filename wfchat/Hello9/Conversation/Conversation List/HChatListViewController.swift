@@ -42,13 +42,6 @@ class HChatListViewController: HBaseViewController {
         return bar
     }()
     
-    private lazy var menuButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(Images.icon_add, for: .normal)
-        btn.addTarget(self, action: #selector(didClickMenuButton(_:)), for: .touchUpInside)
-        return btn
-    }()
-    
     private typealias Section = HChatListViewModel.Section
     private typealias Row = HChatListViewModel.Row
     private var dataSource: HChatListDataSource! = nil
@@ -72,6 +65,10 @@ class HChatListViewController: HBaseViewController {
         
         navBarBackgroundView.image = nil
         navBar.blurEffectStyle = .systemMaterialLight
+        
+        let plusButton = UIBarButtonItem(image: Images.icon_add, style: .plain, target: self, action: #selector(didClickMenuButton(_:)))
+        navBar.rightBarButtonItem = plusButton
+        
         tableView.tableHeaderView = searchBar
         tableView.backgroundColor = Colors.white
         tableView.register([HChatListCell.self, HFriendRequestCell.self])
@@ -98,7 +95,6 @@ class HChatListViewController: HBaseViewController {
             .store(in: &cancellables)
         
         view.insertSubview(tableView, belowSubview: navBar)
-        navBar.contentView.addSubview(menuButton)
     }
     
     private func addObservers() {
@@ -119,13 +115,6 @@ class HChatListViewController: HBaseViewController {
     
     override func makeConstraints() {
         super.makeConstraints()
-        
-        menuButton.snp.makeConstraints { make in
-            make.right.equalTo(-8)
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(40)
-        }
-        
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -325,7 +314,7 @@ extension HChatListViewController {
         // TODO search
     }
     
-    @objc func didClickMenuButton(_ sender: UIButton) {
+    @objc func didClickMenuButton(_ sender: UIBarButtonItem) {
         let vc = HCreateConversationViewController()
         navigationController?.pushViewController(vc, animated: true)
     }

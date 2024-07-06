@@ -52,10 +52,16 @@ class HBaseViewController: HBasicViewController {
     
     func makeConstraints() { }
     
+    var defaultBackBarItem: UIBarButtonItem {
+        let defaultBackBarItem = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
+        defaultBackBarItem.imageInsets = .init(top: 0, left: -6, bottom: 0, right: 0)
+        return defaultBackBarItem
+    }
+    
     override func setupBackButton() {
         if presentingViewController != nil || (navigationController != nil && navigationController!.viewControllers.count > 1) {
             if backButtonImage != nil {
-                navBar.leftBarButtonItem = .init(image: backButtonImage, style: .plain, target: self, action: #selector(didClickBackBarButton(_:)))
+                navBar.leftBarButtonItem = defaultBackBarItem
             } else {
                 navBar.leftBarButtonItem = nil
             }
@@ -90,3 +96,11 @@ class HBaseViewController: HBasicViewController {
     
 }
 
+extension UIBarButtonItem {
+    
+    static func withDefaultBack(target: Any? = nil, action: Selector? = nil) -> Self {
+        let defaultBackBarItem = Self(image: Images.icon_back, style: .plain, target: target, action: action)
+        defaultBackBarItem.imageInsets = .init(top: 0, left: -5, bottom: 0, right: 0)
+        return defaultBackBarItem
+    }
+}
