@@ -57,8 +57,10 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
             cell.cellData = model
             if model.tag == .avatar {
                 cell.accessories = []
+                cell.titleLabel.textColor = Colors.themeBlue1
             } else {
                 cell.accessories = [.image()]
+                cell.titleLabel.textColor = Colors.themeBlack
             }
         }
         
@@ -90,7 +92,7 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
             if sectionKind != .header {
                 config.itemSeparatorHandler = { (indexPath, sectionSeparatorConfiguration) in
                     var separatorConfig = sectionSeparatorConfiguration
-                    separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 84, bottom: 0, trailing: 0)
+                    separatorConfig.bottomSeparatorInsets = .init(top: 0, leading: 64, bottom: 0, trailing: 0)
                     separatorConfig.color = Colors.themeSeperatorColor
                     return separatorConfig
                 }

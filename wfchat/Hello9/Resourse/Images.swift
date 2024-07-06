@@ -44,6 +44,8 @@ enum Images {
 
     static let icon_camera = UIImage(named: "icon_camera")!
 
+    static let icon_camera_black_outline = UIImage(named: "icon_camera_black_outline")!
+
     static let icon_camera_blue = UIImage(named: "icon_camera_blue")!
 
     static let icon_camera_blue_outline = UIImage(named: "icon_camera_blue_outline")!

@@ -42,12 +42,12 @@ class HCollectionViewListCell<T>: HBasicCollectionViewCell<T> {
         icon.snp.makeConstraints { make in
             make.top.equalTo(20)
             make.left.equalTo(20)
-            make.width.height.equalTo(32)
+            make.width.height.equalTo(28)
             make.bottom.equalTo(-20)
         }
     
         titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(icon.snp.right).offset(16)
+            make.left.equalTo(icon.snp.right).offset(18)
             make.centerY.equalToSuperview()
         }
         
