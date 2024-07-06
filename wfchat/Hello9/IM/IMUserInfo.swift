@@ -41,6 +41,18 @@ struct IMUserInfo {
             return (UserDefaults.standard.value(forKey: "savedUserId") as? String) ?? ""
         }
     }
+    
+    static var recentAccount: String {
+        set {
+            let userDefault = UserDefaults.standard
+            userDefault.set(newValue, forKey: "recentAccount")
+            userDefault.synchronize()
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: "recentAccount") as? String) ?? ""
+        }
+    }
+    
 }
 
 extension HUserInfoModel {

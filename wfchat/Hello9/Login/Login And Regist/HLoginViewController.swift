@@ -196,6 +196,7 @@ extension HLoginViewController: HLoginInputCellDelegate {
                         HToast.showTipAutoHidden(text:  "登录失败")
                     } else {
                         self.output.send(.onLoginSucess)
+                        IMUserInfo.recentAccount = self.viewModel.account
                     }
                 }
             }

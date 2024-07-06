@@ -21,7 +21,7 @@ class HLoginViewModel: HBasicViewModel {
     
     private lazy var inputModel = [HLoginInputModel]()
     
-    private var account: String { inputModel.first?.value ?? ""  }
+    var account: String { inputModel.first?.value ?? ""  }
     private var password: String { inputModel.last?.value ?? ""  }
     
     private(set) var isNewUser: Bool = true
@@ -29,7 +29,8 @@ class HLoginViewModel: HBasicViewModel {
     init(isNewUser: Bool = true) {
         self.isNewUser = isNewUser
         
-        inputModel.append(.init(id: .account, isNewUser: isNewUser, value: ""))
+        let account = isNewUser ? "" : IMUserInfo.recentAccount
+        inputModel.append(.init(id: .account, isNewUser: isNewUser, value: account))
         inputModel.append(.init(id: .password, isNewUser: isNewUser, value: "", isSecureTextEntry: !isNewUser))
         
         applySnapshot()

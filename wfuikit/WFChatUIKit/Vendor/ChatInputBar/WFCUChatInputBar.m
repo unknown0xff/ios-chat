@@ -741,31 +741,33 @@
     
     if (_voiceInput) {
         [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                [self.textInputView setHidden:NO];
-                self.quoteContainerView.hidden = NO;
-                [self.voiceInputBtn setHidden:YES];
-                self.textInputView.inputView = self.hRecordView;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (!self.textInputView.isFirstResponder) {
-                        [self.textInputView becomeFirstResponder];
-                    }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (granted) {
+                    [self.textInputView setHidden:NO];
+                    self.quoteContainerView.hidden = NO;
+                    [self.voiceInputBtn setHidden:YES];
+                    self.textInputView.inputView = self.hRecordView;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (!self.textInputView.isFirstResponder) {
+                            [self.textInputView becomeFirstResponder];
+                        }
+                        [self.textInputView reloadInputViews];
+                        if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
+                            [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
+                        }
+                    });
+                } else {
+                    self.textInputView.inputView = nil;
                     [self.textInputView reloadInputViews];
-                    if (self.textInputView.frame.size.height+self.quoteContainerView.frame.size.height > self.frame.size.height) {
-                        [self textView:self.textInputView shouldChangeTextInRange:NSMakeRange(self.textInputView.text.length, 0) replacementText:@""];
-                    }
-                });
-            } else {
-                self.textInputView.inputView = nil;
-                [self.textInputView reloadInputViews];
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"无法录音,请到设置-隐私-麦克风,允许程序访问" preferredStyle: UIAlertControllerStyleAlert];
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler: NULL];
-                UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler: NULL];
-                [alert addAction:cancel];
-                [alert addAction:done];
-                [[[UIApplication sharedApplication] delegate].window.rootViewController presentViewController:alert animated:YES completion:NULL];
-            }
+                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"无法录音,请到设置-隐私-麦克风,允许程序访问" preferredStyle: UIAlertControllerStyleAlert];
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler: NULL];
+                    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler: NULL];
+                    [alert addAction:cancel];
+                    [alert addAction:done];
+                    [[[UIApplication sharedApplication] delegate].window.rootViewController presentViewController:alert animated:YES completion:NULL];
+                }
+            });
         }];
     } else {
         [self.textInputView setHidden:NO];
