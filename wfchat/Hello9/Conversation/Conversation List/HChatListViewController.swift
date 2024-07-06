@@ -143,9 +143,9 @@ class HChatListViewController: HBaseViewController {
             tab.updateMessageBadgeValue(viewModel.badgeNumber)
         }
         if viewModel.badgeNumber > 0 {
-            navBar.title = "会话(\(viewModel.badgeNumber))"
+            navBar.title = "Chats(\(viewModel.badgeNumber))"
         } else {
-            navBar.title = "会话"
+            navBar.title = "Chats"
         }
     }
     
