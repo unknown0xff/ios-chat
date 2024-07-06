@@ -188,13 +188,12 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private func configureNavbar() {
         navBar.blurEffectStyle = .prominent
-        navBar.contentView.addSubview(avatarButton)
+//        navBar.contentView.addSubview(avatarButton)
         avatarButton.snp.makeConstraints { make in
             make.width.height.equalTo(36)
-            make.right.equalTo(-16)
-            make.centerY.equalToSuperview()
         }
         navBar.leftBarButtonItem = .withDefaultBack(target: self, action: #selector(didClickBackButton(_:)))
+        navBar.rightBarButtonItem = .init(customView: avatarButton)
         avatarButton.addTarget(self, action: #selector(didClickSetingButton(_:)), for: .touchUpInside)
         
         navBar.addSubview(multiSelectNavBar)
