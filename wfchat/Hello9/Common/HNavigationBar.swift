@@ -70,7 +70,6 @@ class HNavigationBar: UIView {
         
         addSubview(visualEffectView)
         contentView.addSubview(bar)
-        contentView.addSubview(titleLabel)
         addSubview(contentView)
         addSubview(bottomStack)
         makeConstraints()
@@ -105,14 +104,6 @@ class HNavigationBar: UIView {
         return view
     }()
     
-    private(set) lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .system16.bold
-        label.textColor = Colors.themeGray5
-        label.textAlignment = .center
-        return label
-    }()
-    
     func reloadBlurStyle() {
         if let style = self.blurEffectStyle {
             let effect = UIBlurEffect(style: style)
@@ -140,12 +131,6 @@ class HNavigationBar: UIView {
             make.left.right.equalToSuperview()
             make.bottom.equalTo(bottomStack.snp.top)
             make.height.equalTo(56)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.height.equalTo(26)
-            make.width.lessThanOrEqualTo(200)
         }
     }
     

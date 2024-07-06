@@ -41,7 +41,7 @@ class HNewFriendListViewController: HBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navBar.titleLabel.text = "新朋友"
+        navBar.title = "新朋友"
         
         NotificationCenter.default.addObserver(forName: .init(kFriendRequestUpdated), object: self, queue: .main) { [weak self] _ in
             self?.viewModel.loadData()

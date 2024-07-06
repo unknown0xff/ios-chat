@@ -58,7 +58,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
         super.configureSubviews()
         
         tableView.tableHeaderView = headerView
-        navBar.titleLabel.text = "发起会话"
+        navBar.title = "发起会话"
         
         navBar.rightBarButtonItem = .init(image: Images.icon_scan, style: .done, target: self, action: #selector(didClickScanBarButton(_:)))
     }
