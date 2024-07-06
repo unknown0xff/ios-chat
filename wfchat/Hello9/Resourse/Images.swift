@@ -14,8 +14,6 @@ enum Images {
 
     static let icon_add_group = UIImage(named: "icon_add_group")!
 
-    static let icon_arrow_back_outline = UIImage(named: "icon_arrow_back_outline")!
-
     static let icon_arrow_down = UIImage(named: "icon_arrow_down")!
 
     static let icon_at = UIImage(named: "icon_at")!
@@ -267,10 +265,6 @@ enum Images {
     static let tab_message_off = UIImage(named: "tab_message_off")!
 
     static let tab_message_on = UIImage(named: "tab_message_on")!
-
-    static let tab_mine_off = UIImage(named: "tab_mine_off")!
-
-    static let tab_mine_on = UIImage(named: "tab_mine_on")!
 
     static let tab_node_off = UIImage(named: "tab_node_off")!
 
