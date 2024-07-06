@@ -56,7 +56,6 @@ class HMineViewController: HBaseViewController, UICollectionViewDelegate {
             cell.indexPath = indexPath
             cell.cellData = model
             if model.tag == .avatar {
-                cell.titleLabel.textColor = Colors.themeBlue1
                 cell.accessories = []
             } else {
                 cell.accessories = [.image()]

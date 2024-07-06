@@ -55,8 +55,8 @@ class HLoginHeaderView: UIView {
         logoView.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(0)
-            make.width.equalTo(38)
-            make.height.equalTo(42)
+            make.width.equalTo(28)
+            make.height.equalTo(28)
         }
         
         titleLabel.snp.makeConstraints { make in

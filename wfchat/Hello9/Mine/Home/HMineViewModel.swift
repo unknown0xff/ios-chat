@@ -63,7 +63,7 @@ class HMineViewModel: HBaseViewModel {
         
         snapshot.appendItems([
             .list(.init(title: "隐私与安全", image: Images.icon_key_blue, tag: .privacy)),
-            .list(.init(title: "通知与声音", image: Images.icon_bell_yellow, tag: .notification)),
+            .list(.init(title: "通知与声音", image: Images.icon_bell, tag: .notification)),
             .list(.init(title: "数据和储存", image: Images.icon_securty_green, tag: .data))
         ], toSection: .other)
         

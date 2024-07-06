@@ -106,7 +106,7 @@ class HCreateConversationViewController: HMyFriendListViewController {
     }
     
     private func actionButton(with image: UIImage, title: String, selector: Selector? = nil) -> UIButton {
-        let btn = UIButton.imageButton(with: image, title: title, font: .system13.bold, titleColor: Colors.themeBlack, placement: .top, padding: 0)
+        let btn = UIButton.imageButton(with: image, title: title, font: .system13.bold, titleColor: Colors.themeBlue1, placement: .top, padding: 8)
         if let selector {
             btn.addTarget(self, action: selector, for: .touchUpInside)
         }
