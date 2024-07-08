@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -113,6 +113,9 @@
 		207F8C792C3B8663006BBBA9 /* avatar36.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C512C3B8662006BBBA9 /* avatar36.jpg */; };
 		207F8C7A2C3B8663006BBBA9 /* avatar37.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C522C3B8662006BBBA9 /* avatar37.jpg */; };
 		207F8C7B2C3B8663006BBBA9 /* avatar38.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C532C3B8662006BBBA9 /* avatar38.jpg */; };
+		207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C7D2C3BBF06006BBBA9 /* TelegramCore */; };
+		207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F8C802C3BBF35006BBBA9 /* TgService.swift */; };
+		207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
 		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
@@ -505,6 +508,7 @@
 		207F8C512C3B8662006BBBA9 /* avatar36.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar36.jpg; sourceTree = "<group>"; };
 		207F8C522C3B8662006BBBA9 /* avatar37.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar37.jpg; sourceTree = "<group>"; };
 		207F8C532C3B8662006BBBA9 /* avatar38.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar38.jpg; sourceTree = "<group>"; };
+		207F8C802C3BBF35006BBBA9 /* TgService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TgService.swift; sourceTree = "<group>"; };
 		20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeHeadShakeCell.swift; sourceTree = "<group>"; };
 		20F02F622C33F50800554857 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
@@ -839,6 +843,7 @@
 				2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */,
 				60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */,
 				60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */,
+				207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */,
 				905177502243CD9A0020A2AC /* libz.tbd in Frameworks */,
 				206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */,
 				B75D81872782E0C5009D4A19 /* WFChatClient.framework in Frameworks */,
@@ -851,6 +856,7 @@
 				20F02F612C33F4EE00554857 /* Lottie in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
+				207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */,
 				2F1B0DD021E19AF400139CB1 /* NotificationCenter.framework in Frameworks */,
 				2F1B0DD121E19AF400139CB1 /* UserNotifications.framework in Frameworks */,
 			);
@@ -1150,6 +1156,14 @@
 				207F8C532C3B8662006BBBA9 /* avatar38.jpg */,
 			);
 			path = avatar;
+			sourceTree = "<group>";
+		};
+		207F8C7F2C3BBF1E006BBBA9 /* TgCore */ = {
+			isa = PBXGroup;
+			children = (
+				207F8C802C3BBF35006BBBA9 /* TgService.swift */,
+			);
+			path = TgCore;
 			sourceTree = "<group>";
 		};
 		20F02F7E2C33FF9A00554857 /* node_shake */ = {
@@ -1507,6 +1521,7 @@
 		601246352C0565E600635523 /* Hello9 */ = {
 			isa = PBXGroup;
 			children = (
+				207F8C7F2C3BBF1E006BBBA9 /* TgCore */,
 				2075ACAC2C32747F00F764CA /* Node */,
 				60922A912C084BFF00B70AD8 /* Conversation */,
 				60922A8B2C082BFF00B70AD8 /* Common */,
@@ -2122,6 +2137,8 @@
 				206FD0532C2E5DD000461F5C /* Kingfisher */,
 				206FD0602C2E943E00461F5C /* Alamofire */,
 				20F02F602C33F4EE00554857 /* Lottie */,
+				207F8C7D2C3BBF06006BBBA9 /* TelegramCore */,
+				207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -2237,6 +2254,8 @@
 				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				207F8C7C2C3BBF06006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/TelegramCore" */,
+				207F8C822C3BCC5E006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/OpenSSLEncryptionProvider" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -2428,6 +2447,7 @@
 				6012465F2C05D30000635523 /* HLoginViewController.swift in Sources */,
 				2E1D200A1FAF0AE600F4405D /* main.m in Sources */,
 				2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */,
+				207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */,
 				206309DA2C2AC33D00BED49A /* HMessageTopManager.swift in Sources */,
 				601246442C0578F100635523 /* HBasicViewController.m in Sources */,
 				601246652C05F8AE00635523 /* HReuseIdentifier.swift in Sources */,
@@ -3127,6 +3147,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		207F8C7C2C3BBF06006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/TelegramCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../TgPackage/TelegramCore;
+		};
+		207F8C822C3BCC5E006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/OpenSSLEncryptionProvider" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../TgPackage/OpenSSLEncryptionProvider;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -3214,6 +3245,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		207F8C7D2C3BBF06006BBBA9 /* TelegramCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TelegramCore;
+		};
+		207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenSSLEncryption;
 		};
 		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
