@@ -90,6 +90,7 @@ AVAudioPlayer *audioPlayer;
         
         content.badge = @(count);
         content.userInfo = @{@"conversationType" : @(msg.conversation.type), @"conversationTarget" : msg.conversation.target, @"conversationLine" : @(msg.conversation.line), @"messageUid":@(msg.messageUid) };
+        content.sound = [UNNotificationSound soundNamed:@"sound_alert.wav"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"hello_msg_notification" content:content trigger:nil];
@@ -116,6 +117,7 @@ AVAudioPlayer *audioPlayer;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     WFCCFriendRequest *request = [[WFCCIMService sharedWFCIMService] getFriendRequest:newRequests[0] direction:1];
                     content.body = [NSString stringWithFormat:@"%@:%@", userInfo.displayName, request.reason];
+                    content.sound = [UNNotificationSound soundNamed:@"sound_alert.wav"];
                     UNNotificationRequest *notiRequest = [UNNotificationRequest requestWithIdentifier:@"hello_friend_msg_notification" content:content trigger:nil];
                     [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:notiRequest withCompletionHandler:^(NSError * _Nullable error) {
                         
@@ -126,6 +128,7 @@ AVAudioPlayer *audioPlayer;
             }];
         } else {
             content.body = [NSString stringWithFormat:@"您收到 %ld 条好友请求", newRequests.count];
+            content.sound = [UNNotificationSound soundNamed:@"sound_alert.wav"];
             UNNotificationRequest *notiRequest = [UNNotificationRequest requestWithIdentifier:@"hello_friend_msg_notification" content:content trigger:nil];
             [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:notiRequest withCompletionHandler:^(NSError * _Nullable error) {
                 
@@ -362,7 +365,7 @@ void systemAudioCallback (SystemSoundID soundID, void* clientData) {
                     content.title = sender.displayName;
                 }
             }
-            // content.sound = [UNNotificationSound soundNamed:@"default_call.wav"];
+            content.sound = [UNNotificationSound soundNamed:@"default_call.wav"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"hello_call_end_notification" content:content trigger:nil];
                 [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
