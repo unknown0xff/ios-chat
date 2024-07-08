@@ -43,7 +43,7 @@ class HTabViewController: UITabBarController {
         let messageVC = HChatListViewController()
         messageVC.hidesBottomBarWhenPushed = false
         let messageNav = HNavigationController(rootViewController: messageVC)
-        let messageItem = UITabBarItem(title: L10n.message, image: Images.tab_message_off, selectedImage: Images.tab_message_on)
+        let messageItem = UITabBarItem(title: "Chats", image: Images.tab_message_off, selectedImage: Images.tab_message_on)
         messageItem.tag = HTabTag.message.rawValue
         
         messageNav.tabBarItem = messageItem
@@ -54,7 +54,7 @@ class HTabViewController: UITabBarController {
         let node = HNodeHomeViewController()
         node.hidesBottomBarWhenPushed = false
         let nodeNav = HNavigationController(rootViewController: node)
-        let nodeItem = UITabBarItem(title: L10n.node, image: Images.tab_node_off, selectedImage: Images.tab_node_on)
+        let nodeItem = UITabBarItem(title: "Share", image: Images.tab_node_off, selectedImage: Images.tab_node_on)
         nodeItem.tag = HTabTag.node.rawValue
         nodeNav.tabBarItem = nodeItem
         addChild(nodeNav)
@@ -62,7 +62,7 @@ class HTabViewController: UITabBarController {
         let mineVC = HMineViewController()
         mineVC.hidesBottomBarWhenPushed = false
         let mineNav = HNavigationController(rootViewController: mineVC)
-        let mineItem = UITabBarItem(title: L10n.setting, image: Images.tab_setting_off, selectedImage: Images.tab_setting_on)
+        let mineItem = UITabBarItem(title: "Setting", image: Images.tab_setting_off, selectedImage: Images.tab_setting_on)
         mineItem.tag = HTabTag.mine.rawValue
         mineNav.tabBarItem = mineItem
         addChild(mineNav)
