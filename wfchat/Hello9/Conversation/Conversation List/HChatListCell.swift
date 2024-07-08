@@ -154,10 +154,10 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         }
         
         unreadLabel.snp.makeConstraints { make in
-            make.width.greaterThanOrEqualTo(16)
+            make.width.greaterThanOrEqualTo(18)
             make.width.lessThanOrEqualTo(40)
-            make.top.equalTo(avatar)
-            make.left.equalTo(avatar.snp.right).offset(-15)
+            make.top.equalTo(avatar).offset(-6)
+            make.left.equalTo(avatar.snp.right).offset(-9)
         }
     }
     

@@ -75,7 +75,7 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 24
+        imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -141,10 +141,10 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
         }
         
         unreadLabel.snp.makeConstraints { make in
-            make.width.greaterThanOrEqualTo(16)
+            make.width.greaterThanOrEqualTo(18)
             make.width.lessThanOrEqualTo(40)
-            make.top.equalTo(avatar)
-            make.left.equalTo(avatar.snp.right).offset(-15)
+            make.top.equalTo(avatar).offset(-6)
+            make.left.equalTo(avatar.snp.right).offset(-9)
         }
     }
     
