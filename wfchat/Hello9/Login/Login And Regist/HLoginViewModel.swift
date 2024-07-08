@@ -91,6 +91,13 @@ class HLoginViewModel: HBasicViewModel {
     }
     
     func register() async -> Error? {
+        if let error = await resetPassword() {
+            return error
+        }
+        return await randomAvatar()
+    }
+    
+    func resetPassword() async -> Error? {
         await withCheckedContinuation { result in
             AppService.shared().resetPassword("", code: "66666", newPassword: password) {
                 result.resume(returning: nil)
@@ -99,6 +106,30 @@ class HLoginViewModel: HBasicViewModel {
                 result.resume(returning: HError(code: errorCode, message: message))
             }
          }
+    }
+    
+    func randomAvatar() async -> Error? {
+        let name = "avatar\(Int.random(in: 0...38))"
+        guard let path = Bundle.main.path(forResource: name, ofType: ".jpg"), let thumbImage = UIImage(contentsOfFile: path) else {
+            return nil
+        }
+        
+        let data = thumbImage.jpegData(compressionQuality: 1)
+        return await withCheckedContinuation { result in
+            WFCCIMService.sharedWFCIM().uploadMedia(nil, mediaData: data, mediaType: .Media_Type_PORTRAIT) { portrait in
+                if let portrait {
+                    WFCCIMService.sharedWFCIM().modifyMyInfo([NSNumber(value: ModifyMyInfoType.portrait.rawValue) : portrait ]) {
+                        result.resume(returning: nil)
+                    } error: { error_code in
+                        result.resume(returning: HError(code: error_code, message: ""))
+                    }
+                } else {
+                    result.resume(returning: HError(code: 1, message: ""))
+                }
+            } progress: { _ , _  in } error: { error_code in
+                result.resume(returning: HError(code: error_code, message: ""))
+            }
+        }
     }
     
     func applySnapshot() {
