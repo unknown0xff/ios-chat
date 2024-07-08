@@ -139,8 +139,8 @@
     
     self.infoLabel.text = [WFCUCallSummaryCell getCallText: model.message.content];
     [self.infoLabel sizeToFit];
-    self.infoLabel.frame = CGRectMake(16, 0, self.infoLabel.bounds.size.width, height);
-    self.modeImageView.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame) + 3, (height - 25) / 2, 25, 25);
+    self.infoLabel.frame = CGRectMake(10, 0, self.infoLabel.bounds.size.width, height);
+    self.modeImageView.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame) + 3, (height - 22) / 2, 22, 22);
   
     if ([self.model.message.content isKindOfClass:[WFCCCallStartMessageContent class]]) {
         WFCCCallStartMessageContent *startContent = (WFCCCallStartMessageContent *)self.model.message.content;
