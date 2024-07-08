@@ -42,6 +42,17 @@ struct IMUserInfo {
         }
     }
     
+    static var recentCountPwd: String {
+        set {
+            let userDefault = UserDefaults.standard
+            userDefault.set(newValue, forKey: recentAccount)
+            userDefault.synchronize()
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: recentAccount) as? String) ?? ""
+        }
+    }
+    
     static var recentAccount: String {
         set {
             let userDefault = UserDefaults.standard
