@@ -690,28 +690,4 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
-    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        
-        UIAction *delete = [UIAction actionWithTitle:@"abc" image:[WFCUImage imageNamed:@"icon_send"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-            
-        }];
-        UIMenu *menu = [UIMenu menuWithTitle:@"" children:@[delete]];
-        return menu;
-    }];
-    
-    return configuration;
-}
-
-- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
-    UIPreviewParameters *previewParameters = [[UIPreviewParameters alloc]init];
-    previewParameters.backgroundColor = [UIColor clearColor];
-    return  [[UITargetedPreview alloc]initWithView:interaction.view parameters:previewParameters];
-}
-- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
-    UIPreviewParameters *previewParameters = [[UIPreviewParameters alloc]init];
-    previewParameters.backgroundColor = [UIColor clearColor];
-    return  [[UITargetedPreview alloc]initWithView:interaction.view parameters:previewParameters];
-}
-
 @end
