@@ -136,7 +136,7 @@ class HMessageListViewController: WFCUMessageListViewController {
             return
         }
         player = nil
-        let resource = isSend ? "message_alert.mp3" : "message_receive_alert.wav"
+        let resource = isSend ? "message_alert.mp3" : "sound_alert.wav"
         if let url = Bundle.main.url(forResource: resource, withExtension: nil) {
             player = try? AVAudioPlayer(contentsOf: url)
         }
@@ -188,7 +188,6 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private func configureNavbar() {
         navBar.blurEffectStyle = .prominent
-//        navBar.contentView.addSubview(avatarButton)
         avatarButton.snp.makeConstraints { make in
             make.width.height.equalTo(36)
         }
