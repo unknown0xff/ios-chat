@@ -15,5 +15,6 @@
 #import "HUIConfigure.h"
 #import "NSData+Extention.h"
 #import "HTextView.h"
+#import "BuildConfig.h"
 
 #endif /* Basic_h */

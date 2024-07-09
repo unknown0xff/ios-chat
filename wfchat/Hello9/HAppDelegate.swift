@@ -18,6 +18,8 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
         
         HAppearance.install()
 
+        initConnect()
+        
         if !IMService.share.connectByDefault() {
             let loginNav = HLoginNavigationViewController()
             window?.rootViewController = loginNav

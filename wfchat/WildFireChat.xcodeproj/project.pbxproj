@@ -116,6 +116,7 @@
 		207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C7D2C3BBF06006BBBA9 /* TelegramCore */; };
 		207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F8C802C3BBF35006BBBA9 /* TgService.swift */; };
 		207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */; };
+		209525F62C3CCF7000AB0CA2 /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 209525F52C3CCF7000AB0CA2 /* BuildConfig.m */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
 		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
@@ -509,6 +510,8 @@
 		207F8C522C3B8662006BBBA9 /* avatar37.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar37.jpg; sourceTree = "<group>"; };
 		207F8C532C3B8662006BBBA9 /* avatar38.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar38.jpg; sourceTree = "<group>"; };
 		207F8C802C3BBF35006BBBA9 /* TgService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TgService.swift; sourceTree = "<group>"; };
+		209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildConfig.h; sourceTree = "<group>"; };
+		209525F52C3CCF7000AB0CA2 /* BuildConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildConfig.m; sourceTree = "<group>"; };
 		20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeHeadShakeCell.swift; sourceTree = "<group>"; };
 		20F02F622C33F50800554857 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
@@ -1161,6 +1164,8 @@
 		207F8C7F2C3BBF1E006BBBA9 /* TgCore */ = {
 			isa = PBXGroup;
 			children = (
+				209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */,
+				209525F52C3CCF7000AB0CA2 /* BuildConfig.m */,
 				207F8C802C3BBF35006BBBA9 /* TgService.swift */,
 			);
 			path = TgCore;
@@ -2396,6 +2401,7 @@
 				601246502C05916700635523 /* HAppearance.swift in Sources */,
 				2F518FF3235ED7DD00FA3D58 /* AppService.m in Sources */,
 				2FF07F5D21F82E7200A78A62 /* WFCMeTableViewHeaderViewCell.m in Sources */,
+				209525F62C3CCF7000AB0CA2 /* BuildConfig.m in Sources */,
 				205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */,
 				60A3F7B82C1B1BBB00F855A2 /* HGroupMemberCell.swift in Sources */,
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
