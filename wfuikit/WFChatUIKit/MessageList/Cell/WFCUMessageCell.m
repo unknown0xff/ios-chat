@@ -38,7 +38,7 @@
 
 #define MESSAGE_BASE_CELL_QUOTE_SIZE 14
 
-@interface WFCUMessageCell ()
+@interface WFCUMessageCell ()<UIContextMenuInteractionDelegate>
 @property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong)UIImageView *failureView;
 @property (nonatomic, strong)UIImageView *maskView;
@@ -623,7 +623,7 @@
         _bubbleView = [[UIImageView alloc] init];
         _bubbleView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:_bubbleView];
-        [_bubbleView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressed:)]];
+//        [_bubbleView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressed:)]];
         
         UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onDoubleTaped:)];
         doubleTapGesture.numberOfTapsRequired = 2;
@@ -640,7 +640,7 @@
 }
 - (UIActivityIndicatorView *)activityIndicatorView {
     if (!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
         [self.contentView addSubview:_activityIndicatorView];
     }
     return _activityIndicatorView;
@@ -689,4 +689,29 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        
+        UIAction *delete = [UIAction actionWithTitle:@"abc" image:[WFCUImage imageNamed:@"icon_send"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            
+        }];
+        UIMenu *menu = [UIMenu menuWithTitle:@"" children:@[delete]];
+        return menu;
+    }];
+    
+    return configuration;
+}
+
+- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    UIPreviewParameters *previewParameters = [[UIPreviewParameters alloc]init];
+    previewParameters.backgroundColor = [UIColor clearColor];
+    return  [[UITargetedPreview alloc]initWithView:interaction.view parameters:previewParameters];
+}
+- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    UIPreviewParameters *previewParameters = [[UIPreviewParameters alloc]init];
+    previewParameters.backgroundColor = [UIColor clearColor];
+    return  [[UITargetedPreview alloc]initWithView:interaction.view parameters:previewParameters];
+}
+
 @end

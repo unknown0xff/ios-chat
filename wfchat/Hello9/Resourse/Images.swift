@@ -154,6 +154,18 @@ enum Images {
 
     static let icon_menu_del = UIImage(named: "icon_menu_del")!
 
+    static let icon_menu_msg_copy = UIImage(named: "icon_menu_msg_copy")!
+
+    static let icon_menu_msg_del = UIImage(named: "icon_menu_msg_del")!
+
+    static let icon_menu_msg_forward = UIImage(named: "icon_menu_msg_forward")!
+
+    static let icon_menu_msg_multiselect = UIImage(named: "icon_menu_msg_multiselect")!
+
+    static let icon_menu_msg_quote = UIImage(named: "icon_menu_msg_quote")!
+
+    static let icon_menu_msg_top = UIImage(named: "icon_menu_msg_top")!
+
     static let icon_menu_quit = UIImage(named: "icon_menu_quit")!
 
     static let icon_menu_share = UIImage(named: "icon_menu_share")!

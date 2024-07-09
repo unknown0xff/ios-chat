@@ -9,7 +9,7 @@
 import UIKit
 
 class HMessageListViewController: WFCUMessageListViewController {
-
+    
     private var player: AVAudioPlayer?
     
     private lazy var navBar = HNavigationBar()
@@ -43,7 +43,7 @@ class HMessageListViewController: WFCUMessageListViewController {
         backgroundView.addSubview(multiSelectPanel)
         multiSelectPanel.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
-            make.height.equalTo(56 + HUIConfigure.safeBottomMargin + 4)
+            make.height.equalTo(56 + HUIConfigure.safeBottomMargin + 8)
         }
         multiSelectPanel.isHidden = !multiSelecting
         
@@ -132,7 +132,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private func playAlertSound(_ isSend: Bool) {
         guard let info = WFCCIMService.sharedWFCIM().getConversationInfo(conversation),
-            !info.isSilent else  {
+              !info.isSilent else  {
             return
         }
         player = nil
@@ -177,6 +177,21 @@ class HMessageListViewController: WFCUMessageListViewController {
         }
     }
     
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath)
+        
+        if let baseCell = cell as? WFCUMessageCell {
+            baseCell.bubbleView.interactions.forEach { item in
+                baseCell.bubbleView.removeInteraction(item)
+            }
+            let interaction = HContextMenuInteraction(delegate: self)
+            interaction.message = baseCell.model.message
+            baseCell.bubbleView.addInteraction(interaction)
+        }
+        
+        return cell
+    }
+    
     private lazy var multiSelectNavBar = HMutliSelectNavBar()
     private lazy var _multiSelectPanel = HMultiSelectPanel()
     override var multiSelectPanel: UIView {
@@ -198,7 +213,8 @@ class HMessageListViewController: WFCUMessageListViewController {
         navBar.addSubview(multiSelectNavBar)
         multiSelectNavBar.isHidden = !multiSelecting
         multiSelectNavBar.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.width.top.equalToSuperview()
+            make.height.equalTo(HNavigationBar.height)
         }
         
         multiSelectNavBar.deleteAllButton.addTarget(self, action: #selector(didClickRemoveAllButton(_:)), for: .touchUpInside)
@@ -275,6 +291,65 @@ class HMessageListViewController: WFCUMessageListViewController {
     }
 }
 
+extension HMessageListViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        guard let interaction = interaction as? HContextMenuInteraction, let message = interaction.message else {
+            return nil
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] suggestedActions in
+            let quote = UIAction(title: "回复", image: Images.icon_menu_msg_quote) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self?.appendQuote(message)
+                }
+            }
+            
+            let copy = UIAction(title: "拷贝", image: Images.icon_menu_msg_copy) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self?.performCopy(message)
+                }
+            }
+            let top = UIAction(title: "置顶", image: Images.icon_menu_msg_top) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self?.performMessageTop(message)
+                }
+            }
+            let forward = UIAction(title: "转发", image: Images.icon_menu_msg_forward) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self?.showForwardViewController([message])
+                }
+            }
+            let multiselect = UIAction(title: "多选", image: Images.icon_menu_msg_multiselect) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    if let self {
+                        self.multiSelecting = !self.multiSelecting
+                    }
+                }
+            }
+            let del = UIAction(title: "删除", image: Images.icon_menu_msg_del, attributes: [.destructive] ) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self?.performDelete(message)
+                }
+            }
+            let delMenu = UIMenu(title: "", options: .displayInline, children: [del])
+            return UIMenu(title: "", children: [quote, copy, top, forward, multiselect, delMenu])
+        }
+    }
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        let previewParameters = UIPreviewParameters()
+        previewParameters.backgroundColor = .clear
+        let targetedPreview = UITargetedPreview(view: interaction.view!, parameters: previewParameters)
+        return targetedPreview
+    }
+
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        let previewParameters = UIPreviewParameters()
+        previewParameters.backgroundColor = .clear
+        let targetedPreview = UITargetedPreview(view: interaction.view!, parameters: previewParameters)
+        return targetedPreview
+    }
+}
+
 extension HMessageListViewController {
     
     @objc func didClickRemoveAllButton(_ sender: UIButton) {
@@ -300,7 +375,7 @@ extension HMessageListViewController {
     
     @objc func didClickTopView(_ sender: UIControl?) {
         if let message = topView?.message {
-           let index = modelList.indexOfObject { obj, index, stop in
+            let index = modelList.indexOfObject { obj, index, stop in
                 if let item = obj as? WFCUMessageModel {
                     if item.message.messageId == message.messageId {
                         stop.pointee = true
@@ -440,4 +515,8 @@ class HMultiSelectPanel: UIView {
         }
         return btn
     }
+}
+
+class HContextMenuInteraction: UIContextMenuInteraction {
+    var message: WFCCMessage?
 }
