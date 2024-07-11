@@ -314,6 +314,13 @@ class HNewFriendDetailViewController: HBaseViewController {
         
         WFCCIMService.sharedWFCIM().sendFriendRequest(targetId, reason: reason, extra: jsonExtra)  {
             hud?.hide(animated: true)
+            HToast.showTipAutoHidden(text: "已发送请求") {
+                [weak self] in
+                if self?.navigationController?.topViewController == self {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+            
         } error: { code in
             hud?.hide(animated: true)
             if(code == 16) {
