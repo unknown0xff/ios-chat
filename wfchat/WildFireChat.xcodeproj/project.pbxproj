@@ -32,6 +32,17 @@
 		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
 		205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */; };
 		205C5A6C2C251A5E000D54FE /* HBasicButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */; };
+		2061D1F22C40091F00B4F299 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F12C40091F00B4F299 /* SnapKit */; };
+		2061D1F52C40093900B4F299 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F42C40093900B4F299 /* MBProgressHUD */; };
+		2061D1F82C40094E00B4F299 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F72C40094E00B4F299 /* Algorithms */; };
+		2061D1FB2C40096400B4F299 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1FA2C40096400B4F299 /* SDWebImage */; };
+		2061D1FE2C40097900B4F299 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1FD2C40097900B4F299 /* ZLPhotoBrowser */; };
+		2061D2012C40099800B4F299 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D2002C40099800B4F299 /* Kingfisher */; };
+		2061D2042C4009AF00B4F299 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D2032C4009AF00B4F299 /* Lottie */; };
+		2061D2072C4009CF00B4F299 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D2062C4009CF00B4F299 /* TelegramCore */; };
+		2061D2092C400A9400B4F299 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D2082C400A9400B4F299 /* MBProgressHUD */; };
+		2061D20B2C400AB800B4F299 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D20A2C400AB800B4F299 /* SDWebImage */; };
+		2061D2102C400C1400B4F299 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D20F2C400C1400B4F299 /* OpenSSLEncryption */; };
 		206309C62C2953EE00BED49A /* HSelectedFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309C52C2953EE00BED49A /* HSelectedFriendViewController.swift */; };
 		206309D82C2AB7A700BED49A /* HForwardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309D72C2AB7A700BED49A /* HForwardViewController.swift */; };
 		206309DA2C2AC33D00BED49A /* HMessageTopManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206309D92C2AC33D00BED49A /* HMessageTopManager.swift */; };
@@ -40,13 +51,11 @@
 		2065F6812C266DE6006BAD27 /* HMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6802C266DE6006BAD27 /* HMessageCell.swift */; };
 		2065F6832C267E1B006BAD27 /* HLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6822C267E1B006BAD27 /* HLocationViewController.swift */; };
 		2065F6852C26AF35006BAD27 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065F6842C26AF35006BAD27 /* UIImage+Extension.swift */; };
-		2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2065F6892C26F984006BAD27 /* MBProgressHUD */; };
 		2066314A2C2CF6C10009CBCA /* HBasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631492C2CF6C10009CBCA /* HBasicCollectionViewCell.swift */; };
 		2066314C2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314B2C2CF6EF0009CBCA /* HBasicCollectionReusableView.swift */; };
 		2066314E2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314D2C2D0B2A0009CBCA /* HMineInfoSocialCell.swift */; };
 		206631502C2D0B4D0009CBCA /* HMineInfoDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066314F2C2D0B4D0009CBCA /* HMineInfoDescCell.swift */; };
 		206631532C2D2EEC0009CBCA /* HQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631522C2D2EEC0009CBCA /* HQRCodeViewController.swift */; };
-		206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 206631552C2D4A140009CBCA /* ZLPhotoBrowser */; };
 		206631582C2D52B90009CBCA /* HTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631572C2D52B90009CBCA /* HTextField.swift */; };
 		2066315A2C2D53060009CBCA /* HGroupChatEditInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206631592C2D53060009CBCA /* HGroupChatEditInputCell.swift */; };
 		2066315D2C2D6AB20009CBCA /* HGroupEditMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2066315C2C2D6AB20009CBCA /* HGroupEditMemberViewController.swift */; };
@@ -57,10 +66,8 @@
 		2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2067A08D2C2BCB3A00BA3F09 /* UITextField+Combine.swift */; };
 		2067A0932C2C44D600BA3F09 /* HTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067A0922C2C44D600BA3F09 /* HTextView.m */; };
 		206DFC672C3ABA3000F708BE /* UICollectionViewCompositionalLayout+UICollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DFC632C3ABA3000F708BE /* UICollectionViewCompositionalLayout+UICollectionViewWaterfallLayout.swift */; };
-		206FD0542C2E5DD000461F5C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 206FD0532C2E5DD000461F5C /* Kingfisher */; };
 		206FD0592C2E85DD00461F5C /* HScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD0582C2E85DD00461F5C /* HScanViewController.swift */; };
 		206FD05E2C2E91C900461F5C /* HAppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD05D2C2E91C900461F5C /* HAppScheme.swift */; };
-		206FD0612C2E943E00461F5C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 206FD0602C2E943E00461F5C /* Alamofire */; };
 		206FD0632C2E997A00461F5C /* HRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD0622C2E997A00461F5C /* HRouter.swift */; };
 		206FD06A2C2ED86100461F5C /* HTakePhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FD0692C2ED86100461F5C /* HTakePhotoManager.swift */; };
 		207037772C1FED1E000DEC5E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207037762C1FED1E000DEC5E /* UIView+Extension.swift */; };
@@ -116,13 +123,11 @@
 		207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C7D2C3BBF06006BBBA9 /* TelegramCore */; };
 		207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F8C802C3BBF35006BBBA9 /* TgService.swift */; };
 		207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */; };
+		207F8C862C3C0598006BBBA9 /* sound_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C852C3C0598006BBBA9 /* sound_alert.wav */; };
 		209525F62C3CCF7000AB0CA2 /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 209525F52C3CCF7000AB0CA2 /* BuildConfig.m */; };
 		20DD69D12C3E1C7B00B542B2 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 20DD69D02C3E1C7B00B542B2 /* TelegramCore */; };
 		20DD69D42C3E1CFA00B542B2 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */; };
-		207F8C862C3C0598006BBBA9 /* sound_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C852C3C0598006BBBA9 /* sound_alert.wav */; };
-		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
-		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
 		20F02F632C33F50800554857 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F622C33F50800554857 /* Lottie.swift */; };
 		20F02F862C3400F500554857 /* node_shake_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7A2C33FF9A00554857 /* node_shake_0.png */; };
 		20F02F872C3400F500554857 /* node_shake_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20F02F7B2C33FF9A00554857 /* node_shake_1.png */; };
@@ -199,7 +204,6 @@
 		601246302C047F7C00635523 /* IMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012462E2C047F7C00635523 /* IMService.swift */; };
 		601246332C0480CA00635523 /* HAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246322C0480CA00635523 /* HAppDelegate.swift */; };
 		601246372C05664E00635523 /* HTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246362C05664E00635523 /* HTabViewController.swift */; };
-		6012463B2C056AAD00635523 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6012463A2C056AAD00635523 /* SnapKit */; };
 		6012463E2C05764600635523 /* HNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6012463D2C05764600635523 /* HNavigationController.m */; };
 		601246442C0578F100635523 /* HBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601246422C0578F100635523 /* HBasicViewController.m */; };
 		601246472C0579AE00635523 /* UIViewController+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 601246452C0579AE00635523 /* UIViewController+Extention.m */; };
@@ -218,7 +222,6 @@
 		6012466A2C05FD4900635523 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246692C05FD4900635523 /* Font+Extension.swift */; };
 		6012466E2C06BAF700635523 /* Layout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012466D2C06BAF700635523 /* Layout+Extension.swift */; };
 		601246702C06CD8600635523 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012466F2C06CD8600635523 /* Error.swift */; };
-		601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 601246722C06CF8E00635523 /* MBProgressHUD */; };
 		601246752C06D21800635523 /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246742C06D21800635523 /* HToast.swift */; };
 		601246772C06DDFA00635523 /* HBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246762C06DDFA00635523 /* HBasicTableViewCell.swift */; };
 		601246792C06FA0300635523 /* IMUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601246782C06FA0300635523 /* IMUserInfo.swift */; };
@@ -255,7 +258,6 @@
 		6088F4A02C0FFA5B00130A87 /* HNewFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F49F2C0FFA5B00130A87 /* HNewFriendListViewModel.swift */; };
 		6088F4A22C0FFF5400130A87 /* HNewFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4A12C0FFF5400130A87 /* HNewFriendCell.swift */; };
 		6088F4A42C1015F700130A87 /* HFriendSearchViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4A32C1015F700130A87 /* HFriendSearchViewConroller.swift */; };
-		6088F4A72C1030B800130A87 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6088F4A62C1030B800130A87 /* Algorithms */; };
 		6088F4AA2C103EC500130A87 /* HFriendSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088F4A92C103EC500130A87 /* HFriendSearchViewModel.swift */; };
 		60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A752C075C7B00B70AD8 /* HLoginInputCell.swift */; };
 		60922A782C075C7B00B70AD8 /* HLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A762C075C7B00B70AD8 /* HLoginCell.swift */; };
@@ -271,8 +273,6 @@
 		60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A972C084EA800B70AD8 /* HChatListCell.swift */; };
 		60922A9A2C084ED500B70AD8 /* HChatListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A992C084ED500B70AD8 /* HChatListCellModel.swift */; };
 		60922A9C2C0869B600B70AD8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60922A9B2C0869B600B70AD8 /* String+Extension.swift */; };
-		60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A12C1A88A400F855A2 /* SDWebImage */; };
-		60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */; };
 		60A3F7A62C1AD81900F855A2 /* HMultiScrollContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A52C1AD81800F855A2 /* HMultiScrollContainer.swift */; };
 		60A3F7A92C1AED3F00F855A2 /* HSingleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7A82C1AED3F00F855A2 /* HSingleItemView.swift */; };
 		60A3F7AC2C1AFB1500F855A2 /* HMenuTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7AB2C1AFB1500F855A2 /* HMenuTabViewController.swift */; };
@@ -513,9 +513,9 @@
 		207F8C522C3B8662006BBBA9 /* avatar37.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar37.jpg; sourceTree = "<group>"; };
 		207F8C532C3B8662006BBBA9 /* avatar38.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar38.jpg; sourceTree = "<group>"; };
 		207F8C802C3BBF35006BBBA9 /* TgService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TgService.swift; sourceTree = "<group>"; };
+		207F8C852C3C0598006BBBA9 /* sound_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_alert.wav; sourceTree = "<group>"; };
 		209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildConfig.h; sourceTree = "<group>"; };
 		209525F52C3CCF7000AB0CA2 /* BuildConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildConfig.m; sourceTree = "<group>"; };
-		207F8C852C3C0598006BBBA9 /* sound_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_alert.wav; sourceTree = "<group>"; };
 		20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeHeadShakeCell.swift; sourceTree = "<group>"; };
 		20F02F622C33F50800554857 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		20F02F7A2C33FF9A00554857 /* node_shake_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node_shake_0.png; sourceTree = "<group>"; };
@@ -842,32 +842,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2061D2102C400C1400B4F299 /* OpenSSLEncryption in Frameworks */,
 				20DD69D42C3E1CFA00B542B2 /* OpenSSLEncryption in Frameworks */,
-				6088F4A72C1030B800130A87 /* Algorithms in Frameworks */,
 				B75D816A2782CEB5009D4A19 /* WebRTC.xcframework in Frameworks */,
-				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
 				905177522243CDA60020A2AC /* libc++.tbd in Frameworks */,
-				206FD0542C2E5DD000461F5C /* Kingfisher in Frameworks */,
+				2061D1FB2C40096400B4F299 /* SDWebImage in Frameworks */,
+				2061D1FE2C40097900B4F299 /* ZLPhotoBrowser in Frameworks */,
 				2F79F32C2783059000D6F254 /* WFChatUIKit.framework in Frameworks */,
-				60A3F7A22C1A88A400F855A2 /* SDWebImage in Frameworks */,
-				60A3F7A42C1A88A400F855A2 /* SDWebImageMapKit in Frameworks */,
 				207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */,
+				2061D1F52C40093900B4F299 /* MBProgressHUD in Frameworks */,
 				905177502243CD9A0020A2AC /* libz.tbd in Frameworks */,
-				206631562C2D4A140009CBCA /* ZLPhotoBrowser in Frameworks */,
 				B75D81872782E0C5009D4A19 /* WFChatClient.framework in Frameworks */,
+				2061D1F82C40094E00B4F299 /* Algorithms in Frameworks */,
 				B75D816C2782CEB7009D4A19 /* WFAVEngineKit.xcframework in Frameworks */,
 				9051774E2243CD8D0020A2AC /* Security.framework in Frameworks */,
 				9051774C2243CD830020A2AC /* SystemConfiguration.framework in Frameworks */,
-				601246732C06CF8E00635523 /* MBProgressHUD in Frameworks */,
-				206FD0612C2E943E00461F5C /* Alamofire in Frameworks */,
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
-				20F02F612C33F4EE00554857 /* Lottie in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
 				20DD69D12C3E1C7B00B542B2 /* TelegramCore in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
 				207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */,
+				2061D2012C40099800B4F299 /* Kingfisher in Frameworks */,
+				2061D2072C4009CF00B4F299 /* TelegramCore in Frameworks */,
+				2061D1F22C40091F00B4F299 /* SnapKit in Frameworks */,
 				2F1B0DD021E19AF400139CB1 /* NotificationCenter.framework in Frameworks */,
 				2F1B0DD121E19AF400139CB1 /* UserNotifications.framework in Frameworks */,
+				2061D2042C4009AF00B4F299 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,8 +875,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2065F68A2C26F984006BAD27 /* MBProgressHUD in Frameworks */,
-				20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */,
+				2061D20B2C400AB800B4F299 /* SDWebImage in Frameworks */,
+				2061D2092C400A9400B4F299 /* MBProgressHUD in Frameworks */,
 				2F196512252F3AEB0005F1A3 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2140,19 +2140,19 @@
 			);
 			name = Hello9;
 			packageProductDependencies = (
-				6012463A2C056AAD00635523 /* SnapKit */,
-				601246722C06CF8E00635523 /* MBProgressHUD */,
-				6088F4A62C1030B800130A87 /* Algorithms */,
-				60A3F7A12C1A88A400F855A2 /* SDWebImage */,
-				60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */,
-				206631552C2D4A140009CBCA /* ZLPhotoBrowser */,
-				206FD0532C2E5DD000461F5C /* Kingfisher */,
-				206FD0602C2E943E00461F5C /* Alamofire */,
-				20F02F602C33F4EE00554857 /* Lottie */,
 				207F8C7D2C3BBF06006BBBA9 /* TelegramCore */,
 				207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */,
 				20DD69D02C3E1C7B00B542B2 /* TelegramCore */,
 				20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */,
+				2061D1F12C40091F00B4F299 /* SnapKit */,
+				2061D1F42C40093900B4F299 /* MBProgressHUD */,
+				2061D1F72C40094E00B4F299 /* Algorithms */,
+				2061D1FA2C40096400B4F299 /* SDWebImage */,
+				2061D1FD2C40097900B4F299 /* ZLPhotoBrowser */,
+				2061D2002C40099800B4F299 /* Kingfisher */,
+				2061D2032C4009AF00B4F299 /* Lottie */,
+				2061D2062C4009CF00B4F299 /* TelegramCore */,
+				2061D20F2C400C1400B4F299 /* OpenSSLEncryption */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -2172,8 +2172,8 @@
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
-				20E996C92C1A8DB300CF0F71 /* SDWebImage */,
-				2065F6892C26F984006BAD27 /* MBProgressHUD */,
+				2061D2082C400A9400B4F299 /* MBProgressHUD */,
+				2061D20A2C400AB800B4F299 /* SDWebImage */,
 			);
 			productName = ShareExtension;
 			productReference = 2F56F6F3252C956700B829C4 /* ShareExtension.appex */;
@@ -2260,16 +2260,15 @@
 			);
 			mainGroup = 2E1D1FEE1FAF0AE600F4405D;
 			packageReferences = (
-				601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
-				6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
-				60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
-				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */,
-				20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				20DD69CF2C3E1C7B00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */,
-				20DD69D22C3E1CFA00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */,
+				2061D1F02C40091F00B4F299 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				2061D1F32C40093900B4F299 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				2061D1F62C40094E00B4F299 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				2061D1F92C40096400B4F299 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				2061D1FC2C40097900B4F299 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
+				2061D1FF2C40099800B4F299 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				2061D2022C4009AF00B4F299 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				2061D2052C4009CF00B4F299 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */,
+				2061D20E2C400C1400B4F299 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -3164,26 +3163,58 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		20DD69CF2C3E1C7B00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */ = {
+		2061D2052C4009CF00B4F299 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../TgPackage/TelegramCore;
 		};
-		20DD69D22C3E1CFA00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */ = {
+		2061D20E2C400C1400B4F299 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../TgPackage/OpenSSLEncryptionProvider;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */ = {
+		2061D1F02C40091F00B4F299 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		2061D1F32C40093900B4F299 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/MBProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		2061D1F62C40094E00B4F299 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		2061D1F92C40096400B4F299 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.4;
+			};
+		};
+		2061D1FC2C40097900B4F299 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.3;
+				minimumVersion = 4.5.4;
 			};
 		};
-		206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		2061D1FF2C40099800B4F299 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
@@ -3191,76 +3222,69 @@
 				minimumVersion = 7.12.0;
 			};
 		};
-		206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
-		20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		2061D2022C4009AF00B4F299 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.3;
-			};
-		};
-		601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jdg/MBProgressHUD";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-algorithms.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 4.5.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2065F6892C26F984006BAD27 /* MBProgressHUD */ = {
+		2061D1F12C40091F00B4F299 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			package = 2061D1F02C40091F00B4F299 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		2061D1F42C40093900B4F299 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2061D1F32C40093900B4F299 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
 		};
-		206631552C2D4A140009CBCA /* ZLPhotoBrowser */ = {
+		2061D1F72C40094E00B4F299 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 206631542C2D4A140009CBCA /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
+			package = 2061D1F62C40094E00B4F299 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		2061D1FA2C40096400B4F299 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2061D1F92C40096400B4F299 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		2061D1FD2C40097900B4F299 /* ZLPhotoBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2061D1FC2C40097900B4F299 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
 		};
-		206FD0532C2E5DD000461F5C /* Kingfisher */ = {
+		2061D2002C40099800B4F299 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 2061D1FF2C40099800B4F299 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		206FD0602C2E943E00461F5C /* Alamofire */ = {
+		2061D2032C4009AF00B4F299 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
+			package = 2061D2022C4009AF00B4F299 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		2061D2062C4009CF00B4F299 /* TelegramCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TelegramCore;
+		};
+		2061D2082C400A9400B4F299 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2061D1F32C40093900B4F299 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
+		};
+		2061D20A2C400AB800B4F299 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2061D1F92C40096400B4F299 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		2061D20F2C400C1400B4F299 /* OpenSSLEncryption */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenSSLEncryption;
 		};
 		207F8C7D2C3BBF06006BBBA9 /* TelegramCore */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3277,41 +3301,6 @@
 		20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OpenSSLEncryption;
-		};
-		20E996C92C1A8DB300CF0F71 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		20F02F602C33F4EE00554857 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
-		6012463A2C056AAD00635523 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 601246392C056AAD00635523 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		601246722C06CF8E00635523 /* MBProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 601246712C06CF8E00635523 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
-			productName = MBProgressHUD;
-		};
-		6088F4A62C1030B800130A87 /* Algorithms */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6088F4A52C1030B800130A87 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
-			productName = Algorithms;
-		};
-		60A3F7A12C1A88A400F855A2 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		60A3F7A32C1A88A400F855A2 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 60A3F7A02C1A88A400F855A2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
