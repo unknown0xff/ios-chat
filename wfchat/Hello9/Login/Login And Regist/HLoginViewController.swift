@@ -197,6 +197,7 @@ extension HLoginViewController: HLoginInputCellDelegate {
                     } else {
                         self.output.send(.onLoginSucess)
                         IMUserInfo.recentAccount = self.viewModel.account
+                        IMUserInfo.recentCountPwd = self.viewModel.password
                     }
                 }
             }

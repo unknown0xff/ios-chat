@@ -1172,9 +1172,15 @@
     if (self.quoteInfo) {
         [self clearQuoteInfo];
         [self updateQuoteView:YES showKeyboard:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.quoteInfo = [[WFCCQuoteInfo alloc] initWithMessage:message];
+            [self updateQuoteView:YES showKeyboard:YES];
+        });
+        return YES;
+    } else {
+        self.quoteInfo = [[WFCCQuoteInfo alloc] initWithMessage:message];
+        [self updateQuoteView:YES showKeyboard:YES];
     }
-    self.quoteInfo = [[WFCCQuoteInfo alloc] initWithMessage:message];
-    [self updateQuoteView:YES showKeyboard:YES];
     return self.quoteInfo != nil;
 }
 

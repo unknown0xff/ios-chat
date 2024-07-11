@@ -15,7 +15,8 @@ enum HToast {
     static func showTipAutoHidden(
         text: String,
         afterDelay: TimeInterval = 1.618,
-        animated: Bool = true
+        animated: Bool = true,
+        complete: (()->Void)? = nil
     ) -> MBProgressHUD?  {
         guard let view = UIViewController.h_top?.view else {
             return nil
@@ -29,6 +30,7 @@ enum HToast {
         hud.bezelView.style = .solidColor
         hud.bezelView.color = Colors.themeBlack
         hud.offset = CGPoint(x: 0, y: 1)
+        hud.completionBlock = complete
         hud.show(animated: animated)
         hud.hide(animated: animated, afterDelay: afterDelay)
         return hud

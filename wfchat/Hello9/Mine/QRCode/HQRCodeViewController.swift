@@ -70,7 +70,7 @@ class HQRCodeViewController: HBaseViewController {
         qrBackgroundView.backgroundColor = Colors.white
         qrBackgroundView.layer.cornerRadius = 42
         
-        avatarView.layer.cornerRadius = 50
+        avatarView.layer.cornerRadius = 20
         avatarView.layer.masksToBounds = true
         
         qrCodeView.contentMode = .scaleAspectFit
@@ -105,7 +105,9 @@ class HQRCodeViewController: HBaseViewController {
         }
         
         avatarView.sd_setImage(with: url)
-        qrCodeView.image = UIImage.generateQRCode(from: qrString, size: .init(width: 500, height: 500))
+        DispatchQueue.main.async {
+            self.qrCodeView.image = UIImage.generateQRCode(from: self.qrString, size: .init(width: 500, height: 500))
+        }
     }
     
 }

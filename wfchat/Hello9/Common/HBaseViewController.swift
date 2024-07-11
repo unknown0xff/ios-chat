@@ -19,7 +19,7 @@ class HBaseViewController: HBasicViewController {
     
     private(set) lazy var navBarBackgroundView = UIImageView(image: Images.icon_common_background)
     private(set) lazy var backgroundView = UIImageView(image: Images.icon_background_gray)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,9 +36,19 @@ class HBaseViewController: HBasicViewController {
             make.width.top.left.right.equalToSuperview()
             make.height.equalTo(navBarBackgroundView.snp.width).multipliedBy(584.0 / 750.0)
         }
-        
+        setupDismissKeyboardGesture()
         configureSubviews()
         makeConstraints()
+    }
+    
+    private func setupDismissKeyboardGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func configureDefaultStyle() {
@@ -90,7 +100,7 @@ class HBaseViewController: HBasicViewController {
         onUserInfoUpdated(sender)
     }
     
-    @objc private func _onGroupInfoUpdated(_ sender: Notification) { 
+    @objc private func _onGroupInfoUpdated(_ sender: Notification) {
         onGroupInfoUpdated(sender)
     }
     

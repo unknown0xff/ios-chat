@@ -16,6 +16,7 @@
 @class WFCUMessageCellBase;
 @class WFCUMessageModel;
 @class WFCCLocationMessageContent;
+@class WFCUChatInputBar;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray<WFCUMessageModel *> *modelList;
 
+@property(nonatomic, strong)WFCUChatInputBar *chatInputBar;
+
 - (void)updateTitle;
 
 - (void)setAvatar:(NSString *)avatar;
@@ -66,7 +69,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showForwardViewController:(NSArray<WFCCMessage *>* )messages;
 
 - (void)performMessageTop:(WFCCMessage *)message;
+- (BOOL)performCopyMessage:(WFCCMessage *)message;
+- (void)appendQuote:(WFCCMessage *)message;
+- (void)performDeleteMessage:(WFCCMessage *)message;
+- (void)performRecallMessage:(WFCCMessage *)message;
+
 - (void)reloadMessageList;
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

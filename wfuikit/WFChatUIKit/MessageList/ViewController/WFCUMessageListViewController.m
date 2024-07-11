@@ -108,7 +108,7 @@
 @property(nonatomic, strong)WFCCChatroomInfo *targetChatroom;
 @property(nonatomic, strong)WFCCSecretChatInfo *secretChatInfo;
 
-@property(nonatomic, strong)WFCUChatInputBar *chatInputBar;
+
 @property(nonatomic, strong)VideoPlayerKit *videoPlayerViewController;
 
 @property (strong, nonatomic)NSArray<WFCCMessage *> *imageMsgs;
@@ -3430,11 +3430,9 @@
     [self deleteMessageUI:messageId];
 }
 
--(void)performDelete:(UIMenuController *)sender {
-    WFCCMessage *message = self.cell4Menu.model.message;
+- (void)performDeleteMessage:(WFCCMessage *)message {
     if([[WFCCIMService sharedWFCIMService] isCommercialServer] && self.conversation.type != Channel_Type) {
         __weak typeof(self)weakSelf = self;
-
         UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:WFCString(@"ConfirmDelete") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
         UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:WFCString(@"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -3477,6 +3475,11 @@
     }
 }
 
+-(void)performDelete:(UIMenuController *)sender {
+    WFCCMessage *message = self.cell4Menu.model.message;
+    [self performDeleteMessage:message];
+}
+
 -(void)performCancel:(UIMenuController *)sender {
     if (self.cell4Menu) {
         if(![[WFCCIMService sharedWFCIMService] cancelSendingMessage:self.cell4Menu.model.message.messageId]) {
@@ -3499,9 +3502,13 @@
         [self showForwardViewController:@[self.cell4Menu.model.message]];
     }
 }
+- (void)performRecall:(UIMenuItem *)sender {
+    [self performRecallMessage:self.cell4Menu.model.message];
+}
 
--(void)performRecall:(UIMenuItem *)sender {
-    if (self.cell4Menu.model.message) {
+- (void)performRecallMessage:(WFCCMessage *)message {
+    // TODO
+    if (message) {
         __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = WFCString(@"Recalling");
         [hud showAnimated:YES];
@@ -3556,15 +3563,26 @@
         [self.chatInputBar appendQuote:self.cell4Menu.model.message];
     }
 }
+- (BOOL)performCopyMessage:(WFCCMessage *)message {
+    if ([message.content isKindOfClass:[WFCCTextMessageContent class]]) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = ((WFCCTextMessageContent *)message.content).text;
+        return YES;
+    }
+    return NO;
+}
+- (void)appendQuote:(WFCCMessage *)message {
+    [self.chatInputBar appendQuote: message];
+}
+
+- (void)performMessageTop:(WFCCMessage *)message {
+    
+}
 
 - (void)performTop:(UIMenuItem *)sender {
     if (self.cell4Menu.model.message) {
         [self performMessageTop:self.cell4Menu.model.message];
     }
-}
-
-- (void)performMessageTop:(WFCCMessage *)message {
-    
 }
 
 - (void)performFavorite:(UIMenuItem *)sender {

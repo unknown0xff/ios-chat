@@ -22,7 +22,7 @@ class HLoginViewModel: HBasicViewModel {
     private lazy var inputModel = [HLoginInputModel]()
     
     var account: String { inputModel.first?.value ?? ""  }
-    private var password: String { inputModel.last?.value ?? ""  }
+    var password: String { inputModel.last?.value ?? ""  }
     
     private(set) var isNewUser: Bool = true
     
@@ -30,8 +30,9 @@ class HLoginViewModel: HBasicViewModel {
         self.isNewUser = isNewUser
         
         let account = isNewUser ? "" : IMUserInfo.recentAccount
+        let password = isNewUser ? "" : IMUserInfo.recentCountPwd
         inputModel.append(.init(id: .account, isNewUser: isNewUser, value: account))
-        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: "", isSecureTextEntry: !isNewUser))
+        inputModel.append(.init(id: .password, isNewUser: isNewUser, value: password, isSecureTextEntry: !isNewUser))
         
         applySnapshot()
     }
@@ -77,8 +78,8 @@ class HLoginViewModel: HBasicViewModel {
     }
     
     func login() async -> Error? {
-        
-       await withCheckedContinuation { result in
+       IMService.share.logout()
+       return await withCheckedContinuation { result in
             AppService.shared().login(withMobile: account, password: password) { userId, token, newUser in
                 IMService.share.connect(userId: userId, token: token, autoSave: true)
                 result.resume(returning: nil)

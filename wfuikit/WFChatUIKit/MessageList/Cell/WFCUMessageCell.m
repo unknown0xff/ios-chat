@@ -38,7 +38,7 @@
 
 #define MESSAGE_BASE_CELL_QUOTE_SIZE 14
 
-@interface WFCUMessageCell ()
+@interface WFCUMessageCell ()<UIContextMenuInteractionDelegate>
 @property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong)UIImageView *failureView;
 @property (nonatomic, strong)UIImageView *maskView;
@@ -623,7 +623,7 @@
         _bubbleView = [[UIImageView alloc] init];
         _bubbleView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:_bubbleView];
-        [_bubbleView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressed:)]];
+//        [_bubbleView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressed:)]];
         
         UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onDoubleTaped:)];
         doubleTapGesture.numberOfTapsRequired = 2;
@@ -640,7 +640,7 @@
 }
 - (UIActivityIndicatorView *)activityIndicatorView {
     if (!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
         [self.contentView addSubview:_activityIndicatorView];
     }
     return _activityIndicatorView;
@@ -689,4 +689,5 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 @end

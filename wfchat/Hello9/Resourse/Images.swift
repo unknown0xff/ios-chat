@@ -140,6 +140,8 @@ enum Images {
 
     static let icon_logo = UIImage(named: "icon_logo")!
 
+    static let icon_logo_black = UIImage(named: "icon_logo_black")!
+
     static let icon_logo_title = UIImage(named: "icon_logo_title")!
 
     static let icon_member_group = UIImage(named: "icon_member_group")!
@@ -151,6 +153,18 @@ enum Images {
     static let icon_menu_clock = UIImage(named: "icon_menu_clock")!
 
     static let icon_menu_del = UIImage(named: "icon_menu_del")!
+
+    static let icon_menu_msg_copy = UIImage(named: "icon_menu_msg_copy")!
+
+    static let icon_menu_msg_del = UIImage(named: "icon_menu_msg_del")!
+
+    static let icon_menu_msg_forward = UIImage(named: "icon_menu_msg_forward")!
+
+    static let icon_menu_msg_multiselect = UIImage(named: "icon_menu_msg_multiselect")!
+
+    static let icon_menu_msg_quote = UIImage(named: "icon_menu_msg_quote")!
+
+    static let icon_menu_msg_top = UIImage(named: "icon_menu_msg_top")!
 
     static let icon_menu_quit = UIImage(named: "icon_menu_quit")!
 
