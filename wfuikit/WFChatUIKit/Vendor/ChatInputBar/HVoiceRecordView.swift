@@ -9,6 +9,23 @@
 import UIKit
 import SnapKit
 
+extension UIImage {
+    
+    class func image(withColor color: UIColor?, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContext(size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
+        context.setFillColor((color ?? .clear).cgColor)
+        context.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image ?? UIImage()
+    }
+}
+
 class HPlayButton: UIView {
     
     protocol HPlayButtonDelegate: AnyObject {
@@ -38,9 +55,10 @@ class HPlayButton: UIView {
         btn.layer.borderWidth = 5
         btn.layer.borderColor = UIColor(rgb: 0x73819E).cgColor
         
-        btn.setTitle("·", for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 96)
-        btn.setTitleColor(.init(rgb: 0xF10909), for: .normal)
+        let image = UIImage.image(withColor: .init(rgb: 0xF10909), size: .init(width: 24, height: 24))
+        btn.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.imageView?.layer.cornerRadius = 12
+        btn.imageView?.layer.masksToBounds = true
         btn.backgroundColor = .white
         
         btn.addTarget(self, action: #selector(didClickStartButton(_:)), for: .touchUpInside)
