@@ -1,4 +1,3 @@
-import Foundation
 
 final class MutableInvalidatedMessageHistoryTagSummariesView: MutablePostboxView {
     private let peerId: PeerId?
@@ -14,13 +13,10 @@ final class MutableInvalidatedMessageHistoryTagSummariesView: MutablePostboxView
         self.tagMask = tagMask
         self.namespace = namespace
         
-        self.reload(postbox: postbox)
-    }
-    
-    private func reload(postbox: PostboxImpl) {
         if let peerId = self.peerId {
-            self.entries.removeAll()
-            self.entries.formUnion(postbox.invalidatedMessageHistoryTagsSummaryTable.getIncludingCustomTags(peerId: peerId, threadId: self.threadId, tagMask: self.tagMask, namespace: self.namespace))
+            if let entry = postbox.invalidatedMessageHistoryTagsSummaryTable.get(peerId: peerId, threadId: self.threadId, tagMask: self.tagMask, namespace: self.namespace) {
+                self.entries.insert(entry)
+            }
         } else {
             for entry in postbox.invalidatedMessageHistoryTagsSummaryTable.get(tagMask: tagMask, namespace: namespace) {
                 self.entries.insert(entry)
@@ -49,19 +45,21 @@ final class MutableInvalidatedMessageHistoryTagSummariesView: MutablePostboxView
             }
             if maybeUpdated {
                 self.entries.removeAll()
-                self.reload(postbox: postbox)
+                if let entry = postbox.invalidatedMessageHistoryTagsSummaryTable.get(peerId: peerId, threadId: self.threadId, tagMask: self.tagMask, namespace: self.namespace) {
+                    self.entries.insert(entry)
+                }
                 updated = true
             }
         } else {
             for operation in transaction.currentInvalidateMessageTagSummaries {
                 switch operation {
                 case let .add(entry):
-                    if entry.key.namespace == self.namespace && entry.key.tagMask == self.tagMask && entry.key.customTag == nil {
+                    if entry.key.namespace == self.namespace && entry.key.tagMask == self.tagMask {
                         self.entries.insert(entry)
                         updated = true
                     }
                 case let .remove(key):
-                    if key.namespace == self.namespace && key.tagMask == self.tagMask && key.customTag == nil {
+                    if key.namespace == self.namespace && key.tagMask == self.tagMask {
                         for entry in self.entries {
                             if entry.key == key {
                                 self.entries.remove(entry)

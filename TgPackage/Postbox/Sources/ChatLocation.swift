@@ -4,7 +4,7 @@ import SwiftSignalKit
 public enum ChatLocationInput {
     case peer(peerId: PeerId, threadId: Int64?)
     case thread(peerId: PeerId, threadId: Int64, data: Signal<MessageHistoryViewExternalInput, NoError>)
-    case customChatContents
+    case feed(id: Int32, data: Signal<MessageHistoryViewExternalInput, NoError>)
 }
 
 public extension ChatLocationInput {
@@ -14,7 +14,7 @@ public extension ChatLocationInput {
             return peerId
         case let .thread(peerId, _, _):
             return peerId
-        case .customChatContents:
+        case .feed:
             return nil
         }
     }
@@ -25,7 +25,7 @@ public extension ChatLocationInput {
             return threadId
         case let .thread(_, threadId, _):
             return threadId
-        case .customChatContents:
+        case .feed:
             return nil
         }
     }

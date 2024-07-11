@@ -360,36 +360,20 @@ public final class TelegramMediaImage: Media, Equatable, Codable {
 }
 
 public final class TelegramMediaImageRepresentation: PostboxCoding, Equatable, CustomStringConvertible {
-    public enum TypeHint: Int32 {
-        case generic
-        case animated
-        case video
-    }
-    
     public let dimensions: PixelDimensions
     public let resource: TelegramMediaResource
     public let progressiveSizes: [Int32]
     public let immediateThumbnailData: Data?
     public let hasVideo: Bool
     public let isPersonal: Bool
-    public let typeHint: TypeHint
     
-    public init(
-        dimensions: PixelDimensions,
-        resource: TelegramMediaResource,
-        progressiveSizes: [Int32],
-        immediateThumbnailData: Data?,
-        hasVideo: Bool = false,
-        isPersonal: Bool = false,
-        typeHint: TypeHint = .generic
-    ) {
+    public init(dimensions: PixelDimensions, resource: TelegramMediaResource, progressiveSizes: [Int32], immediateThumbnailData: Data?, hasVideo: Bool, isPersonal: Bool) {
         self.dimensions = dimensions
         self.resource = resource
         self.progressiveSizes = progressiveSizes
         self.immediateThumbnailData = immediateThumbnailData
         self.hasVideo = hasVideo
         self.isPersonal = isPersonal
-        self.typeHint = typeHint
     }
     
     public init(decoder: PostboxDecoder) {
@@ -399,7 +383,6 @@ public final class TelegramMediaImageRepresentation: PostboxCoding, Equatable, C
         self.immediateThumbnailData = decoder.decodeDataForKey("th")
         self.hasVideo = decoder.decodeBoolForKey("hv", orElse: false)
         self.isPersonal = decoder.decodeBoolForKey("ip", orElse: false)
-        self.typeHint = TypeHint(rawValue: decoder.decodeInt32ForKey("th", orElse: 0)) ?? .generic
     }
     
     public func encode(_ encoder: PostboxEncoder) {
@@ -414,7 +397,6 @@ public final class TelegramMediaImageRepresentation: PostboxCoding, Equatable, C
         }
         encoder.encodeBool(self.hasVideo, forKey: "hv")
         encoder.encodeBool(self.isPersonal, forKey: "ip")
-        encoder.encodeInt32(self.typeHint.rawValue, forKey: "th")
     }
     
     public var description: String {
@@ -438,9 +420,6 @@ public final class TelegramMediaImageRepresentation: PostboxCoding, Equatable, C
             return false
         }
         if self.isPersonal != other.isPersonal {
-            return false
-        }
-        if self.typeHint != other.typeHint {
             return false
         }
         return true

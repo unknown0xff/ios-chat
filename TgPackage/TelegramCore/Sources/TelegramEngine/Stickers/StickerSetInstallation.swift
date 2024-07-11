@@ -52,9 +52,6 @@ func _internal_requestStickerSet(postbox: Postbox, network: Network, reference: 
     case .iconStatusEmoji:
         collectionId = nil
         input = .inputStickerSetEmojiDefaultStatuses
-    case .iconChannelStatusEmoji:
-        collectionId = nil
-        input = .inputStickerSetEmojiChannelDefaultStatuses
     case .iconTopicEmoji:
         collectionId = nil
         input = .inputStickerSetEmojiDefaultTopicIcons

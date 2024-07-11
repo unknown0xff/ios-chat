@@ -7,22 +7,26 @@ public final class AdMessageAttribute: MessageAttribute {
         case recommended
     }
     
+    public enum MessageTarget {
+        case peer(id: EnginePeer.Id, message: EngineMessage.Id?, startParam: String?)
+        case join(title: String, joinHash: String)
+        case webPage(title: String, url: String)
+    }
+    
     public let opaqueId: Data
     public let messageType: MessageType
-    public let url: String
-    public let buttonText: String
+    public let displayAvatar: Bool
+    public let target: MessageTarget
     public let sponsorInfo: String?
     public let additionalInfo: String?
-    public let canReport: Bool
 
-    public init(opaqueId: Data, messageType: MessageType, url: String, buttonText: String, sponsorInfo: String?, additionalInfo: String?, canReport: Bool) {
+    public init(opaqueId: Data, messageType: MessageType, displayAvatar: Bool, target: MessageTarget, sponsorInfo: String?, additionalInfo: String?) {
         self.opaqueId = opaqueId
         self.messageType = messageType
-        self.url = url
-        self.buttonText = buttonText
+        self.displayAvatar = displayAvatar
+        self.target = target
         self.sponsorInfo = sponsorInfo
         self.additionalInfo = additionalInfo
-        self.canReport = canReport
     }
 
     public init(decoder: PostboxDecoder) {

@@ -18,15 +18,15 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
         
         HAppearance.install()
 
-        initConnect()
+        TgService.share.connect()
         
-        if !IMService.share.connectByDefault() {
-            let loginNav = HLoginNavigationViewController()
-            window?.rootViewController = loginNav
-        } else {
-            window?.rootViewController = HTabViewController()
-        }
-        
+//        if !IMService.share.connectByDefault() {
+//            let loginNav = HLoginNavigationViewController()
+//            window?.rootViewController = loginNav
+//        } else {
+//            window?.rootViewController = HTabViewController()
+//        }
+        window?.rootViewController = HTabViewController()
         requestRemoteNotificationsAuthorization(application)
         
         return true

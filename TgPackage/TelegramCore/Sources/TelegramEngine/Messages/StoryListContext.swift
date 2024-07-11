@@ -8,7 +8,6 @@ enum InternalStoryUpdate {
     case deleted(peerId: PeerId, id: Int32)
     case added(peerId: PeerId, item: Stories.StoredItem)
     case read(peerId: PeerId, maxId: Int32)
-    case updatePinnedToTopList(peerId: PeerId, ids: [Int32])
 }
 
 public final class EngineStoryItem: Equatable {
@@ -52,16 +51,10 @@ public final class EngineStoryItem: Equatable {
         }
     }
     
-    public enum ForwardInfo: Equatable {
-        case known(peer: EnginePeer, storyId: Int32, isModified: Bool)
-        case unknown(name: String, isModified: Bool)
-    }
-    
     public let id: Int32
     public let timestamp: Int32
     public let expirationTimestamp: Int32
     public let media: EngineMedia
-    public let alternativeMedia: EngineMedia?
     public let mediaAreas: [MediaArea]
     public let text: String
     public let entities: [MessageTextEntity]
@@ -78,15 +71,12 @@ public final class EngineStoryItem: Equatable {
     public let isEdited: Bool
     public let isMy: Bool
     public let myReaction: MessageReaction.Reaction?
-    public let forwardInfo: ForwardInfo?
-    public let author: EnginePeer?
     
-    public init(id: Int32, timestamp: Int32, expirationTimestamp: Int32, media: EngineMedia, alternativeMedia: EngineMedia?, mediaAreas: [MediaArea], text: String, entities: [MessageTextEntity], views: Views?, privacy: EngineStoryPrivacy?, isPinned: Bool, isExpired: Bool, isPublic: Bool, isPending: Bool, isCloseFriends: Bool, isContacts: Bool, isSelectedContacts: Bool, isForwardingDisabled: Bool, isEdited: Bool, isMy: Bool, myReaction: MessageReaction.Reaction?, forwardInfo: ForwardInfo?, author: EnginePeer?) {
+    public init(id: Int32, timestamp: Int32, expirationTimestamp: Int32, media: EngineMedia, mediaAreas: [MediaArea], text: String, entities: [MessageTextEntity], views: Views?, privacy: EngineStoryPrivacy?, isPinned: Bool, isExpired: Bool, isPublic: Bool, isPending: Bool, isCloseFriends: Bool, isContacts: Bool, isSelectedContacts: Bool, isForwardingDisabled: Bool, isEdited: Bool, isMy: Bool, myReaction: MessageReaction.Reaction?) {
         self.id = id
         self.timestamp = timestamp
         self.expirationTimestamp = expirationTimestamp
         self.media = media
-        self.alternativeMedia = alternativeMedia
         self.mediaAreas = mediaAreas
         self.text = text
         self.entities = entities
@@ -103,8 +93,6 @@ public final class EngineStoryItem: Equatable {
         self.isEdited = isEdited
         self.isMy = isMy
         self.myReaction = myReaction
-        self.forwardInfo = forwardInfo
-        self.author = author
     }
     
     public static func ==(lhs: EngineStoryItem, rhs: EngineStoryItem) -> Bool {
@@ -118,9 +106,6 @@ public final class EngineStoryItem: Equatable {
             return false
         }
         if lhs.media != rhs.media {
-            return false
-        }
-        if lhs.alternativeMedia != rhs.alternativeMedia {
             return false
         }
         if lhs.mediaAreas != rhs.mediaAreas {
@@ -171,35 +156,17 @@ public final class EngineStoryItem: Equatable {
         if lhs.myReaction != rhs.myReaction {
             return false
         }
-        if lhs.forwardInfo != rhs.forwardInfo {
-            return false
-        }
-        if lhs.author != rhs.author {
-            return false
-        }
         return true
     }
 }
 
-extension EngineStoryItem.ForwardInfo {
-    var storedForwardInfo: Stories.Item.ForwardInfo {
-        switch self {
-        case let .known(peer, storyId, isModified):
-            return .known(peerId: peer.id, storyId: storyId, isModified: isModified)
-        case let .unknown(name, isModified):
-            return .unknown(name: name, isModified: isModified)
-        }
-    }
-}
-
-public extension EngineStoryItem {
+extension EngineStoryItem {
     func asStoryItem() -> Stories.Item {
         return Stories.Item(
             id: self.id,
             timestamp: self.timestamp,
             expirationTimestamp: self.expirationTimestamp,
             media: self.media._asMedia(),
-            alternativeMedia: self.alternativeMedia?._asMedia(),
             mediaAreas: self.mediaAreas,
             text: self.text,
             entities: self.entities,
@@ -228,10 +195,7 @@ public extension EngineStoryItem {
             isForwardingDisabled: self.isForwardingDisabled,
             isEdited: self.isEdited,
             isMy: self.isMy,
-            
-            myReaction: self.myReaction,
-            forwardInfo: self.forwardInfo?.storedForwardInfo,
-            authorId: self.author?.id
+            myReaction: self.myReaction
         )
     }
 }
@@ -523,12 +487,10 @@ public final class StorySubscriptionsContext {
 
 private final class CachedPeerStoryListHead: Codable {
     let items: [Stories.StoredItem]
-    let pinnedIds: [Int32]
     let totalCount: Int32
     
-    init(items: [Stories.StoredItem], pinnedIds: [Int32], totalCount: Int32) {
+    init(items: [Stories.StoredItem], totalCount: Int32) {
         self.items = items
-        self.pinnedIds = pinnedIds
         self.totalCount = totalCount
     }
 }
@@ -563,15 +525,15 @@ public final class PeerStoryListContext {
             self.peerId = peerId
             self.isArchived = isArchived
             
-            self.stateValue = State(peerReference: nil, items: [], pinnedIds: Set(), totalCount: 0, loadMoreToken: 0, isCached: true, hasCache: false, allEntityFiles: [:])
+            self.stateValue = State(peerReference: nil, items: [], totalCount: 0, loadMoreToken: 0, isCached: true, hasCache: false, allEntityFiles: [:])
             
-            let _ = (account.postbox.transaction { transaction -> (PeerReference?, [EngineStoryItem], [Int32], Int, [MediaId: TelegramMediaFile], Bool) in
+            let _ = (account.postbox.transaction { transaction -> (PeerReference?, [EngineStoryItem], Int, [MediaId: TelegramMediaFile], Bool) in
                 let key = ValueBoxKey(length: 8 + 1)
                 key.setInt64(0, value: peerId.toInt64())
                 key.setInt8(8, value: isArchived ? 1 : 0)
                 let cached = transaction.retrieveItemCacheEntry(id: ItemCacheEntryId(collectionId: Namespaces.CachedItemCollection.cachedPeerStoryListHeads, key: key))?.get(CachedPeerStoryListHead.self)
                 guard let cached = cached else {
-                    return (nil, [], [], 0, [:], false)
+                    return (nil, [], 0, [:], false)
                 }
                 var items: [EngineStoryItem] = []
                 var allEntityFiles: [MediaId: TelegramMediaFile] = [:]
@@ -582,7 +544,6 @@ public final class PeerStoryListContext {
                             timestamp: item.timestamp,
                             expirationTimestamp: item.expirationTimestamp,
                             media: EngineMedia(media),
-                            alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                             mediaAreas: item.mediaAreas,
                             text: item.text,
                             entities: item.entities,
@@ -609,9 +570,7 @@ public final class PeerStoryListContext {
                             isForwardingDisabled: item.isForwardingDisabled,
                             isEdited: item.isEdited,
                             isMy: item.isMy,
-                            myReaction: item.myReaction,
-                            forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, transaction: transaction) },
-                            author: item.authorId.flatMap { transaction.getPeer($0).flatMap(EnginePeer.init) }
+                            myReaction: item.myReaction
                         )
                         items.append(mappedItem)
                         
@@ -642,28 +601,14 @@ public final class PeerStoryListContext {
                 
                 let peerReference = transaction.getPeer(peerId).flatMap(PeerReference.init)
                 
-                return (peerReference, items, cached.pinnedIds, Int(cached.totalCount), allEntityFiles, true)
+                return (peerReference, items, Int(cached.totalCount), allEntityFiles, true)
             }
-            |> deliverOn(self.queue)).start(next: { [weak self] peerReference, items, pinnedIds, totalCount, allEntityFiles, hasCache in
+            |> deliverOn(self.queue)).start(next: { [weak self] peerReference, items, totalCount, allEntityFiles, hasCache in
                 guard let `self` = self else {
                     return
                 }
                 
-                var updatedState = State(peerReference: peerReference, items: items, pinnedIds: Set(pinnedIds), totalCount: totalCount, loadMoreToken: 0, isCached: true, hasCache: hasCache, allEntityFiles: allEntityFiles)
-                updatedState.items.sort(by: { lhs, rhs in
-                    let lhsPinned = updatedState.pinnedIds.contains(lhs.id)
-                    let rhsPinned = updatedState.pinnedIds.contains(rhs.id)
-                    if lhsPinned != rhsPinned {
-                        if lhsPinned {
-                            return true
-                        } else {
-                            return false
-                        }
-                    }
-                    return lhs.timestamp > rhs.timestamp
-                })
-                self.stateValue = updatedState
-                
+                self.stateValue = State(peerReference: peerReference, items: items, totalCount: totalCount, loadMoreToken: 0, isCached: true, hasCache: hasCache, allEntityFiles: allEntityFiles)
                 self.loadMore(completion: nil)
             })
         }
@@ -728,11 +673,9 @@ public final class PeerStoryListContext {
                         var hasMore: Bool = false
                         
                         switch result {
-                        case let .stories(_, count, stories, pinnedStories, chats, users):
+                        case let .stories(count, stories, chats, users):
                             totalCount = Int(count)
                             hasMore = stories.count >= limit
-                            
-                            let pinnedIds = pinnedStories ?? []
                             
                             updatePeers(transaction: transaction, accountPeerId: accountPeerId, peers: AccumulatedPeers(transaction: transaction, chats: chats, users: users))
                             
@@ -744,7 +687,6 @@ public final class PeerStoryListContext {
                                             timestamp: item.timestamp,
                                             expirationTimestamp: item.expirationTimestamp,
                                             media: EngineMedia(media),
-                                            alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                             mediaAreas: item.mediaAreas,
                                             text: item.text,
                                             entities: item.entities,
@@ -771,9 +713,7 @@ public final class PeerStoryListContext {
                                             isForwardingDisabled: item.isForwardingDisabled,
                                             isEdited: item.isEdited,
                                             isMy: item.isMy,
-                                            myReaction: item.myReaction,
-                                            forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, transaction: transaction) },
-                                            author: item.authorId.flatMap { transaction.getPeer($0).flatMap(EnginePeer.init) }
+                                            myReaction: item.myReaction
                                         )
                                         storyItems.append(mappedItem)
                                     }
@@ -784,7 +724,7 @@ public final class PeerStoryListContext {
                                 let key = ValueBoxKey(length: 8 + 1)
                                 key.setInt64(0, value: peerId.toInt64())
                                 key.setInt8(8, value: isArchived ? 1 : 0)
-                                if let entry = CodableEntry(CachedPeerStoryListHead(items: storyItems.prefix(100).map { .item($0.asStoryItem()) }, pinnedIds: Array(pinnedIds), totalCount: count)) {
+                                if let entry = CodableEntry(CachedPeerStoryListHead(items: storyItems.prefix(100).map { .item($0.asStoryItem()) }, totalCount: count)) {
                                     transaction.putItemCacheEntry(id: ItemCacheEntryId(collectionId: Namespaces.CachedItemCollection.cachedPeerStoryListHeads, key: key), entry: entry)
                                 }
                             }
@@ -862,16 +802,6 @@ public final class PeerStoryListContext {
                                                     }
                                                 }
                                             }
-                                            if let forwardInfo = item.forwardInfo, case let .known(peerId, _, _) = forwardInfo {
-                                                if let peer = transaction.getPeer(peerId) {
-                                                    peers[peer.id] = peer
-                                                }
-                                            }
-                                            if let peerId = item.authorId {
-                                                if let peer = transaction.getPeer(peerId) {
-                                                    peers[peer.id] = peer
-                                                }
-                                            }
                                         }
                                     }
                                 default:
@@ -912,7 +842,6 @@ public final class PeerStoryListContext {
                                                                 timestamp: item.timestamp,
                                                                 expirationTimestamp: item.expirationTimestamp,
                                                                 media: EngineMedia(media),
-                                                                alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                                                 mediaAreas: item.mediaAreas,
                                                                 text: item.text,
                                                                 entities: item.entities,
@@ -939,9 +868,7 @@ public final class PeerStoryListContext {
                                                                 isForwardingDisabled: item.isForwardingDisabled,
                                                                 isEdited: item.isEdited,
                                                                 isMy: item.isMy,
-                                                                myReaction: item.myReaction,
-                                                                forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, peers: peers) },
-                                                                author: item.authorId.flatMap { peers[$0].flatMap(EnginePeer.init) }
+                                                                myReaction: item.myReaction
                                                             )
                                                             finalUpdatedState = updatedState
                                                         }
@@ -961,7 +888,6 @@ public final class PeerStoryListContext {
                                                             timestamp: item.timestamp,
                                                             expirationTimestamp: item.expirationTimestamp,
                                                             media: EngineMedia(media),
-                                                            alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                                             mediaAreas: item.mediaAreas,
                                                             text: item.text,
                                                             entities: item.entities,
@@ -988,9 +914,7 @@ public final class PeerStoryListContext {
                                                             isForwardingDisabled: item.isForwardingDisabled,
                                                             isEdited: item.isEdited,
                                                             isMy: item.isMy,
-                                                            myReaction: item.myReaction,
-                                                            forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, peers: peers) },
-                                                            author: item.authorId.flatMap { peers[$0].flatMap(EnginePeer.init) }
+                                                            myReaction: item.myReaction
                                                         )
                                                         finalUpdatedState = updatedState
                                                     } else {
@@ -1012,7 +936,6 @@ public final class PeerStoryListContext {
                                                                 timestamp: item.timestamp,
                                                                 expirationTimestamp: item.expirationTimestamp,
                                                                 media: EngineMedia(media),
-                                                                alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                                                 mediaAreas: item.mediaAreas,
                                                                 text: item.text,
                                                                 entities: item.entities,
@@ -1039,20 +962,9 @@ public final class PeerStoryListContext {
                                                                 isForwardingDisabled: item.isForwardingDisabled,
                                                                 isEdited: item.isEdited,
                                                                 isMy: item.isMy,
-                                                                myReaction: item.myReaction,
-                                                                forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, peers: peers) },
-                                                                author: item.authorId.flatMap { peers[$0].flatMap(EnginePeer.init) }
+                                                                myReaction: item.myReaction
                                                             ))
                                                             updatedState.items.sort(by: { lhs, rhs in
-                                                                let lhsPinned = updatedState.pinnedIds.contains(lhs.id)
-                                                                let rhsPinned = updatedState.pinnedIds.contains(rhs.id)
-                                                                if lhsPinned != rhsPinned {
-                                                                    if lhsPinned {
-                                                                        return true
-                                                                    } else {
-                                                                        return false
-                                                                    }
-                                                                }
                                                                 return lhs.timestamp > rhs.timestamp
                                                             })
                                                             finalUpdatedState = updatedState
@@ -1068,7 +980,6 @@ public final class PeerStoryListContext {
                                                             timestamp: item.timestamp,
                                                             expirationTimestamp: item.expirationTimestamp,
                                                             media: EngineMedia(media),
-                                                            alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                                             mediaAreas: item.mediaAreas,
                                                             text: item.text,
                                                             entities: item.entities,
@@ -1095,20 +1006,9 @@ public final class PeerStoryListContext {
                                                             isForwardingDisabled: item.isForwardingDisabled,
                                                             isEdited: item.isEdited,
                                                             isMy: item.isMy,
-                                                            myReaction: item.myReaction,
-                                                            forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, peers: peers) },
-                                                            author: item.authorId.flatMap { peers[$0].flatMap(EnginePeer.init) }
+                                                            myReaction: item.myReaction
                                                         ))
                                                         updatedState.items.sort(by: { lhs, rhs in
-                                                            let lhsPinned = updatedState.pinnedIds.contains(lhs.id)
-                                                            let rhsPinned = updatedState.pinnedIds.contains(rhs.id)
-                                                            if lhsPinned != rhsPinned {
-                                                                if lhsPinned {
-                                                                    return true
-                                                                } else {
-                                                                    return false
-                                                                }
-                                                            }
                                                             return lhs.timestamp > rhs.timestamp
                                                         })
                                                         finalUpdatedState = updatedState
@@ -1119,27 +1019,6 @@ public final class PeerStoryListContext {
                                     }
                                 case .read:
                                     break
-                                case let .updatePinnedToTopList(peerId, ids):
-                                    if self.peerId == peerId && !self.isArchived {
-                                        let previousIds = (finalUpdatedState ?? self.stateValue).pinnedIds
-                                        if previousIds != Set(ids) {
-                                            var updatedState = finalUpdatedState ?? self.stateValue
-                                            updatedState.pinnedIds = Set(ids)
-                                            updatedState.items.sort(by: { lhs, rhs in
-                                                let lhsPinned = updatedState.pinnedIds.contains(lhs.id)
-                                                let rhsPinned = updatedState.pinnedIds.contains(rhs.id)
-                                                if lhsPinned != rhsPinned {
-                                                    if lhsPinned {
-                                                        return true
-                                                    } else {
-                                                        return false
-                                                    }
-                                                }
-                                                return lhs.timestamp > rhs.timestamp
-                                            })
-                                            finalUpdatedState = updatedState
-                                        }
-                                    }
                                 }
                             }
                             
@@ -1147,13 +1026,12 @@ public final class PeerStoryListContext {
                                 self.stateValue = finalUpdatedState
                                 
                                 let items = finalUpdatedState.items
-                                let pinnedIds = finalUpdatedState.pinnedIds
                                 let totalCount = finalUpdatedState.totalCount
                                 let _ = (self.account.postbox.transaction { transaction -> Void in
                                     let key = ValueBoxKey(length: 8 + 1)
                                     key.setInt64(0, value: peerId.toInt64())
                                     key.setInt8(8, value: isArchived ? 1 : 0)
-                                    if let entry = CodableEntry(CachedPeerStoryListHead(items: items.prefix(100).map { .item($0.asStoryItem()) }, pinnedIds: Array(pinnedIds), totalCount: Int32(totalCount))) {
+                                    if let entry = CodableEntry(CachedPeerStoryListHead(items: items.prefix(100).map { .item($0.asStoryItem()) }, totalCount: Int32(totalCount))) {
                                         transaction.putItemCacheEntry(id: ItemCacheEntryId(collectionId: Namespaces.CachedItemCollection.cachedPeerStoryListHeads, key: key), entry: entry)
                                     }
                                 }).start()
@@ -1168,7 +1046,6 @@ public final class PeerStoryListContext {
     public struct State: Equatable {
         public var peerReference: PeerReference?
         public var items: [EngineStoryItem]
-        public var pinnedIds: Set<Int32>
         public var totalCount: Int
         public var loadMoreToken: Int?
         public var isCached: Bool
@@ -1178,7 +1055,6 @@ public final class PeerStoryListContext {
         init(
             peerReference: PeerReference?,
             items: [EngineStoryItem],
-            pinnedIds: Set<Int32>,
             totalCount: Int,
             loadMoreToken: Int?,
             isCached: Bool,
@@ -1187,7 +1063,6 @@ public final class PeerStoryListContext {
         ) {
             self.peerReference = peerReference
             self.items = items
-            self.pinnedIds = pinnedIds
             self.totalCount = totalCount
             self.loadMoreToken = loadMoreToken
             self.isCached = isCached
@@ -1273,7 +1148,6 @@ public final class PeerExpiringStoryListContext {
                                         timestamp: item.timestamp,
                                         expirationTimestamp: item.expirationTimestamp,
                                         media: EngineMedia(media),
-                                        alternativeMedia: item.alternativeMedia.flatMap(EngineMedia.init),
                                         mediaAreas: item.mediaAreas,
                                         text: item.text,
                                         entities: item.entities,
@@ -1300,9 +1174,7 @@ public final class PeerExpiringStoryListContext {
                                         isForwardingDisabled: item.isForwardingDisabled,
                                         isEdited: item.isEdited,
                                         isMy: item.isMy,
-                                        myReaction: item.myReaction,
-                                        forwardInfo: item.forwardInfo.flatMap { EngineStoryItem.ForwardInfo($0, transaction: transaction) },
-                                        author: item.authorId.flatMap { transaction.getPeer($0).flatMap(EnginePeer.init) }
+                                        myReaction: item.myReaction
                                     )
                                     items.append(.item(mappedItem))
                                 }
@@ -1517,7 +1389,6 @@ public func _internal_pollPeerStories(postbox: Postbox, network: Network, accoun
         guard let inputPeer = inputPeer else {
             return .complete()
         }
-        
         return network.request(Api.functions.stories.getPeerStories(peer: inputPeer))
         |> map(Optional.init)
         |> `catch` { _ -> Signal<Api.stories.PeerStories?, NoError> in

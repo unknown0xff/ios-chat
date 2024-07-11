@@ -68,7 +68,6 @@
 {
     os_unfair_lock_lock(&_lock);
     MTSubscriberBlocks *blocks = nil;
-    id<MTDisposable> disposable = _disposable;
     if (!_terminated)
     {
         blocks = _blocks;
@@ -80,8 +79,6 @@
     
     if (blocks) {
         blocks = nil;
-    }
-    if (disposable) {
     }
 }
 
@@ -103,7 +100,6 @@
 - (void)putError:(id)error
 {
     bool shouldDispose = false;
-    id<MTDisposable> disposable = nil;
     MTSubscriberBlocks *blocks = nil;
     
     os_unfair_lock_lock(&_lock);
@@ -115,23 +111,19 @@
         shouldDispose = true;
         _terminated = true;
     }
-    disposable = _disposable;
-    _disposable = nil;
     os_unfair_lock_unlock(&_lock);
     
     if (blocks && blocks->_error) {
         blocks->_error(error);
     }
     
-    if (shouldDispose) {
-        [disposable dispose];
-    }
+    if (shouldDispose)
+        [self->_disposable dispose];
 }
 
 - (void)putCompletion
 {
     bool shouldDispose = false;
-    id<MTDisposable> disposable = nil;
     MTSubscriberBlocks *blocks = nil;
     
     os_unfair_lock_lock(&_lock);
@@ -143,30 +135,18 @@
         shouldDispose = true;
         _terminated = true;
     }
-    disposable = _disposable;
-    _disposable = nil;
     os_unfair_lock_unlock(&_lock);
     
     if (blocks && blocks->_completed)
         blocks->_completed();
     
-    if (shouldDispose) {
-        [disposable dispose];
-    }
+    if (shouldDispose)
+        [self->_disposable dispose];
 }
 
 - (void)dispose
 {
-    id<MTDisposable> disposable = nil;
-    
-    os_unfair_lock_lock(&_lock);
-    disposable = _disposable;
-    _disposable = nil;
-    os_unfair_lock_unlock(&_lock);
-    
-    if (disposable) {
-        [disposable dispose];
-    }
+    [self->_disposable dispose];
 }
 
 @end

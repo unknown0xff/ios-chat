@@ -20,15 +20,10 @@ func _internal_updateGlobalPrivacySettings(account: Account) -> Signal<Never, No
                 let automaticallyArchiveAndMuteNonContacts = (flags & (1 << 0)) != 0
                 let keepArchivedUnmuted = (flags & (1 << 1)) != 0
                 let keepArchivedFolders = (flags & (1 << 2)) != 0
-                let hideReadTime = (flags & (1 << 3)) != 0
-                let nonContactChatsRequirePremium = (flags & (1 << 4)) != 0
-                
                 globalSettings = GlobalPrivacySettings(
                     automaticallyArchiveAndMuteNonContacts: automaticallyArchiveAndMuteNonContacts,
                     keepArchivedUnmuted: keepArchivedUnmuted,
-                    keepArchivedFolders: keepArchivedFolders,
-                    hideReadTime: hideReadTime,
-                    nonContactChatsRequirePremium: nonContactChatsRequirePremium
+                    keepArchivedFolders: keepArchivedFolders
                 )
             }
             updateGlobalPrivacySettings(transaction: transaction, { _ in
@@ -50,16 +45,15 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
     let phoneDiscoveryPrivacy = account.network.request(Api.functions.account.getPrivacy(key: .inputPrivacyKeyAddedByPhone))
     let voiceMessagesPrivacy = account.network.request(Api.functions.account.getPrivacy(key: .inputPrivacyKeyVoiceMessages))
     let bioPrivacy = account.network.request(Api.functions.account.getPrivacy(key: .inputPrivacyKeyAbout))
-    let birthdayPrivacy = account.network.request(Api.functions.account.getPrivacy(key: .inputPrivacyKeyBirthday))
     let autoremoveTimeout = account.network.request(Api.functions.account.getAccountTTL())
     let globalPrivacySettings = account.network.request(Api.functions.account.getGlobalPrivacySettings())
     let messageAutoremoveTimeout = account.network.request(Api.functions.messages.getDefaultHistoryTTL())
     
-    return combineLatest(lastSeenPrivacy, groupPrivacy, voiceCallPrivacy, voiceCallP2P, profilePhotoPrivacy, forwardPrivacy, phoneNumberPrivacy, phoneDiscoveryPrivacy, voiceMessagesPrivacy, bioPrivacy, birthdayPrivacy, autoremoveTimeout, globalPrivacySettings, messageAutoremoveTimeout)
+    return combineLatest(lastSeenPrivacy, groupPrivacy, voiceCallPrivacy, voiceCallP2P, profilePhotoPrivacy, forwardPrivacy, phoneNumberPrivacy, phoneDiscoveryPrivacy, voiceMessagesPrivacy, bioPrivacy, autoremoveTimeout, globalPrivacySettings, messageAutoremoveTimeout)
     |> `catch` { _ in
         return .complete()
     }
-    |> mapToSignal { lastSeenPrivacy, groupPrivacy, voiceCallPrivacy, voiceCallP2P, profilePhotoPrivacy, forwardPrivacy, phoneNumberPrivacy, phoneDiscoveryPrivacy, voiceMessagesPrivacy, bioPrivacy, birthdayPrivacy, autoremoveTimeout, globalPrivacySettings, messageAutoremoveTimeout -> Signal<AccountPrivacySettings, NoError> in
+    |> mapToSignal { lastSeenPrivacy, groupPrivacy, voiceCallPrivacy, voiceCallP2P, profilePhotoPrivacy, forwardPrivacy, phoneNumberPrivacy, phoneDiscoveryPrivacy, voiceMessagesPrivacy, bioPrivacy, autoremoveTimeout, globalPrivacySettings, messageAutoremoveTimeout -> Signal<AccountPrivacySettings, NoError> in
         let accountTimeoutSeconds: Int32
         switch autoremoveTimeout {
             case let .accountDaysTTL(days):
@@ -85,7 +79,6 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
         let phoneNumberRules: [Api.PrivacyRule]
         let voiceMessagesRules: [Api.PrivacyRule]
         let bioRules: [Api.PrivacyRule]
-        let birthdayRules: [Api.PrivacyRule]
         var apiUsers: [Api.User] = []
         var apiChats: [Api.Chat] = []
         
@@ -165,13 +158,6 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
                 bioRules = rules
         }
         
-        switch birthdayPrivacy {
-            case let .privacyRules(rules, chats, users):
-                apiUsers.append(contentsOf: users)
-                apiChats.append(contentsOf: chats)
-                birthdayRules = rules
-        }
-        
         var peers: [SelectivePrivacyPeer] = []
         for user in apiUsers {
             peers.append(SelectivePrivacyPeer(peer: TelegramUser(user: user), participantCount: nil))
@@ -180,7 +166,7 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
             if let peer = parseTelegramGroupOrChannel(chat: chat) {
                 var participantCount: Int32? = nil
                 switch chat {
-                    case let .channel(_, _, _, _, _, _, _, _, _, _, _, _, participantsCountValue, _, _, _, _, _, _):
+                    case let .channel(_, _, _, _, _, _, _, _, _, _, _, _, participantsCountValue, _, _):
                         participantCount = participantsCountValue
                     default:
                         break
@@ -199,14 +185,10 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
             let automaticallyArchiveAndMuteNonContacts = (flags & (1 << 0)) != 0
             let keepArchivedUnmuted = (flags & (1 << 1)) != 0
             let keepArchivedFolders = (flags & (1 << 2)) != 0
-            let hideReadTime = (flags & (1 << 3)) != 0
-            let nonContactChatsRequirePremium = (flags & (1 << 4)) != 0
             globalSettings = GlobalPrivacySettings(
                 automaticallyArchiveAndMuteNonContacts: automaticallyArchiveAndMuteNonContacts,
                 keepArchivedUnmuted: keepArchivedUnmuted,
-                keepArchivedFolders: keepArchivedFolders,
-                hideReadTime: hideReadTime,
-                nonContactChatsRequirePremium: nonContactChatsRequirePremium
+                keepArchivedFolders: keepArchivedFolders
             )
         }
         
@@ -236,7 +218,6 @@ func _internal_requestAccountPrivacySettings(account: Account) -> Signal<Account
                 phoneDiscoveryEnabled: phoneDiscoveryValue,
                 voiceMessages: SelectivePrivacySettings(apiRules: voiceMessagesRules, peers: peerMap),
                 bio: SelectivePrivacySettings(apiRules: bioRules, peers: peerMap),
-                birthday: SelectivePrivacySettings(apiRules: birthdayRules, peers: peerMap),
                 globalSettings: globalSettings,
                 accountRemovalTimeout: accountTimeoutSeconds,
                 messageAutoremoveTimeout: messageAutoremoveSeconds
@@ -252,17 +233,6 @@ func _internal_updateAccountAutoArchiveChats(account: Account, value: Bool) -> S
     |> mapToSignal { settings -> Signal<Never, NoError> in
         var settings = settings
         settings.automaticallyArchiveAndMuteNonContacts = value
-        return _internal_updateGlobalPrivacySettings(account: account, settings: settings)
-    }
-}
-
-func _internal_updateNonContactChatsRequirePremium(account: Account, value: Bool) -> Signal<Never, NoError> {
-    return account.postbox.transaction { transaction -> GlobalPrivacySettings in
-        return fetchGlobalPrivacySettings(transaction: transaction)
-    }
-    |> mapToSignal { settings -> Signal<Never, NoError> in
-        var settings = settings
-        settings.nonContactChatsRequirePremium = value
         return _internal_updateGlobalPrivacySettings(account: account, settings: settings)
     }
 }
@@ -306,13 +276,6 @@ func _internal_updateGlobalPrivacySettings(account: Account, settings: GlobalPri
     if settings.keepArchivedFolders {
         flags |= 1 << 2
     }
-    if settings.hideReadTime {
-        flags |= 1 << 3
-    }
-    if settings.nonContactChatsRequirePremium {
-        flags |= 1 << 4
-    }
-    
     return account.network.request(Api.functions.account.setGlobalPrivacySettings(
         settings: .globalPrivacySettings(flags: flags)
     ))
@@ -370,7 +333,6 @@ public enum UpdateSelectiveAccountPrivacySettingsType {
     case phoneNumber
     case voiceMessages
     case bio
-    case birthday
     
     var apiKey: Api.InputPrivacyKey {
         switch self {
@@ -392,8 +354,6 @@ public enum UpdateSelectiveAccountPrivacySettingsType {
                 return .inputPrivacyKeyVoiceMessages
             case .bio:
                 return .inputPrivacyKeyAbout
-            case .birthday:
-                return .inputPrivacyKeyBirthday
         }
     }
 }
@@ -425,7 +385,7 @@ func _internal_updateSelectiveAccountPrivacySettings(account: Account, type: Upd
     return account.postbox.transaction { transaction -> Signal<Void, NoError> in
         var rules: [Api.InputPrivacyRule] = []
         switch settings {
-            case let .disableEveryone(enableFor, enableForCloseFriends, enableForPremium):
+            case let .disableEveryone(enableFor, enableForCloseFriends):
                 let enablePeers = apiUserAndGroupIds(peerIds: enableFor)
                 
                 if !enablePeers.users.isEmpty {
@@ -439,10 +399,7 @@ func _internal_updateSelectiveAccountPrivacySettings(account: Account, type: Upd
                 if enableForCloseFriends {
                     rules.append(.inputPrivacyValueAllowCloseFriends)
                 }
-                if enableForPremium {
-                    rules.append(.inputPrivacyValueAllowPremium)
-                }
-            case let .enableContacts(enableFor, disableFor, enableForPremium):
+            case let .enableContacts(enableFor, disableFor):
                 let enablePeers = apiUserAndGroupIds(peerIds: enableFor)
                 let disablePeers = apiUserAndGroupIds(peerIds: disableFor)
                 
@@ -461,10 +418,6 @@ func _internal_updateSelectiveAccountPrivacySettings(account: Account, type: Upd
                 }
             
                 rules.append(Api.InputPrivacyRule.inputPrivacyValueAllowContacts)
-                if enableForPremium {
-                    rules.append(.inputPrivacyValueAllowPremium)
-                }
-                let _ = enableForPremium
             case let .enableEveryone(disableFor):
                 let disablePeers = apiUserAndGroupIds(peerIds: disableFor)
                 

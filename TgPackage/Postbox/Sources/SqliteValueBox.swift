@@ -60,7 +60,6 @@ struct SqlitePreparedStatement {
                 if let path = pathToRemoveOnError {
                     postboxLog("Corrupted DB at step, dropping")
                     try? FileManager.default.removeItem(atPath: path)
-                    postboxLogSync()
                     preconditionFailure()
                 }
             }
@@ -85,7 +84,6 @@ struct SqlitePreparedStatement {
                 if let path = pathToRemoveOnError {
                     postboxLog("Corrupted DB at step, dropping")
                     try? FileManager.default.removeItem(atPath: path)
-                    postboxLogSync()
                     preconditionFailure()
                 }
             }
@@ -302,14 +300,12 @@ public final class SqliteValueBox: ValueBox {
             } catch {
                 let _ = try? FileManager.default.removeItem(atPath: tempPath)
                 postboxLog("Don't have write access to database folder")
-                postboxLogSync()
                 preconditionFailure("Don't have write access to database folder")
             }
             
             if self.removeDatabaseOnError {
                 let _ = try? FileManager.default.removeItem(atPath: path)
             }
-            postboxLogSync()
             preconditionFailure("Couldn't open database")
         }
 
@@ -581,7 +577,6 @@ public final class SqliteValueBox: ValueBox {
                     try? FileManager.default.removeItem(atPath: databasePath)
                 }
 
-                postboxLogSync()
                 preconditionFailure()
             }
         })
@@ -590,9 +585,6 @@ public final class SqliteValueBox: ValueBox {
         postboxLog("isEncrypted prepare done")
         if statement == nil {
             postboxLog("isEncrypted: sqlite3_prepare_v2 status = \(status) [\(self.databasePath)]")
-            if status == 14 {
-                printOpenFiles()
-            }
             return true
         }
         if status == SQLITE_NOTADB {
@@ -1205,7 +1197,6 @@ public final class SqliteValueBox: ValueBox {
                 let status = sqlite3_prepare_v3(self.database.handle, "INSERT INTO t\(table.table.id) (key, value) VALUES(?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value", -1, SQLITE_PREPARE_PERSISTENT, &statement, nil)
                 if status != SQLITE_OK {
                     let errorText = self.database.currentError() ?? "Unknown error"
-                    postboxLogSync()
                     preconditionFailure(errorText)
                 }
                 let preparedStatement = SqlitePreparedStatement(statement: statement)
@@ -1220,7 +1211,6 @@ public final class SqliteValueBox: ValueBox {
                 let status = sqlite3_prepare_v3(self.database.handle, "INSERT INTO t\(table.table.id) (key, value) VALUES(?, ?)", -1, SQLITE_PREPARE_PERSISTENT, &statement, nil)
                 if status != SQLITE_OK {
                     let errorText = self.database.currentError() ?? "Unknown error"
-                    postboxLogSync()
                     preconditionFailure(errorText)
                 }
                 let preparedStatement = SqlitePreparedStatement(statement: statement)
@@ -1260,7 +1250,6 @@ public final class SqliteValueBox: ValueBox {
                 let status = sqlite3_prepare_v3(self.database.handle, "INSERT INTO t\(table.table.id) (key, value) VALUES(?, ?) ON CONFLICT(key) DO NOTHING", -1, SQLITE_PREPARE_PERSISTENT, &statement, nil)
                 if status != SQLITE_OK {
                     let errorText = self.database.currentError() ?? "Unknown error"
-                    postboxLogSync()
                     preconditionFailure(errorText)
                 }
                 let preparedStatement = SqlitePreparedStatement(statement: statement)
@@ -1275,7 +1264,6 @@ public final class SqliteValueBox: ValueBox {
                 let status = sqlite3_prepare_v3(self.database.handle, "INSERT INTO t\(table.table.id) (key, value) VALUES(?, ?)", -1, SQLITE_PREPARE_PERSISTENT, &statement, nil)
                 if status != SQLITE_OK {
                     let errorText = self.database.currentError() ?? "Unknown error"
-                    postboxLogSync()
                     preconditionFailure(errorText)
                 }
                 let preparedStatement = SqlitePreparedStatement(statement: statement)
@@ -2309,7 +2297,6 @@ public final class SqliteValueBox: ValueBox {
         self.clearStatements()
         
         if self.isReadOnly {
-            postboxLogSync()
             preconditionFailure()
         }
 
@@ -2359,7 +2346,6 @@ public final class SqliteValueBox: ValueBox {
     
     private func reencryptInPlace(database: Database, encryptionParameters: ValueBoxEncryptionParameters) -> Database {
         if self.isReadOnly {
-            postboxLogSync()
             preconditionFailure()
         }
         

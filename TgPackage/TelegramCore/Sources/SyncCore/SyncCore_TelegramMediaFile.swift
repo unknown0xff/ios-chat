@@ -23,27 +23,24 @@ public enum StickerPackReference: PostboxCoding, Hashable, Equatable, Codable {
     case emojiGenericAnimations
     case iconStatusEmoji
     case iconTopicEmoji
-    case iconChannelStatusEmoji
     
     public init(decoder: PostboxDecoder) {
         switch decoder.decodeInt32ForKey("r", orElse: 0) {
-        case 0:
-            self = .id(id: decoder.decodeInt64ForKey("i", orElse: 0), accessHash: decoder.decodeInt64ForKey("h", orElse: 0))
-        case 1:
-            self = .name(decoder.decodeStringForKey("n", orElse: ""))
-        case 2:
-            self = .animatedEmoji
-        case 3:
-            self = .dice(decoder.decodeStringForKey("e", orElse: "🎲"))
-        case 4:
-            self = .animatedEmojiAnimations
-        case 5:
-            self = .premiumGifts
-        case 6:
-            self = .iconChannelStatusEmoji
-        default:
-            self = .name("")
-            assertionFailure()
+            case 0:
+                self = .id(id: decoder.decodeInt64ForKey("i", orElse: 0), accessHash: decoder.decodeInt64ForKey("h", orElse: 0))
+            case 1:
+                self = .name(decoder.decodeStringForKey("n", orElse: ""))
+            case 2:
+                self = .animatedEmoji
+            case 3:
+                self = .dice(decoder.decodeStringForKey("e", orElse: "🎲"))
+            case 4:
+                self = .animatedEmojiAnimations
+            case 5:
+                self = .premiumGifts
+            default:
+                self = .name("")
+                assertionFailure()
         }
     }
     
@@ -64,8 +61,6 @@ public enum StickerPackReference: PostboxCoding, Hashable, Equatable, Codable {
             self = .animatedEmojiAnimations
         case 5:
             self = .premiumGifts
-        case 6:
-            self = .iconChannelStatusEmoji
         default:
             self = .name("")
             assertionFailure()
@@ -90,7 +85,7 @@ public enum StickerPackReference: PostboxCoding, Hashable, Equatable, Codable {
             encoder.encodeInt32(4, forKey: "r")
         case .premiumGifts:
             encoder.encodeInt32(5, forKey: "r")
-        case .emojiGenericAnimations, .iconStatusEmoji, .iconTopicEmoji, .iconChannelStatusEmoji:
+        case .emojiGenericAnimations, .iconStatusEmoji, .iconTopicEmoji:
             preconditionFailure()
         }
     }
@@ -115,7 +110,7 @@ public enum StickerPackReference: PostboxCoding, Hashable, Equatable, Codable {
             try container.encode(4 as Int32, forKey: "r")
         case .premiumGifts:
             try container.encode(5 as Int32, forKey: "r")
-        case .emojiGenericAnimations, .iconStatusEmoji, .iconTopicEmoji, .iconChannelStatusEmoji:
+        case .emojiGenericAnimations, .iconStatusEmoji, .iconTopicEmoji:
             preconditionFailure()
         }
     }
@@ -172,12 +167,6 @@ public enum StickerPackReference: PostboxCoding, Hashable, Equatable, Codable {
             }
         case .iconTopicEmoji:
             if case .iconTopicEmoji = rhs {
-                return true
-            } else {
-                return false
-            }
-        case .iconChannelStatusEmoji:
-            if case .iconChannelStatusEmoji = rhs {
                 return true
             } else {
                 return false

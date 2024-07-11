@@ -117,6 +117,8 @@
 		207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F8C802C3BBF35006BBBA9 /* TgService.swift */; };
 		207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */; };
 		209525F62C3CCF7000AB0CA2 /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 209525F52C3CCF7000AB0CA2 /* BuildConfig.m */; };
+		20DD69D12C3E1C7B00B542B2 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 20DD69D02C3E1C7B00B542B2 /* TelegramCore */; };
+		20DD69D42C3E1CFA00B542B2 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */; };
 		20E996CA2C1A8DB300CF0F71 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 20E996C92C1A8DB300CF0F71 /* SDWebImage */; };
 		20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F02F5B2C33C83800554857 /* HNodeHeadShakeCell.swift */; };
 		20F02F612C33F4EE00554857 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 20F02F602C33F4EE00554857 /* Lottie */; };
@@ -838,6 +840,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DD69D42C3E1CFA00B542B2 /* OpenSSLEncryption in Frameworks */,
 				6088F4A72C1030B800130A87 /* Algorithms in Frameworks */,
 				B75D816A2782CEB5009D4A19 /* WebRTC.xcframework in Frameworks */,
 				6012463B2C056AAD00635523 /* SnapKit in Frameworks */,
@@ -858,6 +861,7 @@
 				2F1B0DEE21E2161E00139CB1 /* CoreTelephony.framework in Frameworks */,
 				20F02F612C33F4EE00554857 /* Lottie in Frameworks */,
 				2F1B0DD521E1E29400139CB1 /* AudioToolbox.framework in Frameworks */,
+				20DD69D12C3E1C7B00B542B2 /* TelegramCore in Frameworks */,
 				2F1B0DCF21E19AF400139CB1 /* UserNotificationsUI.framework in Frameworks */,
 				207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */,
 				2F1B0DD021E19AF400139CB1 /* NotificationCenter.framework in Frameworks */,
@@ -2144,6 +2148,8 @@
 				20F02F602C33F4EE00554857 /* Lottie */,
 				207F8C7D2C3BBF06006BBBA9 /* TelegramCore */,
 				207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */,
+				20DD69D02C3E1C7B00B542B2 /* TelegramCore */,
+				20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */,
 			);
 			productName = WildFireChat;
 			productReference = 2E1D1FF71FAF0AE600F4405D /* Hello9.app */;
@@ -2259,8 +2265,8 @@
 				206FD0522C2E5DD000461F5C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				206FD05F2C2E943E00461F5C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				20F02F5F2C33F4EE00554857 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				207F8C7C2C3BBF06006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/TelegramCore" */,
-				207F8C822C3BCC5E006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/OpenSSLEncryptionProvider" */,
+				20DD69CF2C3E1C7B00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */,
+				20DD69D22C3E1CFA00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */,
 			);
 			productRefGroup = 2E1D1FF81FAF0AE600F4405D /* Products */;
 			projectDirPath = "";
@@ -3154,13 +3160,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		207F8C7C2C3BBF06006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/TelegramCore" */ = {
+		20DD69CF2C3E1C7B00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/TelegramCore" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../TgPackage/TelegramCore;
+			relativePath = ../TgPackage/TelegramCore;
 		};
-		207F8C822C3BCC5E006BBBA9 /* XCLocalSwiftPackageReference "../../../TgPackage/OpenSSLEncryptionProvider" */ = {
+		20DD69D22C3E1CFA00B542B2 /* XCLocalSwiftPackageReference "../TgPackage/OpenSSLEncryptionProvider" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../TgPackage/OpenSSLEncryptionProvider;
+			relativePath = ../TgPackage/OpenSSLEncryptionProvider;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -3257,6 +3263,14 @@
 			productName = TelegramCore;
 		};
 		207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenSSLEncryption;
+		};
+		20DD69D02C3E1C7B00B542B2 /* TelegramCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TelegramCore;
+		};
+		20DD69D32C3E1CFA00B542B2 /* OpenSSLEncryption */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OpenSSLEncryption;
 		};

@@ -18,40 +18,10 @@ public enum UpdateMessageReaction {
     }
 }
 
-public func updateMessageReactionsInteractively(account: Account, messageIds: [MessageId], reactions: [UpdateMessageReaction], isLarge: Bool, storeAsRecentlyUsed: Bool, add: Bool = false) -> Signal<Never, NoError> {
+public func updateMessageReactionsInteractively(account: Account, messageId: MessageId, reactions: [UpdateMessageReaction], isLarge: Bool, storeAsRecentlyUsed: Bool) -> Signal<Never, NoError> {
     return account.postbox.transaction { transaction -> Void in
-        guard let chatPeerId = messageIds.first?.peerId else {
-            return
-        }
-        
-        var messagesWithoutGroups: [Message] = []
-        var messagesByGroupId: [Int64: [Message]] = [:]
-        
-        let messages = messageIds.compactMap { transaction.getMessage($0) }
-        for message in messages {
-            if let groupingKey = message.groupingKey {
-                if messagesByGroupId[groupingKey] == nil {
-                    messagesByGroupId[groupingKey] = [message]
-                } else {
-                    messagesByGroupId[groupingKey]?.append(message)
-                }
-            } else {
-                messagesWithoutGroups.append(message)
-            }
-        }
-        
-        var messageIds: [MessageId] = []
-        for message in messagesWithoutGroups {
-            messageIds.append(message.id)
-        }
-        for (_, messages) in messagesByGroupId {
-            if let minMessageId = messages.map(\.id).min() {
-                messageIds.append(minMessageId)
-            }
-        }
-        
         var sendAsPeerId = account.peerId
-        if let cachedData = transaction.getPeerCachedData(peerId: chatPeerId) {
+        if let cachedData = transaction.getPeerCachedData(peerId: messageId.peerId) {
             if let cachedData = cachedData as? CachedChannelData {
                 if let sendAsPeerIdValue = cachedData.sendAsPeerId {
                     sendAsPeerId = sendAsPeerIdValue
@@ -69,96 +39,72 @@ public func updateMessageReactionsInteractively(account: Account, messageIds: [M
             maxCount = 1
         }
         
-        for messageId in messageIds {
-            var mappedReactions: [PendingReactionsMessageAttribute.PendingReaction] = []
-            
-            var reactions: [UpdateMessageReaction] = reactions
-            if add {
-                if let message = transaction.getMessage(messageId), let effectiveReactions = message.effectiveReactions(isTags: message.areReactionsTags(accountPeerId: account.peerId)) {
-                    for reaction in effectiveReactions {
-                        if !reactions.contains(where: { $0.reaction == reaction.value }) {
-                            let mappedValue: UpdateMessageReaction
-                            switch reaction.value {
-                            case let .builtin(value):
-                                mappedValue = .builtin(value)
-                            case let .custom(fileId):
-                                mappedValue = .custom(fileId: fileId, file: nil)
-                            }
-                            reactions.append(mappedValue)
-                        }
-                    }
+        var mappedReactions: [PendingReactionsMessageAttribute.PendingReaction] = []
+        for reaction in reactions {
+            switch reaction {
+            case let .custom(fileId, file):
+                mappedReactions.append(PendingReactionsMessageAttribute.PendingReaction(value: .custom(fileId), sendAsPeerId: sendAsPeerId))
+                if let file = file {
+                    transaction.storeMediaIfNotPresent(media: file)
                 }
+            case let .builtin(value):
+                mappedReactions.append(PendingReactionsMessageAttribute.PendingReaction(value: .builtin(value), sendAsPeerId: sendAsPeerId))
             }
-            
-            for reaction in reactions {
-                switch reaction {
-                case let .custom(fileId, file):
-                    mappedReactions.append(PendingReactionsMessageAttribute.PendingReaction(value: .custom(fileId), sendAsPeerId: sendAsPeerId))
-                    if let file = file {
-                        transaction.storeMediaIfNotPresent(media: file)
-                    }
-                case let .builtin(value):
-                    mappedReactions.append(PendingReactionsMessageAttribute.PendingReaction(value: .builtin(value), sendAsPeerId: sendAsPeerId))
-                }
+        }
+        
+        transaction.setPendingMessageAction(type: .updateReaction, id: messageId, action: UpdateMessageReactionsAction())
+        transaction.updateMessage(messageId, update: { currentMessage in
+            var storeForwardInfo: StoreMessageForwardInfo?
+            if let forwardInfo = currentMessage.forwardInfo {
+                storeForwardInfo = StoreMessageForwardInfo(authorId: forwardInfo.author?.id, sourceId: forwardInfo.source?.id, sourceMessageId: forwardInfo.sourceMessageId, date: forwardInfo.date, authorSignature: forwardInfo.authorSignature, psaType: forwardInfo.psaType, flags: forwardInfo.flags)
             }
-            
-            transaction.setPendingMessageAction(type: .updateReaction, id: messageId, action: UpdateMessageReactionsAction())
-            transaction.updateMessage(messageId, update: { currentMessage in
-                var storeForwardInfo: StoreMessageForwardInfo?
-                if let forwardInfo = currentMessage.forwardInfo {
-                    storeForwardInfo = StoreMessageForwardInfo(authorId: forwardInfo.author?.id, sourceId: forwardInfo.source?.id, sourceMessageId: forwardInfo.sourceMessageId, date: forwardInfo.date, authorSignature: forwardInfo.authorSignature, psaType: forwardInfo.psaType, flags: forwardInfo.flags)
-                }
-                var attributes = currentMessage.attributes
+            var attributes = currentMessage.attributes
             loop: for j in 0 ..< attributes.count {
                 if let _ = attributes[j] as? PendingReactionsMessageAttribute {
                     attributes.remove(at: j)
                     break loop
                 }
             }
-                
-                if storeAsRecentlyUsed {
-                    let isTags = currentMessage.areReactionsTags(accountPeerId: account.peerId)
-                    if !isTags {
-                        let effectiveReactions = currentMessage.effectiveReactions(isTags: isTags) ?? []
-                        for updatedReaction in reactions {
-                            if !effectiveReactions.contains(where: { $0.value == updatedReaction.reaction && $0.isSelected }) {
-                                let recentReactionItem: RecentReactionItem
-                                switch updatedReaction {
-                                case let .builtin(value):
-                                    recentReactionItem = RecentReactionItem(.builtin(value))
-                                case let .custom(fileId, file):
-                                    if let file = file ?? (transaction.getMedia(MediaId(namespace: Namespaces.Media.CloudFile, id: fileId)) as? TelegramMediaFile) {
-                                        recentReactionItem = RecentReactionItem(.custom(file))
-                                    } else {
-                                        continue
-                                    }
-                                }
-                                
-                                if let entry = CodableEntry(recentReactionItem) {
-                                    let itemEntry = OrderedItemListEntry(id: recentReactionItem.id.rawValue, contents: entry)
-                                    transaction.addOrMoveToFirstPositionOrderedItemListItem(collectionId: Namespaces.OrderedItemList.CloudRecentReactions, item: itemEntry, removeTailIfCountExceeds: 50)
-                                }
+            
+            if storeAsRecentlyUsed {
+                let effectiveReactions = currentMessage.effectiveReactions ?? []
+                for updatedReaction in reactions {
+                    if !effectiveReactions.contains(where: { $0.value == updatedReaction.reaction && $0.isSelected }) {
+                        let recentReactionItem: RecentReactionItem
+                        switch updatedReaction {
+                        case let .builtin(value):
+                            recentReactionItem = RecentReactionItem(.builtin(value))
+                        case let .custom(fileId, file):
+                            if let file = file ?? (transaction.getMedia(MediaId(namespace: Namespaces.Media.CloudFile, id: fileId)) as? TelegramMediaFile) {
+                                recentReactionItem = RecentReactionItem(.custom(file))
+                            } else {
+                                continue
                             }
+                        }
+                        
+                        if let entry = CodableEntry(recentReactionItem) {
+                            let itemEntry = OrderedItemListEntry(id: recentReactionItem.id.rawValue, contents: entry)
+                            transaction.addOrMoveToFirstPositionOrderedItemListItem(collectionId: Namespaces.OrderedItemList.CloudRecentReactions, item: itemEntry, removeTailIfCountExceeds: 50)
                         }
                     }
                 }
-                
-                var mappedReactions = mappedReactions
-                
-                let updatedReactions = mergedMessageReactions(attributes: attributes + [PendingReactionsMessageAttribute(accountPeerId: account.peerId, reactions: mappedReactions, isLarge: isLarge, storeAsRecentlyUsed: storeAsRecentlyUsed, isTags: currentMessage.areReactionsTags(accountPeerId: account.peerId))], isTags: currentMessage.areReactionsTags(accountPeerId: account.peerId))?.reactions ?? []
-                let updatedOutgoingReactions = updatedReactions.filter(\.isSelected)
-                if updatedOutgoingReactions.count > maxCount {
-                    let sortedOutgoingReactions = updatedOutgoingReactions.sorted(by: { $0.chosenOrder! < $1.chosenOrder! })
-                    mappedReactions = Array(sortedOutgoingReactions.suffix(maxCount).map { reaction -> PendingReactionsMessageAttribute.PendingReaction in
-                        return PendingReactionsMessageAttribute.PendingReaction(value: reaction.value, sendAsPeerId: sendAsPeerId)
-                    })
-                }
-                
-                attributes.append(PendingReactionsMessageAttribute(accountPeerId: account.peerId, reactions: mappedReactions, isLarge: isLarge, storeAsRecentlyUsed: storeAsRecentlyUsed, isTags: currentMessage.areReactionsTags(accountPeerId: account.peerId)))
-                
-                return .update(StoreMessage(id: currentMessage.id, globallyUniqueId: currentMessage.globallyUniqueId, groupingKey: currentMessage.groupingKey, threadId: currentMessage.threadId, timestamp: currentMessage.timestamp, flags: StoreMessageFlags(currentMessage.flags), tags: currentMessage.tags, globalTags: currentMessage.globalTags, localTags: currentMessage.localTags, forwardInfo: storeForwardInfo, authorId: currentMessage.author?.id, text: currentMessage.text, attributes: attributes, media: currentMessage.media))
-            })
-        }
+            }
+            
+            var mappedReactions = mappedReactions
+            
+            let updatedReactions = mergedMessageReactions(attributes: attributes + [PendingReactionsMessageAttribute(accountPeerId: account.peerId, reactions: mappedReactions, isLarge: isLarge, storeAsRecentlyUsed: storeAsRecentlyUsed)])?.reactions ?? []
+            let updatedOutgoingReactions = updatedReactions.filter(\.isSelected)
+            if updatedOutgoingReactions.count > maxCount {
+                let sortedOutgoingReactions = updatedOutgoingReactions.sorted(by: { $0.chosenOrder! < $1.chosenOrder! })
+                mappedReactions = Array(sortedOutgoingReactions.suffix(maxCount).map { reaction -> PendingReactionsMessageAttribute.PendingReaction in
+                    return PendingReactionsMessageAttribute.PendingReaction(value: reaction.value, sendAsPeerId: sendAsPeerId)
+                })
+            }
+            
+            attributes.append(PendingReactionsMessageAttribute(accountPeerId: account.peerId, reactions: mappedReactions, isLarge: isLarge, storeAsRecentlyUsed: storeAsRecentlyUsed))
+            
+            return .update(StoreMessage(id: currentMessage.id, globallyUniqueId: currentMessage.globallyUniqueId, groupingKey: currentMessage.groupingKey, threadId: currentMessage.threadId, timestamp: currentMessage.timestamp, flags: StoreMessageFlags(currentMessage.flags), tags: currentMessage.tags, globalTags: currentMessage.globalTags, localTags: currentMessage.localTags, forwardInfo: storeForwardInfo, authorId: currentMessage.author?.id, text: currentMessage.text, attributes: attributes, media: currentMessage.media))
+        })
     }
     |> ignoreValues
 }
@@ -225,7 +171,7 @@ private func requestUpdateMessageReaction(postbox: Postbox, network: Network, st
                     if let forwardInfo = currentMessage.forwardInfo {
                         storeForwardInfo = StoreMessageForwardInfo(authorId: forwardInfo.author?.id, sourceId: forwardInfo.source?.id, sourceMessageId: forwardInfo.sourceMessageId, date: forwardInfo.date, authorSignature: forwardInfo.authorSignature, psaType: forwardInfo.psaType, flags: forwardInfo.flags)
                     }
-                    let reactions = mergedMessageReactions(attributes: currentMessage.attributes, isTags: currentMessage.areReactionsTags(accountPeerId: stateManager.accountPeerId))
+                    let reactions = mergedMessageReactions(attributes: currentMessage.attributes)
                     var attributes = currentMessage.attributes
                     for j in (0 ..< attributes.count).reversed() {
                         if attributes[j] is PendingReactionsMessageAttribute || attributes[j] is ReactionsMessageAttribute {
@@ -651,10 +597,9 @@ public final class EngineMessageReactionListContext {
 
 public enum UpdatePeerAllowedReactionsError {
     case generic
-    case boostRequired
 }
 
-func _internal_updatePeerReactionSettings(account: Account, peerId: PeerId, reactionSettings: PeerReactionSettings) -> Signal<Never, UpdatePeerAllowedReactionsError> {
+func _internal_updatePeerAllowedReactions(account: Account, peerId: PeerId, allowedReactions: PeerAllowedReactions) -> Signal<Never, UpdatePeerAllowedReactionsError> {
     return account.postbox.transaction { transaction -> Api.InputPeer? in
         return transaction.getPeer(peerId).flatMap(apiInputPeer)
     }
@@ -664,10 +609,8 @@ func _internal_updatePeerReactionSettings(account: Account, peerId: PeerId, reac
             return .fail(.generic)
         }
         
-        var flags: Int32 = 0
-        
         let mappedReactions: Api.ChatReactions
-        switch reactionSettings.allowedReactions {
+        switch allowedReactions {
         case .all:
             mappedReactions = .chatReactionsAll(flags: 0)
         case let .limited(array):
@@ -676,34 +619,19 @@ func _internal_updatePeerReactionSettings(account: Account, peerId: PeerId, reac
             mappedReactions = .chatReactionsNone
         }
         
-        var reactionLimitValue: Int32?
-        if let maxReactionCount = reactionSettings.maxReactionCount {
-            flags |= 1 << 0
-            reactionLimitValue = maxReactionCount
-        }
-        
-        return account.network.request(Api.functions.messages.setChatAvailableReactions(flags: flags, peer: inputPeer, availableReactions: mappedReactions, reactionsLimit: reactionLimitValue))
-        |> map(Optional.init)
-        |> `catch` { error -> Signal<Api.Updates?, UpdatePeerAllowedReactionsError> in
-            if error.errorDescription == "CHAT_NOT_MODIFIED" {
-                return .single(nil)
-            } else if error.errorDescription == "BOOSTS_REQUIRED" {
-                return .fail(.boostRequired)
-            } else {
-                return .fail(.generic)
-            }
+        return account.network.request(Api.functions.messages.setChatAvailableReactions(peer: inputPeer, availableReactions: mappedReactions))
+        |> mapError { _ -> UpdatePeerAllowedReactionsError in
+            return .generic
         }
         |> mapToSignal { result -> Signal<Never, UpdatePeerAllowedReactionsError> in
-            if let result = result {
-                account.stateManager.addUpdates(result)
-            }
+            account.stateManager.addUpdates(result)
             
             return account.postbox.transaction { transaction -> Void in
                 transaction.updatePeerCachedData(peerIds: [peerId], update: { _, current in
                     if let current = current as? CachedChannelData {
-                        return current.withUpdatedReactionSettings(.known(reactionSettings))
+                        return current.withUpdatedAllowedReactions(.known(allowedReactions))
                     } else if let current = current as? CachedGroupData {
-                        return current.withUpdatedReactionSettings(.known(reactionSettings))
+                        return current.withUpdatedAllowedReactions(.known(allowedReactions))
                     } else {
                         return current
                     }

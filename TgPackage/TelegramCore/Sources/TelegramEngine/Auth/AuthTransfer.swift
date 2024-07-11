@@ -103,7 +103,7 @@ func _internal_exportAuthTransferToken(accountManager: AccountManager<TelegramAc
                                 initializedAppSettingsAfterLogin(transaction: transaction, appVersion: updatedAccount.networkArguments.appVersion, syncContacts: syncContacts)
                                 transaction.setState(state)
                                 return accountManager.transaction { transaction -> ExportAuthTransferTokenResult in
-                                    switchToAuthorizedAccount(transaction: transaction, account: updatedAccount, isSupportUser: false)
+                                    switchToAuthorizedAccount(transaction: transaction, account: updatedAccount)
                                     return .loggedIn
                                 }
                                 |> castError(ExportAuthTransferTokenError.self)
@@ -131,7 +131,7 @@ func _internal_exportAuthTransferToken(accountManager: AccountManager<TelegramAc
                     initializedAppSettingsAfterLogin(transaction: transaction, appVersion: account.networkArguments.appVersion, syncContacts: syncContacts)
                     transaction.setState(state)
                     return accountManager.transaction { transaction -> ExportAuthTransferTokenResult in
-                        switchToAuthorizedAccount(transaction: transaction, account: account, isSupportUser: false)
+                        switchToAuthorizedAccount(transaction: transaction, account: account)
                         return .loggedIn
                     }
                     |> castError(ExportAuthTransferTokenError.self)

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AdditionalMessageHistoryViewData: Equatable {
+public enum AdditionalMessageHistoryViewData {
     case cachedPeerData(PeerId)
     case cachedPeerDataMessages(PeerId)
     case peerChatState(PeerId)

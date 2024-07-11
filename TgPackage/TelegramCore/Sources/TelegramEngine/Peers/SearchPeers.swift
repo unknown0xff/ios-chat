@@ -4,6 +4,7 @@ import SwiftSignalKit
 import TelegramApi
 import MtProtoKit
 
+
 public struct FoundPeer: Equatable {
     public let peer: Peer
     public let subscribers: Int32?
@@ -18,12 +19,7 @@ public struct FoundPeer: Equatable {
     }
 }
 
-public enum TelegramSearchPeersScope {
-    case everywhere
-    case channels
-}
-
-public func _internal_searchPeers(accountPeerId: PeerId, postbox: Postbox, network: Network, query: String, scope: TelegramSearchPeersScope) -> Signal<([FoundPeer], [FoundPeer]), NoError> {
+public func _internal_searchPeers(accountPeerId: PeerId, postbox: Postbox, network: Network, query: String) -> Signal<([FoundPeer], [FoundPeer]), NoError> {
     let searchResult = network.request(Api.functions.contacts.search(q: query, limit: 20), automaticFloodWait: false)
     |> map(Optional.init)
     |> `catch` { _ in
@@ -42,7 +38,7 @@ public func _internal_searchPeers(accountPeerId: PeerId, postbox: Postbox, netwo
                     for chat in chats {
                         if let groupOrChannel = parseTelegramGroupOrChannel(chat: chat) {
                             switch chat {
-                            case let .channel(_, _, _, _, _, _, _, _, _, _, _, _, participantsCount, _, _, _, _, _, _):
+                            case let .channel(_, _, _, _, _, _, _, _, _, _, _, _, participantsCount, _, _):
                                 if let participantsCount = participantsCount {
                                     subscribers[groupOrChannel.id] = participantsCount
                                 }
@@ -76,26 +72,6 @@ public func _internal_searchPeers(accountPeerId: PeerId, postbox: Postbox, netwo
                         }
                     }
                     
-                    switch scope {
-                    case .everywhere:
-                        break
-                    case .channels:
-                        renderedMyPeers = renderedMyPeers.filter { item in
-                            if let channel = item.peer as? TelegramChannel, case .broadcast = channel.info {
-                                return true
-                            } else {
-                                return false
-                            }
-                        }
-                        renderedPeers = renderedPeers.filter { item in
-                            if let channel = item.peer as? TelegramChannel, case .broadcast = channel.info {
-                                return true
-                            } else {
-                                return false
-                            }
-                        }
-                    }
-                    
                     return (renderedMyPeers, renderedPeers)
                 }
             }
@@ -107,8 +83,3 @@ public func _internal_searchPeers(accountPeerId: PeerId, postbox: Postbox, netwo
     return processedSearchResult
 }
 
-func _internal_searchLocalSavedMessagesPeers(account: Account, query: String, indexNameMapping: [EnginePeer.Id: [PeerIndexNameRepresentation]]) -> Signal<[EnginePeer], NoError> {
-    return account.postbox.transaction { transaction -> [EnginePeer] in
-        return transaction.searchSubPeers(peerId: account.peerId, query: query, indexNameMapping: indexNameMapping).map(EnginePeer.init)
-    }
-}
