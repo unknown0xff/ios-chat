@@ -18,7 +18,7 @@ class HSingleChatSetViewController: HBaseViewController {
         view.layer.masksToBounds = true
         view.layer.borderWidth = 2
         view.layer.borderColor = Colors.white.cgColor
-        view.layer.cornerRadius = 51
+        view.layer.cornerRadius = 20
         return view
     }()
     

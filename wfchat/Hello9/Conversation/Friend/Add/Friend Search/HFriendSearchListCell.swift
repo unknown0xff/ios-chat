@@ -39,7 +39,7 @@ class HFriendSearchListCell: HBasicTableViewCell<HFriendSearchListModel> {
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 24
+        imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         return imageView
     }()

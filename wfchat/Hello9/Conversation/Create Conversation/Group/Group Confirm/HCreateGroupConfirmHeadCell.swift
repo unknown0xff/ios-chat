@@ -16,7 +16,7 @@ class HCreateGroupConfirmHeadCell: HBasicCollectionViewCell<UIImage> {
         view.layer.masksToBounds = true
         view.layer.borderWidth = 2
         view.layer.borderColor = Colors.white.cgColor
-        view.layer.cornerRadius = 51
+        view.layer.cornerRadius = 20
         view.contentMode = .scaleAspectFit
         
         return view

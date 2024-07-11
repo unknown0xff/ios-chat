@@ -26,7 +26,7 @@ class HGroupMemberCell: HBasicTableViewCell<WFCCGroupMember> {
     
     private lazy var avatar: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 6
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = Colors.themeGray4Background

@@ -20,7 +20,7 @@ class HMessageListViewController: WFCUMessageListViewController {
     private(set) lazy var avatarButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.imageView?.contentMode = .scaleAspectFit
-        btn.layer.cornerRadius = 18
+        btn.layer.cornerRadius = 6
         btn.layer.masksToBounds = true
         return btn
     }()
