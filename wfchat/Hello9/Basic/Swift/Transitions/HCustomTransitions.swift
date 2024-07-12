@@ -1,7 +1,7 @@
 //
 //  Created by Ada on 2022/4/5.
 //
-//  放大缩小动画（类系统alert）
+//
 //
 
 import Foundation
@@ -29,14 +29,22 @@ open class HAlertTransition: HBasicTransition {
 open class HPopTransition: HBasicTransition {
     
     open override func dismissAnimateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
+        let toView = transitionContext.viewController(forKey: .to)?.view ?? UIView()
+        let toViewFinalFrame = toView.frame
+        
+        var toViewOrignalFrame = toView.frame
+        toViewOrignalFrame.origin.x = -toViewOrignalFrame.width/6
+        toView.frame = toViewOrignalFrame
         
         let fromView = transitionContext.viewController(forKey: .from)?.view ?? UIView()
         var toFrame = fromView.frame
         toFrame.origin.x = toFrame.width
         
-        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromTop) {
+        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromTop) {
             fromView.frame = toFrame
+            toView.frame = toViewFinalFrame
         } completion: { (finish : Bool) in
+            toView.frame = toViewFinalFrame
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
@@ -50,7 +58,7 @@ open class HActionSheetTransition: HBasicTransition {
         var toFrame = fromView.frame
         toFrame.origin.y = toFrame.height
         
-        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromTop) {
+        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromTop) {
             fromView.frame = toFrame
         } completion: { (finish : Bool) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -65,7 +73,7 @@ open class HActionSheetTransition: HBasicTransition {
         initFrame.origin.y = initFrame.height
         toView.frame = initFrame
         
-        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromBottom) {
+        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromBottom) {
             toView.frame = toFrame
         } completion: { (finish : Bool) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

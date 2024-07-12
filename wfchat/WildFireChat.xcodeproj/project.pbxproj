@@ -285,7 +285,7 @@
 		60A3F7B82C1B1BBB00F855A2 /* HGroupMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B72C1B1BBB00F855A2 /* HGroupMemberCell.swift */; };
 		60A3F7BA2C1BF2DA00F855A2 /* HModalPresentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */; };
 		60A3F7BE2C1BF32500F855A2 /* HBasicTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */; };
-		60A3F7BF2C1BF32500F855A2 /* HAlertTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */; };
+		60A3F7BF2C1BF32500F855A2 /* HCustomTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7BD2C1BF32500F855A2 /* HCustomTransitions.swift */; };
 		60A3F7C12C1BF34C00F855A2 /* HTranslucentPresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */; };
 		60A3F7C42C1BF4E700F855A2 /* HAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */; };
 		60A3F7C62C1BF4F000F855A2 /* HAlertContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */; };
@@ -750,7 +750,7 @@
 		60A3F7B72C1B1BBB00F855A2 /* HGroupMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupMemberCell.swift; sourceTree = "<group>"; };
 		60A3F7B92C1BF2DA00F855A2 /* HModalPresentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HModalPresentNavigationController.swift; sourceTree = "<group>"; };
 		60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBasicTransition.swift; sourceTree = "<group>"; };
-		60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertTransition.swift; sourceTree = "<group>"; };
+		60A3F7BD2C1BF32500F855A2 /* HCustomTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCustomTransitions.swift; sourceTree = "<group>"; };
 		60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTranslucentPresentController.swift; sourceTree = "<group>"; };
 		60A3F7C32C1BF4E600F855A2 /* HAlertContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerView.swift; sourceTree = "<group>"; };
 		60A3F7C52C1BF4F000F855A2 /* HAlertContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAlertContainerViewController.swift; sourceTree = "<group>"; };
@@ -1868,7 +1868,7 @@
 			children = (
 				60A3F7C02C1BF34C00F855A2 /* HTranslucentPresentController.swift */,
 				60A3F7BC2C1BF32500F855A2 /* HBasicTransition.swift */,
-				60A3F7BD2C1BF32500F855A2 /* HAlertTransition.swift */,
+				60A3F7BD2C1BF32500F855A2 /* HCustomTransitions.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -2544,7 +2544,7 @@
 				60922A772C075C7B00B70AD8 /* HLoginInputCell.swift in Sources */,
 				6088F4A22C0FFF5400130A87 /* HNewFriendCell.swift in Sources */,
 				6012464C2C058C2E00635523 /* HTabBar.swift in Sources */,
-				60A3F7BF2C1BF32500F855A2 /* HAlertTransition.swift in Sources */,
+				60A3F7BF2C1BF32500F855A2 /* HCustomTransitions.swift in Sources */,
 				90E927F222DFF45F00F168BC /* WFCPrivacyTableViewController.m in Sources */,
 				206309DC2C2AC7A700BED49A /* HMessageTopView.swift in Sources */,
 				607F958B2C12F22200648BFF /* HCountDownButton.swift in Sources */,
