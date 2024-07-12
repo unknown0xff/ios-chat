@@ -27,8 +27,21 @@ class HMessageListViewController: WFCUMessageListViewController {
     
     private lazy var selectedCount: Int = 0
     
+    private func removeOtherControllersIfNeed() {
+        if let childControllers = navigationController?.children
+            , childControllers.count >= 3,
+           childControllers.first is HChatListViewController {
+            var child = [UIViewController]()
+            child.append(childControllers.first!)
+            child.append(childControllers.last!)
+            navigationController?.setViewControllers(child, animated: false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        removeOtherControllersIfNeed()
+        
         hidesBottomBarWhenPushed = true
         view.addSubview(navBar)
         view.backgroundColor = Colors.white
