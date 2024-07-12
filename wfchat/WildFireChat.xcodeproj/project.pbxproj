@@ -28,6 +28,7 @@
 		2052D38B2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */; };
 		2057E06C2C38FBE00013DCB0 /* message_receive_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */; };
 		205A69422C40C7BE009B37D3 /* HTelegramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A69412C40C7BE009B37D3 /* HTelegramService.swift */; };
+		205A69442C410CC5009B37D3 /* HChatListNavTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A69432C410CC5009B37D3 /* HChatListNavTitleView.swift */; };
 		205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */; };
 		205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */; };
 		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
@@ -431,6 +432,7 @@
 		2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditManagerSelectedViewController.swift; sourceTree = "<group>"; };
 		2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message_receive_alert.wav; sourceTree = "<group>"; };
 		205A69412C40C7BE009B37D3 /* HTelegramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTelegramService.swift; sourceTree = "<group>"; };
+		205A69432C410CC5009B37D3 /* HChatListNavTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatListNavTitleView.swift; sourceTree = "<group>"; };
 		205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoEditViewController.swift; sourceTree = "<group>"; };
 		205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoAvatarView.swift; sourceTree = "<group>"; };
 		205C5A672C242453000D54FE /* HMineInfoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoNameCell.swift; sourceTree = "<group>"; };
@@ -1840,6 +1842,7 @@
 				60922A972C084EA800B70AD8 /* HChatListCell.swift */,
 				60922A992C084ED500B70AD8 /* HChatListCellModel.swift */,
 				6088F4922C0F27E000130A87 /* HFriendRequestCell.swift */,
+				205A69432C410CC5009B37D3 /* HChatListNavTitleView.swift */,
 			);
 			path = "Conversation List";
 			sourceTree = "<group>";
@@ -2419,6 +2422,7 @@
 				2E1D20D41FAF127100F4405D /* WFCConfig.m in Sources */,
 				2065F6812C266DE6006BAD27 /* HMessageCell.swift in Sources */,
 				2075ACB02C32773C00F764CA /* HNodeHomeViewModel.swift in Sources */,
+				205A69442C410CC5009B37D3 /* HChatListNavTitleView.swift in Sources */,
 				2052D3892C3023E50052E32C /* HGroupEditAddManagerCell.swift in Sources */,
 				601246752C06D21800635523 /* HToast.swift in Sources */,
 				601246372C05664E00635523 /* HTabViewController.swift in Sources */,

@@ -27,6 +27,8 @@ class HChatListViewController: HBaseViewController {
         return tableView
     }()
     
+    private lazy var titleView = HChatListNavTitleView(frame: .zero)
+    
     private lazy var searchBar: UIView = {
         let bar = UIView(frame: .init(x: 0, y: 0, width: UIScreen.width, height: 60))
         let btn = UIButton.search
@@ -65,6 +67,7 @@ class HChatListViewController: HBaseViewController {
         
         navBarBackgroundView.image = nil
         navBar.blurEffectStyle = .systemMaterialLight
+        navBar.navigationItem.titleView = self.titleView
         
         let plusButton = UIBarButtonItem(image: Images.icon_add, style: .plain, target: self, action: #selector(didClickMenuButton(_:)))
         navBar.rightBarButtonItem = plusButton
@@ -107,6 +110,7 @@ class HChatListViewController: HBaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onSecretChatStateChanged(_:)), name: .init(rawValue: kSecretChatStateUpdated), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onSecretMessageBurned(_:)), name: .init(rawValue: kSecretMessageBurned), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onFriendRequestUpdated(_:)), name: .init(kFriendRequestUpdated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onConnectionStatusChanged(_:)), name: .init(kConnectionStatusChanged), object: nil)
     }
     
     private func applyDataSource(_ snapshot: HChatListViewModel.Snapshot) {
@@ -142,10 +146,23 @@ class HChatListViewController: HBaseViewController {
         if let tab = tabBarController as? HTabViewController {
             tab.updateMessageBadgeValue(viewModel.badgeNumber)
         }
+        updateTitle(nil)
+    }
+    
+    private func updateTitle(_ status: ConnectionStatus?) {
+        if let status {
+            if status == .unconnected || status == .connecting {
+                self.titleView.title = "连接中"
+                self.titleView.showLoading = true
+                return
+            }
+        }
+        
+        self.titleView.showLoading = false
         if viewModel.badgeNumber > 0 {
-            navBar.title = "Chats(\(viewModel.badgeNumber))"
+            self.titleView.title = "Chats(\(viewModel.badgeNumber))"
         } else {
-            navBar.title = "Chats"
+            self.titleView.title = "Chats"
         }
     }
     
@@ -309,11 +326,6 @@ extension HChatListViewController: UITableViewDelegate {
 
 extension HChatListViewController {
     
-   
-    @objc func textFieldDidChange(_ sender: UITextField) {
-        // TODO search
-    }
-    
     @objc func didClickMenuButton(_ sender: UIBarButtonItem) {
         let vc = HCreateConversationViewController()
         navigationController?.pushViewController(vc, animated: true)
@@ -364,5 +376,11 @@ extension HChatListViewController {
             return
         }
         viewModel.updateLastMessageOfConversation(by: messageId)
+    }
+    
+    @objc func onConnectionStatusChanged(_ sender: Notification) {
+        if let rawValue = sender.object as? Int, let status = ConnectionStatus(rawValue: rawValue) {
+            updateTitle(status)
+        }
     }
 }
