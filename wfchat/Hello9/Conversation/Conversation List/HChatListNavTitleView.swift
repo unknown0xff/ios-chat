@@ -17,6 +17,9 @@ class HChatListNavTitleView: UIView {
     var showLoading: Bool = false {
         didSet {
             loadingView.isHidden = !showLoading
+            if showLoading {
+                loadingView.startAnimating()
+            }
         }
     }
     
