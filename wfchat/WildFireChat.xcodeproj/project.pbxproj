@@ -27,6 +27,7 @@
 		2052D3892C3023E50052E32C /* HGroupEditAddManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D3882C3023E50052E32C /* HGroupEditAddManagerCell.swift */; };
 		2052D38B2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */; };
 		2057E06C2C38FBE00013DCB0 /* message_receive_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */; };
+		205A69422C40C7BE009B37D3 /* HTelegramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A69412C40C7BE009B37D3 /* HTelegramService.swift */; };
 		205C5A632C23B9D7000D54FE /* HMineInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */; };
 		205C5A662C24240F000D54FE /* HMineInfoAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */; };
 		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
@@ -429,6 +430,7 @@
 		2052D3882C3023E50052E32C /* HGroupEditAddManagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditAddManagerCell.swift; sourceTree = "<group>"; };
 		2052D38A2C302EBF0052E32C /* HGroupEditManagerSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupEditManagerSelectedViewController.swift; sourceTree = "<group>"; };
 		2057E06B2C38FBE00013DCB0 /* message_receive_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message_receive_alert.wav; sourceTree = "<group>"; };
+		205A69412C40C7BE009B37D3 /* HTelegramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTelegramService.swift; sourceTree = "<group>"; };
 		205C5A622C23B9D7000D54FE /* HMineInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoEditViewController.swift; sourceTree = "<group>"; };
 		205C5A652C24240F000D54FE /* HMineInfoAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoAvatarView.swift; sourceTree = "<group>"; };
 		205C5A672C242453000D54FE /* HMineInfoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoNameCell.swift; sourceTree = "<group>"; };
@@ -1167,14 +1169,15 @@
 			path = avatar;
 			sourceTree = "<group>";
 		};
-		207F8C7F2C3BBF1E006BBBA9 /* TgCore */ = {
+		207F8C7F2C3BBF1E006BBBA9 /* TelegramService */ = {
 			isa = PBXGroup;
 			children = (
 				209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */,
 				209525F52C3CCF7000AB0CA2 /* BuildConfig.m */,
 				207F8C802C3BBF35006BBBA9 /* TgService.swift */,
+				205A69412C40C7BE009B37D3 /* HTelegramService.swift */,
 			);
-			path = TgCore;
+			path = TelegramService;
 			sourceTree = "<group>";
 		};
 		20F02F7E2C33FF9A00554857 /* node_shake */ = {
@@ -1532,7 +1535,7 @@
 		601246352C0565E600635523 /* Hello9 */ = {
 			isa = PBXGroup;
 			children = (
-				207F8C7F2C3BBF1E006BBBA9 /* TgCore */,
+				207F8C7F2C3BBF1E006BBBA9 /* TelegramService */,
 				2075ACAC2C32747F00F764CA /* Node */,
 				60922A912C084BFF00B70AD8 /* Conversation */,
 				60922A8B2C082BFF00B70AD8 /* Common */,
@@ -2427,6 +2430,7 @@
 				60F5CF922C0D55DB0013D912 /* HMessageListViewController.swift in Sources */,
 				601246682C05F9B300635523 /* ScrollerView+Extension.swift in Sources */,
 				60F5CF8A2C0AF3880013D912 /* HUserInfoModel.swift in Sources */,
+				205A69422C40C7BE009B37D3 /* HTelegramService.swift in Sources */,
 				20F02F632C33F50800554857 /* Lottie.swift in Sources */,
 				607F95902C13292300648BFF /* HResetPasswordViewModel.swift in Sources */,
 				20F02F5C2C33C83800554857 /* HNodeHeadShakeCell.swift in Sources */,

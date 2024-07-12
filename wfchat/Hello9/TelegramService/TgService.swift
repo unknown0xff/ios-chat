@@ -33,7 +33,6 @@ class TgService {
     private var authAccount: Account?
     private var authorizedEngine: TelegramEngine?
     
-    private var accountManagerState: AccountManagerState?
     private let actionDisposable = MetaDisposable()
     private let authorizationPushConfigurationValue = Promise<AuthorizationCodePushNotificationConfiguration?>(nil)
     public var authorizationPushConfiguration: Signal<AuthorizationCodePushNotificationConfiguration?, NoError> {
@@ -65,8 +64,6 @@ class TgService {
         self.accountManager = AccountManager<TelegramAccountManagerTypes>(basePath: rootPath + "/accounts-metadata", isTemporary: false, isReadOnly: false, useCaches: true, removeDatabaseOnError: true)
         initializeAccountManagement()
         
-        self.accountManagerState = extractAccountManagerState(records: accountManager._internalAccountRecordsSync())
-    
         let deviceSpecificEncryptionParameters = BuildConfig.deviceSpecificEncryptionParameters(rootPath, baseAppBundleId: baseAppBundleId)
         self.encryptionParameters = ValueBoxEncryptionParameters(forceEncryptionIfNoSet: false, key: ValueBoxEncryptionParameters.Key(data: deviceSpecificEncryptionParameters.key)!, salt: ValueBoxEncryptionParameters.Salt(data: deviceSpecificEncryptionParameters.salt)!)
         
@@ -102,11 +99,8 @@ class TgService {
     }
     
     func connect() {
-        let _ = (self.accountManager.accountRecords()
-        |> deliverOnMainQueue).start(next: { view in
-             self.accountManagerState = extractAccountManagerState(records: view)
-        })
         
+
         let accountId = AccountRecordId(rawValue: 3064590050022973558)
         let disposable = accountWithId(accountManager: accountManager, networkArguments: networkArguments, id: accountId, encryptionParameters: encryptionParameters, supplementary: false, rootPath: rootPath, beginWithTestingEnvironment: false, backupData: nil, auxiliaryMethods: .init(fetchResource: { postBox, mediaResource, signal, params in
             return Signal { _ in
@@ -142,7 +136,7 @@ class TgService {
     }
     
     func fetchChatList() {
-        if let authorizedEngine, let authAccount {
+        if let authAccount {
             let _ = (authAccount.viewTracker.tailChatListView(groupId: .root, filterPredicate: nil, count: 50)
                       |> deliverOnMainQueue
             )
@@ -225,38 +219,7 @@ class TgService {
     }
 }
 
-public func rootPathForBasePath(_ appGroupPath: String) -> String {
-    return appGroupPath + "/telegram-data"
-}
 
-private struct AccountManagerState {
-    struct NotificationKey {
-        var accountId: AccountRecordId
-        var id: Data
-        var key: Data
-    }
-    
-    var notificationKeys: [NotificationKey]
-}
-
-private func extractAccountManagerState(records: AccountRecordsView<TelegramAccountManagerTypes>) -> AccountManagerState {
-    return AccountManagerState(
-        notificationKeys: records.records.compactMap { record -> AccountManagerState.NotificationKey? in
-            for attribute in record.attributes {
-                if case let .backupData(backupData) = attribute {
-                    if let notificationEncryptionKeyId = backupData.data?.notificationEncryptionKeyId, let notificationEncryptionKey = backupData.data?.notificationEncryptionKey {
-                        return AccountManagerState.NotificationKey(
-                            accountId: record.id,
-                            id: notificationEncryptionKeyId,
-                            key: notificationEncryptionKey
-                        )
-                    }
-                }
-            }
-            return nil
-        }
-    )
-}
 
 //var accountManager: AccountManager<TelegramAccountManagerTypes>?
 //var authDispsal: Disposable?

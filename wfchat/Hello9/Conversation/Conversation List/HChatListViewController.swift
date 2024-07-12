@@ -199,11 +199,7 @@ class HChatListViewController: HBaseViewController {
     }
     
     @objc func didClickSearchButton(_ sender: UIButton) {
-//        TgService.share.sendCode()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            TgService.share.fetchChatList()
-        }
-        //navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
+        navigationController?.pushViewController(HFriendSearchViewConroller(), animated: true)
     }
     
     override func onUserInfoUpdated(_ sender: Notification) {
