@@ -57,17 +57,17 @@ open class HModalPresentNavigationController: HNavigationController {
     }
     
     public required init(rootViewController: UIViewController,
-                            translucentColor: UIColor? = nil,
-                            automaticallyDismiss: Bool = true,
-                            preferredStyle: HModalPresentNavigationController.Style = .alert) {
+                         translucentColor: UIColor? = nil,
+                         automaticallyDismiss: Bool = true,
+                         preferredStyle: HModalPresentNavigationController.Style = .alert) {
         super.init(rootViewController: rootViewController)
         configure(rootViewController: rootViewController, translucentColor: translucentColor, automaticallyDismiss: automaticallyDismiss, preferredStyle: preferredStyle)
     }
     
     public required init(rootView: UIView,
-                            translucentColor: UIColor? = nil,
-                            automaticallyDismiss: Bool = true,
-                            preferredStyle: HModalPresentNavigationController.Style = .alert) {
+                         translucentColor: UIColor? = nil,
+                         automaticallyDismiss: Bool = true,
+                         preferredStyle: HModalPresentNavigationController.Style = .alert) {
         
         let rootVC = HModalPresentRootViewController.init()
         rootVC.view.addSubview(rootView)
@@ -81,7 +81,7 @@ open class HModalPresentNavigationController: HNavigationController {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
- 
+    
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if touches.first?.view == rootViewController?.view {
@@ -96,7 +96,7 @@ open class HModalPresentNavigationController: HNavigationController {
     open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         rootViewController?.dismiss(animated: flag, completion: completion)
     }
-   
+    
     @discardableResult
     open class func show(root: UIViewController,
                          presenting: UIViewController? = UIViewController.h_top,
@@ -122,17 +122,45 @@ open class HModalPresentNavigationController: HNavigationController {
     }
     
     private func configure(rootViewController: UIViewController? = nil,
-             translucentColor: UIColor? = nil,
-             automaticallyDismiss: Bool = true,
-             preferredStyle: HModalPresentNavigationController.Style = .alert) {
+                           translucentColor: UIColor? = nil,
+                           automaticallyDismiss: Bool = true,
+                           preferredStyle: HModalPresentNavigationController.Style = .alert) {
         didInitialize()
         self.rootViewController = rootViewController
         self.translucentColor = translucentColor
         self.automaticallyDismissWhenTouchBackground = automaticallyDismiss
         self.preferredStyle = preferredStyle
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        self.rootViewController?.view.addGestureRecognizer(panGesture)
     }
     
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        guard let rootView = self.rootViewController?.view else {
+            return
+        }
+        let translation = gesture.translation(in: rootView)
+        let progress = translation.x / rootView.bounds.width
+        
+        switch gesture.state {
+        case .began:
+            interactionController.hasStarted = true
+            dismiss(animated: true, completion: nil)
+        case .changed:
+            interactionController.shouldFinish = progress > 0.5
+            interactionController.update(progress)
+        case .ended:
+            interactionController.hasStarted = false
+            interactionController.shouldFinish ? interactionController.finish() : interactionController.cancel()
+        case .cancelled:
+            interactionController.hasStarted = false
+            interactionController.cancel()
+        default:
+            break
+        }
+    }
     
+    private let interactionController = HCustomInteractionController()
 }
 
 
@@ -147,7 +175,6 @@ extension HModalPresentNavigationController: UIViewControllerTransitioningDelega
         if let translucentColor = translucentColor {
             presentation.backgroundView.backgroundColor = translucentColor
         }
-        
         return presentation
     }
     
@@ -158,37 +185,49 @@ extension HModalPresentNavigationController: UIViewControllerTransitioningDelega
         }
         
         switch preferredStyle {
-            case .alert:
-                return HAlertTransition(present: false)
-            case .alpha:
-                return HBasicTransition(present: false)
-            case .actionSheet:
-                return nil
+        case .alert:
+            return HAlertTransition(present: false)
+        case .alpha:
+            return HBasicTransition(present: false)
+        case .actionSheet:
+            if interactionController.hasStarted {
+                return HPopTransition(present: false)
+            } else {
+                return HActionSheetTransition(present: false)
+            }
         }
     }
     
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-       
+        
         if let present = presentAnimatedTransitioning {
             return present
         }
         
         switch preferredStyle {
-            case .alert:
-                return HAlertTransition(present: true)
-            case .alpha:
-                return HBasicTransition(present: true)
-            case .actionSheet:
-                return nil
+        case .alert:
+            return HAlertTransition(present: true)
+        case .alpha:
+            return HBasicTransition(present: true)
+        case .actionSheet:
+            return HActionSheetTransition(present: true)
         }
     }
     
+    open func interactionControllerForDismissal(using animator: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
+        interactionController.hasStarted ? interactionController : nil
+    }
+}
+
+class HCustomInteractionController: UIPercentDrivenInteractiveTransition {
+    var hasStarted = false
+    var shouldFinish = false
 }
 
 //MARK: - HModalPresentRootViewController
 
 open class HModalPresentRootViewController: HBasicViewController {
-  
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear

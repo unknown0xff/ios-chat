@@ -25,3 +25,50 @@ open class HAlertTransition: HBasicTransition {
         }
     }
 }
+
+open class HPopTransition: HBasicTransition {
+    
+    open override func dismissAnimateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
+        
+        let fromView = transitionContext.viewController(forKey: .from)?.view ?? UIView()
+        var toFrame = fromView.frame
+        toFrame.origin.x = toFrame.width
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromTop) {
+            fromView.frame = toFrame
+        } completion: { (finish : Bool) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+}
+
+open class HActionSheetTransition: HBasicTransition {
+    
+    open override func dismissAnimateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
+        
+        let fromView = transitionContext.viewController(forKey: .from)?.view ?? UIView()
+        var toFrame = fromView.frame
+        toFrame.origin.y = toFrame.height
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromTop) {
+            fromView.frame = toFrame
+        } completion: { (finish : Bool) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+    
+    override open func presentAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let toView = transitionContext.viewController(forKey: .to)?.view ?? UIView()
+        transitionContext.containerView.addSubview(toView)
+        let toFrame = toView.frame
+        var initFrame = toView.frame
+        initFrame.origin.y = initFrame.height
+        toView.frame = initFrame
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .transitionFlipFromBottom) {
+            toView.frame = toFrame
+        } completion: { (finish : Bool) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+}
