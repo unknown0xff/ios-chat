@@ -19,7 +19,7 @@
 
 + (CGSize)sizeForClientArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width {
     WFCCImageMessageContent *imgContent = (WFCCImageMessageContent *)msgModel.message.content;
-    CGSize size = CGSizeMake(120, 120);
+    CGSize size = CGSizeMake(130, 130);
     if(imgContent.thumbnail) {
         size = imgContent.thumbnail.size;
     } else {
@@ -27,7 +27,9 @@
     }
     
     CGFloat scale = size.width / size.height;
-    size.width = MIN(size.width, 60);
+    
+    CGFloat maxWidth = (size.width > size.height) ? 130 : 100;
+    size.width = MIN(size.width, maxWidth);
     size.height = size.width / scale;
 
     return size;
@@ -37,7 +39,8 @@
     [super setModel:model];
     
     WFCCImageMessageContent *imgContent = (WFCCImageMessageContent *)model.message.content;
-    self.thumbnailView.frame = self.bubbleView.bounds;
+    CGSize size = [WFCUImageCell sizeForClientArea:model withViewWidth:120];
+    self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
     if (!imgContent.thumbnail && imgContent.thumbParameter) {
         [self.thumbnailView sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"%@?%@", imgContent.remoteUrl, imgContent.thumbParameter] stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]]];
     } else {
@@ -47,6 +50,15 @@
     self.dateLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     self.dateLabel.layer.cornerRadius = 6;
     self.dateLabel.layer.masksToBounds = YES;
+    
+    CGRect dateLabelFrame = self.dateLabel.frame;
+    self.dateLabel.frame = 
+    CGRectMake(
+       CGRectGetMaxX(self.thumbnailView.frame) - dateLabelFrame.size.width - 8,
+       CGRectGetMaxY(self.thumbnailView.frame) - dateLabelFrame.size.height - 8,
+       dateLabelFrame.size.width,
+       dateLabelFrame.size.height
+    );
     self.dateLabel.textColor = [UIColor colorWithHexString:@"0xF7F9FC"];
     self.bubbleView.image = nil;
 }
@@ -57,6 +69,7 @@
         [self.bubbleView insertSubview:_thumbnailView atIndex:0];
         _thumbnailView.layer.cornerRadius = 16;
         _thumbnailView.layer.masksToBounds = YES;
+        _thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _thumbnailView;
 }
