@@ -40,7 +40,7 @@ open class HPopTransition: HBasicTransition {
         var toFrame = fromView.frame
         toFrame.origin.x = toFrame.width
         
-        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromTop) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .transitionFlipFromTop) {
             fromView.frame = toFrame
             toView.frame = toViewFinalFrame
         } completion: { (finish : Bool) in
@@ -58,7 +58,7 @@ open class HActionSheetTransition: HBasicTransition {
         var toFrame = fromView.frame
         toFrame.origin.y = toFrame.height
         
-        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromTop) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .transitionFlipFromTop) {
             fromView.frame = toFrame
         } completion: { (finish : Bool) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -73,7 +73,7 @@ open class HActionSheetTransition: HBasicTransition {
         initFrame.origin.y = initFrame.height
         toView.frame = initFrame
         
-        UIView.animate(withDuration: 0.35, delay: 0, options: .transitionFlipFromBottom) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .transitionFlipFromBottom) {
             toView.frame = toFrame
         } completion: { (finish : Bool) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
