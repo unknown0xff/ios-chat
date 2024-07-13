@@ -44,6 +44,8 @@ class HLoginViewController: HBaseViewController {
     private typealias Row = HLoginViewModel.Row
     private var dataSource: UITableViewDiffableDataSource<Section, Row>! = nil
     
+    private var loginIndexPath: IndexPath?
+    
     var viewModel = HLoginViewModel()
     
     private var cancellables = Set<AnyCancellable>()
@@ -68,6 +70,7 @@ class HLoginViewController: HBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addObserveKeyboardNotifications()
     }
     
     override func configureSubviews() {
@@ -92,6 +95,7 @@ class HLoginViewController: HBaseViewController {
                 cell.cellData = model
                 cell.loginButton.addTarget(self, action: #selector(Self.didClickLoginButton(_:)), for: .touchUpInside)
                 cell.forgetButton.addTarget(self, action: #selector(Self.didClickForgetButton(_:)), for: .touchUpInside)
+                self.loginIndexPath = indexPath
                 return cell
             }
         })
@@ -120,6 +124,21 @@ class HLoginViewController: HBaseViewController {
         footerView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(-HUIConfigure.safeBottomMargin)
+        }
+    }
+    
+    override func didKeyboadFrameChange(_ keyboardFrame: CGRect, isShow: Bool) {
+        if isShow {
+            let keyboardHeight = keyboardFrame.height
+            if let loginIndexPath, let cell = tableView.cellForRow(at: loginIndexPath) as? HLoginCell {
+                let btnY = cell.frame.minY + cell.loginButton.frame.maxY
+                let cellY = btnY - (tableView.frame.height + navBar.frame.height + 28 - keyboardHeight)
+                var current = tableView.contentOffset
+                current.y = cellY
+                tableView.setContentOffset(current, animated: true)
+            }
+        } else {
+            tableView.setContentOffset(.zero, animated: true)
         }
     }
     
