@@ -24,7 +24,6 @@ class HAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenter
         } else {
             window?.rootViewController = HTabViewController()
         }
-        window?.rootViewController = HTabViewController()
         requestRemoteNotificationsAuthorization(application)
         
         return true
