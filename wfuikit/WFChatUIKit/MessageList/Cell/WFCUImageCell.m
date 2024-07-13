@@ -27,7 +27,6 @@
     }
     
     CGFloat scale = size.width / size.height;
-    
     CGFloat maxWidth = (size.width > size.height) ? 130 : 100;
     size.width = MIN(size.width, maxWidth);
     size.height = size.width / scale;

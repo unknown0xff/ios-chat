@@ -25,9 +25,8 @@
         image = [WFCCUtilities image:image scaleInSize:CGSizeMake(1024, 1024)];
     }
     
-    NSData *imgData = UIImageJPEGRepresentation(image, 0.85);
+    NSData *imgData = UIImageJPEGRepresentation(image, 1);
         
-    
     [imgData writeToFile:path atomically:YES];
     
     content.localPath = path;

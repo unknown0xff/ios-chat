@@ -29,14 +29,26 @@
     [super setModel:model];
     
     WFCCVideoMessageContent *imgContent = (WFCCVideoMessageContent *)model.message.content;
-    self.thumbnailView.frame = self.bubbleView.bounds;
+    CGSize size = [WFCUVideoCell sizeForClientArea:model withViewWidth:120];
+    self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
     self.thumbnailView.image = imgContent.thumbnail;
-    self.videoCoverView.frame = CGRectMake((self.bubbleView.bounds.size.width - 40)/2, (self.bubbleView.bounds.size.height - 40)/2, 40, 40);
+    self.videoCoverView.frame = CGRectMake(
+        (CGRectGetMidX(self.thumbnailView.frame) - 20),
+        (CGRectGetMidY(self.thumbnailView.frame) - 20),
+        40, 40);
     self.videoCoverView.image = [WFCUImage imageNamed:@"icon_play"];
     
     self.dateLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     self.dateLabel.layer.cornerRadius = 6;
     self.dateLabel.layer.masksToBounds = YES;
+    CGRect dateLabelFrame = self.dateLabel.frame;
+    self.dateLabel.frame =
+    CGRectMake(
+       CGRectGetMaxX(self.thumbnailView.frame) - dateLabelFrame.size.width - 8,
+       CGRectGetMaxY(self.thumbnailView.frame) - dateLabelFrame.size.height - 8,
+       dateLabelFrame.size.width,
+       dateLabelFrame.size.height
+    );
     self.dateLabel.textColor = [UIColor colorWithHexString:@"0xF7F9FC"];
     self.bubbleView.image = nil;
 }

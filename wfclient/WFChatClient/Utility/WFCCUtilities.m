@@ -75,7 +75,7 @@ static NSLock *wfcImageLock;
     CGFloat imageWidth = image.size.width;
     CGFloat imageHeight = image.size.height;
     
-    UIGraphicsBeginImageContext(CGSizeMake(scaledWidth, scaledHeight));
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(scaledWidth, scaledHeight), NO, UIScreen.mainScreen.scale);
     
     CGRect thumbnailRect = CGRectZero;
     thumbnailRect.origin = thumbnailPoint;

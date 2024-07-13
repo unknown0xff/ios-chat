@@ -105,7 +105,7 @@
         }];
     } else if(ws.image) {
         UIImage *image = [ShareUtility generateThumbnail:ws.image withWidth:1024 withHeight:1024];
-        NSData *imgData = UIImageJPEGRepresentation(image, 0.85);
+        NSData *imgData = UIImageJPEGRepresentation(image, 1);
         [[ShareAppService sharedAppService] uploadData:imgData mediaType:1 progress:^(int sentcount, int total) {
             [ws showProgress:sentcount total:total];
         } success:^(NSString * _Nonnull url) {
