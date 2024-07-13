@@ -1459,14 +1459,19 @@
         baseFrame.size.height = CHAT_INPUT_BAR_HEIGHT;
     } else if (height > 32.f && height < 50.f) {
         tvFrame.size.height = 50.f;
-        tvBgFrame.size.height = 50.f;
-        diff = (66.f - baseFrame.size.height + quoteHeight);
-        baseFrame.size.height = 66.f;
+        tvBgFrame.size.height = 54.f;
+        diff = (72.f - baseFrame.size.height + quoteHeight);
+        baseFrame.size.height = 72.f;
+    } else if (height > 50.f && height < 66.f){
+        tvFrame.size.height = 71.f;
+        tvBgFrame.size.height = 75.f;
+        diff = (93.f - baseFrame.size.height + quoteHeight);
+        baseFrame.size.height = 93.f;
     } else {
-        tvFrame.size.height = 65.f;
-        tvBgFrame.size.height = 65.f;
-        diff = (81.f - baseFrame.size.height + quoteHeight);
-        baseFrame.size.height = 81.f;
+        tvFrame.size.height = 92.f;
+        tvBgFrame.size.height = 96.f;
+        diff = (114.f - baseFrame.size.height + quoteHeight);
+        baseFrame.size.height = 114.f;
     }
     if (self.quoteInfo) {
         baseFrame.size.height += quoteHeight;
