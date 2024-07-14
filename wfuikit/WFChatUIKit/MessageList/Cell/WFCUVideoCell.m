@@ -25,12 +25,28 @@
     return CGSizeMake(imageWidth, imageHeight);
 }
 
+- (CGRect)bubbleFrameForSend: (WFCUMessageModel *)model {
+    CGRect frame = [super bubbleFrameForSend:model];
+    CGSize size = [WFCUVideoCell sizeForClientArea:model withViewWidth:120];
+    CGFloat dx = frame.size.width - size.width;
+    frame.origin.x += dx;
+    frame.size.width -= dx;
+    return frame;
+}
+
 - (void)setModel:(WFCUMessageModel *)model {
     [super setModel:model];
     
     WFCCVideoMessageContent *imgContent = (WFCCVideoMessageContent *)model.message.content;
     CGSize size = [WFCUVideoCell sizeForClientArea:model withViewWidth:120];
-    self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
+    
+    self.nameLabel.hidden = YES;
+    if (model.message.direction == MessageDirection_Send) {
+        self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
+    } else {
+        self.thumbnailView.frame = CGRectMake(0, (self.bubbleView.frame.size.height - size.height), size.width, size.height);
+    }
+    
     self.thumbnailView.image = imgContent.thumbnail;
     self.videoCoverView.frame = CGRectMake(
         (CGRectGetMidX(self.thumbnailView.frame) - 20),

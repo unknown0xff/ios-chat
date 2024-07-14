@@ -19,9 +19,13 @@
 @property (nonatomic, strong)UILabel *quoteLabel;
 @property (nonatomic, strong)UILabel *quoteNameLabel;
 @property (nonatomic, strong)UILabel *dateLabel;
+@property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
 - (void)setMaskImage:(UIImage *)maskImage;
 - (CGFloat)nameLabelLeft;
 - (CGFloat)nameLabelTopMargin;
 + (CGSize)sizeForQuoteArea:(WFCUMessageModel *)msgModel withViewWidth:(CGFloat)width;
 + (CGFloat)clientAreaWidth;
+- (void)updateStatus;
+- (void)updateActivityIndicatorViewFrame;
+- (CGRect)bubbleFrameForSend: (WFCUMessageModel *)model;
 @end

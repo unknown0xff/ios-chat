@@ -39,7 +39,6 @@
 #define MESSAGE_BASE_CELL_QUOTE_SIZE 14
 
 @interface WFCUMessageCell ()<UIContextMenuInteractionDelegate>
-@property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong)UIImageView *failureView;
 @property (nonatomic, strong)UIImageView *maskView;
 
@@ -149,6 +148,15 @@
     return messageDigest;
 }
 
+- (void)updateActivityIndicatorViewFrame {
+    CGRect frame = self.bubbleView.frame;
+    frame.origin.x -= 24;
+    frame.origin.y = frame.origin.y + frame.size.height - 24;
+    frame.size.width = 20;
+    frame.size.height = 20;
+    self.activityIndicatorView.frame = frame;
+}
+
 - (void)updateStatus {
     if (self.model.message.direction == MessageDirection_Send) {
         if (self.model.message.status == Message_Status_Sending) {
@@ -251,6 +259,16 @@
     return 8;
 }
 
+- (CGRect)bubbleFrameForSend: (WFCUMessageModel *)model {
+    CGFloat top = [WFCUMessageCellBase hightForHeaderArea:model];
+    CGRect frame = self.frame;
+    CGSize size = [self.class sizeForClientArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
+    CGSize quote = [self.class sizeForQuoteArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
+    CGFloat bubbleWidth = MAX(size.width, quote.width);
+    CGFloat left = frame.size.width - bubbleWidth - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
+    return CGRectMake(left, top, bubbleWidth + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + quote.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
+}
+
 - (void)setModel:(WFCUMessageModel *)model {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStatusChanged:) name:kSendingMessageStatusUpdated object:nil];
@@ -291,7 +309,7 @@
         self.bubbleView.image = [WFCUImage imageNamed:sendImageName];
         CGFloat bubbleWidth = MAX(size.width, quote.width);
         CGFloat left = frame.size.width - bubbleWidth - Bubble_Padding_Another_Side - Bubble_Padding_Arraw - Bubble_Margin_Right;
-        self.bubbleView.frame = CGRectMake(left, top, bubbleWidth + Bubble_Padding_Arraw + Bubble_Padding_Another_Side, size.height + quote.height + Client_Bubble_Top_Padding + Client_Bubble_Bottom_Padding);
+        self.bubbleView.frame = [self bubbleFrameForSend:model];
         self.contentArea.frame = CGRectMake(Bubble_Padding_Arraw, Client_Bubble_Top_Padding + quote.height, size.width, size.height);
         [self updateReceiptView];
     } else {

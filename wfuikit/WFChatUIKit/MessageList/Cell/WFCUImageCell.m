@@ -34,12 +34,29 @@
     return size;
 }
 
+- (CGRect)bubbleFrameForSend: (WFCUMessageModel *)model {
+    CGRect frame = [super bubbleFrameForSend:model];
+    CGSize size = [WFCUImageCell sizeForClientArea:model withViewWidth:120];
+    CGFloat dx = frame.size.width - size.width;
+    frame.origin.x += dx;
+    frame.size.width -= dx;
+    return frame;
+}
+
 - (void)setModel:(WFCUMessageModel *)model {
     [super setModel:model];
     
     WFCCImageMessageContent *imgContent = (WFCCImageMessageContent *)model.message.content;
     CGSize size = [WFCUImageCell sizeForClientArea:model withViewWidth:120];
-    self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
+    
+    self.nameLabel.hidden = YES;
+    if (model.message.direction == MessageDirection_Send) {
+        self.thumbnailView.frame = CGRectMake((self.bubbleView.frame.size.width - size.width), (self.bubbleView.frame.size.height - size.height) / 2.0, size.width, size.height);
+        
+    } else {
+        self.thumbnailView.frame = CGRectMake(0, (self.bubbleView.frame.size.height - size.height), size.width, size.height);
+    }
+    
     if (!imgContent.thumbnail && imgContent.thumbParameter) {
         [self.thumbnailView sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"%@?%@", imgContent.remoteUrl, imgContent.thumbParameter] stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]]];
     } else {
