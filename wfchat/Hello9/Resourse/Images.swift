@@ -88,6 +88,8 @@ enum Images {
 
     static let icon_disable_check = UIImage(named: "icon_disable_check")!
 
+    static let icon_disclosure_indicator_black = UIImage(named: "icon_disclosure_indicator_black")!
+
     static let icon_disclosure_indicator_gray = UIImage(named: "icon_disclosure_indicator_gray")!
 
     static let icon_edit = UIImage(named: "icon_edit")!
@@ -119,6 +121,8 @@ enum Images {
     static let icon_lanuch_arc_top_left = UIImage(named: "icon_lanuch_arc_top_left")!
 
     static let icon_lanuch_logo = UIImage(named: "icon_lanuch_logo")!
+
+    static let icon_left_bar = UIImage(named: "icon_left_bar")!
 
     static let icon_light = UIImage(named: "icon_light")!
 
@@ -197,6 +201,18 @@ enum Images {
     static let icon_nav_background_green = UIImage(named: "icon_nav_background_green")!
 
     static let icon_node_background = UIImage(named: "icon_node_background")!
+
+    static let icon_node_fake1 = UIImage(named: "icon_node_fake1")!
+
+    static let icon_node_fake2 = UIImage(named: "icon_node_fake2")!
+
+    static let icon_node_fake3 = UIImage(named: "icon_node_fake3")!
+
+    static let icon_node_fake4 = UIImage(named: "icon_node_fake4")!
+
+    static let icon_node_fake5 = UIImage(named: "icon_node_fake5")!
+
+    static let icon_node_fake6 = UIImage(named: "icon_node_fake6")!
 
     static let icon_node_head = UIImage(named: "icon_node_head")!
 

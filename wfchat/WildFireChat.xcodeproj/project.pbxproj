@@ -34,6 +34,7 @@
 		205C5A682C242453000D54FE /* HMineInfoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A672C242453000D54FE /* HMineInfoNameCell.swift */; };
 		205C5A6A2C2424A8000D54FE /* HBasicFooterTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */; };
 		205C5A6C2C251A5E000D54FE /* HBasicButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */; };
+		205E67AE2C42B20000B74F2E /* HNodeFakeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205E67AD2C42B20000B74F2E /* HNodeFakeHomeViewController.swift */; };
 		2061D1F22C40091F00B4F299 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F12C40091F00B4F299 /* SnapKit */; };
 		2061D1F52C40093900B4F299 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F42C40093900B4F299 /* MBProgressHUD */; };
 		2061D1F82C40094E00B4F299 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2061D1F72C40094E00B4F299 /* Algorithms */; };
@@ -438,6 +439,7 @@
 		205C5A672C242453000D54FE /* HMineInfoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMineInfoNameCell.swift; sourceTree = "<group>"; };
 		205C5A692C2424A8000D54FE /* HBasicFooterTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicFooterTipView.swift; sourceTree = "<group>"; };
 		205C5A6B2C251A5E000D54FE /* HBasicButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBasicButtonCell.swift; sourceTree = "<group>"; };
+		205E67AD2C42B20000B74F2E /* HNodeFakeHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeFakeHomeViewController.swift; sourceTree = "<group>"; };
 		206309C52C2953EE00BED49A /* HSelectedFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSelectedFriendViewController.swift; sourceTree = "<group>"; };
 		206309D72C2AB7A700BED49A /* HForwardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HForwardViewController.swift; sourceTree = "<group>"; };
 		206309D92C2AC33D00BED49A /* HMessageTopManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMessageTopManager.swift; sourceTree = "<group>"; };
@@ -992,6 +994,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		205E67AC2C42B1E500B74F2E /* Node Fake Home */ = {
+			isa = PBXGroup;
+			children = (
+				205E67AD2C42B20000B74F2E /* HNodeFakeHomeViewController.swift */,
+			);
+			path = "Node Fake Home";
+			sourceTree = "<group>";
+		};
 		206309C92C2A503300BED49A /* Friend Select */ = {
 			isa = PBXGroup;
 			children = (
@@ -1105,6 +1115,7 @@
 		2075ACAC2C32747F00F764CA /* Node */ = {
 			isa = PBXGroup;
 			children = (
+				205E67AC2C42B1E500B74F2E /* Node Fake Home */,
 				20F02F8B2C34E3A600554857 /* Special Number List */,
 				20F02F8A2C34E39600554857 /* Home */,
 			);
@@ -2532,6 +2543,7 @@
 				60922A982C084EA800B70AD8 /* HChatListCell.swift in Sources */,
 				2075ACB52C32826000F764CA /* HNodeSpecialNumberFooterCell.swift in Sources */,
 				2067A08E2C2BCB3A00BA3F09 /* UITextField+Combine.swift in Sources */,
+				205E67AE2C42B20000B74F2E /* HNodeFakeHomeViewController.swift in Sources */,
 				6012465A2C05AFB200635523 /* Images.swift in Sources */,
 				60A3F7B42C1B136200F855A2 /* HGroupMemeberViewController.swift in Sources */,
 				60A3F7E02C20252F00F855A2 /* HMyFriendSelectedView.swift in Sources */,

@@ -24,8 +24,15 @@ extension UIImage {
         return image ?? UIImage()
     }
     
-    static func gradientImage(bounds: CGRect, colors: [UIColor]) -> UIImage {
+    static func gradientImage(
+        bounds: CGRect,
+        colors: [UIColor],
+        startPoint: CGPoint = .init(x: 0.5, y: 0),
+        endPoint: CGPoint = .init(x: 0.5, y: 1)
+    ) -> UIImage {
         let gradient = CAGradientLayer()
+        gradient.startPoint = startPoint
+        gradient.endPoint = endPoint
         gradient.frame = bounds
         gradient.colors = colors.map { $0.cgColor }
         

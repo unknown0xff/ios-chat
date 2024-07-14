@@ -109,7 +109,7 @@ class HFriendRequestCell: HBasicTableViewCell<[WFCCFriendRequest]> {
     override func makeConstraints() {
         super.makeConstraints()
         avatar.snp.makeConstraints { make in
-            make.height.width.equalTo(48)
+            make.height.width.equalTo(58)
             make.centerY.equalToSuperview()
             make.left.equalTo(16)
         }

@@ -20,6 +20,8 @@ class HBaseViewController: HBasicViewController {
     private(set) lazy var navBarBackgroundView = UIImageView(image: Images.icon_common_background)
     private(set) lazy var backgroundView = UIImageView(image: Images.icon_background_gray)
     
+    var enableAutoHiddenKeybordWhenTouchWhiteSpace: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +44,9 @@ class HBaseViewController: HBasicViewController {
     }
     
     private func setupDismissKeyboardGesture() {
+        if !enableAutoHiddenKeybordWhenTouchWhiteSpace {
+            return
+        }
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)

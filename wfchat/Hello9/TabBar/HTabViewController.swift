@@ -51,7 +51,7 @@ class HTabViewController: UITabBarController {
         
         self.messageNavationController = messageNav
         
-        let node = HNodeHomeViewController()
+        let node = HNodeFakeHomeViewController()
         node.hidesBottomBarWhenPushed = false
         let nodeNav = HNavigationController(rootViewController: node)
         let nodeItem = UITabBarItem(title: "Share", image: Images.tab_node_off, selectedImage: Images.tab_node_on)

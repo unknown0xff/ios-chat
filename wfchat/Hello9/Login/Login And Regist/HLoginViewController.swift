@@ -61,6 +61,7 @@ class HLoginViewController: HBaseViewController {
     override func didInitialize() {
         super.didInitialize()
         backButtonImage = nil
+        enableAutoHiddenKeybordWhenTouchWhiteSpace = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -116,7 +117,7 @@ class HLoginViewController: HBaseViewController {
         super.makeConstraints()
         
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(0)
             make.width.left.right.equalToSuperview()
             make.bottom.equalTo(footerView.snp.top)
         }
@@ -127,18 +128,30 @@ class HLoginViewController: HBaseViewController {
         }
     }
     
+    private var hasShow: Bool = false
     override func didKeyboadFrameChange(_ keyboardFrame: CGRect, isShow: Bool) {
-        if isShow {
+        if isShow && hasShow {
+            return
+        }
+        if isShow  {
             let keyboardHeight = keyboardFrame.height
             if let loginIndexPath, let cell = tableView.cellForRow(at: loginIndexPath) as? HLoginCell {
                 let btnY = cell.frame.minY + cell.loginButton.frame.maxY
-                let cellY = btnY - (tableView.frame.height + navBar.frame.height + 28 - keyboardHeight)
-                var current = tableView.contentOffset
-                current.y = cellY
-                tableView.setContentOffset(current, animated: true)
+                let cellY = btnY - (tableView.frame.height + navBar.frame.height + 28 - keyboardHeight) + (viewModel.isNewUser ? 20 : 0)
+                var frame = tableView.frame
+                frame.origin.y = CGFloat(-cellY)
+                UIView.animate(withDuration: 0.25) {
+                    self.tableView.frame = frame
+                }
+                hasShow = true
             }
         } else {
-            tableView.setContentOffset(.zero, animated: true)
+            var frame = tableView.frame
+            frame.origin.y = 0.0
+            UIView.animate(withDuration: 0.25) {
+                self.tableView.frame = frame
+            }
+            hasShow = false
         }
     }
     

@@ -21,7 +21,7 @@ class HChatListViewController: HBaseViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(with: .plain)
         tableView.separatorStyle = .singleLine
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 73, bottom: 0, right: 0)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 83, bottom: 0, right: 0)
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: HNavigationBar.height, left: 0, bottom: HTabBar.barHeight, right: 0)
         return tableView
