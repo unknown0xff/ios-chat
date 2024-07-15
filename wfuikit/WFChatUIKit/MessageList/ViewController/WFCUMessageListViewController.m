@@ -2215,6 +2215,11 @@
 }
 
 - (void)proximityStatueChanged:(NSNotificationCenter *)notification {
+    if ([UIDevice currentDevice].proximityState) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error: nil];
+    } else {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: nil];
+    }
 }
 
 -(void)startPlay:(WFCUMessageModel *)model {

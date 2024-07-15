@@ -11,7 +11,7 @@ import Combine
 import Algorithms
 
 class HLoginViewModel: HBasicViewModel {
-
+    
     enum Row: Hashable {
         case input(_ model: HLoginInputModel)
         case login(_ model: HLoginCellModel)
@@ -61,7 +61,7 @@ class HLoginViewModel: HBasicViewModel {
                     let info = WFCCIMService.sharedWFCIM().getUserInfo(userId, refresh: true)
                     let accountModel = HLoginInputModel(id: .account, isNewUser: true, value: info?.name ?? "")
                     if shouldResetPassword {
-                        let passwordModel = HLoginInputModel(id: .password, isNewUser: true, value: self?.randomPassword() ?? "")
+                        let passwordModel = HLoginInputModel(id: .password, isNewUser: true, value: "")
                         self?.inputModel = [accountModel, passwordModel]
                         self?.applySnapshot()
                     } else {
@@ -78,8 +78,8 @@ class HLoginViewModel: HBasicViewModel {
     }
     
     func login() async -> Error? {
-       IMService.share.logout()
-       return await withCheckedContinuation { result in
+        IMService.share.logout()
+        return await withCheckedContinuation { result in
             AppService.shared().login(withMobile: account, password: password) { userId, token, newUser in
                 IMService.share.connect(userId: userId, token: token, autoSave: true)
                 result.resume(returning: nil)
@@ -106,7 +106,7 @@ class HLoginViewModel: HBasicViewModel {
                 print("login error with code \(errorCode), message \(message)")
                 result.resume(returning: HError(code: errorCode, message: message))
             }
-         }
+        }
     }
     
     func randomAvatar() async -> Error? {
@@ -152,6 +152,40 @@ class HLoginViewModel: HBasicViewModel {
         
         let result = (number + lowwercase + uppercase).shuffled().map { "\($0)" }.joined()
         return result
+    }
+    
+    func validate(password: String) -> (isValid: Bool, errorMessages: [String]) {
+        var errorMessages: [String] = []
+        
+        // 验证长度
+        if password.count < 8 {
+            errorMessages.append("密码长度不能少于8个字符")
+        }
+        if password.count > 12 {
+            errorMessages.append("密码长度不能超过12个字符")
+        }
+        
+        // 验证大写字母
+        let uppercasePattern = ".*[A-Z]+.*"
+        let uppercasePredicate = NSPredicate(format:"SELF MATCHES %@", uppercasePattern)
+        if !uppercasePredicate.evaluate(with: password) {
+            errorMessages.append("密码中必须包含大写字母")
+        }
+        
+        // 验证小写字母
+        let lowercasePattern = ".*[a-z]+.*"
+        let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", lowercasePattern)
+        if !lowercasePredicate.evaluate(with: password) {
+            errorMessages.append("密码中必须包含小写字母")
+        }
+        
+        // 验证数字
+        let digitPattern = ".*[0-9]+.*"
+        let digitPredicate = NSPredicate(format:"SELF MATCHES %@", digitPattern)
+        if !digitPredicate.evaluate(with: password) {
+            errorMessages.append("密码中必须包含数字")
+        }
+        return (errorMessages.isEmpty, errorMessages)
     }
     
 }

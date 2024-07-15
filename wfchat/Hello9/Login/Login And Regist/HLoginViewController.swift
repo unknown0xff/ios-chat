@@ -209,7 +209,14 @@ extension HLoginViewController: HLoginInputCellDelegate {
     }
     
     @objc func didClickLoginButton(_ sender: UIButton) {
-        view.resignFirstResponder()
+        view.endEditing(true)
+        if viewModel.isNewUser {
+            let result = viewModel.validate(password: viewModel.password)
+            if let first = result.errorMessages.first {
+                HToast.showTipAutoHidden(text: first)
+                return
+            }
+        }
         
         if viewModel.isValid {
             let hud = HToast.showLoading("登录中...")
