@@ -139,6 +139,8 @@ extension HMineViewController {
             HModalPresentNavigationController.show(root: HMineInfoEditViewController(), preferredStyle: .actionSheet)
         } else if section == .avatar {
             showImagePicker()
+        } else if section == .other {
+            navigationController?.pushViewController(HPrivacyViewController(), animated: true)
         }
     }
 }

@@ -211,7 +211,7 @@ extension HLoginViewController: HLoginInputCellDelegate {
     @objc func didClickLoginButton(_ sender: UIButton) {
         view.endEditing(true)
         if viewModel.isNewUser {
-            let result = viewModel.validate(password: viewModel.password)
+            let result = viewModel.password.validate()
             if let first = result.errorMessages.first {
                 HToast.showTipAutoHidden(text: first)
                 return

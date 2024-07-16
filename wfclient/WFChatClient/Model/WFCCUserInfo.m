@@ -48,4 +48,11 @@
     dict[@"deleted"] = @(self.deleted);
     return dict;
 }
+
+- (NSString *)portrait {
+    NSString *pro = _portrait;
+    pro = [pro stringByReplacingOccurrencesOfString:@"54.169.106.219" withString:@"xyzwd.com"];
+    return pro;
+}
+
 @end

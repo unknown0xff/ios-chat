@@ -153,39 +153,41 @@ class HLoginViewModel: HBasicViewModel {
         let result = (number + lowwercase + uppercase).shuffled().map { "\($0)" }.joined()
         return result
     }
+}
+
+extension String {
     
-    func validate(password: String) -> (isValid: Bool, errorMessages: [String]) {
+    func validate() -> (isValid: Bool, errorMessages: [String]) {
         var errorMessages: [String] = []
         
         // 验证长度
-        if password.count < 8 {
+        if count < 8 {
             errorMessages.append("密码长度不能少于8个字符")
         }
-        if password.count > 12 {
+        if count > 12 {
             errorMessages.append("密码长度不能超过12个字符")
         }
         
         // 验证大写字母
         let uppercasePattern = ".*[A-Z]+.*"
         let uppercasePredicate = NSPredicate(format:"SELF MATCHES %@", uppercasePattern)
-        if !uppercasePredicate.evaluate(with: password) {
+        if !uppercasePredicate.evaluate(with: self) {
             errorMessages.append("密码中必须包含大写字母")
         }
         
         // 验证小写字母
         let lowercasePattern = ".*[a-z]+.*"
         let lowercasePredicate = NSPredicate(format:"SELF MATCHES %@", lowercasePattern)
-        if !lowercasePredicate.evaluate(with: password) {
+        if !lowercasePredicate.evaluate(with: self) {
             errorMessages.append("密码中必须包含小写字母")
         }
         
         // 验证数字
         let digitPattern = ".*[0-9]+.*"
         let digitPredicate = NSPredicate(format:"SELF MATCHES %@", digitPattern)
-        if !digitPredicate.evaluate(with: password) {
+        if !digitPredicate.evaluate(with: self) {
             errorMessages.append("密码中必须包含数字")
         }
         return (errorMessages.isEmpty, errorMessages)
     }
-    
 }

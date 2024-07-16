@@ -12,6 +12,13 @@
 - (NSString *)displayName {
     return self.remark.length?self.remark:self.name;
 }
+
+- (NSString *)portrait {
+    NSString *pro = _portrait;
+    pro = [pro stringByReplacingOccurrencesOfString:@"54.169.106.219" withString:@"xyzwd.com"];
+    return pro;
+}
+
 - (id)toJsonObj {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     dict[@"target"] = self.target;

@@ -171,7 +171,7 @@ class HChatListCell: HBasicTableViewCell<HChatListCellModel> {
         let unreadCount = data.conversationInfo.unreadCount
         let unread = unreadCount?.unread ?? 0
         let isSilent = data.conversationInfo.isSilent
-        var lastMessage = data.conversationInfo.lastMessage
+        let lastMessage = data.conversationInfo.lastMessage
         
         if unread == 0 {
             unreadLabel.isHidden = true
