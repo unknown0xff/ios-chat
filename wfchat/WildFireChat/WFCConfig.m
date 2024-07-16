@@ -10,7 +10,7 @@
 
 //IM服务HOST，域名或者IP，注意不能带http头，也不能带端口。
 //NSString *IM_SERVER_HOST = @"wildfirechat.net";
-NSString *IM_SERVER_HOST = @"54.169.106.219";
+NSString *IM_SERVER_HOST = @"xyzwd.com";
 
 // App Server默认使用的是8888端口，替换为自己部署的服务时需要注意端口别填错了，使用http访问appserver时，需要确保appserver的配置文件中的wfc.all_client_support_ssl参数为false
 // 正式商用时，建议用https，确保token安全，可以使用nginx反向代理添加对ssl的支持。需要确保appserver的配置文件中的wfc.all_client_support_ssl参数为true
@@ -19,7 +19,7 @@ NSString *IM_SERVER_HOST = @"54.169.106.219";
 
 //NSString *APP_SERVER_ADDRESS = @"http://wildfirechat.net:8888";
 //NSString *APP_SERVER_ADDRESS = @"https://app.wildfirechat.net";
-NSString *APP_SERVER_ADDRESS = @"http://54.169.106.219:8888";
+NSString *APP_SERVER_ADDRESS = @"http://xyzwd.com:8888";
 
 //组织通讯录服务地址，如果没有部署，可以设置为nil
 NSString *ORG_SERVER_ADDRESS = @"https://org.wildfirechat.cn";
@@ -30,7 +30,7 @@ NSString *ORG_SERVER_ADDRESS = @"https://org.wildfirechat.cn";
 //NSString *ICE_ADDRESS = @"turn:turn.wildfirechat.net:3478";
 //NSString *ICE_USERNAME = @"wfchat";
 //NSString *ICE_PASSWORD = @"wfchat1";
-NSString *ICE_ADDRESS = @"turn:54.169.106.219:3478";
+NSString *ICE_ADDRESS = @"turn:xyzwd.com:3478";
 NSString *ICE_USERNAME = @"username";
 NSString *ICE_PASSWORD = @"password";
 //用户协议和隐私政策，上线前请替换成您自己的内容

@@ -17,7 +17,7 @@ struct IMConfigure {
         let password: String
         
         static let `default` = Ice(
-            address: "turn:54.169.106.219:3478",
+            address: "turn:xyzwd.com:3478",
             userName: "username",
             password: "password"
         )
@@ -45,8 +45,8 @@ struct IMConfigure {
     let fileTransferId = "wfc_file_transfer"
     
     static let `default` = IMConfigure(
-        baseUrl: "http://54.169.106.219:8888",
-        host: "54.169.106.219",
+        baseUrl: "http://xyzwd.com:8888",
+        host: "xyzwd.com",
         sendLogCommand: "*#marslog#",
         ice: .default
     )
