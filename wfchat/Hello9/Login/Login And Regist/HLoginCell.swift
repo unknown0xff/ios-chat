@@ -27,7 +27,7 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
             string: "*",
             attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeRed2, .kern: 0.5])
         let attr1 = NSMutableAttributedString(
-            string: "已分配账户，您可直接注册或修改密码后登录",
+            string: "已分配账户，输入密码后注册",
             attributes: [.font : UIFont.system12, .foregroundColor: Colors.themeGray3])
         attr.append(attr1)
         label.attributedText = attr

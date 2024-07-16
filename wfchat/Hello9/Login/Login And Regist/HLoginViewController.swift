@@ -108,7 +108,7 @@ class HLoginViewController: HBaseViewController {
             .store(in: &cancellables)
         
         headerView.titleLabel.text = viewModel.isNewUser ? "创建Hello9账号" : "欢迎来到Hello9"
-        
+        headerView.subTitleLabel.text = viewModel.isNewUser ? "您可以稍后在设置中绑定邮箱，用来辅助验证" : "真正的端到端的信息传递"
         view.addSubview(tableView)
         view.addSubview(footerView)
     }
