@@ -433,15 +433,16 @@
             
             CGSize size = [self.class sizeForQuoteArea:model withViewWidth:[WFCUMessageCell clientAreaWidth]];
             
+            CGFloat width = self.bubbleView.bounds.size.width - 32;
             CGRect frame;
             if (model.message.direction == MessageDirection_Send) {
-                frame = CGRectMake(16, 8, size.width, size.height);
+                frame = CGRectMake(16, 8, width, size.height);
                 self.quoteContainer.image = [WFCUImage imageNamed:@"quote_send"];
             } else {
                 if (model.showNameLabel) {
-                    frame = CGRectMake(16, 8 + Name_Label_Height, size.width, size.height);
+                    frame = CGRectMake(16, 8 + Name_Label_Height, width, size.height);
                 } else {
-                    frame = CGRectMake(16, 8, size.width, size.height);
+                    frame = CGRectMake(16, 8, width, size.height);
                 }
                 
                 self.quoteContainer.image = [WFCUImage imageNamed:@"quote_receive"];

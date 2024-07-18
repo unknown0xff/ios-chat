@@ -1538,7 +1538,6 @@
 		2F550EB2217F5CC000F56C26 /* MessageList */ = {
 			isa = PBXGroup;
 			children = (
-				60F5CF8D2C0D53D70013D912 /* View */,
 				2F550EB3217F5CC000F56C26 /* Cell */,
 				2F550ECC217F5CC000F56C26 /* Model */,
 				2F550ECF217F5CC000F56C26 /* ViewController */,
@@ -2294,13 +2293,6 @@
 				2FDF87142723E01100AC6C36 /* WFPttViewController.m */,
 			);
 			path = Ptt;
-			sourceTree = "<group>";
-		};
-		60F5CF8D2C0D53D70013D912 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		901E26FF21F152B200A163CB /* AVEngine */ = {
