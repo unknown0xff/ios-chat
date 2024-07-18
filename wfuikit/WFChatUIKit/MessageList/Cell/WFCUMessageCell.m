@@ -56,7 +56,7 @@
 }
 
 + (CGFloat)bubbleWidth {
-    return [UIScreen mainScreen].bounds.size.width - Bubble_Margin_Right - Bubble_Margin_Left;
+    return [UIScreen mainScreen].bounds.size.width - Bubble_Margin_Right - Bubble_Margin_Left - 35;
 }
 
 - (CGFloat)selectedLeftMargin {
@@ -575,7 +575,7 @@
     if (!_portraitView) {
         _portraitView = [[UIImageView alloc] init];
         _portraitView.clipsToBounds = YES;
-        _portraitView.layer.cornerRadius = Portrait_Size / 2.0;
+        _portraitView.layer.cornerRadius = 6;
         [_portraitView setImage:[WFCUImage imageNamed:@"PersonalChat"]];
         
         [_portraitView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPortrait:)]];
