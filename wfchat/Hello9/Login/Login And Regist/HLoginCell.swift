@@ -42,7 +42,31 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
         return btn
     }()
     
-    private(set) lazy var loginButton: UIButton = .loginButton
+    private(set) lazy var loginButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitleColor(Colors.white, for: .normal)
+        btn.setTitleColor(Colors.themeButtonDisable, for: .disabled)
+        btn.titleLabel?.font = .system16.bold
+        btn.setBackgroundImage(
+            UIImage.gradientImage(
+                bounds: .init(x: 0, y: 0, width: UIScreen.width - 60, height: 54),
+                colors: [Colors.themeBlue4, Colors.themeBlue1],
+                startPoint: .init(x: 0.25, y: 0.5),
+                endPoint: .init(x: 0.75, y: 0.5)
+            ),
+            for: .normal
+        )
+        
+        btn.setBackgroundImage(
+            UIImage.image(withColor: Colors.themeBlue2),
+            for: .disabled
+        )
+        
+        btn.backgroundColor = Colors.themeBlue1
+        btn.layer.cornerRadius = 16
+        btn.layer.masksToBounds = true
+        return btn
+    }()
     
     override func bindData(_ data: HLoginCellModel?) {
         let data = data ?? .init()
@@ -54,6 +78,8 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
             titleLabel.isHidden = !data.isNewUser
         }
         loginButton.isEnabled = data.isValid
+        let title = data.isNewUser ? "注册并登录" : "登录"
+        loginButton.setTitle(title, for: .normal)
     }
     
     override func configureSubviews() {
@@ -81,10 +107,11 @@ class HLoginCell: HBasicTableViewCell<HLoginCellModel> {
         }
         
         loginButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(73)
-            make.width.height.equalTo(62)
-            make.bottom.equalTo(-66)
+            make.top.equalTo(65)
+            make.left.equalTo(30)
+            make.right.equalTo(-30)
+            make.height.equalTo(54)
+            make.bottom.equalTo(-168)
         }
         
     }

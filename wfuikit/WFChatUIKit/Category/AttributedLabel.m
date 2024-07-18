@@ -21,7 +21,7 @@
     self.userInteractionEnabled = YES;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CFIndex index = [self characterIndexAtPoint:[touch locationInView:self]];
     for(NSValue *value in self.rangeArray) {
@@ -50,7 +50,7 @@
             }
         }
     }
-    [super touchesBegan:touches withEvent:event];
+    [super touchesEnded:touches withEvent:event];
 }
 
 
