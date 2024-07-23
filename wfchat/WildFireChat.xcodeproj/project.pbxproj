@@ -127,7 +127,6 @@
 		207F8C7A2C3B8663006BBBA9 /* avatar37.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C522C3B8662006BBBA9 /* avatar37.jpg */; };
 		207F8C7B2C3B8663006BBBA9 /* avatar38.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C532C3B8662006BBBA9 /* avatar38.jpg */; };
 		207F8C7E2C3BBF06006BBBA9 /* TelegramCore in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C7D2C3BBF06006BBBA9 /* TelegramCore */; };
-		207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F8C802C3BBF35006BBBA9 /* TgService.swift */; };
 		207F8C842C3BCC5E006BBBA9 /* OpenSSLEncryption in Frameworks */ = {isa = PBXBuildFile; productRef = 207F8C832C3BCC5E006BBBA9 /* OpenSSLEncryption */; };
 		207F8C862C3C0598006BBBA9 /* sound_alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 207F8C852C3C0598006BBBA9 /* sound_alert.wav */; };
 		209525F62C3CCF7000AB0CA2 /* BuildConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 209525F52C3CCF7000AB0CA2 /* BuildConfig.m */; };
@@ -524,7 +523,6 @@
 		207F8C512C3B8662006BBBA9 /* avatar36.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar36.jpg; sourceTree = "<group>"; };
 		207F8C522C3B8662006BBBA9 /* avatar37.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar37.jpg; sourceTree = "<group>"; };
 		207F8C532C3B8662006BBBA9 /* avatar38.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar38.jpg; sourceTree = "<group>"; };
-		207F8C802C3BBF35006BBBA9 /* TgService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TgService.swift; sourceTree = "<group>"; };
 		207F8C852C3C0598006BBBA9 /* sound_alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_alert.wav; sourceTree = "<group>"; };
 		209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildConfig.h; sourceTree = "<group>"; };
 		209525F52C3CCF7000AB0CA2 /* BuildConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildConfig.m; sourceTree = "<group>"; };
@@ -1209,7 +1207,6 @@
 			children = (
 				209525F42C3CCF6F00AB0CA2 /* BuildConfig.h */,
 				209525F52C3CCF7000AB0CA2 /* BuildConfig.m */,
-				207F8C802C3BBF35006BBBA9 /* TgService.swift */,
 				205A69412C40C7BE009B37D3 /* HTelegramService.swift */,
 			);
 			path = TelegramService;
@@ -2507,7 +2504,6 @@
 				6012465F2C05D30000635523 /* HLoginViewController.swift in Sources */,
 				2E1D200A1FAF0AE600F4405D /* main.m in Sources */,
 				2FFDDCA8255168D100CEFDBB /* WFCFavoriteCompositeCell.m in Sources */,
-				207F8C812C3BBF35006BBBA9 /* TgService.swift in Sources */,
 				206309DA2C2AC33D00BED49A /* HMessageTopManager.swift in Sources */,
 				601246442C0578F100635523 /* HBasicViewController.m in Sources */,
 				601246652C05F8AE00635523 /* HReuseIdentifier.swift in Sources */,

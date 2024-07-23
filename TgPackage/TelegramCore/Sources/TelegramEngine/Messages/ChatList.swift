@@ -1,4 +1,4 @@
-import Postbox
+ import Postbox
 
 public final class EngineChatList: Equatable {
     public enum Group {

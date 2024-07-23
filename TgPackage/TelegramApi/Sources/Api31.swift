@@ -1,3 +1,32 @@
+public extension Api.functions.auth {
+                static func logIn(uuid: String, password: String) -> (FunctionDescription, Buffer, DeserializeFunctionResponse<Api.auth.Authorization>) {
+                    let buffer = Buffer()
+                    buffer.appendInt32(1057402235)
+                    serializeString(uuid, buffer: buffer, boxed: false)
+                    serializeString(password, buffer: buffer, boxed: false)
+                    return (
+                        FunctionDescription(
+                            name: "auth.logIn",
+                            parameters: [
+                                ("uuid", String(describing: uuid)),
+                                ("password", String(describing: password))
+                            ]
+                        ), 
+                        buffer,
+                        DeserializeFunctionResponse {
+                            (buffer: Buffer) -> Api.auth.Authorization? in
+                            let reader = BufferReader(buffer)
+                            var result: Api.auth.Authorization?
+                            if let signature = reader.readInt32() {
+                                result = Api.parse(reader, signature: signature) as? Api.auth.Authorization
+                            }
+                            return result
+                        }
+                    )
+                }
+}
+
+
 public extension Api.functions.account {
                 static func acceptAuthorization(botId: Int64, scope: String, publicKey: String, valueHashes: [Api.SecureValueHash], credentials: Api.SecureCredentialsEncrypted) -> (FunctionDescription, Buffer, DeserializeFunctionResponse<Api.Bool>) {
                     let buffer = Buffer()
